@@ -9,8 +9,6 @@ import {
 import Image from 'next/image';
 import logo from '@/public/logo.png';
 
-
-
 export default function SideNav() {
   const [isOpen, setIsOpen] = useState(false);
   const handleClose = () => setIsOpen(false);
