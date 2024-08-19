@@ -77,22 +77,23 @@ export default function Home() {
       
         <div className='bg-white mt-10 shadow-md p-5'>
           <div className='pt-2 mb-5 text-lg font-bold'>Unit Vacancies</div>
-          <div className='pl-4 text-red font-bold'>Immediate Vacancies (Less than 45 days)</div>
+          <div className='pl-4 text-lg text-red font-bold'>Immediate Vacancies (Less than 45 days)</div>
           {/* <Accordion title={"Immediate Vacancies (Less than 45 days)"} /> */}
               {/*<div className='p-4 bg-gray-200 rounded-lg'>*/}
               <div >
                 <Accordion 
                   acctitle='3 COMSEC Managers'
-                  accdescription='7/16 Dragon Fang - 9th Reconnaissance Wing
-                  08/16 - Dragon Flag EAST - 9th Reconnaissance Wing; 55th Wing
-                  08/12 - 09/19 - Dagger Fjord - 95th Reconnaissance Squadron'
+                  accdescription={<>
+                  <p>7/16 Dragon Fang - 9th Reconnaissance Wing</p>
+                  <p>08/16 - Dragon Flag EAST - 9th Reconnaissance Wing; 55th Wing</p>
+                  <p>08/12 - 09/19 - Dagger Fjord - 95th Reconnaissance Squadron</p> </>}
                 />  
                 <Accordion 
                   acctitle='2 Cyber Intelligence Planners'
                   accdescription='TBA'
                 />
 
-              <div className='py-4 text-lg font-bold'>Upcoming Vacancies (45 - 60 Days)</div>
+              <div className='pl-4 py-2 text-lg font-bold'>Upcoming Vacancies (45 - 60 Days)</div>
                  <Accordion
                     acctitle='2 Cyber Intelligence PLanners'
                     accdescription='TBA'
