@@ -1,5 +1,5 @@
 
-export function WorkRoleTable() {
+export function WorkforceAlignmentTable() {
 
     const data = [
         {vacancies: '3', startDate: "Jan 2, 2024", workRole: "COMSEC Manager", service: "Air Force", NISTID: "OV-MG-002", workforceElement: "Cybersecurity", functionalCommunity: "Cyber"},
@@ -94,13 +94,16 @@ export function WorkRoleTable() {
                 <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
-                            <th scope="col" class="px-4 py-3">Vacancies</th>
-                            <th scope="col" class="px-4 py-3">Start Date</th>
-                            <th scope="col" class="px-4 py-3">Work Role</th>
-                            <th scope="col" class="px-4 py-3">Services</th>
-                            <th scope="col" class="px-4 py-3">NIST ID</th>
-                            <th scope="col" class="px-1 py-3">Workforce Element</th>
-                            <th scope="col" class="px-1 py-3">Fucntional Community</th>
+                            <th scope="col" class="px-4 py-3">Overall Alignment</th>
+                            <th scope="col" class="px-4 py-3">Last Name</th>
+                            <th scope="col" class="px-4 py-3">First Name</th>
+                            <th scope="col" class="px-4 py-3">Training Needed</th>
+                            <th scope="col" class="px-4 py-3">Training Time</th>
+                            <th scope="col" class="px-4 py-3">Service</th>
+                            <th scope="col" class="px-4 py-3">Location</th>
+                            <th scope="col" class="px-4 py-3">Current Position</th>
+                            <th scope="col" class="px-4 py-3">Career State</th>
+                            <th scope="col" class="px-1 py-3">IDP Alignment</th>
 
                             <th scope="col" class="px-4 py-3">
                                 <span class="sr-only">Actions</span>
