@@ -6,7 +6,7 @@ import React, { useCallback } from 'react';
 import image from '@/public/image.png';
 import Button from '@/components/Button';
 import SideNav from '@/components/SideNav';
-// import Accordion from '@/components/Accordion';
+import Accordion from '@/components/Accordion';
 // import Footer from '@/components/Footer';
 
 export default function Home() {
@@ -74,17 +74,50 @@ export default function Home() {
           </div>
         </div>
         
-
+      
         <div className='bg-white mt-10 shadow-md p-5'>
           <div className='pt-2 mb-5 text-lg font-bold'>Unit Vacancies</div>
           <div className='pl-4 text-red font-bold'>Immediate Vacancies (Less than 45 days)</div>
           {/* <Accordion title={"Immediate Vacancies (Less than 45 days)"} /> */}
+              {/*<div className='p-4 bg-gray-200 rounded-lg'>*/}
+              <div >
+                <Accordion 
+                  acctitle='3 COMSEC Managers'
+                  accdescription='7/16 Dragon Fang - 9th Reconnaissance Wing
+                  08/16 - Dragon Flag EAST - 9th Reconnaissance Wing; 55th Wing
+                  08/12 - 09/19 - Dagger Fjord - 95th Reconnaissance Squadron'
+                />  
+                <Accordion 
+                  acctitle='2 Cyber Intelligence Planners'
+                  accdescription='TBA'
+                />
 
-        </div>
+              <div className='py-4 text-lg font-bold'>Upcoming Vacancies (45 - 60 Days)</div>
+                 <Accordion
+                    acctitle='2 Cyber Intelligence PLanners'
+                    accdescription='TBA'
+                 />
+                 <Accordion
+                    acctitle='3 Cyber Instructional Curriculum Developers'
+                    accdescription='TBA'
+                 />
+                  <Accordion
+                    acctitle='1 Cyber Instructor'
+                    accdescription='TBA'
+                 />
+                 <Accordion
+                 acctitle='3 Control Systems Security Specialist'
+                 accdescription='TBA'
+              />
+              </div>
+               
+        </div>        
+        
 
       </div>
-
+            
       {/* <Footer /> */}
     </>
   );
+  
 }
