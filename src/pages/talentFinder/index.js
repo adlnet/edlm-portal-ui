@@ -3,7 +3,7 @@
 import Image from "next/image";
 import image from  "@/public/Picture1.png"
 import { Checkbox, Label } from "flowbite-react";
-import { WorkRoleTable } from "@/components/WorkRoleTable";
+import { WorkRoleTable } from "@/components/tables/WorkRoleTable";
 import { useRouter } from 'next/router';
 import Button from "@/components/Button";
 
@@ -14,7 +14,8 @@ export default function TalentFinder() {
 
     return (
         <div className="mx-28">
-            <Image src={image} width={1400} alt='' className='rounded-lg mr-5 my-8 opacity-60'/>
+            <h2 className="flex h-48 w-5/6 items-center text-3xl font-bold text-white justify-center absolute z-10">Talent Finder</h2>
+            <Image src={image} width={1400} alt='' className='rounded-lg mr-5 my-8 opacity-60' /> 
             <div className='bg-white shadow-md'></div>
             <div className='bg-white shadow-md w-1/2 p-5 w-full '> 
               <div className='pt-2 text-lg font-bold'> Discover Talent Across the Workforce </div>
