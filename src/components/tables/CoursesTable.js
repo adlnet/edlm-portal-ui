@@ -1,20 +1,21 @@
 import { Checkbox, Label } from "flowbite-react";
 
-export function WorkforceAlignmentTable() {
+export function CoursesTable() {
 
     const data = [
-        {overallAlignment: '95%', lastName: "Waites", firstName: "Jennifer", trainingNeeded: "1 course", trainingTime: "4 weeks", service: "Air Force", location: "Virginia", currentPosition: "Technical Support Specialist", careerState: "Mid-Career", IDPAlignment:"92%" },
-        {overallAlignment: '95%', lastName: "Waites", firstName: "Jennifer", trainingNeeded: "1 course", trainingTime: "4 weeks", service: "Air Force", location: "Virginia", currentPosition: "Technical Support Specialist", careerState: "Mid-Career", IDPAlignment:"92%" },
-        {overallAlignment: '95%', lastName: "Waites", firstName: "Jennifer", trainingNeeded: "1 course", trainingTime: "4 weeks", service: "Air Force", location: "Virginia", currentPosition: "Technical Support Specialist", careerState: "Mid-Career", IDPAlignment:"92%" },
-        {overallAlignment: '95%', lastName: "Waites", firstName: "Jennifer", trainingNeeded: "1 course", trainingTime: "4 weeks", service: "Air Force", location: "Virginia", currentPosition: "Technical Support Specialist", careerState: "Mid-Career", IDPAlignment:"92%" },
-    ];
+        {courseName: 'Program Protection Planning Awareness', competenciesAllignedTo: ["Knowledge of disaster recovery continuity of operations","Knowledge of encrypted algorithms", "Knowledge of incident response", "Knowledge of secure aquisitions"], 
+            competencyAlignment: "100%", aligmentPercent: "100%", instance: "Spring 2024", startEnd: "08 March 2024 - 03 May 2024", availableSeats: "50", location: "Richmond, Virginia"},
+        {courseName: 'Program Protection Planning Awareness', competenciesAllignedTo: ["Knowledge of disaster recovery continuity of operations","Knowledge of encrypted algorithms", "Knowledge of incident response", "Knowledge of secure aquisitions"], 
+            competencyAlignment: "100%", aligmentPercent: "100%", instance: "Spring 2024", startEnd: "08 March 2024 - 03 May 2024", availableSeats: "50", location: "Richmond, Virginia"},
+        {courseName: 'Program Protection Planning Awareness', competenciesAllignedTo: ["Knowledge of disaster recovery continuity of operations","Knowledge of encrypted algorithms", "Knowledge of incident response", "Knowledge of secure aquisitions"], 
+            competencyAlignment: "100%", aligmentPercent: "100%", instance: "Spring 2024", startEnd: "08 March 2024 - 03 May 2024", availableSeats: "50", location: "Richmond, Virginia"},
+        ];
 
   return (
     <>
     <div class="mx-auto max-w-screen-xl">
         {/* <!-- Start coding here --> */}
-        <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden mb-8">
-            <div className='pt-2 text-lg font-bold pl-4'>Work Alignment Table </div>
+        <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
             <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                 <div class="w-full md:w-1/2">
                     <form class="flex items-center">
@@ -94,43 +95,44 @@ export function WorkforceAlignmentTable() {
                 <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
-                            <th scope="col" class="px-4 py-3">Overall Alignment</th>
-                            <th scope="col" class="px-4 py-3">Last Name</th>
-                            <th scope="col" class="px-4 py-3">First Name</th>
-                            <th scope="col" class="px-4 py-3">Training Needed</th>
-                            <th scope="col" class="px-4 py-3">Training Time</th>
-                            <th scope="col" class="px-4 py-3">Service</th>
+                            <th scope="col" class=" py-3"> </th>
+                            <th scope="col" class="px-4 py-3">Course Name</th>
+                            <th scope="col" class="px-4 py-3">Competencies Alligned to </th>
+                            <th scope="col" class="px-4 py-3">Competency Alignment</th>
+                            <th scope="col" class="px-4 py-3">Aligment Percent</th>
+                            <th scope="col" class="px-4 py-3">Instance</th>
+                            <th scope="col" class="px-4 py-3">Start/End</th>
+                            <th scope="col" class="px-4 py-3">Available Seats</th>
                             <th scope="col" class="px-4 py-3">Location</th>
-                            <th scope="col" class="px-4 py-3">Current Position</th>
-                            <th scope="col" class="px-4 py-3">Career State</th>
-                            <th scope="col" class="px-1 py-3">IDP Alignment</th>
-
-                            <th scope="col" class="px-4 py-3">
-                                <span class="sr-only">Actions</span>
-                            </th>
                         </tr>
                     </thead>
                     <tbody>
                         {data.map((data) => {
                             return (
-                                <tr class="border-b dark:border-gray-700">
-                                    <div className="flex items-center gap-2 ml-6 mt-3">
-                                        <Checkbox id={data.workRole} />
-                                        <Label htmlFor={data.workRole}>{data.overallAlignment}</Label>
+                                <tr class=" border-b dark:border-gray-700">
+                                    <div className="flex h-full items-center gap-2 ml-6 py-3 mt-10">
+                                        <Checkbox id={data.courseName} />
+                                        <Label htmlFor={data.courseName}></Label>
                                     </div>
-                                    <td class="px-4 py-3">{data.lastName}</td>
-                                    <td class="px-4 py-3">{data.firstName}</td>
-                                    <td class="px-4 py-3">{data.trainingNeeded}</td>
-                                    <td class="px-4 py-3">{data.trainingTime}</td>
-                                    <td class="px-4 py-3">{data.service}</td>
+                                    <td class="px-4 py-3">{data.courseName}</td>
+                                    <td class="px-4 py-3">
+                                        {data.competenciesAllignedTo.map((comp) =>{
+                                            return(
+                                                <div className="flex flex-row">
+                                                    {comp}
+                                                </div>
+                                            )
+                                        })}
+                                    </td>
+                                    <td class="px-4 py-3">{data.competencyAlignment}</td> 
+                                    <td class="px-4 py-3">{data.aligmentPercent}</td>
+                                    <td class="px-4 py-3">{data.instance}</td>
+                                    <td class="px-4 py-3">{data.startEnd}</td>
+                                    <td class="px-4 py-3">{data.availableSeats}</td>
                                     <td class="px-4 py-3">{data.location}</td>
-                                    <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{data.currentPosition}</th>
-                                    <td class="px-4 py-3">{data.careerState}</td>
-                                    <td class="px-4 py-3">{data.IDPAlignment}</td>
                                 </tr>
                             )
                         })}
-
                     </tbody>
                 </table>
             </div>

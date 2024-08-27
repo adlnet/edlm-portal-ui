@@ -7,24 +7,29 @@ import { WorkRoleTable } from "@/components/tables/WorkRoleTable";
 import { useRouter } from 'next/router';
 import Button from "@/components/Button";
 import { WorkforceAlignmentTable } from "@/components/tables/WorkforceAlignmentTable";
+import { CoursesTable } from "@/components/tables/CoursesTable";
 
 
-export default function TalentFinderAlignment() {
+export default function TrainingPlanSkills() {
     const router = useRouter();
     // const config = useConfig();
 
     return (
         <div className="mx-28">
-            <h2 className="flex h-48 w-5/6 items-center text-3xl font-bold text-white justify-center absolute z-10">Talent Finder</h2>
+            <h2 className="flex h-48 w-5/6 items-center text-3xl font-bold text-white justify-center absolute z-10">Training Plan</h2>
             <Image src={image} width={1400} alt='' className='rounded-lg mr-5 mt-8 opacity-60'/>
             <p className="my-4">
-                Talent Finder - Filters - Alignment
+                Training Plan - Filters - Skills
             </p>
             <div className='bg-white shadow-md w-1/2 p-5 w-full '> 
               <div className='pt-2 text-lg font-bold'> Discover Talent Across the Workforce </div>
-              <div className='pt-2 text-gray-600 pb-8'> Find qualified individuals at the speed of relevance. </div>
+              <div className='pt-2 text-gray-600'> Find qualified individuals at the speed of relevance. </div>
+              <div className='bg-gray-100 p-2 my-2 rounded rounded-md px-8 mb-5'>
+                <div className='pt-2 text-lg font-bold'> COSMEC Manager</div>
+                <div className='pt-2 text-gray-600'>Knowledge of encrypted algorithms.</div>
+              </div>
 
-              <WorkforceAlignmentTable />
+              <CoursesTable />
 
               <div className="flex justify-end mt-8">
                     <Button children={
