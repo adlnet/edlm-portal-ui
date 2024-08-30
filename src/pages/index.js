@@ -7,7 +7,7 @@ import image from '@/public/image.png';
 import Button from '@/components/Button';
 import SideNav from '@/components/SideNav';
 import Accordion from '@/components/Accordion';
-// import Footer from '@/components/Footer';
+import DefaultLayout from '@/components/layouts/DefaultLayout';
 
 export default function Home() {
   const router = useRouter();
@@ -16,15 +16,14 @@ export default function Home() {
   const popuarTopics = ["Cyber Security", "Web Developement", "Communications", "Artificial Intelligence", "Management Styles", "Agile Methodology", "Angular", "Leadership", "Data Science", "Unclassified Information", "Python"]
   
   return (
-    <>
+    <DefaultLayout>
       <Head>
         <title>Experience Discovery Service</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/public/image.png" />
       </Head>
-      {/* <Header /> */}
-      <SideNav />
+      {/* <SideNav /> */}
 
-      <div className='flex flex-col mx-28'>
+      <div className='flex flex-col mt-8'>
         <div className='py-4 text-lg font-bold'>Welcome, Talent Manager, Andrea Wilson! </div>
         <div className='bg-white shadow-md'>
 
@@ -118,7 +117,7 @@ export default function Home() {
       </div>
             
       {/* <Footer /> */}
-    </>
+    </DefaultLayout>
   );
   
 }

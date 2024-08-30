@@ -7,6 +7,7 @@ import { WorkRoleTable } from "@/components/tables/WorkRoleTable";
 import { useRouter } from 'next/router';
 import Button from "@/components/Button";
 import Accordion from "@/components/Accordion";
+import DefaultLayout from "@/components/layouts/DefaultLayout";
 
 
 export default function TalentFinderFilters() {
@@ -20,7 +21,7 @@ export default function TalentFinderFilters() {
     const savedFilters = ["COSMEC Manager"]
 
     return (
-        <div className="mx-28">
+        <DefaultLayout>
             <h2 className="flex h-48 w-5/6 items-center text-3xl font-bold text-white justify-center absolute z-10">Training Plan</h2>
             <Image src={image} width={1400} alt='' className='rounded-lg mr-5 mt-8 opacity-60'/>
             <p className="my-4">
@@ -131,6 +132,6 @@ export default function TalentFinderFilters() {
                     } onClick={()=>router.push("/trainingPlan/filters/skills")}/>
                 </div>
             </div>
-        </div>
+        </DefaultLayout>
     );
 }

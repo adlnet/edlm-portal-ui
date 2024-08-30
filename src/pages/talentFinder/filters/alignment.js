@@ -7,6 +7,7 @@ import { WorkRoleTable } from "@/components/tables/WorkRoleTable";
 import { useRouter } from 'next/router';
 import Button from "@/components/Button";
 import { WorkforceAlignmentTable } from "@/components/tables/WorkforceAlignmentTable";
+import DefaultLayout from "@/components/layouts/DefaultLayout";
 
 
 export default function TalentFinderAlignment() {
@@ -14,13 +15,13 @@ export default function TalentFinderAlignment() {
     // const config = useConfig();
 
     return (
-        <div className="mx-28">
+        <DefaultLayout>
             <h2 className="flex h-48 w-5/6 items-center text-3xl font-bold text-white justify-center absolute z-10">Talent Finder</h2>
             <Image src={image} width={1400} alt='' className='rounded-lg mr-5 mt-8 opacity-60'/>
             <p className="my-4">
                 Talent Finder - Filters - Alignment
             </p>
-            <div className='bg-white shadow-md w-1/2 p-5 w-full '> 
+            <div className='bg-white shadow-md w-1/2 p-5 w-full mb-5'> 
               <div className='pt-2 text-lg font-bold'> Discover Talent Across the Workforce </div>
               <div className='pt-2 text-gray-600 pb-8'> Find qualified individuals at the speed of relevance. </div>
 
@@ -38,6 +39,6 @@ export default function TalentFinderAlignment() {
                     } onClick={()=>router.push("/trainingPlan")}/>
                 </div>
             </div>
-        </div>
+        </DefaultLayout>
     );
 }

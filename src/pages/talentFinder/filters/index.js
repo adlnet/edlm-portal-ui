@@ -6,6 +6,7 @@ import { Checkbox, Label } from "flowbite-react";
 import { WorkRoleTable } from "@/components/tables/WorkRoleTable";
 import { useRouter } from 'next/router';
 import Button from "@/components/Button";
+import DefaultLayout from "@/components/layouts/DefaultLayout";
 
 
 export default function TalentFinderFilters() {
@@ -13,7 +14,7 @@ export default function TalentFinderFilters() {
     // const config = useConfig();
 
     return (
-        <div className="mx-28">
+        <DefaultLayout>
             <h2 className="flex h-48 w-5/6 items-center text-3xl font-bold text-white justify-center absolute z-10">Talent Finder</h2>
             <Image src={image} width={1400} alt='' className='rounded-lg mr-5 mt-8 opacity-60'/>
             <p className="my-4">
@@ -67,6 +68,6 @@ export default function TalentFinderFilters() {
                     } onClick={()=>router.push("/talentFinder/filters/alignment")}/>
                 </div>
             </div>
-        </div>
+        </DefaultLayout>
     );
 }

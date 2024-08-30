@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import Button from "@/components/Button";
 import { WorkforceAlignmentTable } from "@/components/tables/WorkforceAlignmentTable";
 import { CoursesTable } from "@/components/tables/CoursesTable";
+import DefaultLayout from "@/components/layouts/DefaultLayout";
 
 
 export default function TrainingPlanSkills() {
@@ -15,7 +16,7 @@ export default function TrainingPlanSkills() {
     // const config = useConfig();
 
     return (
-        <div className="mx-28">
+        <DefaultLayout>
             <h2 className="flex h-48 w-5/6 items-center text-3xl font-bold text-white justify-center absolute z-10">Training Plan</h2>
             <Image src={image} width={1400} alt='' className='rounded-lg mr-5 mt-8 opacity-60'/>
             <p className="my-4">
@@ -34,15 +35,15 @@ export default function TrainingPlanSkills() {
               <div className="flex justify-end mt-8">
                     <Button children={
                         <div className="flex flex-row gap-2">  
-                        <p className="pt-0.5"> Compare </p>
+                        <p className="pt-0.5"> Add to Plan </p>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
                         </svg>
                         </div>
                         
-                    } onClick={()=>router.push("/trainingPlan")}/>
+                    } onClick={()=>router.push("/")}/>
                 </div>
             </div>
-        </div>
+        </DefaultLayout>
     );
 }

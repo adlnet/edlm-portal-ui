@@ -1,15 +1,13 @@
-import { useConfig } from '../../hooks/useConfig';
-import Footer from '../Footer';
-import Header from '../Header';
+// import { useConfig } from '../../hooks/useConfig';
 import SideNav from '../SideNav';
 
 export default function DefaultLayout({ children, footerLocation }) {
-  useConfig();
+  // useConfig();
   return (
-    <div className={'relative custom-scroll min-h-screen'}>
+    <div className={'flex relative custom-scroll min-h-screen'}>
       <SideNav />
-      <div className='max-w-7xl mx-auto px-4 sm:px-4 lg:px-8'>{children}</div>
-      <Footer location={footerLocation} />
+      <div className='w-5/6 max-w-7xl mx-auto pr-8 sm:pr-6 lg:pr-10'>{children}</div>
+      {/* <Footer location={footerLocation} /> */}
     </div>
   );
 }
