@@ -1,12 +1,14 @@
-import { Checkbox, Label } from "flowbite-react";
+"use client";
+
+import { Checkbox, Label, Progress } from "flowbite-react";
 
 export function WorkforceAlignmentTable() {
 
     const data = [
-        {overallAlignment: '95%', lastName: "Waites", firstName: "Jennifer", trainingNeeded: "1 course", trainingTime: "4 weeks", service: "Air Force", location: "Virginia", currentPosition: "Technical Support Specialist", careerState: "Mid-Career", IDPAlignment:"92%" },
-        {overallAlignment: '95%', lastName: "Waites", firstName: "Jennifer", trainingNeeded: "1 course", trainingTime: "4 weeks", service: "Air Force", location: "Virginia", currentPosition: "Technical Support Specialist", careerState: "Mid-Career", IDPAlignment:"92%" },
-        {overallAlignment: '95%', lastName: "Waites", firstName: "Jennifer", trainingNeeded: "1 course", trainingTime: "4 weeks", service: "Air Force", location: "Virginia", currentPosition: "Technical Support Specialist", careerState: "Mid-Career", IDPAlignment:"92%" },
-        {overallAlignment: '95%', lastName: "Waites", firstName: "Jennifer", trainingNeeded: "1 course", trainingTime: "4 weeks", service: "Air Force", location: "Virginia", currentPosition: "Technical Support Specialist", careerState: "Mid-Career", IDPAlignment:"92%" },
+        {overallAlignment: '95%', lastName: "Waites", firstName: "Jennifer", trainingNeeded: "1 course", trainingTime: "4 weeks", service: "Air Force", location: "Virginia", currentPosition: "Technical Support Specialist", careerState: "Mid-Career", IDPAlignment:92 },
+        {overallAlignment: '95%', lastName: "Waites", firstName: "Jennifer", trainingNeeded: "1 course", trainingTime: "4 weeks", service: "Air Force", location: "Virginia", currentPosition: "Technical Support Specialist", careerState: "Mid-Career", IDPAlignment:32 },
+        {overallAlignment: '95%', lastName: "Waites", firstName: "Jennifer", trainingNeeded: "1 course", trainingTime: "4 weeks", service: "Air Force", location: "Virginia", currentPosition: "Technical Support Specialist", careerState: "Mid-Career", IDPAlignment:62 },
+        {overallAlignment: '95%', lastName: "Waites", firstName: "Jennifer", trainingNeeded: "1 course", trainingTime: "4 weeks", service: "Air Force", location: "Virginia", currentPosition: "Technical Support Specialist", careerState: "Mid-Career", IDPAlignment:84 },
     ];
 
   return (
@@ -114,7 +116,7 @@ export function WorkforceAlignmentTable() {
                         {data.map((data) => {
                             return (
                                 <tr class="border-b dark:border-gray-700">
-                                    <div className="flex items-center gap-2 ml-6 mt-3">
+                                    <div className="flex items-center gap-2 ml-6 mt-5">
                                         <Checkbox id={data.workRole} />
                                         <Label htmlFor={data.workRole}>{data.overallAlignment}</Label>
                                     </div>
@@ -126,7 +128,12 @@ export function WorkforceAlignmentTable() {
                                     <td class="px-4 py-3">{data.location}</td>
                                     <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{data.currentPosition}</th>
                                     <td class="px-4 py-3">{data.careerState}</td>
-                                    <td class="px-4 py-3">{data.IDPAlignment}</td>
+                                    <td class="px-4 py-3">
+                                        <Progress progress={data.IDPAlignment} textLabel="Flowbite" size="lg" labelProgress color="purple"/>
+                                        {/* <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                                            <div className="bg-purple h-2.5 rounded-full" width={`${data.IDPAlignment}%`}></div>
+                                        </div> */}
+                                    </td>
                                 </tr>
                             )
                         })}
