@@ -2,13 +2,12 @@
 
 import Image from "next/image";
 import image from  "@/public/Picture1.png"
-import { Checkbox, Label } from "flowbite-react";
 import { WorkRoleTable } from "@/components/tables/WorkRoleTable";
 import { useRouter } from 'next/router';
 import Button from "@/components/Button";
 import Accordion from "@/components/Accordion";
 import DefaultLayout from "@/components/layouts/DefaultLayout";
-
+import { Checkbox, Dropdown, Label } from "flowbite-react";
 
 export default function TalentFinderFilters() {
     const router = useRouter();
@@ -35,88 +34,89 @@ export default function TalentFinderFilters() {
                 <div className='pt-2 text-gray-600'> Select where in the workforce you want to search for Talent. You can find Talent within your Unit and across the DoD and Civilian space.</div>
                 
                 <div className="flex flex-row gap-16 py-5">
-                    <Accordion 
-                        acctitle='Workforce Element'
-                        accdescription={                   
-                        <div className="flex flex-col gap-2">
-                        {workforceElementFilters.map((data) => {
-                            return (<> 
-                            <div className="flex items-center gap-2 ml-1">
-                                <Checkbox id={data} />
-                                <Label htmlFor={data}>{data}</Label>
-                            </div>
-                            </>
-                            )
-                        })}
-                        </div>
-                        }
-                    />
-                    <Accordion 
-                        acctitle='NIST'
-                        accdescription={                   
-                        <div className="flex flex-col gap-2">
-                        {NISTFilters.map((data) => {
-                            return (<> 
-                            <div className="flex items-center gap-2 ml-1">
-                                <Checkbox id={data} />
-                                <Label htmlFor={data}>{data}</Label>
-                            </div>
-                            </>
-                            )
-                        })}
-                        </div>
-                        }
-                    />
-                    <Accordion 
-                    acctitle='Force'
-                    accdescription={                   
-                    <div className="flex flex-col gap-2">
-                    {forceFilters.map((data) => {
-                        return (<> 
-                        <div className="flex items-center gap-2 ml-1">
-                            <Checkbox id={data} />
-                            <Label htmlFor={data}>{data}</Label>
-                        </div>
-                        </>
-                        )
-                    })}
-                    </div>
-                    }
-                    />
-                    <Accordion 
-                    acctitle='Vacancies'
-                    accdescription={                   
-                    <div className="flex flex-col gap-2">
-                    {vacanciesFilters.map((data) => {
-                        return (<> 
-                        <div className="flex items-center gap-2 ml-1">
-                            <Checkbox id={data} />
-                            <Label htmlFor={data}>{data}</Label>
-                        </div>
-                        </>
-                        )
-                    })}
-                    </div>
-                    }
-                    />
-                    <Accordion 
-                    acctitle='Saved'
-                    accdescription={                   
-                    <div className="flex flex-col gap-2">
-                    {savedFilters.map((data) => {
-                        return (<> 
-                        <div className="flex items-center gap-2 ml-1">
-                            <Checkbox id={data} />
-                            <Label htmlFor={data}>{data}</Label>
-                        </div>
-                        </>
-                        )
-                    })}
-                    </div>
-                    }
-                    />
                     
 
+<               div className="bg-purple rounded-lg w-max mb-3">
+                        <Dropdown label="Workforce Element Filters" dismissOnClick={false} >
+                            <div className="flex flex-col gap-2">
+                            {workforceElementFilters.map((data) => {
+                                return (<Dropdown.Item> 
+                                <div className="flex items-center gap-2 ml-1">
+                                    <Checkbox id={data} />
+                                    <Label htmlFor={data}>{data}</Label>
+                                </div>
+                                </Dropdown.Item> 
+                                )
+                            })}
+                            </div>
+                        </Dropdown>
+                    </div>
+
+                    <div className="bg-purple rounded-lg w-max mb-3">
+                        <Dropdown label="NIST Filters" dismissOnClick={false} >
+                            <div className="flex flex-col gap-2">
+                            {NISTFilters.map((data) => {
+                                return (<Dropdown.Item> 
+                                <div className="flex items-center gap-2 ml-1">
+                                    <Checkbox id={data} />
+                                    <Label htmlFor={data}>{data}</Label>
+                                </div>
+                                </Dropdown.Item> 
+                                )
+                            })}
+                            </div>
+                        </Dropdown>
+                    </div>
+                   
+
+                    <div className="bg-purple rounded-lg w-max mb-3">
+                        <Dropdown label="Force Filters" dismissOnClick={false} >
+                            <div className="flex flex-col gap-2">
+                            {forceFilters.map((data) => {
+                                return (<Dropdown.Item> 
+                                <div className="flex items-center gap-2 ml-1">
+                                    <Checkbox id={data} />
+                                    <Label htmlFor={data}>{data}</Label>
+                                </div>
+                                </Dropdown.Item> 
+                                )
+                            })}
+                            </div>
+                        </Dropdown>
+                    </div>
+                    
+
+                    <div className="bg-purple rounded-lg w-max mb-3">
+                        <Dropdown label="Vacancies Filters" dismissOnClick={false} >
+                            <div className="flex flex-col gap-2">
+                            {vacanciesFilters.map((data) => {
+                                return (<Dropdown.Item> 
+                                <div className="flex items-center gap-2 ml-1">
+                                    <Checkbox id={data} />
+                                    <Label htmlFor={data}>{data}</Label>
+                                </div>
+                                </Dropdown.Item> 
+                                )
+                            })}
+                            </div>
+                        </Dropdown>
+                    </div>
+                    
+                    <div className="bg-purple rounded-lg w-max mb-3">
+                        <Dropdown label="Saved Filters" dismissOnClick={false} >
+                            <div className="flex flex-col gap-2">
+                            {savedFilters.map((data) => {
+                                return (<Dropdown.Item> 
+                                <div className="flex items-center gap-2 ml-1">
+                                    <Checkbox id={data} />
+                                    <Label htmlFor={data}>{data}</Label>
+                                </div>
+                                </Dropdown.Item> 
+                                )
+                            })}
+                            </div>
+                        </Dropdown>
+                    </div>
                 </div>
               </div>
 
