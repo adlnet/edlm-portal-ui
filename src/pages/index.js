@@ -2,19 +2,26 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/router';
 import Head from 'next/head'
 import Image from 'next/image';
-import React, { useCallback } from 'react';
+import React from 'react';
 import image from '@/public/image.png';
 import Button from '@/components/Button';
-import SideNav from '@/components/SideNav';
-import Accordion from '@/components/Accordion';
 import DefaultLayout from '@/components/layouts/DefaultLayout';
+import Card from '@/components/Card';
+import Spotlight from '@/components/SpotlightCard';
 
 export default function Home() {
   const router = useRouter();
   const { user } = useAuth();
 
-  const popuarTopics = ["Cyber Security", "Web Developement", "Communications", "Artificial Intelligence", "Management Styles", "Agile Methodology", "Angular", "Leadership", "Data Science", "Unclassified Information", "Python"]
+  // const popuarTopics = ["Cyber Security", "Web Developement", "Communications", "Artificial Intelligence", "Management Styles", "Agile Methodology", "Angular", "Leadership", "Data Science", "Unclassified Information", "Python"]
   
+  const spotlight = {
+    data: [{title: "Cybersecurity", lastViewed: "Viewed 1 hour ago"},
+      {title: "Systems Engineer", lastViewed: "Viewed 1 hour ago"},
+      {title: "Project Management", lastViewed: "Viewed 2 hour ago"},
+      {title: "Upcoming Vaccancies", lastViewed: "Viewed 1 hour ago"},
+    ]
+  }
   return (
     <DefaultLayout>
       <Head>
@@ -24,13 +31,13 @@ export default function Home() {
       {/* <SideNav /> */}
 
       <div className='flex flex-col mt-8'>
-        <div className='py-4 text-lg font-bold'>Welcome, Talent Manager, Andrea Wilson! </div>
+        <div className='py-4 text-xl font-bold'>Welcome, Talent Manager, Andrea Wilson! </div>
         <div className='bg-white shadow-md'>
 
           <div className='flex flex-row justify-between'>
             <div className='w-1/2 m-5'> 
-              <div className='pt-2 text-lg font-bold'>Meet the Talent Management Dashboard </div>
-              <div className='pt-2 text-gray-600'>The bridge connecting your unit vacancies and talent management tools. </div>
+              <div className='pt-2 text-lg font-bold'>Talent Management Dashboard </div>
+              <div className='pt-2 text-gray-600'>The hub for searching for talent and planning for their development. </div>
               <div className='pt-12'>
                 <Button children={
                   <div className='flex flex-row gap-2 w-full'> Learn More
@@ -47,7 +54,35 @@ export default function Home() {
           </div>
         </div>
 
-        <div className='bg-white mt-10 shadow-md p-5'>
+        <div className='flex flex-row'>
+          <Card title={"Fill Vaccancies"} description={"Find the right talent at the time-of-need"} image={image}
+            buttonLabel={"Talent Finder"} handleClick={()=>{}}/>
+
+          <Card title={"Upskill your Talent"} description={"Find the best learning talent for an individual’s unique needs"} image={image}
+            buttonLabel={"Build a Plan"} handleClick={()=>{}}/>
+
+          <Card title={"View your Reports "} description={"Check out your saved reports or create new ones"} image={image}
+            buttonLabel={"Reports"} handleClick={()=>{}}/>
+        </div>
+
+        <div className='flex flex-col'>
+            <p className='text-xl font-semibold h-6 pt-4'>My Lists</p>
+            <p className='flex pt-3 mt-4 font-sans line-clamp-6 text-gray-500 h-16'>
+              See your saved or curated lists of of talent or create a new list 
+            </p>
+        </div>
+
+        <div className='flex flex-col justify-center w-full mt-4 px-2 max-w-7xl mx-auto mb-12'>
+          <div className='inline-flex overflow-x-auto gap-6 pb-4 custom-scroll'>
+            {spotlight.data && spotlight.data?.map((course) => {
+              return <Spotlight course={course} key={course.title} />;
+            })}
+          </div>
+        </div>
+
+        
+
+        {/* <div className='bg-white mt-10 shadow-md p-5'>
           <div className='pt-2 mb-5 text-lg font-bold'>16th Air Force (AFCYBER) Unit Snapshot</div>
           <div className='flex flex-row justify-between'>
             <div className='flex flex-col pt-2'>
@@ -72,13 +107,10 @@ export default function Home() {
             </div>
           </div>
         </div>
-        
       
         <div className='bg-white mt-10 shadow-md p-5'>
           <div className='pt-2 mb-5 text-lg font-bold'>Unit Vacancies</div>
           <div className='pl-4 text-lg text-red font-bold'>Immediate Vacancies (Less than 45 days)</div>
-          {/* <Accordion title={"Immediate Vacancies (Less than 45 days)"} /> */}
-              {/*<div className='p-4 bg-gray-200 rounded-lg'>*/}
               <div >
                 <Accordion 
                   acctitle='3 COMSEC Managers'
@@ -111,7 +143,7 @@ export default function Home() {
               />
               </div>
                
-        </div>        
+        </div>         */}
         
 
       </div>
