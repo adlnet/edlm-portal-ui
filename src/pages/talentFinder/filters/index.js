@@ -3,7 +3,6 @@
 import Image from "next/image";
 import image from  "@/public/Picture1.png"
 import { Checkbox, Label } from "flowbite-react";
-import { WorkRoleTable } from "@/components/tables/WorkRoleTable";
 import { useRouter } from 'next/router';
 import Button from "@/components/Button";
 import DefaultLayout from "@/components/layouts/DefaultLayout";

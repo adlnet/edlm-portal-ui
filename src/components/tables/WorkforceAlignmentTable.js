@@ -115,7 +115,7 @@ export function WorkforceAlignmentTable() {
                     <tbody>
                         {data.map((data) => {
                             return (
-                                <tr class="border-b dark:border-gray-700">
+                                <tr class="border-b dark:border-gray-700" key={data.lastName}>
                                     <div className="flex items-center gap-2 ml-6 mt-5">
                                         <Checkbox id={data.workRole} />
                                         <Label htmlFor={data.workRole}>{data.overallAlignment}</Label>
