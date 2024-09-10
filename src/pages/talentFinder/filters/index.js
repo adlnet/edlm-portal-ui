@@ -14,7 +14,7 @@ export default function TalentFinderFilters() {
 
     return (
         <DefaultLayout>
-            <h2 className="flex h-48 w-5/6 items-center text-3xl font-bold text-white justify-center absolute z-10">Talent Finder</h2>
+            <h2 className="flex h-48 sm:w-2/3 lg:w-5/6 items-center text-3xl font-bold text-white justify-center absolute z-10">Talent Finder</h2>
             <Image src={image} width={1400} alt='' className='rounded-lg mr-5 mt-8 opacity-60'/>
             <p className="my-4">
                 Talent Finder - Filters
@@ -26,7 +26,7 @@ export default function TalentFinderFilters() {
                 <div className='pt-2 text-lg font-bold'> What are you searching for? </div>
                 <div className='pt-2 text-gray-600'> Select where in the workforce you want to search for Talent. You can find Talent within your Unit and across the DoD and Civilian space.</div>
                 
-                <div className="flex flex-row gap-32 pl-12 py-5">
+                <div className="flex flex-row gap-24 pl-12 py-5 overflow-x-auto">
                     <div className="flex items-center gap-2">
                         <Checkbox id="civilian" />
                         <Label htmlFor="civilian">Civilian</Label>

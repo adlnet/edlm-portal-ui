@@ -95,7 +95,7 @@ export function CoursesTable() {
                 <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
-                            <th scope="col" class=" py-3"> </th>
+                            <th scope="col" class="py-3"> </th>
                             <th scope="col" class="px-4 py-3">Course Name</th>
                             <th scope="col" class="px-4 py-3">Competencies Alligned to </th>
                             <th scope="col" class="px-4 py-3">Competency Alignment</th>
@@ -110,7 +110,7 @@ export function CoursesTable() {
                         {data.map((data) => {
                             return (
                                 <tr class=" border-b dark:border-gray-700">
-                                    <div className="flex h-full items-center gap-2 ml-6 py-3 mt-10">
+                                    <div className="flex h-full items-center align-center justify-center gap-2 ml-6 py-3 mt-20">
                                         <Checkbox id={data.courseName} />
                                         <Label htmlFor={data.courseName}></Label>
                                     </div>

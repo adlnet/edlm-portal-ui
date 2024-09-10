@@ -49,7 +49,7 @@ export default function Home() {
               </div>
             </div>
             <div className='max-h-36'>
-              <Image src={image} height={150} alt='' className='rounded-lg m-5'/>
+              <Image src={image} height={150} alt='' className='rounded-lg m-5 max-w-1/2'/>
             </div>
           </div>
         </div>
