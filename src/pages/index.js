@@ -80,8 +80,6 @@ export default function Home() {
           </div>
         </div>
 
-        
-
         {/* <div className='bg-white mt-10 shadow-md p-5'>
           <div className='pt-2 mb-5 text-lg font-bold'>16th Air Force (AFCYBER) Unit Snapshot</div>
           <div className='flex flex-row justify-between'>
