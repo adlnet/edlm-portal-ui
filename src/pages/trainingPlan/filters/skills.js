@@ -9,6 +9,7 @@ import Button from "@/components/Button";
 import { WorkforceAlignmentTable } from "@/components/tables/WorkforceAlignmentTable";
 import { CoursesTable } from "@/components/tables/CoursesTable";
 import DefaultLayout from "@/components/layouts/DefaultLayout";
+import { HomeIcon } from "@heroicons/react/outline";
 
 
 export default function TrainingPlanSkills() {
@@ -17,11 +18,22 @@ export default function TrainingPlanSkills() {
 
     return (
         <DefaultLayout>
-            <h2 className="flex h-48 w-5/6 items-center text-3xl font-bold text-white justify-center absolute z-10">Training Plan</h2>
-            <Image src={image} width={1400} alt='' className='rounded-lg mr-5 mt-8 opacity-60'/>
-            <p className="my-4">
-                Training Plan - Filters - Skills
-            </p>
+            <h2 className="flex w-5/6 text-4xl font-bold mt-8">Training Plan</h2>
+            <div className="my-4 flex flex-row">
+                <a href={"/"}>
+                    <HomeIcon className="w-5 mx-2"/>  
+                </a>
+                &gt;
+                <a href='/trainingPlan' className="px-2 hover:mouse hover:underline hover:font-bold">
+                    Training Plan
+                </a>
+                &gt;
+                <a href='/trainingPlan/filters' className="px-2 hover:mouse hover:underline hover:font-bold">
+                    Filters
+                </a>
+                &gt; 
+                <p className="font-bold pl-2"> Skills Results </p>
+            </div>
             <div className='bg-white shadow-md w-1/2 p-5 w-full '> 
               <div className='pt-2 text-lg font-bold'> Discover Talent Across the Workforce </div>
               <div className='pt-2 text-gray-600'> Find qualified individuals at the speed of relevance. </div>

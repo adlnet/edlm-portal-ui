@@ -7,6 +7,7 @@ import { WorkRoleTable } from "@/components/tables/WorkRoleTable";
 import { useRouter } from 'next/router';
 import Button from "@/components/Button";
 import DefaultLayout from "@/components/layouts/DefaultLayout";
+import { HomeIcon } from "@heroicons/react/outline";
 
 
 export default function TalentFinder() {
@@ -15,9 +16,15 @@ export default function TalentFinder() {
 
     return (
         <DefaultLayout> 
-            <h2 className="flex h-48 w-5/6 items-center text-3xl font-bold text-white justify-center absolute z-10">Talent Finder</h2>
-            <Image src={image} width={1400} alt='' className='rounded-lg mr-5 my-8 opacity-60' /> 
-            <div className='bg-white shadow-md'></div>
+            <h2 className="flex w-5/6 text-4xl font-bold mt-8">Talent Finder</h2>
+            <div className="my-3 flex flex-row">
+                <a href={"/"}>
+                    <HomeIcon className="w-5 mx-2"/>  
+                </a>
+                &gt;<p className="font-bold pl-2">  Talent Finder </p>
+            </div>
+
+            <div className='bg-white shadow-md my-4'></div>
             <div className='bg-white shadow-md w-1/2 p-5 w-full mb-5'> 
               <div className='pt-2 text-lg font-bold'> Discover Talent Across the Workforce </div>
               <div className='pt-2 text-gray-600'> Find qualified individuals at the speed of relevance. </div>

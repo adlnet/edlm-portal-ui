@@ -8,6 +8,7 @@ import Button from "@/components/Button";
 import Accordion from "@/components/Accordion";
 import DefaultLayout from "@/components/layouts/DefaultLayout";
 import { Checkbox, Dropdown, Label } from "flowbite-react";
+import { HomeIcon } from "@heroicons/react/outline";
 
 export default function TalentFinderFilters() {
     const router = useRouter();
@@ -21,11 +22,19 @@ export default function TalentFinderFilters() {
 
     return (
         <DefaultLayout>
-            <h2 className="flex h-48 w-5/6 items-center text-3xl font-bold text-white justify-center absolute z-10">Training Plan</h2>
-            <Image src={image} width={1400} alt='' className='rounded-lg mr-5 mt-8 opacity-60'/>
-            <p className="my-4">
-                Training Plan - Filters
-            </p>
+            <h2 className="flex w-5/6 text-4xl font-bold mt-8">Training Plan</h2>
+            <div className="my-4 flex flex-row">
+                <a href={"/"}>
+                    <HomeIcon className="w-5 mx-2"/>  
+                </a>
+                &gt;
+                <a href='/trainingPlan' className="px-2 hover:mouse hover:underline hover:font-bold">
+                    Training Plan
+                </a>
+                &gt; 
+                <p className="font-bold pl-2"> Filters </p>
+            </div>
+
             <div className='bg-white shadow-md w-1/2 p-5 w-full '> 
               <div className='pt-2 text-lg font-bold'> Discover Talent Across the Workforce </div>
               <div className='pt-2 text-gray-600'> Find qualified individuals at the speed of relevance. </div>
@@ -36,8 +45,9 @@ export default function TalentFinderFilters() {
                 <div className="flex flex-row gap-16 py-5">
                     
 
-<               div className="bg-purple rounded-lg w-max mb-3">
-                        <Dropdown label="Workforce Element Filters" dismissOnClick={false} >
+                <div className="p-0.5 mb-2 overflow-hidden font-medium rounded-lg bg-gradient-to-r from-purple-600 to-blue-500 from-accent-blue to-purple">
+                    <div className="p-2 bg-gray-100 transition-all ease-in duration-75 rounded-md hover:bg-opacity-50 border-2 border-white">
+                        <Dropdown label="Workforce Element Filters" dismissOnClick={false} inline>
                             <div className="flex flex-col gap-2">
                             {workforceElementFilters.map((data) => {
                                 return (<Dropdown.Item> 
@@ -51,9 +61,11 @@ export default function TalentFinderFilters() {
                             </div>
                         </Dropdown>
                     </div>
+                </div>
 
-                    <div className="bg-purple rounded-lg w-max mb-3">
-                        <Dropdown label="NIST Filters" dismissOnClick={false} >
+                <div className="p-0.5 mb-2 overflow-hidden font-medium rounded-lg bg-gradient-to-r from-purple-600 to-blue-500 from-accent-blue to-purple">
+                    <div className="p-2 bg-gray-100 transition-all ease-in duration-75 rounded-md hover:bg-opacity-50 border-2 border-white">
+                        <Dropdown label="NIST Filters" dismissOnClick={false} inline>
                             <div className="flex flex-col gap-2">
                             {NISTFilters.map((data) => {
                                 return (<Dropdown.Item> 
@@ -67,10 +79,12 @@ export default function TalentFinderFilters() {
                             </div>
                         </Dropdown>
                     </div>
+                </div>
                    
 
-                    <div className="bg-purple rounded-lg w-max mb-3">
-                        <Dropdown label="Force Filters" dismissOnClick={false} >
+                <div className="p-0.5 mb-2 overflow-hidden font-medium rounded-lg bg-gradient-to-r from-purple-600 to-blue-500 from-accent-blue to-purple">
+                    <div className="p-2 bg-gray-100 transition-all ease-in duration-75 rounded-md hover:bg-opacity-50 border-2 border-white">
+                        <Dropdown label="Force Filters" dismissOnClick={false} inline>
                             <div className="flex flex-col gap-2">
                             {forceFilters.map((data) => {
                                 return (<Dropdown.Item> 
@@ -84,10 +98,12 @@ export default function TalentFinderFilters() {
                             </div>
                         </Dropdown>
                     </div>
+                </div>
                     
 
-                    <div className="bg-purple rounded-lg w-max mb-3">
-                        <Dropdown label="Vacancies Filters" dismissOnClick={false} >
+                <div className="p-0.5 mb-2 overflow-hidden font-medium rounded-lg bg-gradient-to-r from-purple-600 to-blue-500 from-accent-blue to-purple">
+                    <div className="p-2 bg-gray-100 transition-all ease-in duration-75 rounded-md hover:bg-opacity-50 border-2 border-white">
+                        <Dropdown label="Vacancies Filters" dismissOnClick={false} inline>
                             <div className="flex flex-col gap-2">
                             {vacanciesFilters.map((data) => {
                                 return (<Dropdown.Item> 
@@ -101,9 +117,11 @@ export default function TalentFinderFilters() {
                             </div>
                         </Dropdown>
                     </div>
+                </div>
                     
-                    <div className="bg-purple rounded-lg w-max mb-3">
-                        <Dropdown label="Saved Filters" dismissOnClick={false} >
+                <div className="p-0.5 mb-2 overflow-hidden font-medium rounded-lg bg-gradient-to-r from-purple-600 to-blue-500 from-accent-blue to-purple">
+                    <div className="p-2 bg-gray-100 transition-all ease-in duration-75 rounded-md hover:bg-opacity-50 border-2 border-white">
+                        <Dropdown label="Saved Filters" dismissOnClick={false} inline>
                             <div className="flex flex-col gap-2">
                             {savedFilters.map((data) => {
                                 return (<Dropdown.Item> 
@@ -117,6 +135,7 @@ export default function TalentFinderFilters() {
                             </div>
                         </Dropdown>
                     </div>
+                </div>
                 </div>
               </div>
 

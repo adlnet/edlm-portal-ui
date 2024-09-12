@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import Button from "@/components/Button";
 import { WorkforceAlignmentTable } from "@/components/tables/WorkforceAlignmentTable";
 import DefaultLayout from "@/components/layouts/DefaultLayout";
+import { HomeIcon } from "@heroicons/react/outline";
 
 
 export default function TalentFinderAlignment() {
@@ -14,11 +15,23 @@ export default function TalentFinderAlignment() {
 
     return (
         <DefaultLayout>
-            <h2 className="flex h-48 w-5/6 items-center text-3xl font-bold text-white justify-center absolute z-10">Talent Finder</h2>
-            <Image src={image} width={1400} alt='' className='rounded-lg mr-5 mt-8 opacity-60'/>
-            <p className="my-4">
-                Talent Finder - Filters - Alignment
-            </p>
+            <h2 className="flex w-5/6 text-4xl font-bold mt-8">Talent Finder</h2>
+            <div className="my-3 flex flex-row">
+                <a href={"/"} >
+                    <HomeIcon className="w-5 mx-2"/>  
+                </a>
+                &gt; 
+                <a href='/talentFinder' className="px-2 hover:mouse hover:underline hover:font-bold">
+                    Talent Finder
+                </a>
+                &gt; 
+                <a href='/talentFinder/filters' className="px-2 hover:mouse hover:underline hover:font-bold">
+                    Filters
+                </a>
+                &gt; 
+                <p className="font-bold pl-2"> Alignment Results</p>
+            </div>
+
             <div className='bg-white shadow-md w-1/2 p-5 w-full mb-5'> 
               <div className='pt-2 text-lg font-bold'> Discover Talent Across the Workforce </div>
               <div className='pt-2 text-gray-600 pb-8'> Find qualified individuals at the speed of relevance. </div>

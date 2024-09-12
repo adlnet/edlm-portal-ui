@@ -6,6 +6,7 @@ import { Checkbox, Label } from "flowbite-react";
 import { useRouter } from 'next/router';
 import Button from "@/components/Button";
 import DefaultLayout from "@/components/layouts/DefaultLayout";
+import { HomeIcon } from "@heroicons/react/outline";
 
 
 export default function TalentFinderFilters() {
@@ -14,12 +15,19 @@ export default function TalentFinderFilters() {
 
     return (
         <DefaultLayout>
-            <h2 className="flex h-48 sm:w-2/3 lg:w-5/6 items-center text-3xl font-bold text-white justify-center absolute z-10">Talent Finder</h2>
-            <Image src={image} width={1400} alt='' className='rounded-lg mr-5 mt-8 opacity-60'/>
-            <p className="my-4">
-                Talent Finder - Filters
-            </p>
-            <div className='bg-white shadow-md w-1/2 p-5 w-full '> 
+            <h2 className="flex w-5/6 text-4xl font-bold mt-8">Talent Finder</h2>
+            <div className="my-3 flex flex-row">
+                <a href={"/"} >
+                    <HomeIcon className="w-5 mx-2"/>  
+                </a>
+                &gt; 
+                <a href='/talentFinder' className="px-2 hover:mouse hover:underline hover:font-bold">
+                    Talent Finder
+                </a>
+                &gt; 
+                <p className="font-bold pl-2"> Filters </p>
+            </div>
+            <div className='bg-white shadow-md w-1/2 p-5 w-full my-4'> 
               <div className='pt-2 text-lg font-bold'> Discover Talent Across the Workforce </div>
               <div className='pt-2 text-gray-600'> Find qualified individuals at the speed of relevance. </div>
               <div className='bg-gray-100 p-2 my-2 rounded rounded-md px-8 mb-5'>

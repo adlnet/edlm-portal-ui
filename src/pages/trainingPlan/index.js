@@ -8,6 +8,7 @@ import Button from "@/components/Button";
 import Accordion from "@/components/Accordion";
 import { TalentTable } from "@/components/tables/TalentTable";
 import DefaultLayout from "@/components/layouts/DefaultLayout";
+import { HomeIcon } from "@heroicons/react/outline";
 
 
 export default function TrainingPlan() {
@@ -25,8 +26,14 @@ export default function TrainingPlan() {
 
     return (
         <DefaultLayout>
-            <h2 className="flex h-48 w-5/6 items-center text-3xl font-bold text-white justify-center absolute z-10">Training Plan</h2>
-            <Image src={image} width={1400} alt='' className='rounded-lg mr-5 my-8 opacity-60' /> 
+            <h2 className="flex w-5/6 text-4xl font-bold mt-8">Training Plan</h2>
+            <div className="my-4 flex flex-row">
+                <a href={"/"}>
+                    <HomeIcon className="w-5 mx-2"/>  
+                </a>
+                &gt;<p className="font-bold pl-2">  Training Plan </p>
+            </div>
+            
             <div className='bg-white shadow-md'></div>
             <div className='bg-white shadow-md w-1/2 p-5 w-full mb-5'> 
               <div className='pt-2 text-lg font-bold'> Analyze Talent Across the Workforce </div>
@@ -36,8 +43,9 @@ export default function TrainingPlan() {
                 <div className='pt-2 text-gray-600'>Select talent either within a Force, Your Unit, or previously saved talent.</div>
                 
                 <div className="flex flex-row gap-32 pl-12 py-5">
-                    <div className="bg-purple rounded-lg w-max mb-3">
-                        <Dropdown label="Force Filters" dismissOnClick={false} >
+                    <div className="p-0.5 mb-2 overflow-hidden font-medium rounded-lg bg-gradient-to-r from-purple-600 to-blue-500 from-accent-blue to-purple">
+                        <div className="p-2 bg-gray-100 transition-all ease-in duration-75 rounded-md hover:bg-opacity-50 border-2 border-white">
+                        <Dropdown label="Force Filters" dismissOnClick={false} inline >
                             <div className="flex flex-col gap-2">
                             {forceFilters.map((data) => {
                                 return (<Dropdown.Item> 
@@ -50,10 +58,13 @@ export default function TrainingPlan() {
                             })}
                             </div>
                         </Dropdown>
-                    </div>
+                        </div>
+                    </div>  
 
-                    <div className="bg-purple rounded-lg w-max mb-3">
-                        <Dropdown label="My Unit Filters" dismissOnClick={false} >
+
+                    <div className="p-0.5 mb-2 overflow-hidden font-medium rounded-lg bg-gradient-to-r from-purple-600 to-blue-500 from-accent-blue to-purple">
+                        <div className="p-2 bg-gray-100 transition-all ease-in duration-75 rounded-md hover:bg-opacity-50 border-2 border-white">
+                        <Dropdown label="My Unit Filters" dismissOnClick={false} inline>
                             <div className="flex flex-col gap-2">
                             {myUnitFilters.map((data) => {
                                 return (<Dropdown.Item> 
@@ -66,10 +77,12 @@ export default function TrainingPlan() {
                             })}
                             </div>
                         </Dropdown>
+                        </div>
                     </div>
 
-                    <div className="bg-purple rounded-lg w-max mb-3">
-                        <Dropdown label="Saved Filters" dismissOnClick={false} >
+                    <div className="p-0.5 mb-2 overflow-hidden font-medium rounded-lg bg-gradient-to-r from-purple-600 to-blue-500 from-accent-blue to-purple">
+                        <div className="p-2 bg-gray-100 transition-all ease-in duration-75 rounded-md hover:bg-opacity-50 border-2 border-white">
+                        <Dropdown label="Saved Filters" dismissOnClick={false} inline>
                             <div className="flex flex-col gap-2">
                             {savedFilters.map((data) => {
                                 return (<Dropdown.Item> 
@@ -82,6 +95,7 @@ export default function TrainingPlan() {
                             })}
                             </div>
                         </Dropdown>
+                        </div>
                     </div>
 
                     </div>
@@ -96,7 +110,6 @@ export default function TrainingPlan() {
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
                             </svg>
                         </div>
-                        
                     } onClick={()=>router.push("/trainingPlan/filters")}/>
                 </div>
             </div>
