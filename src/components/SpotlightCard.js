@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import image from '@/public/image.png'
+import image from '@/public/card-header.png'
 
 export default function Spotlight({ course }) {
 
@@ -8,7 +8,7 @@ export default function Spotlight({ course }) {
     <Link href={`/course/${course.title}`} passHref>
         <div className="h-108 w-80 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <div className='flex items-center justify-center px-3'>
-              <Image src={image} height={80} alt='' className='rounded-lg m-5'/>
+              <Image src={image} height={100} alt='' className='rounded-lg m-5'/>
             </div>
             <div className="p-5">
                 <a href="#">

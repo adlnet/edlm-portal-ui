@@ -4,6 +4,10 @@ import Head from 'next/head'
 import Image from 'next/image';
 import React from 'react';
 import image from '@/public/image.png';
+import headerImage from '@/public/Abstact1.png';
+import armyImage from '@/public/Army.png'
+import armyImage1 from '@/public/Army1.jpg'
+import armyImage2 from '@/public/Army2.jpg'
 import Button from '@/components/Button';
 import DefaultLayout from '@/components/layouts/DefaultLayout';
 import Card from '@/components/Card';
@@ -49,19 +53,19 @@ export default function Home() {
               </div>
             </div>
             <div className='max-h-36'>
-              <Image src={image} height={150} alt='' className='rounded-lg m-5 max-w-1/2'/>
+              <Image src={headerImage} height={150} alt='' className='rounded-lg m-5 max-w-1/2'/>
             </div>
           </div>
         </div>
 
         <div className='flex flex-row'>
-          <Card title={"Fill Vaccancies"} description={"Find the right talent at the time-of-need"} image={image}
+          <Card title={"Fill Vaccancies"} description={"Find the right talent at the time-of-need"} image={armyImage}
             buttonLabel={"Talent Finder"} handleClick={()=>{}}/>
 
-          <Card title={"Upskill your Talent"} description={"Find the best learning talent for an individual’s unique needs"} image={image}
+          <Card title={"Upskill your Talent"} description={"Find the best learning talent for an individual’s unique needs"} image={armyImage2}
             buttonLabel={"Build a Plan"} handleClick={()=>{}}/>
 
-          <Card title={"View your Reports "} description={"Check out your saved reports or create new ones"} image={image}
+          <Card title={"View your Reports "} description={"Check out your saved reports or create new ones"} image={armyImage1}
             buttonLabel={"Reports"} handleClick={()=>{}}/>
         </div>
 

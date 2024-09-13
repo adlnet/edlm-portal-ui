@@ -1,5 +1,6 @@
 import { useRouter } from "next/router"
 import Image from 'next/image';
+import cardImage from '@/public/card-header.png'
 
 
 export default function Card({ title, description, buttonLabel, children, image }){
@@ -7,7 +8,7 @@ export default function Card({ title, description, buttonLabel, children, image 
     return(
         <div className='bg-white border rounded-md border-gray-200 p-4 shadow-lg focus:shadow-lg px-10 my-8 mr-4 w-1/3'>
             <div className='max-h-24'>
-              <Image src={image} height={150} alt='' className='rounded'/>
+              <Image src={image} height={100} alt='' className='rounded'/>
             </div>
             <h1 className='flex text-lg font-semibold h-6 pt-4'>
                 {title}
