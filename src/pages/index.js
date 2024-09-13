@@ -12,6 +12,7 @@ import Button from '@/components/Button';
 import DefaultLayout from '@/components/layouts/DefaultLayout';
 import Card from '@/components/Card';
 import Spotlight from '@/components/SpotlightCard';
+import StaticSideNav from '@/components/StaticSideNav';
 
 export default function Home() {
   const router = useRouter();
@@ -33,6 +34,7 @@ export default function Home() {
         <link rel="icon" href="/public/image.png" />
       </Head>
       {/* <SideNav /> */}
+      {/* <StaticSideNav /> */}
 
       <div className='flex flex-col mt-8'>
         <div className='py-4 text-xl font-bold'>Welcome, Talent Manager, Andrea Wilson! </div>
@@ -43,8 +45,8 @@ export default function Home() {
               <div className='pt-2 text-lg font-bold'>Talent Management Dashboard </div>
               <div className='pt-2 text-gray-600'>The hub for searching for talent and planning for their development. </div>
               <div className='pt-12'>
-                <Button children={
-                  <div className='flex flex-row gap-2 w-full'> Learn More
+                <Button onClick={()=>{router.push("/talentFinder")}} children={
+                  <div className='flex flex-row gap-2 w-full'> <p className='pt-0.5'>Learn More</p>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
                     </svg>
@@ -60,13 +62,13 @@ export default function Home() {
 
         <div className='flex flex-row'>
           <Card title={"Fill Vaccancies"} description={"Find the right talent at the time-of-need"} image={armyImage}
-            buttonLabel={"Talent Finder"} handleClick={()=>{}}/>
+            buttonLabel={"Talent Finder"} route={"/talentFinder"}/>
 
           <Card title={"Upskill your Talent"} description={"Find the best learning talent for an individual’s unique needs"} image={armyImage2}
-            buttonLabel={"Build a Plan"} handleClick={()=>{}}/>
+            buttonLabel={"Build a Plan"} route={"/trainingPlan"}/>
 
           <Card title={"View your Reports "} description={"Check out your saved reports or create new ones"} image={armyImage1}
-            buttonLabel={"Reports"} handleClick={()=>{}}/>
+            buttonLabel={"Reports"} route={"/reports"}/>
         </div>
 
         <div className='flex flex-col'>
