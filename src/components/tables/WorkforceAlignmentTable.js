@@ -5,10 +5,11 @@ import { Checkbox, Label, Progress } from "flowbite-react";
 export function WorkforceAlignmentTable() {
 
     const data = [
-        {overallAlignment: '95%', lastName: "Waites", firstName: "Jennifer", trainingNeeded: "1 course", trainingTime: "4 weeks", service: "Air Force", location: "Virginia", currentPosition: "Technical Support Specialist", careerState: "Mid-Career", IDPAlignment:92 },
-        {overallAlignment: '95%', lastName: "Waites", firstName: "Jennifer", trainingNeeded: "1 course", trainingTime: "4 weeks", service: "Air Force", location: "Virginia", currentPosition: "Technical Support Specialist", careerState: "Mid-Career", IDPAlignment:32 },
-        {overallAlignment: '95%', lastName: "Waites", firstName: "Jennifer", trainingNeeded: "1 course", trainingTime: "4 weeks", service: "Air Force", location: "Virginia", currentPosition: "Technical Support Specialist", careerState: "Mid-Career", IDPAlignment:62 },
-        {overallAlignment: '95%', lastName: "Waites", firstName: "Jennifer", trainingNeeded: "1 course", trainingTime: "4 weeks", service: "Air Force", location: "Virginia", currentPosition: "Technical Support Specialist", careerState: "Mid-Career", IDPAlignment:84 },
+        {overallAlignment: '92%', lastName: "Waites", firstName: "Jennifer", trainingNeeded: "1 course", trainingTime: "4 weeks", service: "Air Force", location: "Virginia", currentPosition: "Senior Airman (SRA) (E4)", careerState: "Mid-Career", IDPAlignment:92 },
+        {overallAlignment: '32%', lastName: "Waites", firstName: "Jennifer", trainingNeeded: "1 course", trainingTime: "4 weeks", service: "Air Force", location: "Virginia", currentPosition: "Staff Sergeant (SSgt) (E5)", careerState: "Mid-Career", IDPAlignment:32 },
+        {overallAlignment: '22%', lastName: "John", firstName: "Lee", trainingNeeded: "4 courses", trainingTime: "12 weeks", service: "Air Force", location: "Virginia", currentPosition: "DoD Program Admin", careerState: "Mid-Career", IDPAlignment:22 },
+        {overallAlignment: '95%', lastName: "Lewis", firstName: "Sophia", trainingNeeded: "1 course", trainingTime: "4 weeks", service: "Navy", location: "Virginia", currentPosition: "Competency Manager", careerState: "Mid-Career", IDPAlignment:95 },
+        {overallAlignment: '61%', lastName: "Lewis", firstName: "Sophia", trainingNeeded: "2 course", trainingTime: "6 weeks", service: "Navy", location: "Virginia", currentPosition: "Competency Manager", careerState: "Mid-Career", IDPAlignment:61 },
     ];
 
   return (

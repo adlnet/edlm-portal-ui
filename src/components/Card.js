@@ -26,7 +26,7 @@ export default function Card({ title, description, buttonLabel, children, image,
                 <div className='inline-block align-bottom gap-2'>
                     <button
                         id={'view-course-button-'}
-                        className='flex justify-center items-center gap-2 dod-500 w-48 rounded-lg hover:shadow-md text-white bg-purple hover:bg-blue-400 hover:text-white px-2 p-1.5 py-2 transform transition-all duration-150 ease-in-out border-dod-500 border-2 focus:ring-2 ring-dod-500 outline-none'
+                        className='flex justify-center items-center gap-2 dod-500 w-48 rounded-lg hover:shadow-md text-white bg-purple hover:bg-blue-400 hover:text-white px-2 p-1.5 py-2 Ntransform transition-all duration-150 ease-in-out border-dod-500 border-2 focus:ring-2 ring-dod-500 outline-none'
                         title={buttonLabel}
                         onClick={handleClick}
                     >
