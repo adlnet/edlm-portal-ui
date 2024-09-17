@@ -14,15 +14,21 @@ jobs:
     # Kicks off the workflow and prepares Github to run coverage test using a ubuntu-latest container.
     name: Code CI/CD
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [18.x]
-
     steps:
-    - uses: actions/checkout@v4
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: yarn install
-    - run: yarn test
+        - uses: actions/checkout@v3
+        - name: Set Node.js 16.x
+          uses: actions/setup-node@v3
+          with:
+                node-version: 16.x
+        - name: Run install
+          uses: borales/actions-yarn@v4
+          with:
+            cmd: install # will run `yarn install` command
+        - name: Run build
+          uses: borales/actions-yarn@v4
+          with:
+            cmd: build # will run `yarn build` command
+        - name: Test the app
+          uses: borales/actions-yarn@v4
+          with:
+            cmd: test # will run `yarn test` command
