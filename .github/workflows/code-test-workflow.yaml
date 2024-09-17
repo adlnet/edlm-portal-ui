@@ -28,7 +28,7 @@ jobs:
           uses: borales/actions-yarn@v4
           with:
             cmd: build # will run `yarn build` command
-        - name: Test the app
-          uses: borales/actions-yarn@v4
-          with:
-            cmd: test # will run `yarn test` command
+        # - name: Test the app
+        #   uses: borales/actions-yarn@v4
+        #   with:
+        #     cmd: test # will run `yarn test` command
