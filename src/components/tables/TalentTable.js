@@ -7,6 +7,7 @@ export function TalentTable() {
         {overallAlignment: '22%', lastName: "John", firstName: "Lee", trainingNeeded: "4 courses", trainingTime: "12 weeks", service: "Air Force", location: "Virginia", currentPosition: "DoD Program Admin", careerState: "Mid-Career", relocate:"Yes" },
         {overallAlignment: '95%', lastName: "Lewis", firstName: "Sophia", trainingNeeded: "1 course", trainingTime: "4 weeks", service: "Navy", location: "Virginia", currentPosition: "Competency Manager", careerState: "Mid-Career", relocate:"Yes" },
         {lastName: 'Wholesome', firstName: "Jill", service: "Air Force", location: "Virginia", relocate: "Yes", currentPosition: "Technical Sergeant (TSgt) (E6)"},
+        {lastName: 'Chen', firstName: "Jim", service: "Air Force", location: "Virginia", relocate: "Yes", currentPosition: "Service Member"},
         {lastName: 'Dumas', firstName: "Jennifer", service: "Air Force", location: "Virginia", relocate: "Yes", currentPosition: "Supervisor/Unit Lead"},
         {lastName: 'Lydell', firstName: "Jacob", service: "Air Force", location: "Virginia", relocate: "Yes", currentPosition: "Master Sergeant (MSgt) (E7)"},
         {lastName: 'Braxton', firstName: "Tony", service: "Air Force", location: "Virginia", relocate: "Yes", currentPosition: "Talent Manager"},

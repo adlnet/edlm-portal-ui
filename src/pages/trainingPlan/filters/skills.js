@@ -38,7 +38,7 @@ export default function TrainingPlanSkills() {
               <div className='pt-2 text-lg font-bold'> Discover Talent Across the Workforce </div>
               <div className='pt-2 text-gray-600'> Find qualified individuals at the speed of relevance. </div>
               <div className='bg-gray-100 p-2 my-2 rounded rounded-md px-8 mb-5'>
-                <div className='pt-2 text-lg font-bold'> COSMEC Manager</div>
+                <div className='pt-2 text-lg font-bold'> INFOSEC Manager</div>
                 <div className='pt-2 text-gray-600'>Knowledge of encrypted algorithms.</div>
               </div>
 
