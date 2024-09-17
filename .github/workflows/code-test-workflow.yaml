@@ -1,0 +1,28 @@
+name: EDLM UI Code CI/CD
+
+on:
+  push:
+    branches: 
+      - dev
+  pull_request:
+    branches: 
+      - dev
+    types: [opened, synchronize]
+
+jobs:
+  build-test:
+    # Kicks off the workflow and prepares Github to run coverage test using a ubuntu-latest container.
+    name: Code CI/CD
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x, 22.x]
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: yarn install
+    - run: yarn test
