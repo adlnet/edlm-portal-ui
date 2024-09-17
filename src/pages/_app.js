@@ -28,8 +28,8 @@ export default function MyApp({ Component, pageProps }) {
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps['dehydratedState']}>
           <Head>
-            <title>Experience Discovery Service</title>
-            <link rel="icon" href="/favicon.ico" />
+            <title>EDLM Portal</title>
+            <link rel="icon" href="/logo.png" />
           </Head>
           <Component {...pageProps} />
           <ReactQueryDevtools />

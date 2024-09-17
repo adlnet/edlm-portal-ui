@@ -30,8 +30,8 @@ export default function Home() {
   return (
     <DefaultLayout>
       <Head>
-        <title>Experience Discovery Service</title>
-        <link rel="icon" href="/public/image.png" />
+        <title>EDLM Portal</title>
+        <link rel="icon" href="/logo.png" />
       </Head>
       {/* <SideNav /> */}
       {/* <StaticSideNav /> */}
