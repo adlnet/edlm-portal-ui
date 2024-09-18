@@ -11,7 +11,6 @@ import { backendHost, graph } from '@/config/endpoints';
 import { useEffect, useState } from "react";
 import { axiosInstance } from "@/config/axiosConfig";
 
-
 export default function TalentFinderAlignment() {
     const router = useRouter();
     // const config = useConfig();
@@ -23,12 +22,20 @@ export default function TalentFinderAlignment() {
         .get(graph)
         .then((res) => {
           setData(res.data);
-          console.log(res.data);
         })
+        .then(resp =>
+            window.Bokeh.embed.embed_item(resp.data, 'testPlot'))
         .catch((err) => {
           console.log(err);
         });
     }, []);
+
+    // let handlePlot1 = () => {
+    //     axiosInstance.get(graph)
+    //         .then(resp => 
+    //         window.Bokeh.embed.embed_item(resp.data, 'testPlot')
+    //     )
+    // }
 
     return (
         <DefaultLayout>
@@ -56,6 +63,24 @@ export default function TalentFinderAlignment() {
             <div className='bg-white shadow-md w-1/2 p-5 w-full mb-5'> 
               <div className='pt-2 text-lg font-bold'> Compare Talent Across the Workforce </div>
               <div className='pt-2 text-gray-600 pb-8'> Compare qualified individuals at the speed of relevance. </div>
+
+
+
+              {/* <div>
+                {Bokeh.embed.embed_item(item)}
+              </div> */}
+              <div id='testPlot' className="bk-root"></div>
+
+              {/* <Button 
+                    variant="contained"
+                    style={{margin: 10}} 
+                    color="primary"
+                    onClick={handlePlot1()}
+                >
+                        Get Plot 1 
+                </Button>
+            <div id='testPlot' className="bk-root"></div> */}
+
 
 
               <div className="flex justify-end mt-8">
