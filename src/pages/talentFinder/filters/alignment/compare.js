@@ -4,7 +4,7 @@ import Image from "next/image";
 import image from  "@/public/Picture1.png"
 import { useRouter } from 'next/router';
 import Button from "@/components/Button";
-import { WorkforceAlignmentTable } from "@/components/tables/WorkforceAlignmentTable";
+import { users } from "@/components/tables/WorkforceAlignmentTable";
 import DefaultLayout from "@/components/layouts/DefaultLayout";
 import { HomeIcon } from "@heroicons/react/outline";
 import { backendHost, graph } from '@/config/endpoints';
@@ -21,7 +21,7 @@ export default function TalentFinderAlignment() {
 
     useEffect(() => {
         axiosInstance
-        .get("https://edlmportal-admin.deloitteopenlxp.com/api/graph/?users=abc&users=john&users=beth&users=seth&users=bob&users=sally&users=eve&users=alice")
+        .get("https://edlmportal-admin.deloitteopenlxp.com/api/graph/?users="+users.join("&users="))
         .then(resp => {
             // safely(function() {
             //     (function(root) {
