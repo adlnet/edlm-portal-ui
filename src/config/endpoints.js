@@ -1,7 +1,8 @@
 // local host endpoint from .env
-export const backendHost = process.env.NEXT_PUBLIC_BACKEND_HOST;
+export const backendHost = process.env.NEXT_PUBLIC_PORTAL_BACKEND_HOST;
+export const XDSbackendHost = process.env.NEXT_PUBLIC_XDS_BACKEND;
 const api = 'api/';
-const elasticApi = '/es-api/';
+const elasticApi = 'es-api/';
 
 //graphs
 export const graph = `${backendHost}${api}graph/`;
@@ -10,7 +11,7 @@ export const graph = `${backendHost}${api}graph/`;
 export const vacancies = `${backendHost}${api}vacancy/`;
 
 //course and competencies
-export const courseData = `${backendHost}${elasticApi}teaches/?reference=https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Framework/91130442-c455-499b-8bd8-bdea3d6fae69`;
+export const courseData = `${XDSbackendHost}${elasticApi}teaches/?reference=https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Framework/91130442-c455-499b-8bd8-bdea3d6fae69`;
 
 
 // // authentication urls

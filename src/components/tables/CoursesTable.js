@@ -1,12 +1,14 @@
+import { axiosInstance } from "@/config/axiosConfig";
 import { Checkbox, Label } from "flowbite-react";
+import { useEffect, useState } from "react";
+import { courseData } from "@/config/endpoints";
 
 export function CoursesTable() {
+    const [data, setData] = useState(null);
 
-    const data = [
+    const tempData = [
         // {courseName: 'Managing Network Security', competenciesAllignedTo: ["Knowledge of Payment Card Industry (PCI) data security standards.", "Knowledge of Personally Identifiable Information (PII) data security standards.", "Knowledge of Personal Health Information (PHI) data security standards."], 
         //     competencyAlignment: "100%", aligmentPercent: "100%", instance: "Spring 2024", startEnd: "08 March 2024 - 03 May 2024", availableSeats: "50", location: "Richmond, Virginia"},
-        // {courseName: '', competenciesAllignedTo: [""], 
-        //     competencyAlignment: "100%", aligmentPercent: "100%", instance: "", startEnd: "", availableSeats: "50", location: "Richmond, Virginia"},
         {courseName: 'Managing Network Security', competenciesAllignedTo: ["Knowledge of the operations and processes for incident, problem, and event management.", "Knowledge of procedures used for documenting and querying reported incidents, problems, and events.", "Skill to design incident response for cloud service models.", "Ability to accurately define incidents, problems, and events in the trouble ticketing system."], 
             competencyAlignment: "100%", aligmentPercent: "100%", instance: "Fall 2020", startEnd: "Sept 16, 2020 to Nov 20, 2020", availableSeats: "50", location: "Richmond, Virginia"},
         {courseName: 'Penetration Testing, Incident Response and Forensics', competenciesAllignedTo: ["Knowledge of how information needs and collection requirements are translated, tracked, and prioritized across the extended enterprise.[K0120]", "Skill to translate, track, and prioritize information needs and intelligence collection requirements across the extended enterprise. [S0372]"], 
@@ -22,9 +24,22 @@ export function CoursesTable() {
         {courseName: 'Cyber Threat Intelligence', competenciesAllignedTo: ["Knowledge of the operations and processes for incident, problem, and event management.", "Knowledge of procedures used for documenting and querying reported incidents, problems, and events.", "Skill to design incident response for cloud service models.", "Ability to accurately define incidents, problems, and events in the trouble ticketing system."], 
             competencyAlignment: "100%", aligmentPercent: "100%", instance: "Spring 2020", startEnd: "Jan 5, 2020 to March 28, 2020", availableSeats: "50", location: "Richmond, Virginia"},
     
-            // {courseName: '', competenciesAllignedTo: [""], 
+    // {courseName: '', competenciesAllignedTo: [""], 
         //     competencyAlignment: "100%", aligmentPercent: "100%", instance: "", startEnd: "", availableSeats: "50", location: "Richmond, Virginia"},
         ];
+
+    useEffect(() => {
+        axiosInstance
+        .get(courseData)
+        .then((res) => {
+            setData(res.data);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    }, []);
+
+    console.log(data);
 
   return (
     <>
@@ -122,16 +137,17 @@ export function CoursesTable() {
                         </tr>
                     </thead>
                     <tbody>
-                        {data.map((data) => {
+                        {/* {data?.hits.map((data) => { */}
+                        {tempData.map((data) => {
                             return (
                                 <tr class=" border-b dark:border-gray-700">
-                                    <div className="flex h-full items-center align-center justify-center gap-2 ml-6 py-3 mt-20">
+                                    <div className="flex h-full items-center align-center justify-center gap-2 ml-6 py-3 h-48 ">
                                         <Checkbox id={data.courseName} />
                                         <Label htmlFor={data.courseName}></Label>
                                     </div>
                                     <td class="px-4 py-3">{data.courseName}</td>
                                     <td class="px-4 py-3">
-                                        {data.competenciesAllignedTo.map((comp) =>{
+                                        {data.competenciesAllignedTo?.map((comp) =>{
                                             return(
                                                 <div className="flex flex-row">
                                                     {comp}
