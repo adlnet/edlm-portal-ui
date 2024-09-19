@@ -1,16 +1,17 @@
 import { Checkbox, Label } from "flowbite-react";
 
-export function WorkRoleTable() {
+export function WorkRoleTable(data) {
 
-    const data = [
-        {vacancies: '3', startDate: "Jan 2, 2024", workRole: "COMSEC Manager", service: "Air Force", NISTID: "OV-MG-002", workforceElement: "Cybersecurity", functionalCommunity: "Cyber"},
-        {vacancies: '3', startDate: "Jan 2, 2024", workRole: "COMSEC Manager", service: "Air Force", NISTID: "OV-MG-002", workforceElement: "Cybersecurity", functionalCommunity: "Cyber"},
-        {vacancies: '3', startDate: "Jan 2, 2024", workRole: "COMSEC Manager", service: "Air Force", NISTID: "OV-MG-002", workforceElement: "Cybersecurity", functionalCommunity: "Cyber"},
-        {vacancies: '3', startDate: "Jan 2, 2024", workRole: "COMSEC Manager", service: "Air Force", NISTID: "OV-MG-002", workforceElement: "Cybersecurity", functionalCommunity: "Cyber"},
-        {vacancies: '3', startDate: "Jan 2, 2024", workRole: "COMSEC Manager", service: "Air Force", NISTID: "OV-MG-002", workforceElement: "Cybersecurity", functionalCommunity: "Cyber"},
-        {vacancies: '3', startDate: "Jan 2, 2024", workRole: "COMSEC Manager", service: "Air Force", NISTID: "OV-MG-002", workforceElement: "Cybersecurity", functionalCommunity: "Cyber"},
-    ];
+    // const data = [
+    //     {vacancies: '3', startDate: "Jan 2, 2024", workRole: "COMSEC Manager", service: "Air Force", NISTID: "OV-MG-002", workforceElement: "Cybersecurity", functionalCommunity: "Cyber"},
+    //     {vacancies: '3', startDate: "Jan 2, 2024", workRole: "COMSEC Manager", service: "Air Force", NISTID: "OV-MG-002", workforceElement: "Cybersecurity", functionalCommunity: "Cyber"},
+    //     {vacancies: '3', startDate: "Jan 2, 2024", workRole: "COMSEC Manager", service: "Air Force", NISTID: "OV-MG-002", workforceElement: "Cybersecurity", functionalCommunity: "Cyber"},
+    //     {vacancies: '3', startDate: "Jan 2, 2024", workRole: "COMSEC Manager", service: "Air Force", NISTID: "OV-MG-002", workforceElement: "Cybersecurity", functionalCommunity: "Cyber"},
+    //     {vacancies: '3', startDate: "Jan 2, 2024", workRole: "COMSEC Manager", service: "Air Force", NISTID: "OV-MG-002", workforceElement: "Cybersecurity", functionalCommunity: "Cyber"},
+    //     {vacancies: '3', startDate: "Jan 2, 2024", workRole: "COMSEC Manager", service: "Air Force", NISTID: "OV-MG-002", workforceElement: "Cybersecurity", functionalCommunity: "Cyber"},
+    // ];
 
+    console.log(data);
   return (
     <>
     <div class="mx-auto max-w-screen-xl">
@@ -98,7 +99,7 @@ export function WorkRoleTable() {
                 <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
-                            <th scope="col" class="px-4 py-3">Vacancies</th>
+                            <th scope="col" class="px-2 py-3"></th>
                             <th scope="col" class="px-4 py-3">Start Date</th>
                             <th scope="col" class="px-4 py-3">Work Role</th>
                             <th scope="col" class="px-4 py-3">Services</th>
@@ -112,20 +113,20 @@ export function WorkRoleTable() {
                         </tr>
                     </thead>
                     <tbody>
-                        {data.map((data) => {
+                        {data.data?.map((data) => {
                             return (
                                 <tr class="border-b dark:border-gray-700">
-                                    <div className="flex items-center gap-2 ml-6 mt-3">
+                                    <div className="flex items-center gap-2 ml-6 align-middle h-20">
                                         <Checkbox id={data.workRole} />
-                                        <Label htmlFor={data.workRole}>{data.vacancies}</Label>
+                                        <Label htmlFor={data.workRole}></Label>
                                     </div>
                                     {/* <td class="px-4 py-3">{data.vacancies}</td> */}
-                                    <td class="px-4 py-3">{data.startDate}</td>
-                                    <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{data.workRole}</th>
-                                    <td class="px-4 py-3">{data.service}</td>
-                                    <td class="px-4 py-3">{data.NISTID}</td>
-                                    <td class="px-4 py-3">{data.workforceElement}</td>
-                                    <td class="px-4 py-3">{data.functionalCommunity}</td>
+                                    <td class="px-4 py-3">{data.PositionStartDate.split('T')[0]}</td>
+                                    <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{data.JobTitle}</th>
+                                    <td class="px-4 py-3">Air Force</td>
+                                    <td class="px-4 py-3">{data.JobPostingID}</td>
+                                    <td class="px-4 py-3">{data.DepartmentName}</td>
+                                    <td class="px-4 py-3">Cyber</td>
                                 </tr>
                             )
                         })}
