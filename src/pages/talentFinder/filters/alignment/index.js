@@ -8,7 +8,6 @@ import { WorkforceAlignmentTable } from "@/components/tables/WorkforceAlignmentT
 import DefaultLayout from "@/components/layouts/DefaultLayout";
 import { HomeIcon } from "@heroicons/react/outline";
 
-
 export default function TalentFinderAlignment() {
     const router = useRouter();
     // const config = useConfig();

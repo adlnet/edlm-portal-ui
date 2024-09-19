@@ -8,11 +8,29 @@ import { useRouter } from 'next/router';
 import Button from "@/components/Button";
 import DefaultLayout from "@/components/layouts/DefaultLayout";
 import { HomeIcon } from "@heroicons/react/outline";
-
+import { axiosInstance } from "@/config/axiosConfig";
+import { vacancies } from "@/config/endpoints";
+import { useEffect, useState } from "react";
 
 export default function TalentFinder() {
     const router = useRouter();
     // const config = useConfig();
+    const [data, setData] = useState(null);
+
+    useEffect(() => {
+        axiosInstance
+        .get(vacancies)
+        .then((res) => {
+          setData(res.data);
+        })
+        .then(resp =>
+            window.Bokeh.embed.embed_item(resp.data, 'testPlot'))
+        .catch((err) => {
+          console.log(err);
+        });
+    }, []);
+
+    // console.log(data);
 
     return (
         <DefaultLayout> 
@@ -45,7 +63,7 @@ export default function TalentFinder() {
               </div>
 
               {/* <WorkRoleTable /> */}
-              <WorkRoleTable />
+              <WorkRoleTable data={data}/>
               <div className="flex justify-end mt-8">
                     <Button children={
                         <div className="flex flex-row gap-2">  
