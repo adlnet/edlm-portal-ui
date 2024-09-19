@@ -10,6 +10,8 @@ import { HomeIcon } from "@heroicons/react/outline";
 import { backendHost, graph } from '@/config/endpoints';
 import { useEffect, useState } from "react";
 import { axiosInstance } from "@/config/axiosConfig";
+import { embed_item, embed_items } from "@bokeh/bokehjs/build/js/lib/embed";
+import { safely } from "@bokeh/bokehjs";
 
 export default function TalentFinderAlignment() {
     const router = useRouter();
@@ -19,12 +21,42 @@ export default function TalentFinderAlignment() {
 
     useEffect(() => {
         axiosInstance
-        .get(graph)
-        .then((res) => {
-          setData(res.data);
-        })
-        .then(resp =>
-            window.Bokeh.embed.embed_item(resp.data, 'testPlot'))
+        .get("https://edlmportal-admin.deloitteopenlxp.com/api/graph/?users=abc&users=john&users=beth&users=seth&users=bob&users=sally&users=eve&users=alice")
+        .then(resp => {
+            // safely(function() {
+            //     (function(root) {
+            //       function embed_document(root) {
+            //       const docs_json = {"4e5c17ac-4434-4401-a4ff-03ac1eb442ed":resp.data};
+            //       const render_items = [{"docid":"4e5c17ac-4434-4401-a4ff-03ac1eb442ed","roots":{"p1004":"testPlot"},"root_ids":["p1004"]}];
+            //       root.Bokeh.embed.embed_items(docs_json, render_items);
+            //       }
+            //       if (root.Bokeh !== undefined) {
+            //         embed_document(root);
+            //       } else {
+            //         let attempts = 0;
+            //         const timer = setInterval(function(root) {
+            //           if (root.Bokeh !== undefined) {
+            //             clearInterval(timer);
+            //             embed_document(root);
+            //           } else {
+            //             attempts++;
+            //             if (attempts > 100) {
+            //               clearInterval(timer);
+            //               console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing");
+            //             }
+            //           }
+            //         }, 10, root)
+            //       }
+            //     })(window);
+            //   });
+            const all_json = resp.data;
+            const root_id = all_json.root_id;
+            const docs_json = {"4e5c17ac-4434-4401-a4ff-03ac1eb442ed":all_json.doc};
+            const render_items = [{"docid":"4e5c17ac-4434-4401-a4ff-03ac1eb442ed","roots":{[root_id]:"testPlot"},"root_ids":[root_id]}];
+            embed_items(docs_json, render_items);
+        }
+            // embed_item(resp.data, 'testPlot')
+        )
         .catch((err) => {
           console.log(err);
         });
