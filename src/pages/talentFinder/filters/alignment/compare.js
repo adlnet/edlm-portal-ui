@@ -1,7 +1,5 @@
 // "use client";
 
-import Image from "next/image";
-import image from  "@/public/Picture1.png"
 import { useRouter } from 'next/router';
 import Button from "@/components/Button";
 import { users } from "@/components/tables/WorkforceAlignmentTable";
@@ -62,13 +60,6 @@ export default function TalentFinderAlignment() {
         });
     }, []);
 
-    // let handlePlot1 = () => {
-    //     axiosInstance.get(graph)
-    //         .then(resp => 
-    //         window.Bokeh.embed.embed_item(resp.data, 'testPlot')
-    //     )
-    // }
-
     return (
         <DefaultLayout>
             <h2 className="flex w-5/6 text-4xl font-bold mt-8">Talent Finder</h2>
@@ -96,24 +87,7 @@ export default function TalentFinderAlignment() {
               <div className='pt-2 text-lg font-bold'> Compare Talent Across the Workforce </div>
               <div className='pt-2 text-gray-600 pb-8'> Compare qualified individuals at the speed of relevance. </div>
 
-
-
-              {/* <div>
-                {Bokeh.embed.embed_item(item)}
-              </div> */}
               <div id='testPlot' className="bk-root"></div>
-
-              {/* <Button 
-                    variant="contained"
-                    style={{margin: 10}} 
-                    color="primary"
-                    onClick={handlePlot1()}
-                >
-                        Get Plot 1 
-                </Button>
-            <div id='testPlot' className="bk-root"></div> */}
-
-
 
               <div className="flex justify-end mt-8">
                     <Button children={
