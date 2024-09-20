@@ -13,9 +13,6 @@ import { safely } from "@bokeh/bokehjs";
 
 export default function TalentFinderAlignment() {
     const router = useRouter();
-    // const config = useConfig();
-    const [data, setData] = useState(null);
-
 
     useEffect(() => {
         axiosInstance
