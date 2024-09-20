@@ -3,9 +3,20 @@ import { Checkbox, Label } from "flowbite-react";
 export function TalentTable() {
 
     const data = [
-        {firstName: 'Jennifer', lastName: "Waites", service: "Air Force", location: "Virginia", relocate: "Yes", currentPosition: "Technical support specialist"},
+        {overallAlignment: '92%', lastName: "Waites", firstName: "Jennifer", trainingNeeded: "1 course", trainingTime: "4 weeks", service: "Air Force", location: "Virginia", currentPosition: "Senior Airman (SRA) (E4)", careerState: "Mid-Career", relocate:"Yes"},
+        {overallAlignment: '22%', lastName: "John", firstName: "Lee", trainingNeeded: "4 courses", trainingTime: "12 weeks", service: "Air Force", location: "Virginia", currentPosition: "DoD Program Admin", careerState: "Mid-Career", relocate:"Yes" },
+        {overallAlignment: '95%', lastName: "Lewis", firstName: "Sophia", trainingNeeded: "1 course", trainingTime: "4 weeks", service: "Navy", location: "Virginia", currentPosition: "Competency Manager", careerState: "Mid-Career", relocate:"Yes" },
+        {lastName: 'Wholesome', firstName: "Jill", service: "Air Force", location: "Virginia", relocate: "Yes", currentPosition: "Technical Sergeant (TSgt) (E6)"},
+        {lastName: 'Chen', firstName: "Jim", service: "Air Force", location: "Virginia", relocate: "Yes", currentPosition: "Service Member"},
+        {lastName: 'Dumas', firstName: "Jennifer", service: "Air Force", location: "Virginia", relocate: "Yes", currentPosition: "Supervisor/Unit Lead"},
+        {lastName: 'Lydell', firstName: "Jacob", service: "Air Force", location: "Virginia", relocate: "Yes", currentPosition: "Master Sergeant (MSgt) (E7)"},
+        {lastName: 'Braxton', firstName: "Tony", service: "Air Force", location: "Virginia", relocate: "Yes", currentPosition: "Talent Manager"},
+        {lastName: 'Brady', firstName: "Marcia", service: "Air Force", location: "Virginia", relocate: "Yes", currentPosition: "Local System Admin"},
+        {lastName: 'Reed', firstName: "John", service: "Air Force", location: "Virginia", relocate: "Yes", currentPosition: "Talent Manager"},
+        {lastName: 'Hughesmpe', firstName: "Stacy", service: "Air Force", location: "Virginia", relocate: "Yes", currentPosition: "Technical Sergeant (TSgt) (E6)"},
     ];
 
+        
   return (
     <>
     <div class="mx-auto max-w-screen-xl">

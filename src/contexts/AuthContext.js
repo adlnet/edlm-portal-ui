@@ -28,29 +28,29 @@ export function AuthProvider({ children }) {
 
   // Logout user
   const logout = async () => {
-    axiosInstance
-      .post(`${backendHost}/api/auth/logout`)
-      .then((res) => removeLocal())
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        removeLocal();
-      });
+    // axiosInstance
+    //   .post(`${backendHost}/api/auth/logout`)
+    //   .then((res) => removeLocal())
+    //   .catch((err) => {
+    //     console.log(err);
+    //   })
+    //   .finally(() => {
+    //     removeLocal();
+    //   });
   };
 
   // // Check if user is logged in
   const checkUserLoggedIn = async () => {
     if (typeof window !== 'undefined') {
-      axiosInstance
-        .get(`${backendHost}/api/auth/validate`)
-        .then((res) => {
-          setLocal(res.data);
-        })
-        .catch((err) => {
-          removeLocal();
-          logout();
-        });
+      // axiosInstance
+      //   .get(`${backendHost}/api/auth/validate`)
+      //   .then((res) => {
+      //     setLocal(res.data);
+      //   })
+      //   .catch((err) => {
+      //     removeLocal();
+      //     logout();
+      //   });
     }
   };
 

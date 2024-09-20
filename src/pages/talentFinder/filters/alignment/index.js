@@ -8,7 +8,6 @@ import { WorkforceAlignmentTable } from "@/components/tables/WorkforceAlignmentT
 import DefaultLayout from "@/components/layouts/DefaultLayout";
 import { HomeIcon } from "@heroicons/react/outline";
 
-
 export default function TalentFinderAlignment() {
     const router = useRouter();
     // const config = useConfig();
@@ -28,7 +27,7 @@ export default function TalentFinderAlignment() {
                 <a href='/talentFinder/filters' className="px-2 hover:mouse hover:underline hover:font-bold">
                     Filters
                 </a>
-                &gt; 
+                &gt;
                 <p className="font-bold pl-2"> Alignment Results</p>
             </div>
 
@@ -47,7 +46,7 @@ export default function TalentFinderAlignment() {
                         </svg>
                         </div>
                         
-                    } onClick={()=>router.push("/trainingPlan")}/>
+                    } onClick={()=>router.push("/talentFinder/filters/alignment/compare")}/>
                 </div>
             </div>
         </DefaultLayout>

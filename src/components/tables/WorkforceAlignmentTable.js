@@ -2,6 +2,8 @@
 
 import { Checkbox, Label, Progress } from "flowbite-react";
 
+export var users = [];
+
 export function WorkforceAlignmentTable() {
 
     const data = [
@@ -11,6 +13,17 @@ export function WorkforceAlignmentTable() {
         {overallAlignment: '95%', lastName: "Lewis", firstName: "Sophia", trainingNeeded: "1 course", trainingTime: "4 weeks", service: "Navy", location: "Virginia", currentPosition: "Competency Manager", careerState: "Mid-Career", IDPAlignment:95 },
         {overallAlignment: '61%', lastName: "Lewis", firstName: "Sophia", trainingNeeded: "2 course", trainingTime: "6 weeks", service: "Navy", location: "Virginia", currentPosition: "Competency Manager", careerState: "Mid-Career", IDPAlignment:61 },
     ];
+
+    // useEffect(() => users = []);
+
+    function updateUsers(event) {
+        var index = users.indexOf(event.target.name)
+        if (index >= 0){
+            users.splice(index,1);
+        }else{
+            users.push(event.target.name);
+        }
+    }
 
   return (
     <>
@@ -117,7 +130,7 @@ export function WorkforceAlignmentTable() {
                             return (
                                 <tr class="border-b dark:border-gray-700" key={data.lastName}>
                                     <div className="flex items-center gap-2 ml-6 mt-5">
-                                        <Checkbox id={data.workRole} />
+                                        <Checkbox id={data.workRole} onChange={updateUsers} name={data.firstName + ' ' + data.lastName} />
                                         <Label htmlFor={data.workRole}>{data.overallAlignment}</Label>
                                     </div>
                                     <td class="px-4 py-3">{data.lastName}</td>

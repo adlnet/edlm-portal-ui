@@ -1,15 +1,67 @@
+import { axiosInstance } from "@/config/axiosConfig";
 import { Checkbox, Label } from "flowbite-react";
+import { useEffect, useState } from "react";
+import { courseData } from "@/config/endpoints";
+import axios from "axios";
 
 export function CoursesTable() {
+    const [data, setData] = useState(null);
+    const [compData, setCompData] = useState([]);
 
-    const data = [
-        {courseName: 'Program Protection Planning Awareness', competenciesAllignedTo: ["Knowledge of disaster recovery continuity of operations","Knowledge of encrypted algorithms", "Knowledge of incident response", "Knowledge of secure aquisitions"], 
-            competencyAlignment: "100%", aligmentPercent: "100%", instance: "Spring 2024", startEnd: "08 March 2024 - 03 May 2024", availableSeats: "50", location: "Richmond, Virginia"},
-        {courseName: 'Program Protection Planning Awareness', competenciesAllignedTo: ["Knowledge of disaster recovery continuity of operations","Knowledge of encrypted algorithms", "Knowledge of incident response", "Knowledge of secure aquisitions"], 
-            competencyAlignment: "100%", aligmentPercent: "100%", instance: "Spring 2024", startEnd: "08 March 2024 - 03 May 2024", availableSeats: "50", location: "Richmond, Virginia"},
-        {courseName: 'Program Protection Planning Awareness', competenciesAllignedTo: ["Knowledge of disaster recovery continuity of operations","Knowledge of encrypted algorithms", "Knowledge of incident response", "Knowledge of secure aquisitions"], 
-            competencyAlignment: "100%", aligmentPercent: "100%", instance: "Spring 2024", startEnd: "08 March 2024 - 03 May 2024", availableSeats: "50", location: "Richmond, Virginia"},
+    const tempData = [
+        // {courseName: 'Managing Network Security', competenciesAllignedTo: ["Knowledge of Payment Card Industry (PCI) data security standards.", "Knowledge of Personally Identifiable Information (PII) data security standards.", "Knowledge of Personal Health Information (PHI) data security standards."], 
+        //     competencyAlignment: "100%", aligmentPercent: "100%", instance: "Spring 2024", startEnd: "08 March 2024 - 03 May 2024", availableSeats: "50", location: "Richmond, Virginia"},
+        {courseName: 'Managing Network Security', competenciesAllignedTo: ["Knowledge of the operations and processes for incident, problem, and event management.", "Knowledge of procedures used for documenting and querying reported incidents, problems, and events.", "Skill to design incident response for cloud service models.", "Ability to accurately define incidents, problems, and events in the trouble ticketing system."], 
+            competencyAlignment: "100%", aligmentPercent: "100%", instance: "Fall 2020", startEnd: "Sept 16, 2020 to Nov 20, 2020", availableSeats: "50", location: "Richmond, Virginia"},
+        {courseName: 'Penetration Testing, Incident Response and Forensics', competenciesAllignedTo: ["Knowledge of how information needs and collection requirements are translated, tracked, and prioritized across the extended enterprise.[K0120]", "Skill to translate, track, and prioritize information needs and intelligence collection requirements across the extended enterprise. [S0372]"], 
+            competencyAlignment: "100%", aligmentPercent: "100%", instance: "Fall 2021", startEnd: "Sept 18, 2021 to Nov 22, 2021", availableSeats: "50", location: "Richmond, Virginia"},
+        {courseName: 'Tools of the Trade: Linux and SQL', competenciesAllignedTo: ["Knowledge of server administration and systems engineering theories, concepts, and methods.", "Knowledge of system software and organizational design standards, policies, and authorized  approaches relating to system design.", "Knowledge of system life cycle management principles, including software security and usability.", "Knowledge of technology integration processes."], 
+            competencyAlignment: "100%", aligmentPercent: "100%", instance: "Spring 2021", startEnd: "Jan 4, 2021 to March 27, 2021", availableSeats: "50", location: "Richmond, Virginia"},
+        {courseName: 'Assets, Threats, and Vulnerabilities', competenciesAllignedTo: ["Knowledge of how information needs and collection requirements are translated, tracked, and prioritized across the extended enterprise.[K0120]", "Skill to translate, track, and prioritize information needs and intelligence collection requirements across the extended enterprise. [S0372]"], 
+            competencyAlignment: "100%", aligmentPercent: "100%", instance: "", startEnd: "Jan 6, 2022 to March 27, 2022", availableSeats: "50", location: "Richmond, Virginia"},
+        {courseName: 'Put It to Work: Prepare for Cybersecurity Jobs', competenciesAllignedTo: ["Knowledge of server administration and systems engineering theories, concepts, and methods.", "Knowledge of system software and organizational design standards, policies, and authorized  approaches relating to system design.", "Knowledge of system life cycle management principles, including software security and usability.", "Knowledge of technology integration processes."], 
+            competencyAlignment: "100%", aligmentPercent: "100%", instance: "", startEnd: "Jan 5, 2020 to March 28, 2020", availableSeats: "50", location: "Richmond, Virginia"},
+        {courseName: 'Road to the CISO – Culminating Project Course', competenciesAllignedTo: ["Knowledge of the operations and processes for incident, problem, and event management.", "Knowledge of procedures used for documenting and querying reported incidents, problems, and events.", "Skill to design incident response for cloud service models.", "Ability to accurately define incidents, problems, and events in the trouble ticketing system."], 
+            competencyAlignment: "100%", aligmentPercent: "100%", instance: "Fall 2021", startEnd: "Sept 18, 2021 to Nov 22, 2021", availableSeats: "50", location: "Richmond, Virginia"},
+        {courseName: 'Cyber Threat Intelligence', competenciesAllignedTo: ["Knowledge of the operations and processes for incident, problem, and event management.", "Knowledge of procedures used for documenting and querying reported incidents, problems, and events.", "Skill to design incident response for cloud service models.", "Ability to accurately define incidents, problems, and events in the trouble ticketing system."], 
+            competencyAlignment: "100%", aligmentPercent: "100%", instance: "Spring 2020", startEnd: "Jan 5, 2020 to March 28, 2020", availableSeats: "50", location: "Richmond, Virginia"},
+    
+    // {courseName: '', competenciesAllignedTo: [""], 
+        //     competencyAlignment: "100%", aligmentPercent: "100%", instance: "", startEnd: "", availableSeats: "50", location: "Richmond, Virginia"},
         ];
+
+    useEffect(() => {
+        axiosInstance
+        .get(courseData)
+        .then((res) => {
+            setData(res.data);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    }, []);
+
+    // const competencies = [
+    // "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/ab191bd6-c455-4970-a648-a7d5cf1f5038",
+    // "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/542b43c7-c455-440e-a9bb-de9438130feb",
+    // "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/5b67a449-c455-4f07-b534-576e3063fdae",
+    // "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/cde3547c-c455-4cb5-8ccf-b59ea9a0d03d",
+    // ];
+
+    // function handlComp (competencies, setCompData) {
+    //     competencies.map((data) => {
+    //         axios.get(data).then((res) => {
+    //             this.setCompData(previousState => ({
+    //                 myArray: [...previousState.myArray, res.data.description]
+    //             }));
+    //             console.log(res.data.description);
+    //         })
+    //         console.log(compData);
+    //         return (
+    //             <></>
+    //         )
+    //     })
+    // }
 
   return (
     <>
@@ -100,36 +152,38 @@ export function CoursesTable() {
                             <th scope="col" class="px-4 py-3">Competencies Alligned to </th>
                             <th scope="col" class="px-4 py-3">Competency Alignment</th>
                             <th scope="col" class="px-4 py-3">Aligment Percent</th>
-                            <th scope="col" class="px-4 py-3">Instance</th>
+                            {/* <th scope="col" class="px-4 py-3">Instance</th> */}
                             <th scope="col" class="px-4 py-3">Start/End</th>
                             <th scope="col" class="px-4 py-3">Available Seats</th>
-                            <th scope="col" class="px-4 py-3">Location</th>
+                            <th scope="col" class="px-4 py-3 w-8">Location</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {data.map((data) => {
+                        {data?.hits.map((data) => {
+                        // {tempData.map((data) => {
                             return (
                                 <tr class=" border-b dark:border-gray-700">
-                                    <div className="flex h-full items-center align-center justify-center gap-2 ml-6 py-3 mt-20">
-                                        <Checkbox id={data.courseName} />
-                                        <Label htmlFor={data.courseName}></Label>
+                                    <div className="flex h-full items-center align-center justify-center gap-2 ml-6 py-3 h-48 ">
+                                        <Checkbox id={data.Course.CourseTitle} />
+                                        <Label htmlFor={data.Course.CourseTitle}></Label>
                                     </div>
-                                    <td class="px-4 py-3">{data.courseName}</td>
+                                    <td class="px-4 py-3">{data.Course.CourseTitle}</td>
                                     <td class="px-4 py-3">
-                                        {data.competenciesAllignedTo.map((comp) =>{
+                                        {data.competenciesAllignedTo?.map((comp) =>{
                                             return(
                                                 <div className="flex flex-row">
                                                     {comp}
                                                 </div>
                                             )
                                         })}
+                                        {data.Course.CourseSpecialNotes}
                                     </td>
-                                    <td class="px-4 py-3">{data.competencyAlignment}</td> 
-                                    <td class="px-4 py-3">{data.aligmentPercent}</td>
-                                    <td class="px-4 py-3">{data.instance}</td>
-                                    <td class="px-4 py-3">{data.startEnd}</td>
-                                    <td class="px-4 py-3">{data.availableSeats}</td>
-                                    <td class="px-4 py-3">{data.location}</td>
+                                    <td class="px-4 py-3">{data.Course.CourseSubjectMatter}</td> 
+                                    <td class="px-4 py-3">95%</td>
+                                    {/* <td class="px-4 py-3">{data.instance}</td> */}
+                                    <td class="px-4 py-3">{data.Course_Instance.StartDate.split('T')[0]} - {data.Course_Instance.EndDate.split('T')[0]}</td>
+                                    <td class="px-4 py-3">50</td>
+                                    <td class="pl-4 py-3 w-8">{data.Technical_Information.Location}</td>
                                 </tr>
                             )
                         })}

@@ -9,6 +9,9 @@ import Accordion from "@/components/Accordion";
 import { TalentTable } from "@/components/tables/TalentTable";
 import DefaultLayout from "@/components/layouts/DefaultLayout";
 import { HomeIcon } from "@heroicons/react/outline";
+import { useEffect, useState } from "react";
+import { axiosInstance, axiosxapiInstance } from "@/config/axiosConfig";
+import { xapiData } from "@/config/endpoints";
 
 
 export default function TrainingPlan() {
@@ -23,6 +26,20 @@ export default function TrainingPlan() {
     // ]; 
     const myUnitFilters = [ "Operations Group", "Maintanance Group", "Mission Support", "Medical Group"]
     const savedFilters = ["Jennifer Waites"]
+
+    const [data, setData] = useState(null);
+
+    useEffect(() => {
+        axiosxapiInstance
+        .get(xapiData)
+        .then((res) => {
+          setData(res.data);
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }, []);
 
     return (
         <DefaultLayout>
