@@ -5,11 +5,9 @@ import Button from "@/components/Button";
 import { users } from "@/components/tables/WorkforceAlignmentTable";
 import DefaultLayout from "@/components/layouts/DefaultLayout";
 import { HomeIcon } from "@heroicons/react/outline";
-import { backendHost, graph } from '@/config/endpoints';
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { axiosInstance } from "@/config/axiosConfig";
-import { embed_item, embed_items } from "@bokeh/bokehjs/build/js/lib/embed";
-import { safely } from "@bokeh/bokehjs";
+import { embed_items } from "@bokeh/bokehjs/build/js/lib/embed";
 
 export default function TalentFinderAlignment() {
     const router = useRouter();
