@@ -1,9 +1,6 @@
 name: EDLM Portal UI ECR push
 
 on:
-  push:
-    branches:
-      - dev
   pull_request:
     branches: 
       - dev
