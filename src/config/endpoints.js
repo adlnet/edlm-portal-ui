@@ -17,13 +17,13 @@ export const courseData = `${XDSbackendHost}${elasticApi}teaches/?reference=http
 //ldss data
 export const xapiData = `${LDSSbackendHost}xapi/statements?limit=10&verb=https%3A//w3id.org/xapi/tla/verbs/explored&activity=https://dev-xds2.deloitteopenlxp.com/course/5668b521c9336ddccfb9aa3efaf7d67424fdd9cf96147282a47c37eb553ac4985547040e9c314469a027e9c0be113abde242e4a4d283b96071def77b2d07c2d4`
 
-// // authentication urls
-// export const authLogin = `${backendHost}${api}auth/login`;
-// export const authRegister = `${backendHost}${api}auth/register`;
-// export const authLogout = `${backendHost}${api}auth/logout`;
+// authentication urls
+export const authLogin = `${backendHost}${api}auth/login`;
+export const authRegister = `${backendHost}${api}auth/register`;
+export const authLogout = `${backendHost}${api}auth/logout`;
 
-// // configuration url
-// export const configUrl = `${backendHost}${api}ui-configuration/`;
+// configuration url
+export const configUrl = `${backendHost}${api}ui-configuration/`;
 
 // //Notifications
 // export const allNotification = `${backendHost}/inbox/notifications/api/all_list/`;
