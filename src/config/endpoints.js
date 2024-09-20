@@ -11,7 +11,7 @@ export const graph = `${backendHost}${api}graph/`;
 export const vacancies = `${backendHost}${api}vacancy/`;
 
 //course and competencies
-export const courseData = `${XDSbackendHost}${elasticApi}teaches/?reference=https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Framework/91130442-c455-499b-8bd8-bdea3d6fae69`;
+export const courseData = `${XDSbackendHost}${elasticApi}teaches/?reference=https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Framework/8186e8b1-c455-4ccb-b9df-ffe7745d809d`;
 
 
 // // authentication urls
