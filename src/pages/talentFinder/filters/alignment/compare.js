@@ -7,7 +7,7 @@ import DefaultLayout from "@/components/layouts/DefaultLayout";
 import { HomeIcon } from "@heroicons/react/outline";
 import { useEffect } from "react";
 import { axiosInstance } from "@/config/axiosConfig";
-import { embed_items } from "@bokeh/bokehjs/build/js/lib/embed";
+// import { embed_items } from "@bokeh/bokehjs/build/js/lib/embed";
 
 export default function TalentFinderAlignment() {
     const router = useRouter();
@@ -46,7 +46,7 @@ export default function TalentFinderAlignment() {
             const root_id = all_json.root_id;
             const docs_json = {"4e5c17ac-4434-4401-a4ff-03ac1eb442ed":all_json.doc};
             const render_items = [{"docid":"4e5c17ac-4434-4401-a4ff-03ac1eb442ed","roots":{[root_id]:"testPlot"},"root_ids":[root_id]}];
-            embed_items(docs_json, render_items);
+            // embed_items(docs_json, render_items);
         }
             // embed_item(resp.data, 'testPlot')
         )
