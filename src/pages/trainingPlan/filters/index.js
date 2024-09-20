@@ -18,7 +18,7 @@ export default function TalentFinderFilters() {
     const NISTFilters = ["TBD"]
     const forceFilters = ["Army", "Marine Cops", "Navy", "Air Force", "Space Force", "Coast Guard" ];
     const vacanciesFilters = ["My Units", "All Units"]
-    const savedFilters = ["COSMEC Manager"]
+    const savedFilters = ["INFOSEC Manager"]
 
     return (
         <DefaultLayout>
@@ -65,7 +65,7 @@ export default function TalentFinderFilters() {
 
                 <div className="p-0.5 mb-2 overflow-hidden font-medium rounded-lg bg-gradient-to-r from-purple-600 to-blue-500 from-accent-blue to-purple">
                     <div className="p-2 bg-gray-100 transition-all ease-in duration-75 rounded-md hover:bg-opacity-50 border-2 border-white">
-                        <Dropdown label="NIST Filters" dismissOnClick={false} inline>
+                        <Dropdown label="Job Category" dismissOnClick={false} inline>
                             <div className="flex flex-col gap-2">
                             {NISTFilters.map((data) => {
                                 return (<Dropdown.Item> 

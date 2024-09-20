@@ -102,8 +102,8 @@ export function WorkRoleTable(data) {
                             <th scope="col" class="px-2 py-3"></th>
                             <th scope="col" class="px-4 py-3">Start Date</th>
                             <th scope="col" class="px-4 py-3">Work Role</th>
-                            <th scope="col" class="px-4 py-3">Services</th>
-                            <th scope="col" class="px-4 py-3">NIST ID</th>
+                            <th scope="col" class="px-4 py-3">Service</th>
+                            <th scope="col" class="px-4 py-3">Job Posting ID</th>
                             <th scope="col" class="px-1 py-3">Workforce Element</th>
                             <th scope="col" class="px-1 py-3">Fucntional Community</th>
 

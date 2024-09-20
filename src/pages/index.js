@@ -72,7 +72,7 @@ export default function Home() {
         </div>
 
         <div className='flex flex-col'>
-            <p className='text-xl font-semibold h-6 pt-4'>My Lists</p>
+            <p className='text-xl font-semibold h-6 pt-4'>My In-Progress Planning</p>
             <p className='flex pt-3 mt-4 font-sans line-clamp-6 text-gray-500 h-16'>
               See your saved or curated lists of of talent or create a new list 
             </p>

@@ -13,7 +13,6 @@ import { useEffect, useState } from "react";
 import { axiosInstance, axiosxapiInstance } from "@/config/axiosConfig";
 import { xapiData } from "@/config/endpoints";
 
-
 export default function TrainingPlan() {
     const router = useRouter();
     // const config = useConfig();

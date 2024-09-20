@@ -5,12 +5,57 @@ import Button from "@/components/Button";
 import { users } from "@/components/tables/WorkforceAlignmentTable";
 import DefaultLayout from "@/components/layouts/DefaultLayout";
 import { HomeIcon } from "@heroicons/react/outline";
-import { useEffect } from "react";
+import Image from 'next/image';
+import graphImage from '@/public/pregenplot.png';
+import { backendHost, graph } from '@/config/endpoints';
+import { useEffect, useState } from "react";
 import { axiosInstance } from "@/config/axiosConfig";
-// import { embed_items } from "@bokeh/bokehjs/build/js/lib/embed";
+// import { embed_item, embed_items } from "@bokeh/bokehjs/build/js/lib/embed";
+// import { safely } from "@bokeh/bokehjs";
 
 export default function TalentFinderAlignment() {
     const router = useRouter();
+    //     axiosInstance
+    //     .get("https://edlmportal-admin.deloitteopenlxp.com/api/graph/?users="+users.join("&users="))
+    //     .then(resp => {
+    //         // safely(function() {
+    //         //     (function(root) {
+    //         //       function embed_document(root) {
+    //         //       const docs_json = {"4e5c17ac-4434-4401-a4ff-03ac1eb442ed":resp.data};
+    //         //       const render_items = [{"docid":"4e5c17ac-4434-4401-a4ff-03ac1eb442ed","roots":{"p1004":"testPlot"},"root_ids":["p1004"]}];
+    //         //       root.Bokeh.embed.embed_items(docs_json, render_items);
+    //         //       }
+    //         //       if (root.Bokeh !== undefined) {
+    //         //         embed_document(root);
+    //         //       } else {
+    //         //         let attempts = 0;
+    //         //         const timer = setInterval(function(root) {
+    //         //           if (root.Bokeh !== undefined) {
+    //         //             clearInterval(timer);
+    //         //             embed_document(root);
+    //         //           } else {
+    //         //             attempts++;
+    //         //             if (attempts > 100) {
+    //         //               clearInterval(timer);
+    //         //               console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing");
+    //         //             }
+    //         //           }
+    //         //         }, 10, root)
+    //         //       }
+    //         //     })(window);
+    //         //   });
+    //         const all_json = resp.data;
+    //         const root_id = all_json.root_id;
+    //         const docs_json = {"4e5c17ac-4434-4401-a4ff-03ac1eb442ed":all_json.doc};
+    //         const render_items = [{"docid":"4e5c17ac-4434-4401-a4ff-03ac1eb442ed","roots":{[root_id]:"testPlot"},"root_ids":[root_id]}];
+    //         // embed_items(docs_json, render_items);
+    //     }
+    //         // embed_item(resp.data, 'testPlot')
+    //     )
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // }, []);
 
     useEffect(() => {
         axiosInstance
@@ -46,7 +91,7 @@ export default function TalentFinderAlignment() {
             const root_id = all_json.root_id;
             const docs_json = {"4e5c17ac-4434-4401-a4ff-03ac1eb442ed":all_json.doc};
             const render_items = [{"docid":"4e5c17ac-4434-4401-a4ff-03ac1eb442ed","roots":{[root_id]:"testPlot"},"root_ids":[root_id]}];
-            // embed_items(docs_json, render_items);
+            embed_items(docs_json, render_items);
         }
             // embed_item(resp.data, 'testPlot')
         )
@@ -82,18 +127,28 @@ export default function TalentFinderAlignment() {
               <div className='pt-2 text-lg font-bold'> Compare Talent Across the Workforce </div>
               <div className='pt-2 text-gray-600 pb-8'> Compare qualified individuals at the speed of relevance. </div>
 
-              <div id='testPlot' className="bk-root"></div>
+              {/* <div id='testPlot' className="bk-root"></div> */}
+                <div className='flex items-center align-center justify-middle'>
+                    <Image src={graphImage} height={500} alt='' className='m-5 '/>
+                </div>
 
-              <div className="flex justify-end mt-8">
+              <div className="flex justify-between gap-4 mt-8">
                     <Button children={
                         <div className="flex flex-row gap-2">  
-                        <p className="pt-0.5"> Compare </p>
+                        <p className="pt-0.5"> Save Results </p>
+                        </div>
+                        
+                    } onClick={()=>router.push("/")}/>
+                    <Button children={
+                        <div className="flex flex-row gap-2">  
+                        <p className="pt-0.5"> Go to Planning </p>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
                         </svg>
                         </div>
                         
                     } onClick={()=>router.push("/trainingPlan")}/>
+
                 </div>
             </div>
         </DefaultLayout>
