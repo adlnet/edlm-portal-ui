@@ -14,7 +14,7 @@ export default function Card({ title, description, buttonLabel, children, image,
             <div className='max-h-24'>
               <Image src={image} height={100} alt='' className='rounded'/>
             </div>
-            <h1 className='flex text-lg font-semibold h-6 pt-4'>
+            <h1 className='flex text-xl font-semibold h-6 pt-4'>
                 {title}
             </h1>
             {description? <p className='flex pt-3 mt-4 font-sans line-clamp-6 text-gray-500 h-16'>

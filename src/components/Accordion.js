@@ -37,7 +37,7 @@ const Accordion = ({ acctitle, accdescription }) => {
                 </svg>
 
 
-                <span className='ml-2 mb-0 text-lg font-bold'>{acctitle}</span>  
+                <span className='ml-2 mb-0 text-lg font-bold justify-left text-left'>{acctitle}</span>  
                              
             </button>
             <div 
