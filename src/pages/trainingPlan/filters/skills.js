@@ -37,9 +37,13 @@ export default function TrainingPlanSkills() {
             <div className='bg-white shadow-md w-1/2 p-5 w-full '> 
               <div className='pt-2 text-lg font-bold'> Discover Talent Across the Workforce </div>
               <div className='pt-2 text-gray-600'> Find qualified individuals at the speed of relevance. </div>
-              <div className='bg-gray-100 p-2 my-2 rounded rounded-md px-8 mb-5'>
-                <div className='pt-2 text-lg font-bold'> INFOSEC Manager</div>
-                <div className='pt-2 text-gray-600'>Knowledge of encrypted algorithms.</div>
+              <div className='flex flex-row bg-gray-100 p-2 my-2 rounded rounded-md px-8 mb-5 justify-between'>
+                <div className="flex flex-col">
+                    <div className='pt-2 text-lg font-bold'> INFOSEC Manager</div>
+                    <div className='pt-2 text-gray-600'>Knowledge of encrypted algorithms.</div>
+                </div>
+                
+                <Button className='h-6' onClick={()=> router.push("https://dev-eccr.deloitteopenlxp.com/#/framework")}>KSAT Details</Button>
               </div>
 
               <CoursesTable />
