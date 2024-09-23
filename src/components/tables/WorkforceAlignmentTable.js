@@ -1,20 +1,40 @@
 "use client";
 
+import { axiosxapiInstance } from "@/config/axiosConfig";
+import { xapiUsers } from "@/config/endpoints";
 import { Checkbox, Label, Progress } from "flowbite-react";
+import { useEffect, useState } from "react";
 
 export var users = [];
 
 export function WorkforceAlignmentTable() {
 
+    const [talentData, setTalentData] = useState(null);
+
     const data = [
         {overallAlignment: '95%', lastName: "Jenson", firstName: "Adam", trainingNeeded: "1 course", trainingTime: "4 weeks", service: "Navy", location: "Virginia", currentPosition: "Competency Manager", careerState: "Mid-Career", IDPAlignment:95 },
         {overallAlignment: '92%', lastName: "Waites", firstName: "Jennifer", trainingNeeded: "1 course", trainingTime: "4 weeks", service: "Air Force", location: "Virginia", currentPosition: "Senior Airman (SRA) (E4)", careerState: "Mid-Career", IDPAlignment:92 },
-        {overallAlignment: '61%', lastName: "Lewis", firstName: "Sophia", trainingNeeded: "2 course", trainingTime: "6 weeks", service: "Navy", location: "Virginia", currentPosition: "Competency Manager", careerState: "Mid-Career", IDPAlignment:61 },
-        {overallAlignment: '32%', lastName: "Davis", firstName: "Elmer", trainingNeeded: "1 course", trainingTime: "4 weeks", service: "Air Force", location: "Virginia", currentPosition: "Staff Sergeant (SSgt) (E5)", careerState: "Mid-Career", IDPAlignment:32 },
-        {overallAlignment: '22%', lastName: "John", firstName: "Lee", trainingNeeded: "4 courses", trainingTime: "12 weeks", service: "Air Force", location: "Virginia", currentPosition: "DoD Program Admin", careerState: "Mid-Career", IDPAlignment:22 },
+        {overallAlignment: '85%', lastName: "Lewis", firstName: "Sophia", trainingNeeded: "2 course", trainingTime: "6 weeks", service: "Navy", location: "Virginia", currentPosition: "Competency Manager", careerState: "Mid-Career", IDPAlignment:61 },
+        {overallAlignment: '72%', lastName: "Davis", firstName: "Elmer", trainingNeeded: "1 course", trainingTime: "4 weeks", service: "Air Force", location: "Virginia", currentPosition: "Staff Sergeant (SSgt) (E5)", careerState: "Mid-Career", IDPAlignment:32 },
+        {overallAlignment: '68%', lastName: "John", firstName: "Lee", trainingNeeded: "4 courses", trainingTime: "12 weeks", service: "Air Force", location: "Virginia", currentPosition: "DoD Program Admin", careerState: "Mid-Career", IDPAlignment:22 },
+        {overallAlignment: '54%', lastName: "Jenson", firstName: "Adam", trainingNeeded: "1 course", trainingTime: "4 weeks", service: "Navy", location: "Virginia", currentPosition: "Competency Manager", careerState: "Mid-Career", IDPAlignment:95 },
+        {overallAlignment: '49%', lastName: "Waites", firstName: "Jennifer", trainingNeeded: "1 course", trainingTime: "4 weeks", service: "Air Force", location: "Virginia", currentPosition: "Senior Airman (SRA) (E4)", careerState: "Mid-Career", IDPAlignment:92 },
+        {overallAlignment: '32%', lastName: "Lewis", firstName: "Sophia", trainingNeeded: "2 course", trainingTime: "6 weeks", service: "Navy", location: "Virginia", currentPosition: "Competency Manager", careerState: "Mid-Career", IDPAlignment:61 },
+        {overallAlignment: '27%', lastName: "Davis", firstName: "Elmer", trainingNeeded: "1 course", trainingTime: "4 weeks", service: "Air Force", location: "Virginia", currentPosition: "Staff Sergeant (SSgt) (E5)", careerState: "Mid-Career", IDPAlignment:32 },
+        {overallAlignment: '15%', lastName: "John", firstName: "Lee", trainingNeeded: "4 courses", trainingTime: "12 weeks", service: "Air Force", location: "Virginia", currentPosition: "DoD Program Admin", careerState: "Mid-Career", IDPAlignment:22 },
     ];
 
-    // useEffect(() => users = []);
+    useEffect(() => {
+        axiosxapiInstance
+        .get(xapiUsers)
+        .then((res) => {
+            setTalentData(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }, []);
+    
 
     function updateUsers(event) {
         var index = users.indexOf(event.target.name)
@@ -25,6 +45,7 @@ export function WorkforceAlignmentTable() {
         }
     }
 
+    console.log(talentData)
   return (
     <>
     <div class="mx-auto max-w-screen-xl">
@@ -125,16 +146,16 @@ export function WorkforceAlignmentTable() {
                             </th>
                         </tr>
                     </thead>
-                    <tbody>
-                        {data.map((data) => {
+                    <tbody> 
+                        {data.map((data, index) => {
                             return (
                                 <tr class="border-b dark:border-gray-700" key={data.lastName}>
                                     <div className="flex items-center gap-2 ml-6 mt-5">
-                                        <Checkbox id={data.workRole} onChange={updateUsers} name={data.firstName + ' ' + data.lastName} />
+                                        <Checkbox id={data.workRole} onChange={updateUsers} name={talentData?.statements[index]?.actor.name} />
                                         <Label htmlFor={data.workRole}>{data.overallAlignment}</Label>
                                     </div>
-                                    <td class="px-4 py-3">{data.lastName}</td>
-                                    <td class="px-4 py-3">{data.firstName}</td>
+                                    <td class="px-4 py-3">{talentData?.statements[index]?.actor.name.split(' ').pop()}</td>
+                                    <td class="px-4 py-3">{talentData?.statements[index]?.actor.name.split(' ')[0]}</td>
                                     <td class="px-4 py-3">{data.trainingNeeded}</td>
                                     <td class="px-4 py-3">{data.trainingTime}</td>
                                     <td class="px-4 py-3">{data.service}</td>

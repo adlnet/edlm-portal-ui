@@ -1,6 +1,6 @@
 import { Checkbox, Label } from "flowbite-react";
 
-export function TalentTable() {
+export function TalentTable( talentData) {
 
     const data = [
         {overallAlignment: '92%', lastName: "Waites", firstName: "Jennifer", trainingNeeded: "1 course", trainingTime: "4 weeks", service: "Air Force", location: "Virginia", currentPosition: "Senior Airman (SRA) (E4)", careerState: "Mid-Career", relocate:"Yes"},
@@ -13,9 +13,7 @@ export function TalentTable() {
         {lastName: 'Braxton', firstName: "Tony", service: "Air Force", location: "Virginia", relocate: "Yes", currentPosition: "Talent Manager"},
         {lastName: 'Brady', firstName: "Marcia", service: "Air Force", location: "Virginia", relocate: "Yes", currentPosition: "Local System Admin"},
         {lastName: 'Reed', firstName: "John", service: "Air Force", location: "Virginia", relocate: "Yes", currentPosition: "Talent Manager"},
-        {lastName: 'Hughesmpe', firstName: "Stacy", service: "Air Force", location: "Virginia", relocate: "Yes", currentPosition: "Technical Sergeant (TSgt) (E6)"},
     ];
-
         
   return (
     <>
@@ -113,7 +111,7 @@ export function TalentTable() {
                         </tr>
                     </thead>
                     <tbody>
-                        {data.map((data) => {
+                        {data.map((data, index) => {
                             return (
                                 <tr class="border-b dark:border-gray-700">
                                     <div className="flex items-center gap-2 ml-6 px-2 py-3">
@@ -121,8 +119,9 @@ export function TalentTable() {
                                         <Label htmlFor={data.firstName}></Label>
                                     </div>
                                     {/* <td class="px-4 py-3">{data.vacancies}</td> */}
-                                    <td class="px-4 py-3">{data.lastName}</td>
-                                    <td class="px-4 py-3">{data.firstName}</td> 
+                                    <td class="px-4 py-3">{talentData.talentData?.statements[index]?.actor.name.split(' ').pop()}</td>
+                                    <td class="px-4 py-3">{talentData.talentData?.statements[index]?.actor.name.split(' ')[0]}</td>
+                                    {/* <td class="px-4 py-3">{data.firstName}</td> */}
                                     <td class="px-4 py-3">{data.service}</td>
                                     <td class="px-4 py-3">{data.location}</td>
                                     <td class="px-4 py-3">{data.relocate}</td>
@@ -135,6 +134,7 @@ export function TalentTable() {
                                 </tr>
                             )
                         })}
+
                     </tbody>
                 </table>
             </div>
