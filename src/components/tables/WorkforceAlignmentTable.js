@@ -7,10 +7,10 @@ export var users = [];
 export function WorkforceAlignmentTable() {
 
     const data = [
-        {overallAlignment: '95%', lastName: "Lewis", firstName: "Sophia", trainingNeeded: "1 course", trainingTime: "4 weeks", service: "Navy", location: "Virginia", currentPosition: "Competency Manager", careerState: "Mid-Career", IDPAlignment:95 },
+        {overallAlignment: '95%', lastName: "Jenson", firstName: "Adam", trainingNeeded: "1 course", trainingTime: "4 weeks", service: "Navy", location: "Virginia", currentPosition: "Competency Manager", careerState: "Mid-Career", IDPAlignment:95 },
         {overallAlignment: '92%', lastName: "Waites", firstName: "Jennifer", trainingNeeded: "1 course", trainingTime: "4 weeks", service: "Air Force", location: "Virginia", currentPosition: "Senior Airman (SRA) (E4)", careerState: "Mid-Career", IDPAlignment:92 },
         {overallAlignment: '61%', lastName: "Lewis", firstName: "Sophia", trainingNeeded: "2 course", trainingTime: "6 weeks", service: "Navy", location: "Virginia", currentPosition: "Competency Manager", careerState: "Mid-Career", IDPAlignment:61 },
-        {overallAlignment: '32%', lastName: "Waites", firstName: "Jennifer", trainingNeeded: "1 course", trainingTime: "4 weeks", service: "Air Force", location: "Virginia", currentPosition: "Staff Sergeant (SSgt) (E5)", careerState: "Mid-Career", IDPAlignment:32 },
+        {overallAlignment: '32%', lastName: "Davis", firstName: "Elmer", trainingNeeded: "1 course", trainingTime: "4 weeks", service: "Air Force", location: "Virginia", currentPosition: "Staff Sergeant (SSgt) (E5)", careerState: "Mid-Career", IDPAlignment:32 },
         {overallAlignment: '22%', lastName: "John", firstName: "Lee", trainingNeeded: "4 courses", trainingTime: "12 weeks", service: "Air Force", location: "Virginia", currentPosition: "DoD Program Admin", careerState: "Mid-Career", IDPAlignment:22 },
     ];
 
@@ -142,7 +142,22 @@ export function WorkforceAlignmentTable() {
                                     <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{data.currentPosition}</th>
                                     <td class="px-4 py-3">{data.careerState}</td>
                                     <td class="px-4 py-3">
-                                        <Progress progress={data.IDPAlignment} textLabel="Flowbite" size="lg" labelProgress color="purple"/>
+                                        <Progress progress={data.IDPAlignment} textLabel="Flowbite" size="lg" labelProgress color="purple" theme={{
+                                            "base": "w-full overflow-hidden rounded-full bg-gray-custom dark:bg-gray-custom",
+                                            "label": "mb-1 flex justify-between font-medium dark:text-white",
+                                            "bar": "space-x-2 rounded-full text-center font-medium leading-none text-white dark:text-white",
+                                            "color": {
+                                                "dark": "bg-gray-600 dark:bg-gray-300",
+                                                "purple": "bg-purple",
+                                                'dark-blue': 'bg-dark-blue',
+                                                'blue-custom':'bg-blue-custom',
+                                                'gray-custom': 'bg-gray-custom',
+                                                'black-10': 'bg-black-10',
+                                                'red': 'bg-red',
+                                                'accent-blue': 'bg-accent-blue',
+                                                'black-custom': 'bg-black-custom',
+                                            },
+                                            }}/>
                                         {/* <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
                                             <div className="bg-purple h-2.5 rounded-full" width={`${data.IDPAlignment}%`}></div>
                                         </div> */}
