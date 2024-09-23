@@ -43,7 +43,7 @@ export default function TrainingPlanSkills() {
                     <div className='pt-2 text-gray-600'>Knowledge of encrypted algorithms.</div>
                 </div>
                 
-                <Button className='h-6' onClick={()=> router.push("https://dev-eccr.deloitteopenlxp.com/#/framework")}>KSAT Details</Button>
+                <Button className='h-6' onClick={()=> router.push("https://dev-eccr.deloitteopenlxp.com/#/framework?frameworkId=https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Framework/8186e8b1-c455-4ccb-b9df-ffe7745d809d")}>KSAT Details</Button>
               </div>
 
               <CoursesTable />
