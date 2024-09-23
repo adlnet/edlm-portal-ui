@@ -37,9 +37,9 @@ jobs:
         NEXT_PUBLIC_LDSS_API: https://dev-lrsql.deloitteopenlxp.com/
       run: |
         echo "Starting docker build"
-        docker build --build-arg=$NEXT_PUBLIC_PORTAL_BACKEND_HOST \
-                    --build-arg=$NEXT_PUBLIC_XDS_BACKEND \
-                    --build-arg=$NEXT_PUBLIC_LDSS_API \
+        docker build --build-arg NEXT_PUBLIC_PORTAL_BACKEND_HOST=$NEXT_PUBLIC_PORTAL_BACKEND_HOST \
+                    --build-arg NEXT_PUBLIC_XDS_BACKEND=$NEXT_PUBLIC_XDS_BACKEND \
+                    --build-arg NEXT_PUBLIC_LDSS_API=$NEXT_PUBLIC_LDSS_API \
                     -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         echo "Pushing image to ECR..."
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
