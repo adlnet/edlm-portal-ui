@@ -14,7 +14,7 @@ export default function TalentFinderFilters() {
     const router = useRouter();
     // const config = useConfig();
 
-    const workforceElementFilters = ["TBD"]
+    const workforceElementFilters = ["Program Manager (Cybersecurity)", "Technical Support (Cybersecurity)", "Information Systems Security Manager (Cybersecurity)", "Communications Security (COMSEC) Manager (Cybersecurity)", "System Testing and Evaluation Specialist (Cybersecurity)"]
     const NISTFilters = ["TBD"]
     const forceFilters = ["Army", "Marine Cops", "Navy", "Air Force", "Space Force", "Coast Guard" ];
     const vacanciesFilters = ["My Units", "All Units"]

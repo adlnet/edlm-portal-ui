@@ -108,12 +108,8 @@ export function TalentTable() {
                             <th scope="col" class="px-4 py-3">Service</th>
                             <th scope="col" class="px-4 py-3">Location</th>
                             <th scope="col" class="px-4 py-3">Relocate</th>
-                            <th scope="col" class="px-4 py-3">Current Position</th>
-                            <th scope="col" class="px-4 py-3">Learner Profile</th>
-
-                            <th scope="col" class="px-4 py-3">
-                                <span class="sr-only">Actions</span>
-                            </th>
+                            <th scope="col" class="pl-4 py-3">Current Position</th>
+                            <th scope="col" class="py-3">Learner Profile</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -130,8 +126,8 @@ export function TalentTable() {
                                     <td class="px-4 py-3">{data.service}</td>
                                     <td class="px-4 py-3">{data.location}</td>
                                     <td class="px-4 py-3">{data.relocate}</td>
-                                    <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{data.currentPosition}</th>
-                                    <td class="py-3 pl-16">
+                                    <th scope="row" class="px-4 pl-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{data.currentPosition}</th>
+                                    <td class="py-3 pl-10">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
                                         </svg>

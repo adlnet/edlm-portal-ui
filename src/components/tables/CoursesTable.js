@@ -163,7 +163,7 @@ export function CoursesTable() {
                         // {tempData.map((data) => {
                             return (
                                 <tr class=" border-b dark:border-gray-700">
-                                    <div className="flex h-full items-center align-center justify-center gap-2 ml-6 py-3 h-48 ">
+                                    <div className="flex h-full items-center align-center justify-center gap-2 ml-6 py-3 h-52 ">
                                         <Checkbox id={data.Course.CourseTitle} />
                                         <Label htmlFor={data.Course.CourseTitle}></Label>
                                     </div>
