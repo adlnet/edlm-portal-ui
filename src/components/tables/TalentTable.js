@@ -3,16 +3,16 @@ import { Checkbox, Label } from "flowbite-react";
 export function TalentTable( talentData) {
 
     const data = [
-        {overallAlignment: '92%', lastName: "Waites", firstName: "Jennifer", trainingNeeded: "1 course", trainingTime: "4 weeks", service: "Air Force", location: "Virginia", currentPosition: "Senior Airman (SRA) (E4)", careerState: "Mid-Career", relocate:"Yes"},
-        {overallAlignment: '22%', lastName: "John", firstName: "Lee", trainingNeeded: "4 courses", trainingTime: "12 weeks", service: "Air Force", location: "Virginia", currentPosition: "DoD Program Admin", careerState: "Mid-Career", relocate:"Yes" },
-        {overallAlignment: '95%', lastName: "Lewis", firstName: "Sophia", trainingNeeded: "1 course", trainingTime: "4 weeks", service: "Navy", location: "Virginia", currentPosition: "Competency Manager", careerState: "Mid-Career", relocate:"Yes" },
-        {lastName: 'Wholesome', firstName: "Jill", service: "Air Force", location: "Virginia", relocate: "Yes", currentPosition: "Technical Sergeant (TSgt) (E6)"},
-        {lastName: 'Chen', firstName: "Jim", service: "Air Force", location: "Virginia", relocate: "Yes", currentPosition: "Service Member"},
-        {lastName: 'Dumas', firstName: "Jennifer", service: "Air Force", location: "Virginia", relocate: "Yes", currentPosition: "Supervisor/Unit Lead"},
-        {lastName: 'Lydell', firstName: "Jacob", service: "Air Force", location: "Virginia", relocate: "Yes", currentPosition: "Master Sergeant (MSgt) (E7)"},
-        {lastName: 'Braxton', firstName: "Tony", service: "Air Force", location: "Virginia", relocate: "Yes", currentPosition: "Talent Manager"},
-        {lastName: 'Brady', firstName: "Marcia", service: "Air Force", location: "Virginia", relocate: "Yes", currentPosition: "Local System Admin"},
-        {lastName: 'Reed', firstName: "John", service: "Air Force", location: "Virginia", relocate: "Yes", currentPosition: "Talent Manager"},
+        {overallAlignment: '95%', lastName: "Jenson", firstName: "Adam", trainingNeeded: "1 course", trainingTime: "3 weeks", service: "Air Force", location: "Virginia", currentPosition: "Master Sergeant (MSgt) (E7)", careerState: "Mid-Career", IDPAlignment:95, relocate: "Yes" },
+        {overallAlignment: '92%', lastName: "Waites", firstName: "Jennifer", trainingNeeded: "1 course", trainingTime: "4 weeks", service: "Air Force", location: "Virginia", currentPosition: "Airman (AMN)", careerState: "Mid-Career", IDPAlignment:92, relocate: "Yes" },
+        {overallAlignment: '85%', lastName: "Lewis", firstName: "Sophia", trainingNeeded: "2 course", trainingTime: "5 weeks", service: "Navy", location: "Virginia", currentPosition: "Aircraft Flight Engineer", careerState: "Mid-Career", IDPAlignment:85, relocate: "Yes" },
+        {overallAlignment: '72%', lastName: "Davis", firstName: "Elmer", trainingNeeded: "3 courses", trainingTime: "7 weeks", service: "Homeland Security", location: "Virginia", currentPosition: "Petty Officer Second Class (PO2) (E5)", careerState: "Mid-Career", IDPAlignment:72, relocate: "Yes" },
+        {overallAlignment: '68%', lastName: "John", firstName: "Lee", trainingNeeded: "4 courses", trainingTime: "12 weeks", service: "Navy", location: "Virginia", currentPosition: "Chief Intelligence Specialist (E7)", careerState: "Mid-Career", IDPAlignment:68, relocate: "Yes" },
+        {overallAlignment: '54%', lastName: "Jenson", firstName: "Adam", trainingNeeded: "6 courses", trainingTime: "12 weeks", service: "Navy", location: "Virginia", currentPosition: "Competency Manager", careerState: "Mid-Career", IDPAlignment:54, relocate: "Yes" },
+        {overallAlignment: '49%', lastName: "Waites", firstName: "Jennifer", trainingNeeded: "8 courses", trainingTime: "15 weeks", service: "Air Force", location: "Virginia", currentPosition: "Senior Airman (SRA) (E4)", careerState: "Mid-Career", IDPAlignment:49, relocate: "Yes" },
+        {overallAlignment: '32%', lastName: "Lewis", firstName: "Sophia", trainingNeeded: "10 courses", trainingTime: "21 weeks", service: "Navy", location: "Virginia", currentPosition: "Marine", careerState: "Mid-Career", IDPAlignment:32, relocate: "Yes" },
+        {overallAlignment: '27%', lastName: "Davis", firstName: "Elmer", trainingNeeded: "12 courses", trainingTime: "25 weeks", service: "Air Force", location: "Virginia", currentPosition: "Staff Sergeant (SSgt) (E5)", careerState: "Mid-Career", IDPAlignment:27, relocate: "Yes" },
+        {overallAlignment: '15%', lastName: "John", firstName: "Lee", trainingNeeded: "15 courses", trainingTime: "30 weeks", service: "Homeland Security", location: "Virginia", currentPosition: "Technical Support", careerState: "Mid-Career", IDPAlignment:15, relocate:"No" },
     ];
         
   return (
