@@ -2,7 +2,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/router';
 import Head from 'next/head'
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import headerImage from '@/public/Abstact1.png';
 import armyImage from '@/public/Army.png'
 import armyImage1 from '@/public/Army1.jpg'
@@ -29,7 +29,8 @@ export default function Home() {
     ]
   }
 
-  axiosInstance
+  useEffect(() => {
+    axiosInstance
   .get(candidateList)
   .then((res) => {
     setSpotlightData(res.data);
@@ -38,6 +39,8 @@ export default function Home() {
   .catch((err) => {
       console.log(err);
   });
+  }, []);
+  
 
 
   return (

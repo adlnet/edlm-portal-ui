@@ -4,6 +4,9 @@ export const axiosInstance = axios.create({
   withCredentials: true,
   xsrfHeaderName: 'X-CSRFToken',
   xsrfCookieName: 'csrftoken',
+  headers: {
+    'Authorization': 'token 1b1f660b91bb26c4ec606ba5178d44a82854e347b1eac4aa7ab6446d7f52a976'
+  }
 });
 
 export const axiosxapiInstance = axios.create({
