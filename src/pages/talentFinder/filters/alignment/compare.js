@@ -7,7 +7,7 @@ import DefaultLayout from "@/components/layouts/DefaultLayout";
 import { HomeIcon } from "@heroicons/react/outline";
 import Image from 'next/image';
 import graphImage from '@/public/pregenplot.png';
-import { backendHost, graph } from '@/config/endpoints';
+import { backendHost, candidateList, graph } from '@/config/endpoints';
 import { useEffect, useState } from "react";
 import { axiosInstance } from "@/config/axiosConfig";
 // import { embed_item, embed_items } from "@bokeh/bokehjs/build/js/lib/embed";
@@ -100,6 +100,22 @@ export default function TalentFinderAlignment() {
         });
     }, []);
 
+    const handleClick=(e)=>{
+        e.preventDefault();
+        axiosInstance
+            .post(candidateList, {
+                ranker: "user@example.com",
+                name: "List Name",
+                role: "vacancy key",
+                competency: "none"
+
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+        // router.push("/")
+    }
+
     return (
         <DefaultLayout>
             <h2 className="flex w-5/6 text-4xl font-bold mt-8">Talent Finder</h2>
@@ -128,7 +144,7 @@ export default function TalentFinderAlignment() {
               <div className='pt-2 text-gray-600 pb-8'> Compare qualified individuals at the speed of relevance. </div>
 
               {/* <div id='testPlot' className="bk-root"></div> */}
-                <div className='flex items-center align-center justify-middle'>
+                <div className='flex justify-center'>
                     <Image src={graphImage} height={500} alt='' className='m-5 '/>
                 </div>
 
@@ -138,7 +154,7 @@ export default function TalentFinderAlignment() {
                         <p className="pt-0.5"> Save Results </p>
                         </div>
                         
-                    } onClick={()=>router.push("/")}/>
+                    } onClick={handleClick}/>
                     <Button children={
                         <div className="flex flex-row gap-2">  
                         <p className="pt-0.5"> Go to Planning </p>

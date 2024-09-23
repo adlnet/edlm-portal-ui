@@ -11,6 +11,9 @@ export const graph = `${backendHost}${api}graph/`;
 //vacancies
 export const vacancies = `${backendHost}${api}vacancy/`;
 
+//lists
+export const candidateList = `${backendHost}${api}candidate-lists/`;
+
 //course and competencies
 export const courseData = `${XDSbackendHost}${elasticApi}teaches/?reference=https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Framework/8186e8b1-c455-4ccb-b9df-ffe7745d809d`;
 

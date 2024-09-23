@@ -2,8 +2,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/router';
 import Head from 'next/head'
 import Image from 'next/image';
-import React from 'react';
-import image from '@/public/image.png';
+import React, { useState } from 'react';
 import headerImage from '@/public/Abstact1.png';
 import armyImage from '@/public/Army.png'
 import armyImage1 from '@/public/Army1.jpg'
@@ -12,11 +11,13 @@ import Button from '@/components/Button';
 import DefaultLayout from '@/components/layouts/DefaultLayout';
 import Card from '@/components/Card';
 import Spotlight from '@/components/SpotlightCard';
-import StaticSideNav from '@/components/StaticSideNav';
+import { axiosInstance } from '@/config/axiosConfig';
+import { candidateList } from '@/config/endpoints';
 
 export default function Home() {
   const router = useRouter();
   const { user } = useAuth();
+  const [spotlightData, setSpotlightData] = useState(null);
 
   // const popuarTopics = ["Cyber Security", "Web Developement", "Communications", "Artificial Intelligence", "Management Styles", "Agile Methodology", "Angular", "Leadership", "Data Science", "Unclassified Information", "Python"]
   
@@ -27,6 +28,18 @@ export default function Home() {
       {title: "Upcoming Vaccancies", lastViewed: "Viewed 1 hour ago"},
     ]
   }
+
+  axiosInstance
+  .get(candidateList)
+  .then((res) => {
+    setSpotlightData(res.data);
+    console.log(res.data)
+  })
+  .catch((err) => {
+      console.log(err);
+  });
+
+
   return (
     <DefaultLayout>
       <Head>
