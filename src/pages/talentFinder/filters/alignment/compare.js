@@ -7,15 +7,18 @@ import DefaultLayout from "@/components/layouts/DefaultLayout";
 import { HomeIcon } from "@heroicons/react/outline";
 import Image from 'next/image';
 import graphImage from '@/public/pregenplot.png';
-import { backendHost, candidateList, graph } from '@/config/endpoints';
+import { backendHost, candidateList, graph, vacancies } from '@/config/endpoints';
 import { useEffect, useState } from "react";
 import { axiosInstance } from "@/config/axiosConfig";
 // import { embed_item, embed_items } from "@bokeh/bokehjs/build/js/lib/embed";
 // import { safely } from "@bokeh/bokehjs";
+import { workRole } from '@/components/tables/WorkRoleTable';
 
 export default function TalentFinderAlignment() {
     const router = useRouter();
     const [iframeURL, setIframeURL] = useState("https://edlmportal-admin.deloitteopenlxp.com");
+    const [workRoleData, setWorkRoleData] = useState(null);
+
 
     useEffect(() => {
         axiosInstance
@@ -60,21 +63,32 @@ export default function TalentFinderAlignment() {
         });
     }, []);
 
+    useEffect(() => {
+        axiosInstance
+        .get(vacancies+workRole[0])
+        .then(resp => {
+            setWorkRoleData(resp.data);
+        })
+        .catch((err) => {
+            console.log(err);
+          });
+    }, []);
+
     const handleClick=(e)=>{
         e.preventDefault();
         axiosInstance
             .post(candidateList, {
-                ranker: "user@example.com",
-                name: "List Name",
-                role: "vacancy key",
-                competency: "none"
-
+                name: workRoleData.JobTitle,
+                role: workRoleData.vacancy_key,
             })
             .catch((err) => {
                 console.log(err);
             })
-        // router.push("/")
+        router.push("/")
     }
+
+    // const history = useRouter();
+    // console.log(history);
 
     return (
         <DefaultLayout>

@@ -1,5 +1,7 @@
 import { Checkbox, Label } from "flowbite-react";
 
+export var workRole = [];
+
 export function WorkRoleTable(data) {
 
     // const data = [
@@ -11,7 +13,15 @@ export function WorkRoleTable(data) {
     //     {vacancies: '3', startDate: "Jan 2, 2024", workRole: "COMSEC Manager", service: "Air Force", NISTID: "OV-MG-002", workforceElement: "Cybersecurity", functionalCommunity: "Cyber"},
     // ];
 
-    console.log(data);
+    function updateWorkRole(e) {
+        var index = workRole.indexOf(e.target.name);
+        if (index >= 0){
+            workRole.splice(index,1);
+        }else{
+            workRole.push(e.target.name);
+        }
+    }
+
   return (
     <>
     <div class="mx-auto max-w-screen-xl">
@@ -117,7 +127,7 @@ export function WorkRoleTable(data) {
                             return (
                                 <tr class="border-b dark:border-gray-700">
                                     <div className="flex items-center gap-2 ml-6 align-middle h-20">
-                                        <Checkbox id={data.workRole} />
+                                        <Checkbox id={data.workRole} onChange={updateWorkRole} name={data.vacancy_key}/>
                                         <Label htmlFor={data.workRole}></Label>
                                     </div>
                                     {/* <td class="px-4 py-3">{data.vacancies}</td> */}

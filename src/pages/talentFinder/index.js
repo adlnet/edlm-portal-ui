@@ -11,11 +11,15 @@ import { HomeIcon } from "@heroicons/react/outline";
 import { axiosInstance } from "@/config/axiosConfig";
 import { vacancies } from "@/config/endpoints";
 import { useEffect, useState } from "react";
+// import {Link, useNavigate} from 'react-router-dom';
+// import Link from 'next/link';
+
 
 export default function TalentFinder() {
     const router = useRouter();
     // const config = useConfig();
     const [data, setData] = useState(null);
+    // const history = useRouter();
 
     useEffect(() => {
         axiosInstance
@@ -29,8 +33,6 @@ export default function TalentFinder() {
           console.log(err);
         });
     }, []);
-
-    // console.log(data);
 
     return (
         <DefaultLayout> 
@@ -62,9 +64,15 @@ export default function TalentFinder() {
                 </div>
               </div>
 
-              {/* <WorkRoleTable /> */}
               <WorkRoleTable data={data}/>
               <div className="flex justify-end mt-8">
+                {/* <Link 
+                // href={"/talentFinder/filters"}
+                    to={{
+                        pathname: "/talentFinder/filters",
+                        state: data // your data array of objects
+                      }}
+                > */}
                     <Button children={
                         <div className="flex flex-row gap-2">  
                         <p className="pt-0.5"> Select </p>
@@ -73,7 +81,15 @@ export default function TalentFinder() {
                         </svg>
                         </div>
                         
-                    } onClick={()=>router.push("/talentFinder/filters")}/>
+                    } onClick={()=>
+                        router.push("/talentFinder/filters")
+                        // history.push({
+                        //     pathname: '/talentFinder/filters',
+                        //     pageProps: data,
+                        //     state: data // your data array of objects
+                        // })
+                    }/>
+                {/* </Link> */}
                 </div>
             </div>
         </DefaultLayout>
