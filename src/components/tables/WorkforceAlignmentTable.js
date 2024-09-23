@@ -1,20 +1,40 @@
 "use client";
 
+import { axiosxapiInstance } from "@/config/axiosConfig";
+import { xapiUsers } from "@/config/endpoints";
 import { Checkbox, Label, Progress } from "flowbite-react";
+import { useEffect, useState } from "react";
 
 export var users = [];
 
 export function WorkforceAlignmentTable() {
 
+    const [talentData, setTalentData] = useState(null);
+
     const data = [
-        {overallAlignment: '92%', lastName: "Waites", firstName: "Jennifer", trainingNeeded: "1 course", trainingTime: "4 weeks", service: "Air Force", location: "Virginia", currentPosition: "Senior Airman (SRA) (E4)", careerState: "Mid-Career", IDPAlignment:92 },
-        {overallAlignment: '32%', lastName: "Waites", firstName: "Jennifer", trainingNeeded: "1 course", trainingTime: "4 weeks", service: "Air Force", location: "Virginia", currentPosition: "Staff Sergeant (SSgt) (E5)", careerState: "Mid-Career", IDPAlignment:32 },
-        {overallAlignment: '22%', lastName: "John", firstName: "Lee", trainingNeeded: "4 courses", trainingTime: "12 weeks", service: "Air Force", location: "Virginia", currentPosition: "DoD Program Admin", careerState: "Mid-Career", IDPAlignment:22 },
-        {overallAlignment: '95%', lastName: "Lewis", firstName: "Sophia", trainingNeeded: "1 course", trainingTime: "4 weeks", service: "Navy", location: "Virginia", currentPosition: "Competency Manager", careerState: "Mid-Career", IDPAlignment:95 },
-        {overallAlignment: '61%', lastName: "Lewis", firstName: "Sophia", trainingNeeded: "2 course", trainingTime: "6 weeks", service: "Navy", location: "Virginia", currentPosition: "Competency Manager", careerState: "Mid-Career", IDPAlignment:61 },
+        {overallAlignment: '95%', lastName: "Jenson", firstName: "Adam", trainingNeeded: "1 course", trainingTime: "3 weeks", service: "Air Force", location: "Virginia", currentPosition: "Master Sergeant (MSgt) (E7)", careerState: "Mid-Career", IDPAlignment:95 },
+        {overallAlignment: '92%', lastName: "Waites", firstName: "Jennifer", trainingNeeded: "1 course", trainingTime: "4 weeks", service: "Air Force", location: "Virginia", currentPosition: "Airman (AMN)", careerState: "Mid-Career", IDPAlignment:92 },
+        {overallAlignment: '85%', lastName: "Lewis", firstName: "Sophia", trainingNeeded: "2 course", trainingTime: "5 weeks", service: "Navy", location: "Virginia", currentPosition: "Aircraft Flight Engineer", careerState: "Mid-Career", IDPAlignment:85 },
+        {overallAlignment: '72%', lastName: "Davis", firstName: "Elmer", trainingNeeded: "3 courses", trainingTime: "7 weeks", service: "Homeland Security", location: "Virginia", currentPosition: "Petty Officer Second Class (PO2) (E5)", careerState: "Mid-Career", IDPAlignment:72 },
+        {overallAlignment: '68%', lastName: "John", firstName: "Lee", trainingNeeded: "4 courses", trainingTime: "12 weeks", service: "Navy", location: "Virginia", currentPosition: "Chief Intelligence Specialist (E7)", careerState: "Mid-Career", IDPAlignment:68 },
+        {overallAlignment: '54%', lastName: "Jenson", firstName: "Adam", trainingNeeded: "6 courses", trainingTime: "12 weeks", service: "Navy", location: "Virginia", currentPosition: "Competency Manager", careerState: "Mid-Career", IDPAlignment:54 },
+        {overallAlignment: '49%', lastName: "Waites", firstName: "Jennifer", trainingNeeded: "8 courses", trainingTime: "15 weeks", service: "Air Force", location: "Virginia", currentPosition: "Senior Airman (SRA) (E4)", careerState: "Mid-Career", IDPAlignment:49 },
+        {overallAlignment: '32%', lastName: "Lewis", firstName: "Sophia", trainingNeeded: "10 courses", trainingTime: "21 weeks", service: "Navy", location: "Virginia", currentPosition: "Marine", careerState: "Mid-Career", IDPAlignment:32 },
+        {overallAlignment: '27%', lastName: "Davis", firstName: "Elmer", trainingNeeded: "12 courses", trainingTime: "25 weeks", service: "Air Force", location: "Virginia", currentPosition: "Staff Sergeant (SSgt) (E5)", careerState: "Mid-Career", IDPAlignment:27 },
+        {overallAlignment: '15%', lastName: "John", firstName: "Lee", trainingNeeded: "15 courses", trainingTime: "30 weeks", service: "Homeland Security", location: "Virginia", currentPosition: "Technical Support", careerState: "Mid-Career", IDPAlignment:15 },
     ];
 
-    // useEffect(() => users = []);
+    useEffect(() => {
+        axiosxapiInstance
+        .get(xapiUsers)
+        .then((res) => {
+            setTalentData(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }, []);
+    
 
     function updateUsers(event) {
         var index = users.indexOf(event.target.name)
@@ -25,6 +45,7 @@ export function WorkforceAlignmentTable() {
         }
     }
 
+    console.log(talentData)
   return (
     <>
     <div class="mx-auto max-w-screen-xl">
@@ -125,16 +146,16 @@ export function WorkforceAlignmentTable() {
                             </th>
                         </tr>
                     </thead>
-                    <tbody>
-                        {data.map((data) => {
+                    <tbody> 
+                        {data.map((data, index) => {
                             return (
                                 <tr class="border-b dark:border-gray-700" key={data.lastName}>
                                     <div className="flex items-center gap-2 ml-6 mt-5">
-                                        <Checkbox id={data.workRole} onChange={updateUsers} name={data.firstName + ' ' + data.lastName} />
+                                        <Checkbox id={data.workRole} onChange={updateUsers} name={talentData?.statements[index]?.actor.name} />
                                         <Label htmlFor={data.workRole}>{data.overallAlignment}</Label>
                                     </div>
-                                    <td class="px-4 py-3">{data.lastName}</td>
-                                    <td class="px-4 py-3">{data.firstName}</td>
+                                    <td class="px-4 py-3">{talentData?.statements[index]?.actor.name.split(' ').pop()}</td>
+                                    <td class="px-4 py-3">{talentData?.statements[index]?.actor.name.split(' ')[0]}</td>
                                     <td class="px-4 py-3">{data.trainingNeeded}</td>
                                     <td class="px-4 py-3">{data.trainingTime}</td>
                                     <td class="px-4 py-3">{data.service}</td>
@@ -142,7 +163,22 @@ export function WorkforceAlignmentTable() {
                                     <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{data.currentPosition}</th>
                                     <td class="px-4 py-3">{data.careerState}</td>
                                     <td class="px-4 py-3">
-                                        <Progress progress={data.IDPAlignment} textLabel="Flowbite" size="lg" labelProgress color="purple"/>
+                                        <Progress progress={data.IDPAlignment} textLabel="Flowbite" size="lg" labelProgress color="purple" theme={{
+                                            "base": "w-full overflow-hidden rounded-full bg-gray-custom dark:bg-gray-custom",
+                                            "label": "mb-1 flex justify-between font-medium dark:text-white",
+                                            "bar": "space-x-2 rounded-full text-center font-medium leading-none text-white dark:text-white",
+                                            "color": {
+                                                "dark": "bg-gray-600 dark:bg-gray-300",
+                                                "purple": "bg-purple",
+                                                'dark-blue': 'bg-dark-blue',
+                                                'blue-custom':'bg-blue-custom',
+                                                'gray-custom': 'bg-gray-custom',
+                                                'black-10': 'bg-black-10',
+                                                'red': 'bg-red',
+                                                'accent-blue': 'bg-accent-blue',
+                                                'black-custom': 'bg-black-custom',
+                                            },
+                                            }}/>
                                         {/* <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
                                             <div className="bg-purple h-2.5 rounded-full" width={`${data.IDPAlignment}%`}></div>
                                         </div> */}

@@ -1,21 +1,19 @@
 import { Checkbox, Label } from "flowbite-react";
 
-export function TalentTable() {
+export function TalentTable( talentData) {
 
     const data = [
-        {overallAlignment: '92%', lastName: "Waites", firstName: "Jennifer", trainingNeeded: "1 course", trainingTime: "4 weeks", service: "Air Force", location: "Virginia", currentPosition: "Senior Airman (SRA) (E4)", careerState: "Mid-Career", relocate:"Yes"},
-        {overallAlignment: '22%', lastName: "John", firstName: "Lee", trainingNeeded: "4 courses", trainingTime: "12 weeks", service: "Air Force", location: "Virginia", currentPosition: "DoD Program Admin", careerState: "Mid-Career", relocate:"Yes" },
-        {overallAlignment: '95%', lastName: "Lewis", firstName: "Sophia", trainingNeeded: "1 course", trainingTime: "4 weeks", service: "Navy", location: "Virginia", currentPosition: "Competency Manager", careerState: "Mid-Career", relocate:"Yes" },
-        {lastName: 'Wholesome', firstName: "Jill", service: "Air Force", location: "Virginia", relocate: "Yes", currentPosition: "Technical Sergeant (TSgt) (E6)"},
-        {lastName: 'Chen', firstName: "Jim", service: "Air Force", location: "Virginia", relocate: "Yes", currentPosition: "Service Member"},
-        {lastName: 'Dumas', firstName: "Jennifer", service: "Air Force", location: "Virginia", relocate: "Yes", currentPosition: "Supervisor/Unit Lead"},
-        {lastName: 'Lydell', firstName: "Jacob", service: "Air Force", location: "Virginia", relocate: "Yes", currentPosition: "Master Sergeant (MSgt) (E7)"},
-        {lastName: 'Braxton', firstName: "Tony", service: "Air Force", location: "Virginia", relocate: "Yes", currentPosition: "Talent Manager"},
-        {lastName: 'Brady', firstName: "Marcia", service: "Air Force", location: "Virginia", relocate: "Yes", currentPosition: "Local System Admin"},
-        {lastName: 'Reed', firstName: "John", service: "Air Force", location: "Virginia", relocate: "Yes", currentPosition: "Talent Manager"},
-        {lastName: 'Hughesmpe', firstName: "Stacy", service: "Air Force", location: "Virginia", relocate: "Yes", currentPosition: "Technical Sergeant (TSgt) (E6)"},
+        {overallAlignment: '95%', lastName: "Jenson", firstName: "Adam", trainingNeeded: "1 course", trainingTime: "3 weeks", service: "Air Force", location: "Virginia", currentPosition: "Master Sergeant (MSgt) (E7)", careerState: "Mid-Career", IDPAlignment:95, relocate: "Yes" },
+        {overallAlignment: '92%', lastName: "Waites", firstName: "Jennifer", trainingNeeded: "1 course", trainingTime: "4 weeks", service: "Air Force", location: "Virginia", currentPosition: "Airman (AMN)", careerState: "Mid-Career", IDPAlignment:92, relocate: "Yes" },
+        {overallAlignment: '85%', lastName: "Lewis", firstName: "Sophia", trainingNeeded: "2 course", trainingTime: "5 weeks", service: "Navy", location: "Virginia", currentPosition: "Aircraft Flight Engineer", careerState: "Mid-Career", IDPAlignment:85, relocate: "Yes" },
+        {overallAlignment: '72%', lastName: "Davis", firstName: "Elmer", trainingNeeded: "3 courses", trainingTime: "7 weeks", service: "Homeland Security", location: "Virginia", currentPosition: "Petty Officer Second Class (PO2) (E5)", careerState: "Mid-Career", IDPAlignment:72, relocate: "Yes" },
+        {overallAlignment: '68%', lastName: "John", firstName: "Lee", trainingNeeded: "4 courses", trainingTime: "12 weeks", service: "Navy", location: "Virginia", currentPosition: "Chief Intelligence Specialist (E7)", careerState: "Mid-Career", IDPAlignment:68, relocate: "Yes" },
+        {overallAlignment: '54%', lastName: "Jenson", firstName: "Adam", trainingNeeded: "6 courses", trainingTime: "12 weeks", service: "Navy", location: "Virginia", currentPosition: "Competency Manager", careerState: "Mid-Career", IDPAlignment:54, relocate: "Yes" },
+        {overallAlignment: '49%', lastName: "Waites", firstName: "Jennifer", trainingNeeded: "8 courses", trainingTime: "15 weeks", service: "Air Force", location: "Virginia", currentPosition: "Senior Airman (SRA) (E4)", careerState: "Mid-Career", IDPAlignment:49, relocate: "Yes" },
+        {overallAlignment: '32%', lastName: "Lewis", firstName: "Sophia", trainingNeeded: "10 courses", trainingTime: "21 weeks", service: "Navy", location: "Virginia", currentPosition: "Marine", careerState: "Mid-Career", IDPAlignment:32, relocate: "Yes" },
+        {overallAlignment: '27%', lastName: "Davis", firstName: "Elmer", trainingNeeded: "12 courses", trainingTime: "25 weeks", service: "Air Force", location: "Virginia", currentPosition: "Staff Sergeant (SSgt) (E5)", careerState: "Mid-Career", IDPAlignment:27, relocate: "Yes" },
+        {overallAlignment: '15%', lastName: "John", firstName: "Lee", trainingNeeded: "15 courses", trainingTime: "30 weeks", service: "Homeland Security", location: "Virginia", currentPosition: "Technical Support", careerState: "Mid-Career", IDPAlignment:15, relocate:"No" },
     ];
-
         
   return (
     <>
@@ -108,16 +106,12 @@ export function TalentTable() {
                             <th scope="col" class="px-4 py-3">Service</th>
                             <th scope="col" class="px-4 py-3">Location</th>
                             <th scope="col" class="px-4 py-3">Relocate</th>
-                            <th scope="col" class="px-4 py-3">Current Position</th>
-                            <th scope="col" class="px-4 py-3">Learner Profile</th>
-
-                            <th scope="col" class="px-4 py-3">
-                                <span class="sr-only">Actions</span>
-                            </th>
+                            <th scope="col" class="pl-4 py-3">Current Position</th>
+                            <th scope="col" class="py-3">Learner Profile</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {data.map((data) => {
+                        {data.map((data, index) => {
                             return (
                                 <tr class="border-b dark:border-gray-700">
                                     <div className="flex items-center gap-2 ml-6 px-2 py-3">
@@ -125,13 +119,14 @@ export function TalentTable() {
                                         <Label htmlFor={data.firstName}></Label>
                                     </div>
                                     {/* <td class="px-4 py-3">{data.vacancies}</td> */}
-                                    <td class="px-4 py-3">{data.lastName}</td>
-                                    <td class="px-4 py-3">{data.firstName}</td> 
+                                    <td class="px-4 py-3">{talentData.talentData?.statements[index]?.actor.name.split(' ').pop()}</td>
+                                    <td class="px-4 py-3">{talentData.talentData?.statements[index]?.actor.name.split(' ')[0]}</td>
+                                    {/* <td class="px-4 py-3">{data.firstName}</td> */}
                                     <td class="px-4 py-3">{data.service}</td>
                                     <td class="px-4 py-3">{data.location}</td>
                                     <td class="px-4 py-3">{data.relocate}</td>
-                                    <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{data.currentPosition}</th>
-                                    <td class="py-3 pl-16">
+                                    <th scope="row" class="px-4 pl-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{data.currentPosition}</th>
+                                    <td class="py-3 pl-10">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
                                         </svg>
@@ -139,6 +134,7 @@ export function TalentTable() {
                                 </tr>
                             )
                         })}
+
                     </tbody>
                 </table>
             </div>

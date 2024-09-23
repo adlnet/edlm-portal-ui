@@ -11,8 +11,7 @@ import DefaultLayout from "@/components/layouts/DefaultLayout";
 import { HomeIcon } from "@heroicons/react/outline";
 import { useEffect, useState } from "react";
 import { axiosInstance, axiosxapiInstance } from "@/config/axiosConfig";
-import { xapiData } from "@/config/endpoints";
-
+import { xapiUsers } from "@/config/endpoints";
 
 export default function TrainingPlan() {
     const router = useRouter();
@@ -31,10 +30,9 @@ export default function TrainingPlan() {
 
     useEffect(() => {
         axiosxapiInstance
-        .get(xapiData)
+        .get(xapiUsers)
         .then((res) => {
           setData(res.data);
-          console.log(res.data);
         })
         .catch((err) => {
           console.log(err);
@@ -118,7 +116,7 @@ export default function TrainingPlan() {
                     </div>
                 </div>
 
-              <TalentTable />
+              <TalentTable talentData={data}/>
               <div className="flex justify-end mt-8">
                     <Button children={
                         <div className="flex flex-row gap-2">  

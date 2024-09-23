@@ -1,5 +1,7 @@
 import { Checkbox, Label } from "flowbite-react";
 
+export var workRole = [];
+
 export function WorkRoleTable(data) {
 
     // const data = [
@@ -11,7 +13,15 @@ export function WorkRoleTable(data) {
     //     {vacancies: '3', startDate: "Jan 2, 2024", workRole: "COMSEC Manager", service: "Air Force", NISTID: "OV-MG-002", workforceElement: "Cybersecurity", functionalCommunity: "Cyber"},
     // ];
 
-    console.log(data);
+    function updateWorkRole(e) {
+        var index = workRole.indexOf(e.target.name);
+        if (index >= 0){
+            workRole.splice(index,1);
+        }else{
+            workRole.push(e.target.name);
+        }
+    }
+
   return (
     <>
     <div class="mx-auto max-w-screen-xl">
@@ -102,8 +112,8 @@ export function WorkRoleTable(data) {
                             <th scope="col" class="px-2 py-3"></th>
                             <th scope="col" class="px-4 py-3">Start Date</th>
                             <th scope="col" class="px-4 py-3">Work Role</th>
-                            <th scope="col" class="px-4 py-3">Services</th>
-                            <th scope="col" class="px-4 py-3">NIST ID</th>
+                            <th scope="col" class="px-4 py-3">Service</th>
+                            <th scope="col" class="px-4 py-3">Job Posting ID</th>
                             <th scope="col" class="px-1 py-3">Workforce Element</th>
                             <th scope="col" class="px-1 py-3">Fucntional Community</th>
 
@@ -117,7 +127,7 @@ export function WorkRoleTable(data) {
                             return (
                                 <tr class="border-b dark:border-gray-700">
                                     <div className="flex items-center gap-2 ml-6 align-middle h-20">
-                                        <Checkbox id={data.workRole} />
+                                        <Checkbox id={data.workRole} onChange={updateWorkRole} name={data.vacancy_key}/>
                                         <Label htmlFor={data.workRole}></Label>
                                     </div>
                                     {/* <td class="px-4 py-3">{data.vacancies}</td> */}

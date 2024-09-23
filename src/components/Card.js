@@ -17,9 +17,9 @@ export default function Card({ title, description, buttonLabel, children, image,
             <h1 className='flex text-lg font-semibold h-6 pt-4'>
                 {title}
             </h1>
-            <p className='flex pt-3 mt-4 font-sans line-clamp-6 text-gray-500 h-16'>
+            {description? <p className='flex pt-3 mt-4 font-sans line-clamp-6 text-gray-500 h-16'>
                 {description}
-            </p>
+            </p>: <div className="p-4"></div>}
             {children}
             {buttonLabel &&
             <div className='flex align-bottom items-bottom justify-end mt-10'>

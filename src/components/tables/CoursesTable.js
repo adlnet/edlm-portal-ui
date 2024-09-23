@@ -3,6 +3,7 @@ import { Checkbox, Label } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { courseData } from "@/config/endpoints";
 import axios from "axios";
+import Link from 'next/link';
 
 export function CoursesTable() {
     const [data, setData] = useState(null);
@@ -163,11 +164,15 @@ export function CoursesTable() {
                         // {tempData.map((data) => {
                             return (
                                 <tr class=" border-b dark:border-gray-700">
-                                    <div className="flex h-full items-center align-center justify-center gap-2 ml-6 py-3 h-48 ">
+                                    <div className="flex h-full items-center align-center justify-center gap-2 ml-6 py-3 h-64 ">
                                         <Checkbox id={data.Course.CourseTitle} />
                                         <Label htmlFor={data.Course.CourseTitle}></Label>
                                     </div>
-                                    <td class="px-4 py-3">{data.Course.CourseTitle}</td>
+                                    <td class="px-4 py-3">
+                                        <Link href={`https://dev-xds.deloitteopenlxp.com/course/${data.meta.id}`}>
+                                        {data.Course.CourseTitle}
+                                        </Link>
+                                    </td>
                                     <td class="px-4 py-3">
                                         {data.competenciesAllignedTo?.map((comp) =>{
                                             return(

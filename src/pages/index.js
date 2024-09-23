@@ -2,8 +2,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/router';
 import Head from 'next/head'
 import Image from 'next/image';
-import React from 'react';
-import image from '@/public/image.png';
+import React, { useEffect, useState } from 'react';
 import headerImage from '@/public/Abstact1.png';
 import armyImage from '@/public/Army.png'
 import armyImage1 from '@/public/Army1.jpg'
@@ -12,11 +11,13 @@ import Button from '@/components/Button';
 import DefaultLayout from '@/components/layouts/DefaultLayout';
 import Card from '@/components/Card';
 import Spotlight from '@/components/SpotlightCard';
-import StaticSideNav from '@/components/StaticSideNav';
+import { axiosInstance } from '@/config/axiosConfig';
+import { candidateList } from '@/config/endpoints';
 
 export default function Home() {
   const router = useRouter();
   const { user } = useAuth();
+  const [spotlightData, setSpotlightData] = useState(null);
 
   // const popuarTopics = ["Cyber Security", "Web Developement", "Communications", "Artificial Intelligence", "Management Styles", "Agile Methodology", "Angular", "Leadership", "Data Science", "Unclassified Information", "Python"]
   
@@ -27,14 +28,25 @@ export default function Home() {
       {title: "Upcoming Vaccancies", lastViewed: "Viewed 1 hour ago"},
     ]
   }
+
+  useEffect(() => {
+    axiosInstance
+      .get(candidateList)
+      .then((res) => {
+        setSpotlightData(res.data);
+        console.log(res.data)
+      })
+      .catch((err) => {
+          console.log(err);
+      });
+  }, []);
+
   return (
     <DefaultLayout>
       <Head>
         <title>EDLM Portal</title>
         <link rel="icon" href="/logo.png" />
       </Head>
-      {/* <SideNav /> */}
-      {/* <StaticSideNav /> */}
 
       <div className='flex flex-col mt-8'>
         <div className='py-4 text-xl font-bold'>Welcome, Talent Manager, Andrea Wilson! </div>
@@ -72,16 +84,16 @@ export default function Home() {
         </div>
 
         <div className='flex flex-col'>
-            <p className='text-xl font-semibold h-6 pt-4'>My Lists</p>
-            <p className='flex pt-3 mt-4 font-sans line-clamp-6 text-gray-500 h-16'>
+            <p className='text-xl font-semibold h-6 pt-4'>My In-Progress Planning</p>
+            <p className='flex pt-3 mt-4 font-sans line-clamp-6 text-gray-500'>
               See your saved or curated lists of of talent or create a new list 
             </p>
         </div>
 
         <div className='flex flex-col justify-center w-full mt-4 px-2 max-w-7xl mx-auto mb-12'>
           <div className='inline-flex overflow-x-auto gap-6 pb-4 custom-scroll'>
-            {spotlight.data && spotlight.data?.map((course) => {
-              return <Spotlight course={course} key={course.title} />;
+            {spotlightData && spotlightData?.map((course) => {
+              return <Spotlight course={course} key={spotlightData?.name} />;
             })}
           </div>
         </div>
@@ -148,10 +160,8 @@ export default function Home() {
               </div>
                
         </div>         */}
-        
 
       </div>
-            
       {/* <Footer /> */}
     </DefaultLayout>
   );
