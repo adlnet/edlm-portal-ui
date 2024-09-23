@@ -6,7 +6,7 @@ export default function Spotlight({ course }) {
 
   console.log(course)
   return (
-    <Link href={`/course/${course?.name}`} passHref>
+    <Link href={`/talentFinder/filters/alignment`} passHref>
         <div className="h-108 w-80 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 h-64 my-6">
             <div className='flex items-center justify-center px-3'>
               <Image src={image} height={100} alt='' className='rounded-lg m-5'/>
