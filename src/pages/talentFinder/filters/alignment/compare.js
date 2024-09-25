@@ -19,7 +19,6 @@ export default function TalentFinderAlignment() {
     const [iframeURL, setIframeURL] = useState("https://edlmportal-admin.deloitteopenlxp.com");
     const [workRoleData, setWorkRoleData] = useState(null);
 
-
     useEffect(() => {
         axiosInstance
         .get("https://edlmportal-admin.deloitteopenlxp.com/api/graph/?users="+users.join("&users="))

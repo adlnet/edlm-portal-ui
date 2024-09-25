@@ -45,7 +45,6 @@ export function WorkforceAlignmentTable() {
         }
     }
 
-    console.log(talentData)
   return (
     <>
     <div class="mx-auto max-w-screen-xl">

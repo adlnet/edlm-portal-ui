@@ -18,23 +18,20 @@ export default function Home() {
   const router = useRouter();
   const { user } = useAuth();
   const [spotlightData, setSpotlightData] = useState(null);
-
-  // const popuarTopics = ["Cyber Security", "Web Developement", "Communications", "Artificial Intelligence", "Management Styles", "Agile Methodology", "Angular", "Leadership", "Data Science", "Unclassified Information", "Python"]
   
-  const spotlight = {
-    data: [{title: "Cybersecurity", lastViewed: "Viewed 1 hour ago"},
-      {title: "Systems Engineer", lastViewed: "Viewed 1 hour ago"},
-      {title: "Project Management", lastViewed: "Viewed 2 hour ago"},
-      {title: "Upcoming Vaccancies", lastViewed: "Viewed 1 hour ago"},
-    ]
-  }
+  // const spotlight = {
+  //   data: [{title: "Cybersecurity", lastViewed: "Viewed 1 hour ago"},
+  //     {title: "Systems Engineer", lastViewed: "Viewed 1 hour ago"},
+  //     {title: "Project Management", lastViewed: "Viewed 2 hour ago"},
+  //     {title: "Upcoming Vaccancies", lastViewed: "Viewed 1 hour ago"},
+  //   ]
+  // }
 
   useEffect(() => {
     axiosInstance
       .get(candidateList)
       .then((res) => {
         setSpotlightData(res.data);
-        console.log(res.data)
       })
       .catch((err) => {
           console.log(err);
@@ -73,7 +70,7 @@ export default function Home() {
         </div>
 
         <div className='flex flex-row'>
-          <Card title={"Fill Vaccancies"} description={"Find the right talent at the time-of-need"} image={armyImage}
+          <Card title={"Fill Vacancies"} description={"Find the right talent at the time-of-need"} image={armyImage}
             buttonLabel={"Talent Finder"} route={"/talentFinder"}/>
 
           <Card title={"Upskill your Talent"} description={"Find the best learning talent for an individual’s unique needs"} image={armyImage2}
