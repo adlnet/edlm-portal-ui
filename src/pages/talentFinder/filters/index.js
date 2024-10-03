@@ -40,8 +40,8 @@ export default function TalentFinderFilters() {
                         <Label htmlFor="civilian">Civilian</Label>
                     </div>
                     <div className="flex items-center gap-2">
-                        <Checkbox id="dod" />
-                        <Label htmlFor="dod">DOD</Label>
+                        <Checkbox id="activeDuty" />
+                        <Label htmlFor="activeDuty">Active Duty</Label>
                     </div>
                     <div className="flex items-center gap-2">
                         <Checkbox id="myUnit" />
@@ -53,7 +53,7 @@ export default function TalentFinderFilters() {
                     </div>
                     <div className="flex items-center gap-2">
                         <Checkbox id="supply" />
-                        <Label htmlFor="myUsupplyit">Supply</Label>
+                        <Label htmlFor="supply">Supply</Label>
                     </div>
                     <div className="flex items-center gap-2">
                         <Checkbox id="demand" />

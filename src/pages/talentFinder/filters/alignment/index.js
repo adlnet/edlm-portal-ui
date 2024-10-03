@@ -1,16 +1,32 @@
 // "use client";
 
-import Image from "next/image";
-import image from  "@/public/Picture1.png"
 import { useRouter } from 'next/router';
 import Button from "@/components/Button";
 import { WorkforceAlignmentTable } from "@/components/tables/WorkforceAlignmentTable";
 import DefaultLayout from "@/components/layouts/DefaultLayout";
 import { HomeIcon } from "@heroicons/react/outline";
+import { workRole } from '@/components/tables/WorkRoleTable';
+import { useEffect, useState } from 'react';
+import { axiosInstance } from '@/config/axiosConfig';
+import { vacancies } from '@/config/endpoints';
+
 
 export default function TalentFinderAlignment() {
     const router = useRouter();
-    // const config = useConfig();
+    const [workRoleData, setWorkRoleData] = useState(null);
+
+    useEffect(() => {
+        axiosInstance
+        .get(vacancies+workRole[0])
+        .then(resp => {
+            setWorkRoleData(resp.data);
+        })
+        .catch((err) => {
+            console.log(err);
+          });
+    }, []);
+
+    console.log(workRoleData)
 
     return (
         <DefaultLayout>
@@ -34,6 +50,9 @@ export default function TalentFinderAlignment() {
             <div className='bg-white shadow-md w-1/2 p-5 w-full mb-5'> 
               <div className='pt-2 text-lg font-bold'> Discover Talent Across the Workforce </div>
               <div className='pt-2 text-gray-600 pb-8'> Find qualified individuals at the speed of relevance. </div>
+
+                <p className='pt-2 text-md font-bold'>Work Role: {workRoleData?.JobTitle}</p> 
+                <div className='pt-2 text-gray-600 pb-8'> {workRoleData?.JobCompetencies} </div>
 
               <WorkforceAlignmentTable />
 
