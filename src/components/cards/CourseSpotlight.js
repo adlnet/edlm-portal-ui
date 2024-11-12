@@ -29,7 +29,7 @@ export default function CourseSpotlight({ course }) {
   const handleClick = useCallback(
     (e) => {
       if (!user)
-        return router.push(`/course/${meta.metadata_key_hash || meta.id}`);
+        return router.push(`/learner/course/${meta.metadata_key_hash || meta.id}`);
 
       const context = {
         actor: {
@@ -41,7 +41,7 @@ export default function CourseSpotlight({ course }) {
           display: 'explored',
         },
         object: {
-          id: `${window.origin}/course/${meta.id}`,
+          id: `${window.origin}/learner/course/${meta.id}`,
           definitionName: Course.CourseTitle,
           description: Course.CourseShortDescription,
         },
@@ -49,13 +49,13 @@ export default function CourseSpotlight({ course }) {
         resultExtValue: meta.metadata_key_hash || meta.id,
       };
       xAPISendStatement(context);
-      router.push('/course/' + (meta.metadata_key_hash || meta.id));
+      router.push('/learner/course/' + (meta.metadata_key_hash || meta.id));
     },
     [Course, meta, user]
   );
 
   return (
-    <Link href={`/course/${meta.metadata_key_hash || meta.id}`} passHref>
+    <Link href={`/learner/course/${meta.metadata_key_hash || meta.id}`} passHref>
       <div
         onClick={handleClick}
         role='button'

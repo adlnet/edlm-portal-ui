@@ -169,7 +169,7 @@ export function CoursesTable() {
                                         <Label htmlFor={data.Course.CourseTitle}></Label>
                                     </div>
                                     <td class="px-4 py-3">
-                                        <Link href={`https://dev-xds.deloitteopenlxp.com/course/${data.meta.id}`}>
+                                        <Link href={`https://dev-xds.deloitteopenlxp.com/learner/course/${data.meta.id}`}>
                                         {data.Course.CourseTitle}
                                         </Link>
                                     </td>
