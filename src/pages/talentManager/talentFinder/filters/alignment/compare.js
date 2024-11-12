@@ -93,19 +93,19 @@ export default function TalentFinderAlignment() {
         <DefaultLayout>
             <h2 className="flex w-5/6 text-4xl font-bold mt-8">Talent Finder</h2>
             <div className="my-3 flex flex-row">
-                <a href={"/"} >
+                <a href={"/talentManager"} >
                     <HomeIcon className="w-5 mx-2"/>  
                 </a>
                 &gt; 
-                <a href='/talentFinder' className="px-2 hover:mouse hover:underline hover:font-bold">
+                <a href='/talentManager/talentFinder' className="px-2 hover:mouse hover:underline hover:font-bold">
                     Talent Finder
                 </a>
                 &gt; 
-                <a href='/talentFinder/filters' className="px-2 hover:mouse hover:underline hover:font-bold">
+                <a href='/talentManager/talentFinder/filters' className="px-2 hover:mouse hover:underline hover:font-bold">
                     Filters
                 </a>
                 &gt;
-                <a href='/talentFinder/filters/alignment' className="px-2 hover:mouse hover:underline hover:font-bold">
+                <a href='/talentManager/talentFinder/filters/alignment' className="px-2 hover:mouse hover:underline hover:font-bold">
                     Alignment Results
                 </a>
                 &gt; 

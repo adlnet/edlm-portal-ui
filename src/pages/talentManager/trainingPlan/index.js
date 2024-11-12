@@ -125,7 +125,7 @@ export default function TrainingPlan() {
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
                             </svg>
                         </div>
-                    } onClick={()=>router.push("/trainingPlan/filters")}/>
+                    } onClick={()=>router.push("/talentManager/trainingPlan/filters")}/>
                 </div>
             </div>
         </DefaultLayout>

@@ -20,15 +20,15 @@ export default function TrainingPlanSkills() {
         <DefaultLayout>
             <h2 className="flex w-5/6 text-4xl font-bold mt-8">Training Plan</h2>
             <div className="my-4 flex flex-row">
-                <a href={"/"}>
+                <a href={"/talentManager"}>
                     <HomeIcon className="w-5 mx-2"/>  
                 </a>
                 &gt;
-                <a href='/trainingPlan' className="px-2 hover:mouse hover:underline hover:font-bold">
+                <a href='/talentManager/trainingPlan' className="px-2 hover:mouse hover:underline hover:font-bold">
                     Training Plan
                 </a>
                 &gt;
-                <a href='/trainingPlan/filters' className="px-2 hover:mouse hover:underline hover:font-bold">
+                <a href='/talentManager/trainingPlan/filters' className="px-2 hover:mouse hover:underline hover:font-bold">
                     Filters
                 </a>
                 &gt; 

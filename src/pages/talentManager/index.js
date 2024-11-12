@@ -54,7 +54,7 @@ export default function Home() {
               <div className='pt-2 text-lg font-bold'>Talent Management Dashboard </div>
               <div className='pt-2 text-gray-600'>The hub for searching for talent and planning for their development. </div>
               <div className='pt-12'>
-                <Button onClick={()=>{router.push("/talentFinder")}} children={
+                <Button onClick={()=>{router.push("/talentManager/talentFinder")}} children={
                   <div className='flex flex-row gap-2 w-full'> <p className='pt-0.5'>Learn More</p>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
@@ -71,13 +71,13 @@ export default function Home() {
 
         <div className='flex flex-row'>
           <Card title={"Fill Vacancies"} description={"Find the right talent at the time-of-need"} image={armyImage}
-            buttonLabel={"Talent Finder"} route={"/talentFinder"}/>
+            buttonLabel={"Talent Finder"} route={"/talentManager/talentFinder"}/>
 
           <Card title={"Upskill your Talent"} description={"Find the best learning talent for an individual’s unique needs"} image={armyImage2}
-            buttonLabel={"Build a Plan"} route={"/trainingPlan"}/>
+            buttonLabel={"Build a Plan"} route={"/talentManager/trainingPlan"}/>
 
           <Card title={"View your Reports "} description={"Check out your saved reports or create new ones"} image={armyImage1}
-            buttonLabel={"Reports"} route={"/reports"}/>
+            buttonLabel={"Reports"} route={"/talentManager/reports"}/>
         </div>
 
         <div className='flex flex-col'>

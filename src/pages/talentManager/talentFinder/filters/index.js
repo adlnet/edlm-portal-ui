@@ -17,11 +17,11 @@ export default function TalentFinderFilters() {
         <DefaultLayout>
             <h2 className="flex w-5/6 text-4xl font-bold mt-8">Talent Finder</h2>
             <div className="my-3 flex flex-row">
-                <a href={"/"} >
+                <a href={"/talentManager"} >
                     <HomeIcon className="w-5 mx-2"/>  
                 </a>
                 &gt; 
-                <a href='/talentFinder' className="px-2 hover:mouse hover:underline hover:font-bold">
+                <a href='/talentManager/talentFinder' className="px-2 hover:mouse hover:underline hover:font-bold">
                     Talent Finder
                 </a>
                 &gt; 
@@ -72,7 +72,7 @@ export default function TalentFinderFilters() {
                         </svg>
                         </div>
                         
-                    } onClick={()=>router.push("/talentFinder/filters/alignment")}/>
+                    } onClick={()=>router.push("/talentManager/talentFinder/filters/alignment")}/>
                 </div>
             </div>
         </DefaultLayout>

@@ -46,7 +46,7 @@ export default function Course() {
   // state of the fetching
   const course = useCourse(router.query?.courseId);
   const config = useConfig();
-
+  
   // prepare the course data
   const data = useMemo(() => {
     if (!course.isSuccess || !config.isSuccess) return null;
@@ -118,7 +118,7 @@ export default function Course() {
       object: {
         definitionName: data?.title,
         description: data?.description,
-        id: `${window.origin}/course/${router.query?.courseId}`,
+        id: `${window.origin}/learner/course/${router.query?.courseId}`,
       },
       resultExtName: 'https://w3id.org/xapi/ecc/result/extensions/CourseId',
       resultExtValue: router.query?.courseId,

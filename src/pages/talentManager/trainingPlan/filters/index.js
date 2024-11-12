@@ -28,7 +28,7 @@ export default function TalentFinderFilters() {
                     <HomeIcon className="w-5 mx-2"/>  
                 </a>
                 &gt;
-                <a href='/trainingPlan' className="px-2 hover:mouse hover:underline hover:font-bold">
+                <a href='/talentManager/trainingPlan' className="px-2 hover:mouse hover:underline hover:font-bold">
                     Training Plan
                 </a>
                 &gt; 
@@ -148,7 +148,7 @@ export default function TalentFinderFilters() {
                         </svg>
                         </div>
                         
-                    } onClick={()=>router.push("/trainingPlan/filters/skills")}/>
+                    } onClick={()=>router.push("/talentManager/trainingPlan/filters/skills")}/>
                 </div>
             </div>
         </DefaultLayout>

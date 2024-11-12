@@ -46,7 +46,7 @@ export default function ListsView({ listId }) {
         display: 'explored',
       },
       object: {
-        id: `${window.origin}/course/${course.meta.metadata_key_hash}`,
+        id: `${window.origin}/learner/course/${course.meta.metadata_key_hash}`,
         definitionName: course.Course.CourseTitle,
         description: course.Course.CourseShortDescription,
       },
@@ -54,7 +54,7 @@ export default function ListsView({ listId }) {
       resultExtValue: course.meta.metadata_key_hash,
     };
     xAPISendStatement(context);
-    router.push(`/course/${course.meta.metadata_key_hash}`);
+    router.push(`/learner/course/${course.meta.metadata_key_hash}`);
   }, []);
 
   return (
@@ -67,7 +67,7 @@ export default function ListsView({ listId }) {
           <button
             className='items-center inline-flex gap-2 text-gray-500 rounded-md hover:shadow-md bg-gray-50 hover:bg-gray-400 hover:text-white px-4 py-2 border-gray-400 border-2 outline-none focus:ring-2 ring-gray-400'
             onClick={() => {
-              router.push('/lists/edit/' + listId);
+              router.push('/learner/lists/edit/' + listId);
             }}
           >
             Edit list
