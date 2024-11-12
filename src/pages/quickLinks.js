@@ -41,7 +41,7 @@ export default function QuickLinks() {
         link: "https://www.dantes.doded.mil/"
     },
     {   title: "Defense Language Inst (DLI)",
-        link: "http://www.dliflc.edu/"
+        link: "https://www.dliflc.edu/"
     },
     {   title: "Marine Corps University",
         link: "https://www.usmcu.edu/"
