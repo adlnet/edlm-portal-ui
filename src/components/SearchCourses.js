@@ -6,6 +6,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useCallback, useEffect, useState } from 'react';
 import { useConfig } from '@/hooks/useConfig';
 import { useRouter } from 'next/dist/client/router';
+import { useCourseSearch} from '@/hooks/useCourseSearch';
 import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement';
 import CreateSavedSearchModal from '@/components/modals/CreateSavedSearch';
 import DefaultLayout from '@/components/layouts/DefaultLayout';
@@ -19,7 +20,7 @@ export default function SearchCourses(){
     const router = useRouter();
     const config = useConfig();
     const [params, setParams] = useState(router?.query);
-    const { setUrl, data, isLoading } = useSearch();
+    const { setUrl, data, isLoading } = useCourseSearch();
     const { user } = useAuth();
   
     useEffect(() => {

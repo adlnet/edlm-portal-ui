@@ -1,7 +1,8 @@
 'use strict';
 
-import SearchCourses from '@/components/SearceCourses'; 
-import SearchCompetencies from '@/components/SearchCompetencies';
+import SearchCourses from '@/components/SearchCourses'; 
+// import SearchCompetencies from '@/components/SearchCompetencies';
+import DefaultLayout from '@/components/layouts/DefaultLayout';
 
 export default function Search() {
 
@@ -14,7 +15,7 @@ export default function Search() {
 
       <SearchCourses />
 
-      <SearchCompetencies />
+      {/* <SearchCompetencies /> */}
 
     </DefaultLayout>
   );

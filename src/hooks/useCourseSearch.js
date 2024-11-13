@@ -22,7 +22,7 @@ function makePath(params) {
  * @returns the state of the url, a setter for the url, and all the attributes from the query
  */
 
-export function useSearch(queryObject) {
+export function useCourseSearch(queryObject) {
   const router = useRouter();
 
   // state of the search term
