@@ -23,7 +23,7 @@ export default function SearchResult({ result }) {
         display: 'explored',
       },
       object: {
-        id: `${window.origin}/course/${result.meta.id}`,
+        id: `${window.origin}/learner/course/${result.meta.id}`,
         definitionName: result.Course.CourseTitle,
         description: result.Course.CourseShortDescription,
       },
@@ -32,7 +32,7 @@ export default function SearchResult({ result }) {
     };
 
     xAPISendStatement(context);
-    router.push(`/course/${result.meta.id}`);
+    router.push(`/learner/course/${result.meta.id}`);
   }, [result, user, router]);
 
   return (

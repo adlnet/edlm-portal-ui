@@ -36,11 +36,11 @@ export default function TalentFinderAlignment() {
                     <HomeIcon className="w-5 mx-2"/>  
                 </a>
                 &gt; 
-                <a href='/talentFinder' className="px-2 hover:mouse hover:underline hover:font-bold">
+                <a href='/talentManager/talentFinder' className="px-2 hover:mouse hover:underline hover:font-bold">
                     Talent Finder
                 </a>
                 &gt; 
-                <a href='/talentFinder/filters' className="px-2 hover:mouse hover:underline hover:font-bold">
+                <a href='/talentManager/talentFinder/filters' className="px-2 hover:mouse hover:underline hover:font-bold">
                     Filters
                 </a>
                 &gt;
@@ -65,7 +65,7 @@ export default function TalentFinderAlignment() {
                         </svg>
                         </div>
                         
-                    } onClick={()=>router.push("/talentFinder/filters/alignment/compare")}/>
+                    } onClick={()=>router.push("/talentManager/talentFinder/filters/alignment/compare")}/>
                 </div>
             </div>
         </DefaultLayout>

@@ -57,7 +57,7 @@ export default function EditList({ listId }) {
     // if the owner of the list is not the current user, redirect to homepage
     if (initialList?.isSuccess && user?.user?.id){
       if (initialList?.data?.owner?.id !== user?.user?.id){
-        return router.push(`/lists/${listId}`);
+        return router.push(`/learner/lists/${listId}`);
       } 
     }
     if (initialList?.isSuccess) {
@@ -79,7 +79,7 @@ export default function EditList({ listId }) {
 
   const visitCourse = (event, id) => {
     event.preventDefault();
-    router.push(`/course/${id}`);
+    router.push(`/learner/course/${id}`);
   };
 
   const toggleListVisibility = () => {
@@ -133,7 +133,7 @@ export default function EditList({ listId }) {
         <button
           className='items-center inline-flex gap-2 text-gray-500 rounded-md hover:shadow-md bg-gray-50 hover:bg-gray-400 hover:text-white px-4 py-2 border-gray-400 border-2 outline-none focus:ring-2 ring-gray-400'
           onClick={() => {
-            router.push(`/lists/${listId}`);
+            router.push(`/learner/lists/${listId}`);
           }}
         >
           View public list

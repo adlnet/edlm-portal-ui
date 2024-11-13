@@ -38,7 +38,7 @@ export default function TalentFinder() {
         <DefaultLayout> 
             <h2 className="flex w-5/6 text-4xl font-bold mt-8">Talent Finder</h2>
             <div className="my-3 flex flex-row">
-                <a href={"/"}>
+                <a href={"/talentManager"}>
                     <HomeIcon className="w-5 mx-2"/>  
                 </a>
                 &gt;<p className="font-bold pl-2">  Talent Finder </p>
@@ -82,7 +82,7 @@ export default function TalentFinder() {
                         </div>
                         
                     } onClick={()=>
-                        router.push("/talentFinder/filters")
+                        router.push("/talentManager/talentFinder/filters")
                         // history.push({
                         //     pathname: '/talentFinder/filters',
                         //     pageProps: data,
