@@ -20,6 +20,7 @@ export default function Search() {
   const config = useConfig();
   const [params, setParams] = useState(router?.query);
   const { setUrl, data, isLoading } = useSearch();
+  // const { compData } = useCompSearch();
   const { user } = useAuth();
 
   useEffect(() => {
