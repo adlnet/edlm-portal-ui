@@ -143,7 +143,7 @@ import {
     const config = useConfig();
     const [credentials, setCredentials] = useState({
       email: '',
-      password: '',
+      password: '', // NOTE: This password field is intentionally left empty and is handled elsewhere.
       confirmationPassword: '',
       first_name: '',
       last_name: '',
