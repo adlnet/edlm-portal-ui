@@ -18,6 +18,7 @@ export default function Search() {
   const router = useRouter();
   const [params, setParams] = useState(router?.query);
   const { setUrl, data, isLoading } = useCourseSearch();
+  // const { compData } = useCompSearch();
   const { user } = useAuth();
 
   const tabs = ['Courses', 'Competencies'];
