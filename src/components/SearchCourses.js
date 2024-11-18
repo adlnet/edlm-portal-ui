@@ -7,13 +7,23 @@ import { useRouter } from 'next/dist/client/router';
 import { useCourseSearch} from '@/hooks/useCourseSearch';
 import MoreLikeThis from '@/components/cards/MoreLikeThis';
 import SearchResult from '@/components/cards/CourseSearchResult';
+import { useEffect } from 'react';
 
-export default function SearchCourses( { params, setParams }) {
+export default function SearchCourses( { params, setParams, courseSearchTriggerd }) {
 
     const router = useRouter();
     const config = useConfig();
 
     const { setUrl, data, isLoading } = useCourseSearch();
+
+    useEffect(() => {
+      if (router?.query) {
+        unstable_batchedUpdates(() => {
+          setParams(router?.query);
+          setUrl(router?.query);
+        });
+      }
+    }, [router.query]);
   
     function handleSpecificPage(page) {
       const modified = { ...params };
@@ -51,11 +61,9 @@ export default function SearchCourses( { params, setParams }) {
                 />
               )}
             </div>
-          </div>
-          <div className='relative col-span-4'>
-            <div className='sticky top-48'>
+            {/* <div className='relative row-span-4'>
               {data && data?.hits && <MoreLikeThis course={data?.hits[0]} />}
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

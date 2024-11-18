@@ -133,14 +133,12 @@ export default function Search() {
 
   return (
     <DefaultLayout>
-      {/* TODO: make title, searchbar, filters?, tabs section */}
+      {/* Title, searchbar, filters, tab bar section */}
 
       {/* call course + comp search */}
       <div className='mt-10 pb-4'>
-        <span className='flex flex-col py-2 mb-4 max-w-min sticky top-0 z-10 bg-gray-50'>
-          <div className='max-w-max self-end'>
-            {user && <CreateSavedSearchModal path={router.asPath} />}
-          </div>
+        {selectedTab === tabs[0] ? <div className='text-2xl font-bold'>Course Search</div> : <div className='text-2xl font-bold'>Competency Search</div>}
+        <span className='flex flex-row py-2 mb-4 max-w-min sticky top-0 z-10 bg-gray-50'>
           <div className='w-[44rem]'>
             <SearchBar
               parameters={params}
@@ -152,13 +150,21 @@ export default function Search() {
           {data && !isLoading && (
             <div className='flex gap-2 pl-6 pt-2'>{data && createLists()}</div>
           )}
+          <div className='max-w-max self-end'>
+            {user && <CreateSavedSearchModal path={router.asPath} />}
+          </div>
         </span>
+
         <TabBar
           selectedTab={selectedTab}
           setSelectedTab={setSelectedTab}
           tabs={tabs}
         />
-        {selectedTab === tabs[0] ? <SearchCourses params={params} setParams={setParams}/> : 'SearchCompetencies'}
+        {selectedTab === tabs[0] ?
+          <SearchCourses 
+            params={params}
+            setParams={setParams}
+          /> : 'SearchCompetencies'}
       </div>
 
       {/* <SearchCompetencies /> */}

@@ -1,6 +1,6 @@
 'use strict';
 import { useState } from 'react';
-import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
+import { Tab } from '@headlessui/react'
 
 export default function TabBar( { selectedTab, setSelectedTab, tabs }) {
 
