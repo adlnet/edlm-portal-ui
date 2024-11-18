@@ -148,7 +148,7 @@ export default function Search() {
             />
           </div>
           {data && !isLoading && (
-            <div className='flex gap-2 pl-6 pt-2'>{data && createLists()}</div>
+            <div className='flex gap-4 pl-6 pt-2'>{data && createLists()}</div>
           )}
           <div className='max-w-max self-end'>
             {user && <CreateSavedSearchModal path={router.asPath} />}
