@@ -61,9 +61,9 @@ export default function SearchCourses( { params, setParams, courseSearchTriggerd
                 />
               )}
             </div>
-            {/* <div className='relative row-span-4'>
+            <div className='relative row-span-4'>
               {data && data?.hits && <MoreLikeThis course={data?.hits[0]} />}
-            </div> */}
+            </div>
           </div>
         </div>
       </div>
