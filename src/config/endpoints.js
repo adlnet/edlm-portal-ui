@@ -66,3 +66,4 @@ export const saveSearchOwnedUrl = `${XDSbackendHost}${api}saved-filters/owned`;
 // export const allNotification = `${XDSbackendHost}/inbox/notifications/api/all_list/`;
 // export const allRead = `${XDSbackendHost}/inbox/notifications/mark-all-as-read/`;
 // export const unreadData = `${XDSbackendHost}/inbox/notifications/api/unread_list/`;
+

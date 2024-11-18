@@ -22,7 +22,7 @@ export default function SearchBar({ parameters, onChange, onClick, onReset }) {
         value={parameters.keyword}
         name='keyword'
         type='text'
-        className='w-full py-4 rounded-full outline-none pl-6'
+        className='w-full py-4 rounded-full outline-none pl-6 border-none'
         onChange={onChange}
         autoComplete='off'
         placeholder='Search the catalog'

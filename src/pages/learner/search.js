@@ -1,27 +1,28 @@
 'use strict';
-
-import { Pagination } from '@/components/buttons/Pagination';
-import { unstable_batchedUpdates } from 'react-dom';
-import { useAuth } from '@/contexts/AuthContext';
 import { useCallback, useEffect, useState } from 'react';
-import { useConfig } from '@/hooks/useConfig';
+import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/dist/client/router';
-import { useSearch } from '@/hooks/useSearch';
+import { useCourseSearch} from '@/hooks/useCourseSearch';
 import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement';
-import CreateSavedSearchModal from '@/components/modals/CreateSavedSearch';
+import { unstable_batchedUpdates } from 'react-dom';
+import SearchCourses from '@/components/SearchCourses'; 
+// import SearchCompetencies from '@/components/SearchCompetencies';
 import DefaultLayout from '@/components/layouts/DefaultLayout';
-import MoreLikeThis from '@/components/cards/MoreLikeThis';
+import TabBar from '@/components/buttons/TabBar';
 import SearchBar from '@/components/inputs/SearchBar';
-import SearchResult from '@/components/cards/SearchResult';
 import SelectList from '@/components/inputs/SelectList';
+import CreateSavedSearchModal from '@/components/modals/CreateSavedSearch';
 
 export default function Search() {
+
   const router = useRouter();
-  const config = useConfig();
   const [params, setParams] = useState(router?.query);
-  const { setUrl, data, isLoading } = useSearch();
+  const { setUrl, data, isLoading } = useCourseSearch();
   // const { compData } = useCompSearch();
   const { user } = useAuth();
+
+  const tabs = ['Courses', 'Competencies'];
+  const [selectedTab, setSelectedTab] = useState(tabs[0]);
 
   useEffect(() => {
     if (router?.query) {
@@ -109,18 +110,6 @@ export default function Search() {
     [params, user]
   );
 
-  function handleSpecificPage(page) {
-    const modified = { ...params };
-    modified.p = page;
-    unstable_batchedUpdates(() => {
-      setParams(modified);
-      setUrl(modified);
-    });
-    router.push({ pathname: '/learner/search', query: modified }, undefined, {
-      scroll: true,
-    });
-  }
-
   function createLists() {
     if (!data?.aggregations) return null;
 
@@ -142,13 +131,15 @@ export default function Search() {
     });
   }
 
+
   return (
     <DefaultLayout>
+      {/* Title, searchbar, filters, tab bar section */}
+
+      {/* call course + comp search */}
       <div className='mt-10 pb-4'>
-        <span className='flex flex-col py-2 mb-4 max-w-min sticky top-0 z-10 bg-gray-50'>
-          <div className='max-w-max self-end'>
-            {user && <CreateSavedSearchModal path={router.asPath} />}
-          </div>
+        {selectedTab === tabs[0] ? <div className='text-2xl font-bold'>Course Search</div> : <div className='text-2xl font-bold'>Competency Search</div>}
+        <span className='flex flex-row py-2 mb-4 max-w-min sticky top-0 z-10 bg-gray-50'>
           <div className='w-[44rem]'>
             <SearchBar
               parameters={params}
@@ -158,39 +149,27 @@ export default function Search() {
             />
           </div>
           {data && !isLoading && (
-            <div className='flex gap-2 pl-6 pt-2'>{data && createLists()}</div>
+            <div className='flex gap-4 pl-6 pt-2'>{data && createLists()}</div>
           )}
+          <div className='max-w-max self-end'>
+            {user && <CreateSavedSearchModal path={router.asPath} />}
+          </div>
         </span>
-        {data?.total > 0 && (
-          <span className={'text-gray-400 italic pt-12 font-sans px-px'}>
-            About {data.total} results.
-          </span>
-        )}
-        <div className={'grid grid-cols-12 pt-2 gap-12 '}>
-          <div id='search-results' className={'col-span-8 grid gap-8 relative'}>
-            {data &&
-              data?.hits?.map((course) => (
-                <SearchResult result={course} key={course.meta.id} />
-              ))}
-            <div className='py-8 sticky bottom-0 bg-gradient-to-t from-gray-50 mb-8'>
-              {!isLoading && data && (
-                <Pagination
-                  totalPages={Math.ceil(
-                    data?.total / config?.data?.search_results_per_page
-                  )}
-                  handleSpecificPage={handleSpecificPage}
-                  currentPage={parseInt(params.p)}
-                />
-              )}
-            </div>
-          </div>
-          <div className='relative col-span-4'>
-            <div className='sticky top-48'>
-              {data && data?.hits && <MoreLikeThis course={data?.hits[0]} />}
-            </div>
-          </div>
-        </div>
+
+        <TabBar
+          selectedTab={selectedTab}
+          setSelectedTab={setSelectedTab}
+          tabs={tabs}
+        />
+        {selectedTab === tabs[0] ?
+          <SearchCourses 
+            params={params}
+            setParams={setParams}
+          /> : 'SearchCompetencies'}
       </div>
+
+      {/* <SearchCompetencies /> */}
+
     </DefaultLayout>
   );
 }
