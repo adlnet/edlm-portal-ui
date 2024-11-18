@@ -15,13 +15,24 @@ export default function SelectList({
   return (
     <Menu as='div' className='relative inline-block text-left mt-0.5'>
       <div className='flex flex-col gap-2'>
+      <div
+            className='relative rounded-lg'
+            style={{
+              padding: '0.06rem',
+              background: 'linear-gradient(to left, #263F9D, #65D4E9)',
+            }}
+          >
         <Menu.Button
           title={`${keyName} filter`}
-          className='text-gray-800 items-center gap-2 inline-flex  justify-between w-36 bg-white shadow-md px-2 py-1 rounded-md focus:ring-2 ring-blue-400 transform transition-all duration-150 ease-in-out outline-none'
-        >
+          className='w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700' type="button">
+
           <div className='line-clamp-1'>{selected || keyName}</div>
-          <ChevronDownIcon className='h-4 w-4 text-gray-600' />
+          {/* <ChevronDownIcon className='h-4 w-4 text-gray-600' /> */}
+          <svg class="-ml-1 mr-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path clip-rule="evenodd" fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+        </svg>
         </Menu.Button>
+        </div>
         <div className='flex justify-end'>
           <button
             id={options?.field_name}
