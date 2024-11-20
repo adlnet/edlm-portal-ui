@@ -8,6 +8,8 @@ import { useCreateUserList } from '@/hooks/useCreateUserList';
 import { useUpdateUserList } from '@/hooks/useUpdateUserList';
 import { useUserOwnedLists } from '@/hooks/useUserOwnedLists';
 import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement';
+import Image from 'next/image';
+import PlusIcon from '@/public/cart-plus.svg';
 import InputField from '@/components/inputs/InputField';
 import useField from '@/hooks/useField';
 
@@ -124,10 +126,12 @@ export default function SaveModal({ courseId, title }) {
         title='save course'
         type='button'
         onClick={openModal}
-        className='inline-flex justify-center items-center gap-2 text-blue-400 rounded-r-lg rounded-l-3xl hover:shadow-md bg-blue-50 hover:bg-blue-400 hover:text-white py-1 pl-1 font-medium pr-2 transform transition-all duration-150 ease-in-out border-blue-400 border-2 focus:ring-2 ring-blue-400 outline-none'
+        className='w-[62px] h-6 px-3 py-2 border justify-center items-center gap-2 inline-flex rounded-lg bg-gradient-to-l from-[#263f9d] to-[#65d4e9] hover:from-[#65d4e9] hover:to-[#263f9d] transition-all ease-in duration-75'
       >
-        <PlusCircleIcon className='h-6 w-6' />
-        Save
+        <div className='justify-center items-center gap-2 flex bg-white rounded-md border-4 border-white px-[0.5rem]'>
+          <Image src={PlusIcon} className='w-3 h-3' />
+          <span className="text-[#1f3764] text-xs font-medium leading-none">Save</span>
+        </div>
       </button>
 
       <Transition appear show={isOpen} as={Fragment}>
