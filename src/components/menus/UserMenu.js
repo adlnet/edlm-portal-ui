@@ -6,8 +6,8 @@ import {
   FolderIcon,
   LogoutIcon,
   SearchIcon,
-} from '@heroicons/react/outline';
-import { ChevronUpIcon, UserIcon, ViewListIcon } from '@heroicons/react/solid';
+} from '@heroicons/react/24/outline';
+import { ChevronUpIcon, UserIcon, ViewListIcon } from '@heroicons/react/24/solid';
 import { Fragment } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import { useAuth } from '@/contexts/AuthContext';

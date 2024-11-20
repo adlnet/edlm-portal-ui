@@ -1,6 +1,6 @@
 'use strict';
 
-import { ShareIcon, DuplicateIcon } from '@heroicons/react/24/outline';
+import { ShareIcon, DuplicateIcon, PlusCircleIcon } from '@heroicons/react/24/outline';
 import { useState, Fragment } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useCallback } from 'react';
@@ -8,12 +8,12 @@ import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement';
 import { Dialog, Transition } from '@headlessui/react';
 
 
-export default function ShareButton({ id, courseTitle, courseDescription }) {
+export default function SaveButton({ id, courseTitle, courseDescription }) {
   const { user } = useAuth();
 
   // handle the copy to clipboard action
   const handleCopy = () => {
-    navigator.clipboard.writeText(`${window.origin}/learner/course/${id}`);
+    navigator.clipboard.writeText(`${window.origin}/course/${id}`);
   };
 
   const handleClick = useCallback(() => {
@@ -32,7 +32,7 @@ export default function ShareButton({ id, courseTitle, courseDescription }) {
       object: {
         definitionName: courseTitle,
         description: courseDescription,
-        id: `${window.origin}/learner/course/${id}`,
+        id: `${window.origin}/course/${id}`,
       },
       resultExtName: 'https://w3id.org/xapi/ecc/result/extensions/CourseId',
       resultExtValue: id,
@@ -50,17 +50,17 @@ export default function ShareButton({ id, courseTitle, courseDescription }) {
   
   let url = '';
   if (typeof window !== "undefined"){
-    url = `${window.origin}/learner/course/${id}`;
+    url = `${window.origin}/course/${id}`;
   }
 
   return (
     <>
     <button
       onClick={handleClick}
-      className='flex items-center gap-2 min-w-max whitespace-nowrap p-2 text-center text-white hover:shadow-md rounded-sm bg-blue-400 hover:bg-blue-600  font-medium transform transition-all duration-75 ease-in-out focus:ring-2 ring-blue-400 outline-none'
+      className='flex items-center gap-2 min-w-max whitespace-nowrap p-2 text-center text-black hover:text-white hover:shadow-md rounded-2xl bg-white hover:bg-blue-600  font-medium transform transition-all duration-75 ease-in-out focus:ring-2 ring-2 ring-blue-400 outline-2'
     >
-      <ShareIcon className='h-5 w-5' />
-      Share
+      <PlusCircleIcon className='h-5 w-5' />
+      Save
     </button>
     <Transition appear show={isOpen} as={Fragment}>
     <Dialog

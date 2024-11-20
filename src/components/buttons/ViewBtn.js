@@ -1,6 +1,6 @@
 'use strict';
 
-import { EyeIcon } from '@heroicons/react/solid';
+import { EyeIcon } from '@heroicons/react/24/solid';
 import { useAuth } from '@/contexts/AuthContext';
 import { useCallback } from 'react';
 import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement';

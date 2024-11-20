@@ -1,6 +1,6 @@
 'use strict';
 
-import { SearchIcon, XIcon } from '@heroicons/react/solid';
+import { MagnifyingGlassPlusIcon, XMarkIcon } from '@heroicons/react/24/solid';
 
 export default function SearchBar({ parameters, onChange, onClick, onReset }) {
   const checkSpecialChar = (e) => {
@@ -35,7 +35,7 @@ export default function SearchBar({ parameters, onChange, onClick, onReset }) {
           type='submit'
           className='outline-none rounded-full p-2 ml-2 mr-4  focus:bg-gray-100 text-gray-400 hover:text-blue-400 hover:text-shadow cursor-pointer'
         >
-          <SearchIcon className='h-5 w-5' />
+          <MagnifyingGlassPlusIcon className='h-5 w-5' />
         </button>
         <div className='border-l' />
         <button
@@ -44,7 +44,7 @@ export default function SearchBar({ parameters, onChange, onClick, onReset }) {
           onClick={() => onReset('keyword')}
           className='outline-none focus:bg-gray-100 mr-2 p-2 text-gray-400 hover:text-blue-400 hover:text-shadow cursor-pointer rounded-full hover:bg-gray-100 w-min'
         >
-          <XIcon className={'h-5 w-5'} />
+          <XMarkIcon className={'h-5 w-5'} />
         </button>
       </div>
     </form>
