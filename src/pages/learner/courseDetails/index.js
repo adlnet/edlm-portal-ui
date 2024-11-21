@@ -8,7 +8,7 @@ import { removeHTML } from '@/utils/cleaning';
 import { useAuth } from '@/contexts/AuthContext';
 import { useConfig } from '@/hooks/useConfig';
 import { useCourse } from '@/hooks/useCourse';
-import { useMemo, useCallback } from 'react';
+import { useMemo, useCallback, useState } from 'react';
 import { useMoreCoursesLikeThis } from '@/hooks/useMoreCoursesLikeThis';
 import { useRouter } from 'next/router';
 import CourseSpotlight from '@/components/cards/CourseSpotlight';
@@ -23,6 +23,7 @@ import SaveButton from '@/components/buttons/SaveBtn';
 //import { Accordion } from "flowbite-react";
 import FlowbiteAccordion from '@/components/fAccordion';
 import useSpotlightCourses from '@/hooks/useSpotlightCourses';
+import SaveModal from '@/components/modals/SaveModal';
 
 function RelatedCourses({ id }) {
     const moreLikeThis = useMoreCoursesLikeThis(id);
@@ -60,6 +61,14 @@ const mockData = [
         accTitle: "Action Officer Course: Introduction to IDA Support to DOT&E",
         accDescription: "Description: By the end of this module you will understand DOT&E authorities, responsibilities, and functions as defined by the law and DoD Directives; understand DOT&E organizational structures; align on the expectations to position yourself for success in DOT&E and gain the tools and skills to respond to OT&E and LFT&E demand"
     },
+    {
+        accTitle: "Action Officer Course: The famous fifth course",
+        accDescription: "Description: By the end of this module you will understand DOT&E authorities, responsibilities, and functions as defined by the law and DoD Directives; understand DOT&E organizational structures; align on the expectations to position yourself for success in DOT&E and gain the tools and skills to respond to OT&E and LFT&E demand"
+    },
+    {
+        accTitle: "Action Officer Course: The famous sixth course",
+        accDescription: "Description: By the end of this module you will understand DOT&E authorities, responsibilities, and functions as defined by the law and DoD Directives; understand DOT&E organizational structures; align on the expectations to position yourself for success in DOT&E and gain the tools and skills to respond to OT&E and LFT&E demand"
+    },
 ]
 
 export default function CourseDetails() {
@@ -67,7 +76,7 @@ export default function CourseDetails() {
     const { user } = useAuth();
 
     const spotlight = useSpotlightCourses();
-
+    const [showCourseFlag, setShowCourseFlag] = useState(true);
 
     // state of the fetching
     const course = useCourse(router.query?.courseId);
@@ -169,11 +178,12 @@ export default function CourseDetails() {
                                 courseTitle={data?.title}
                                 courseDescription={data?.description}
                             />
-                            <SaveButton
+                            {/* <SaveButton
                                 id={router.query?.courseId}
                                 courseTitle={data?.title}
                                 courseDescription={data?.description}
-                            />
+                            /> */}
+                            <SaveModal courseId={data?.meta?.id} title={"title" || data?.Course?.CourseTitle} />
                         </div>
                     </div>
                     <p className='flex my-2'>
@@ -319,14 +329,21 @@ export default function CourseDetails() {
                 <h1 className='font-bold text-2xl'>Associated Modules</h1>
                 <h2 className='font-semibold text-grey-900 opacity-50'>{mockData.length} total modules</h2>
                 <h3 className='mb-6'>To successfully complete this course, all course modules listed below must be reviewed in their entirety.</h3>
-                {mockData.map((data) => {
+                {mockData.map((data, index) => {
+                    if (index > 3){
+                         return (
+                            <div className='border rounded-md'>
+                                {(showCourseFlag) ? <FlowbiteAccordion acctitle={data.accTitle} accdescription={data.accDescription}/>: <></>}
+                            </div>
+                        );}
                     return (
                         <div className='border rounded-md'>
-                            {/* <Accordion acctitle={data.accTitle} accdescription={"Description: By the end of this module you will understand DOT&E authorities, responsibilities, and functions as defined by the law and DoD Directives; understand DOT&E organizational structures; align on the expectations to position yourself for success in DOT&E and gain the tools and skills to respond to OT&E and LFT&E demand."} /> */}
                             <FlowbiteAccordion acctitle={data.accTitle} accdescription={data.accDescription}/>
                         </div>
                     )
                 })}
+                <button onClick={() => setShowCourseFlag(!showCourseFlag)} className='w-full h-10 border rounded-lg text-white bg-blue-900'>Show More Courses</button>
+
             </div>
             {/* Related courses */}
             {/* <RelatedCourses id={router.query?.courseId} /> */}

@@ -56,11 +56,14 @@ export default function ShareButton({ id, courseTitle, courseDescription }) {
   return (
     <>
     <button
+      title='share course'
       onClick={handleClick}
-      className='flex items-center gap-2 min-w-max whitespace-nowrap p-2 text-center text-white hover:shadow-md rounded-sm bg-blue-400 hover:bg-blue-600  font-medium transform transition-all duration-75 ease-in-out focus:ring-2 ring-blue-400 outline-none'
+      className="w-[62px] h-6 px-3 py-2 border justify-center items-center gap-2 inline-flex rounded-lg bg-gradient-to-l from-[#263f9d] to-[#65d4e9] hover:from-[#65d4e9] hover:to-[#263f9d] transition-all ease-in duration-75"
     >
-      <ShareIcon className='h-5 w-5' />
-      Share
+      <div className='justify-center items-center gap-2 flex bg-white rounded-md border-4 border-white'>
+        <ShareIcon className='h-3 w-3' />
+        <span className="text-[#1f3764] text-xs font-medium font-['Roboto'] leading-none">Share</span>
+      </div>
     </button>
     <Transition appear show={isOpen} as={Fragment}>
     <Dialog
