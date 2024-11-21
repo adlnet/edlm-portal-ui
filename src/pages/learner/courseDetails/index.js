@@ -329,14 +329,14 @@ export default function CourseDetails() {
                 })}
             </div>
             {/* Related courses */}
-            <RelatedCourses id={router.query?.courseId} />
+            {/* <RelatedCourses id={router.query?.courseId} /> */}
             {spotlight.isSuccess && spotlight.data.length > 0 && (
                 <>
-                <span className='text-gray-400 italic block mt-24 font-sans px-2 max-w-7xl mx-auto'>
-                    Spotlight Courses
-                </span>
-                <div className='flex flex-col justify-center w-full mt-4 px-2 max-w-7xl mx-auto'>
-                    <div className='inline-flex overflow-x-auto gap-2 pb-4 custom-scroll '>
+                <div className='bg-white-200 mt-10 font-bold block font-sans p-4 '>
+                    <div className='w-full gap-10 max-w-7xl text-2xl mx-auto'>Related Courses</div>
+                </div>
+                <div className='flex justify-center w-full overflow-x-hidden my-10 max-w-7xl mx-auto'>
+                <div className='inline-flex overflow-x-auto gap-2 py-4 custom-scroll '>
                     {spotlight.data.map((course) => {
                         return <CourseSpotlight course={course} key={course.meta.id} />;
                     })}
