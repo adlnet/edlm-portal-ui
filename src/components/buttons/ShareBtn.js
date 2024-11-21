@@ -1,6 +1,6 @@
 'use strict';
 
-import { ShareIcon, DuplicateIcon } from '@heroicons/react/24/outline';
+import { ShareIcon, DocumentDuplicateIcon } from '@heroicons/react/24/outline';
 import { useState, Fragment } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useCallback } from 'react';
@@ -118,7 +118,7 @@ export default function ShareButton({ id, courseTitle, courseDescription }) {
                 className='inline-flex justify-center pl-2 pr-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500'
                 onClick={handleCopy}
               >
-                <DuplicateIcon className='h-4 w-4 mr-1' />
+                <DocumentDuplicateIcon className='h-4 w-4 mr-1' />
                 Copy
               </button>
 
