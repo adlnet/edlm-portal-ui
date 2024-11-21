@@ -62,7 +62,7 @@ export default function ShareButton({ id, courseTitle, courseDescription }) {
     >
       <div className='justify-center items-center gap-2 flex bg-white rounded-md border-4 border-white'>
         <ShareIcon className='h-3 w-3' />
-        <span className="text-[#1f3764] text-xs font-medium font-['Roboto'] leading-none">Share</span>
+        <span className="text-[#1f3764] text-xs font-medium leading-none">Share</span>
       </div>
     </button>
     <Transition appear show={isOpen} as={Fragment}>
