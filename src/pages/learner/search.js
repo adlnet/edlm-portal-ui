@@ -118,6 +118,7 @@ export default function Search() {
 
     return keys?.map((key) => {
       const localData = aggregations?.[key];
+      if (!localData || !localData.buckets || localData.buckets.length === 0) return null;
       return (
         <SelectList
           key={key + localData.field_params}
@@ -147,6 +148,7 @@ export default function Search() {
                 onChange={handleChange}
                 onReset={handleReset}
                 onClick={handleSearch}
+                onClear={handleClear}
               />
             </div>
             {data && !isLoading && selectedTab === 'Courses' && (
@@ -156,7 +158,10 @@ export default function Search() {
               {selectedTab === 'Courses' && user && <CreateSavedSearchModal path={router.asPath} />}
               <button 
                 title='Clear Search'
-                onClick= {() => setParams((prev) => ({ ...prev, keyword: '' }))}
+                onClick= {() => 
+                  setParams((prev) => ({ ...prev, keyword: '' }),
+                  router.push({ pathname: '/learner/search' })
+                )}
                 className="italic text-sm font-sans text-[#3892f3] underline whitespace-nowrap"
               >     
               Clear Search
@@ -166,9 +171,9 @@ export default function Search() {
         </div>
         <div className='py-4'>
           <TabBar
-          selectedTab={selectedTab}
-          setSelectedTab={setSelectedTab}
-          tabs={tabs}
+            selectedTab={selectedTab}
+            setSelectedTab={setSelectedTab}
+            tabs={tabs}
           />
           {selectedTab === tabs[0] ?
             <SearchCourses 

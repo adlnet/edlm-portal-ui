@@ -52,8 +52,10 @@ export default function SearchCourses( { params, setParams, courseSearchTriggerd
           <div id='search-results' className='col-span-12 grid gap-2 relative'>
             {data && data?.hits?.map((course) => (     
               <SearchResult result={course} key={course.meta.id} />    
-            ))}       
+            ))}  
+            {!isLoading && !data && <ContentLoadingAnimate />}     
           </div>
+          
 
           <div className='col-span-1 md:col-span-12 flex flex-col justify-center w-full -mt-4 px-2 max-w-7xl mx-auto'>
             <div className="text-[#1b1128] text-2xl font-bold leading-normal">Similar Courses</div>       

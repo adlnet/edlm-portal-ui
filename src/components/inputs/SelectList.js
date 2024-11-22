@@ -1,7 +1,6 @@
 'use strict';
 
-import { Fragment, useState } from 'react';
-import { Menu, Transition } from '@headlessui/react';
+import { useState, useRef, useEffect } from 'react';
 
 export default function SelectList({
   options,
@@ -10,59 +9,90 @@ export default function SelectList({
   onChange,
   onClear,
 }) {
-  const [selected, setSelected] = useState(initialValue);
+
+  // State to track selected options
+  const [selected, setSelected] = useState(initialValue || []);
+  const [isOpen, setIsOpen] = useState(false);
+  const dropDownRef = useRef(null);
+
+  const handleCheckboxChange = (e, key) => {
+    // Get the updated selection
+    const updatedSelection = e.target.checked;
+    if (updatedSelection) {
+      // Add the key to the selected state
+      setSelected(Array.isArray(selected) ? [...selected, key] : [key]);
+    } else {
+      // Remove the key from the selected state, make sure it is an array
+      setSelected(Array.isArray(selected) ? selected.filter((item) => item !== key) : []);
+    }
+  }
+
+  const handleMenuButtonClick = () => {
+    if (isOpen) {
+      onChange({ target: { name: options.field_name, value: selected } });
+    }
+    setIsOpen(!isOpen);
+  }
+
+  useEffect(() => {
+    const handleClickOutOfMenu = e => {
+      // Close the dropdown if the click is outside the dropdown
+      if (dropDownRef.current && !dropDownRef.current.contains(e.target)) {
+        setIsOpen(false);
+      }
+    }
+    // Add event listener to handle clicks outside the dropdown
+    document.addEventListener('click', handleClickOutOfMenu);
+    return () => document.removeEventListener('click', handleClickOutOfMenu);
+  }, []);
+
   return (
-    <Menu as='div' className='relative inline-block text-left mt-0.5'>
+    <div ref={dropDownRef} className='relative inline-block text-left mt-0.5'>
       <div className='flex flex-col gap-1.5'>
         <div
               className='relative rounded-lg p-[0.06rem] bg-gradient-to-l from-[#263f9d] to-[#65d4e9]'
             >
-          <Menu.Button
+          <button
             title={`${keyName} filter`}
-            className='h-[37x] flex items-center justify-center py-1.5 px-2.5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700' type="button">
-
-            <div className='whitespace-nowrap'>{selected || keyName}</div>
+            className='dropdown-button h-[37x] flex items-center justify-center py-1.5 px-2.5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700'
+            type="button"
+            onClick={handleMenuButtonClick}
+          >
+            <div className='whitespace-nowrap'>{keyName}</div>
             <svg class="ml-1 w-5 h-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path clip-rule="evenodd" fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-          </svg>
-          </Menu.Button>
-          </div>
+              <path clip-rule="evenodd" fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+            </svg>
+          </button>
+        </div>
       </div>
-      <Transition
-        as={Fragment}
-        enter='transition ease-out duration-200'
-        enterFrom='transform opacity-0 scale-95'
-        enterTo='transform opacity-100 scale-100'
-        leave='transition ease-in duration-100'
-        leaveFrom='transform opacity-100 scale-100'
-        leaveTo='transform opacity-0 scale-95'
-      >
-        <Menu.Items className='absolute left-0 top-10 w-44 origin-top-left bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-2 ring-blue-300 outline-none line-clamp-1'>
-          <div className='p-1'>
-            {options?.buckets?.map((group) => {
-              return (
-                <Menu.Item key={group.key}>
-                  {({ active }) => (
-                    <button
-                      name={options.field_name}
-                      value={group.key}
-                      onClick={(e) => {
-                        onChange(e);
-                        setSelected(group.key);
-                      }}
-                      className={`${
-                        active && 'bg-gray-50'
-                      } cursor-pointer rounded-md w-full text-left flex justify-between items-center `}
-                    >
+
+
+      {isOpen && (
+        <div className="p-4 bg-white rounded-lg shadow flex-col justify-start items-start inline-flex absolute left-0 top-10 z-50 w-56 max-h-80 overflow-auto">
+          <div className="self-stretch py-1 flex-col justify-start items-start gap-3 flex">
+            {options?.buckets?.map((group) => (
+              <div key={group.key} className="self-stretch justify-start items-center inline-flex">
+                <div className="grow shrink basis-0 h-4 rounded justify-start items-start gap-2 flex whitespace-nowrap">
+                  <input
+                    type='checkbox'
+                    id={`${options.field_name}-${group.key}`}
+                    name={options.field_name}
+                    value={group.key}
+                    checked={selected.includes(group.key)}
+                    onChange={(e) => handleCheckboxChange(e, group.key)}
+                    className="w-4 h-4 bg-[#faf9fb] rounded border border-[#d6d2db] cursor-pointer mr-2"
+                  />
+                  <div className="grow shrink basis-0 flex-col justify-start items-start gap-0.5 inline-flex">
+                    <label htmlFor={`${options.field_name}-${group.key}`} className="text-[#1b1128] text-sm font-medium font-['Inter'] leading-[14px] cursor-pointer">
                       {group.key}
-                    </button>
-                  )}
-                </Menu.Item>
-              );
-            })}
+                    </label>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
-        </Menu.Items>
-      </Transition>
-    </Menu>
+        </div>
+      )}
+    </div>
   );
 }
