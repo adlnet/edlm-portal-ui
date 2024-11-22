@@ -4,7 +4,7 @@ import {
   AcademicCapIcon,
   ArchiveIcon,
   UserIcon,
-} from '@heroicons/react/outline';
+} from '@heroicons/react/24/outline';
 import { getDeeplyNestedData } from '@/utils/getDeeplyNestedData';
 import { removeHTML } from '@/utils/cleaning';
 import { useAuth } from '@/contexts/AuthContext';

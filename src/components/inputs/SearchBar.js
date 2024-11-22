@@ -1,6 +1,6 @@
 'use strict';
 
-import { SearchIcon, XIcon } from '@heroicons/react/solid';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
 
 export default function SearchBar({ parameters, onChange, onClick, onReset }) {
   const checkSpecialChar = (e) => {
@@ -15,10 +15,10 @@ export default function SearchBar({ parameters, onChange, onClick, onReset }) {
         event.preventDefault();
         if (onClick) onClick(event);
       }}
-      
+
       className='relative w-full max-w-3xl h-[37px] flex items-center gap-0 inline-flex border border-[#d6d2db] rounded-lg overflow-hidden shadow-md'>
         <div className='absolute left-3 flex items-center pointer-events-none'>
-          <SearchIcon className='h-5 w-5 text-gray-500' />
+          <MagnifyingGlassIcon className='h-5 w-5 text-gray-500' />
         </div>
       <input
         id='search-bar'
