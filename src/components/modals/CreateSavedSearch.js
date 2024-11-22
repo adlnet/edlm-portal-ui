@@ -54,10 +54,10 @@ export default function CreateSavedSearchModal({ path }) {
   };
 
   return (
-    <Popover className='relative'>
-      <Popover.Button className='flex self-end w-full justify-center pr-6 items-center'>
-        <span className='italic text-sm font-sans text-blue-400 hover:underline hover:text-blue-500'>
-          Save this search
+    <Popover className='relative inline-flex items-center'>
+      <Popover.Button className='flex items-center justify-center pr-2'>
+        <span className='italic text-sm font-sans text-[#3892f3] underline whitespace-nowrap hover:text-[#1d6ed8]'>
+          Save Search
         </span>
       </Popover.Button>
       <Transition

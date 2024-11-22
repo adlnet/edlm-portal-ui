@@ -8,7 +8,10 @@ import SaveModal from '@/components/modals/SaveModal';
 import { useConfig } from '@/hooks/useConfig';
 import { getDeeplyNestedData } from '@/utils/getDeeplyNestedData';
 import ShareButton from '@/components/buttons/ShareBtn';
-// import { Corner } from '@bokeh/bokehjs/build/js/lib/models/common/box_kinds';
+import Image from 'next/image';
+import StoreIcon from '@/public/store.svg';
+import ClockIcon from '@/public/clock.svg';
+import WindowIcon from '@/public/window.svg';
 
 export default function SearchResult({ result }) {
   const { user } = useAuth();
@@ -19,10 +22,9 @@ export default function SearchResult({ result }) {
     return (getDeeplyNestedData(config.data?.course_information?.course_title, result));
   }, [config.isSuccess, config.data]);
 
-  const competencies = useMemo(() => {
-    return (getDeeplyNestedData(config.data?.course_information?.course_competency, result));
+  const subject = useMemo(() => {
+    return (getDeeplyNestedData(config.data?.course_information?.course_subject, result));
   }, [config.isSuccess, config.data]);
-
 
   const handleClick = useCallback(() => {
     // create the context
@@ -50,43 +52,63 @@ export default function SearchResult({ result }) {
 
   return (
     <div
-      className='group hover:text-blue-400 hover:text-shadow cursor-pointer pr-2 pl-1 py-1 rounded-md outline-none focus-within:ring-2 focus-within:ring-blue-500'
+      className='p-4 bg-white rounded-lg shadow-lg flex flex-col gap-4 hover:shadow-2xl transition-shadow duration-200'
       title={title || result.Course.CourseTitle}
     >
       <div className='flex justify-between gap-2 items-center'>
         <button
-          className='text-lg font-semibold group-hover:underline w-full text-left focus:outline-none'
+          className='text-xl font-bold text-[#111928] focus:outline-none'
           onClick={handleClick}
         >
           <h3>{title || result.Course.CourseTitle}</h3>
         </button>
-        <ShareButton
-                id={result.meta.id}
-                courseTitle={title || result.Course.CourseTitle}
-                courseDescription={removeHTML(getDeeplyNestedData(config.data?.course_information?.course_description, result)) || removeHTML(result.Course.CourseShortDescription)}
-        />
-        {user && <SaveModal courseId={result.meta.id} title={title || result.Course.CourseTitle} />}
-      </div>
-      <div onClick={handleClick} className='text-left' aria-hidden='true'>
-        <h4>
-          <strong>Provider:&nbsp;</strong>
-          {getDeeplyNestedData(config.data?.course_information?.course_provider, result) || result.Course.CourseProviderName}
-        </h4>
-        <h4>
-          <strong>Estimated Time: &nbsp;</strong>
-          { getDeeplyNestedData(config.data?.course_information?.course_time, result)  || 'Not available' }
-        </h4>
-        <h4>
-          <strong>Delivery Method: &nbsp;</strong>
-          { getDeeplyNestedData(config.data?.course_information?.course_deliveryMode, result) || 'Not available' }
-        </h4>
-        <div>
-          { competencies || 'Not available' }
+        <div className='flex gap-2'>
+          <ShareButton
+                  id={result.meta.id}
+                  courseTitle={title || result.Course.CourseTitle}
+                  courseDescription={removeHTML(getDeeplyNestedData(config.data?.course_information?.course_description, result)) || removeHTML(result.Course.CourseShortDescription)}
+          />
+          {user && <SaveModal courseId={result.meta.id} title={title || result.Course.CourseTitle} />}
         </div>
+      </div>
+      <div className='text-gray-500 text-base'>
         <p className='line-clamp-4 pr-4'>
           {removeHTML(getDeeplyNestedData(config.data?.course_information?.course_description, result)) ||removeHTML(result.Course.CourseShortDescription)}
         </p>
+
+        <div className="h-7 justify-start items-center gap-2 inline-flex flex-wrap my-6">
+          <div className="justify-start items-center gap-1.5 flex">
+            <div className="w-5 h-5 justify-center items-center flex">
+              <Image src={StoreIcon} alt="Store" className="w-5 h-5 relative flex-col justify-start items-start flex" />
+            </div>
+            <div className="text-gray-500 text-sm font-normal leading-tight">
+              {getDeeplyNestedData(config.data?.course_information?.course_provider, result) || result.Course.CourseProviderName}
+            </div>
+          </div>
+          <div className="justify-start items-center gap-1.5 flex">
+            <div className="w-5 h-5 relative">
+              <Image src={ClockIcon} alt='Clock' className="w-5 h-5 relative flex-col justify-start items-start flex" />
+            </div>
+            <div className="text-gray-500 text-sm font-normal  leading-tight">
+              {getDeeplyNestedData(config.data?.course_information?.course_time, result) || 'Not available'}
+            </div>
+          </div>
+          <div className="justify-start items-center gap-1.5 flex">
+            <div className="w-5 h-5 justify-center items-center flex">
+              <Image src={WindowIcon} alt='Window' className="w-5 h-5 relative flex-col justify-start items-start flex" />
+            </div>
+            <div className="text-gray-500 text-sm font-normal leading-tight">
+              {getDeeplyNestedData(config.data?.course_information?.course_deliveryMode, result) || 'Not available'}
+            </div>
+          </div>
+
+          <div className="w-auto h-7 px-[15px] py-1.5 bg-[#e5efff] rounded-xl justify-center items-center gap-2 flex">
+            <div className="text-center text-[#3892f3] text-sm font-normal font-['Roboto'] leading-tight whitespace-nowrap">
+              {subject || 'Not available' }
+            </div>
+          </div>
       </div>
     </div>
+  </div>
   );
 }

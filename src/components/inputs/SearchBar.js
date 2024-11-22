@@ -1,6 +1,6 @@
 'use strict';
 
-import { MagnifyingGlassPlusIcon, XMarkIcon } from '@heroicons/react/24/solid';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
 
 export default function SearchBar({ parameters, onChange, onClick, onReset }) {
   const checkSpecialChar = (e) => {
@@ -8,45 +8,39 @@ export default function SearchBar({ parameters, onChange, onClick, onReset }) {
      e.preventDefault();
     }
   };
-   
+
   return (
     <form
       onSubmit={(event) => {
         event.preventDefault();
         if (onClick) onClick(event);
       }}
-      className='w-full flex flex-row rounded-full shadow bg-white justify-center items-center focus-within:ring-4 ring-blue-400 focus-within:shadow-lg transform transition-all duration-150 ease-in-out z-10'
-    >
+
+      className='relative w-full max-w-3xl h-[37px] flex items-center gap-0 inline-flex border border-[#d6d2db] rounded-lg overflow-hidden shadow-md'>
+        <div className='absolute left-3 flex items-center pointer-events-none'>
+          <MagnifyingGlassIcon className='h-5 w-5 text-gray-500' />
+        </div>
       <input
         id='search-bar'
         value={parameters.keyword}
         name='keyword'
         type='text'
-        className='w-full py-4 rounded-full outline-none pl-6 border-none'
+        className="flex-1 pl-10 text-gray-500 text-sm font-normal outline-none bg-transparent"
         onChange={onChange}
         autoComplete='off'
-        placeholder='Search the catalog'
+        placeholder='Search for Learning Content'
         maxLength="128"
         onKeyPress={(e)=>checkSpecialChar(e)}
       />
-      <div id='button-group' className='inline-flex flex-row-reverse'>
         <button
           title='Search'
           type='submit'
-          className='outline-none rounded-full p-2 ml-2 mr-4  focus:bg-gray-100 text-gray-400 hover:text-blue-400 hover:text-shadow cursor-pointer'
+          className="h-full px-4 bg-[#1f3764] text-white text-sm font-medium font-['Inter']"
         >
-          <MagnifyingGlassPlusIcon className='h-5 w-5' />
+          Search
         </button>
-        <div className='border-l' />
-        <button
-          id={'reset'}
-          title='reset'
-          onClick={() => onReset('keyword')}
-          className='outline-none focus:bg-gray-100 mr-2 p-2 text-gray-400 hover:text-blue-400 hover:text-shadow cursor-pointer rounded-full hover:bg-gray-100 w-min'
-        >
-          <XMarkIcon className={'h-5 w-5'} />
-        </button>
-      </div>
+
     </form>
   );
 }
+

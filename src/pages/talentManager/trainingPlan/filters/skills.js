@@ -9,7 +9,7 @@ import Button from "@/components/Button";
 import { WorkforceAlignmentTable } from "@/components/tables/WorkforceAlignmentTable";
 import { CoursesTable } from "@/components/tables/CoursesTable";
 import DefaultLayout from "@/components/layouts/DefaultLayout";
-import { HomeIcon } from "@heroicons/react/outline";
+import { HomeIcon } from "@heroicons/react/24/outline";
 
 
 export default function TrainingPlanSkills() {

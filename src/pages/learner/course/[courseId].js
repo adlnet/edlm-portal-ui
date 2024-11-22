@@ -1,7 +1,7 @@
 'use strict';
 
-
 import { ClockIcon, UserIcon, BuildingStorefrontIcon, CalendarIcon, ComputerDesktopIcon, AcademicCapIcon, InformationCircleIcon, CurrencyDollarIcon, Square3Stack3DIcon } from '@heroicons/react/24/solid';
+
 import { getDeeplyNestedData } from '@/utils/getDeeplyNestedData';
 import { removeHTML } from '@/utils/cleaning';
 import { useAuth } from '@/contexts/AuthContext';

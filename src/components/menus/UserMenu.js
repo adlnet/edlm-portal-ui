@@ -1,13 +1,16 @@
 'use strict';
 
 import {
-  ArchiveIcon,
-  CollectionIcon,
+  ArchiveBoxIcon,
+  Squares2X2Icon,
   FolderIcon,
-  LogoutIcon,
-  SearchIcon,
+  Bars3Icon,
+  UserIcon,
+  ChevronUpIcon,
+  ArrowRightOnRectangleIcon,
+  MagnifyingGlassIcon,
 } from '@heroicons/react/24/outline';
-import { ChevronUpIcon, UserIcon, ViewListIcon } from '@heroicons/react/24/solid';
+
 import { Fragment } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import { useAuth } from '@/contexts/AuthContext';
@@ -21,12 +24,12 @@ const listMenuButtons = [
   },
   {
     name: 'Subscribed',
-    icon: <CollectionIcon className='h-4 w-4' />,
+    icon: <Squares2X2Icon className='h-4 w-4' />,
     href: '/learner/lists/subscribed',
   },
   {
     name: 'Saved Search',
-    icon: <ViewListIcon className='h-4 w-4' />,
+    icon: <Bars3Icon className='h-4 w-4' />,
     href: '/learner/lists/savedSearches',
   },
 ];
@@ -34,12 +37,12 @@ const listMenuButtons = [
 const searchMenuButtons = [
   {
     name: 'Search Courses',
-    icon: <SearchIcon className='h-4 w-4' />,
+    icon: <MagnifyingGlassIcon className='h-4 w-4' />,
     href: '/learner',
   },
   {
     name: 'Search Lists',
-    icon: <ArchiveIcon className='h-4 w-4' />,
+    icon: <ArchiveBoxIcon className='h-4 w-4' />,
     href: '/learner/lists/searchLists',
   },
 ];
@@ -128,7 +131,7 @@ export default function UserMenu() {
                         active && 'ring-2 ring-blue-500 ring-offset-1'
                       } hover:ring-transparent`}
                     >
-                      <LogoutIcon className='h-4 w-4' />
+                      <ArrowRightOnRectangleIcon className='h-4 w-4' />
                       Logout
                     </button>
                   )}

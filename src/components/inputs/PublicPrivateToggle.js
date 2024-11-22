@@ -1,7 +1,7 @@
 'use strict';
 
 import { Switch } from "@headlessui/react";
-import {EyeIcon, EyeOffIcon} from "@heroicons/react/outline";
+import {EyeIcon, EyeOffIcon} from "@heroicons/react/24/outline";
 
 
 export default function PublicPrivateToggle({currentListInfo, toggleListVisibility }) {

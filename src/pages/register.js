@@ -3,7 +3,7 @@ import {
     RefreshIcon,
     UserAddIcon,
     XCircleIcon,
-  } from '@heroicons/react/outline';
+  } from '@heroicons/react/24/outline';
   import { authRegister } from '@/config/endpoints';
   import { axiosInstance } from '@/config/axiosConfig';
   import {

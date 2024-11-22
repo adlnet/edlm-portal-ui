@@ -2,14 +2,16 @@
 
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useCallback, useState } from 'react';
-import { PlusCircleIcon } from '@heroicons/react/24/outline';
+
 import { useAuth } from '@/contexts/AuthContext';
 import { useCreateUserList } from '@/hooks/useCreateUserList';
 import { useUpdateUserList } from '@/hooks/useUpdateUserList';
 import { useUserOwnedLists } from '@/hooks/useUserOwnedLists';
 import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement';
 import Image from 'next/image';
-//import PlusIcon from '@/public/cart-plus.svg';
+
+import PlusIcon from '@/public/cart-plus.svg';
+
 import InputField from '@/components/inputs/InputField';
 import useField from '@/hooks/useField';
 
@@ -129,7 +131,9 @@ export default function SaveModal({ courseId, title }) {
         className='w-[62px] h-6 px-3 py-2 border justify-center items-center gap-2 inline-flex rounded-lg bg-gradient-to-l from-[#263f9d] to-[#65d4e9] hover:from-[#65d4e9] hover:to-[#263f9d] transition-all ease-in duration-75'
       >
         <div className='justify-center items-center gap-2 flex bg-white rounded-md border-4 border-white px-[0.5rem]'>
-          <PlusCircleIcon className='w-3 h-3' />
+
+          <Image src={PlusIcon} alt='Plus' className='w-3 h-3' />
+
           <span className="text-[#1f3764] text-xs font-medium leading-none">Save</span>
         </div>
       </button>
