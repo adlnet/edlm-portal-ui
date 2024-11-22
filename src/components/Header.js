@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Link from 'next/link';
 import UserMenu from '@/components/menus/UserMenu';
-import logo from '@/public/logo.png';
+import logo from '@/public/doteLogo.png';
 
 const menuItems = [
   {
@@ -47,13 +47,13 @@ function Button({ data }) {
 export default function Header() {
   const { user } = useAuth();
   return (
-    <header className={'bg-white w-full shadow z-50'}>
+    <header className={'bg-blue-900 w-full shadow z-50'}>
       <nav
         className={'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'}
         aria-label={'Top'}
       >
         <div className='w-full py-4 inline-flex items-center justify-between z-50'>
-          <div className={'flex items-center justify-start gap-2'}>
+          <div className={'flex items-center justify-start text-white text-4xl font-semibold gap-4'}>
             <Link href={'/'} passHref>
               {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
               <button
@@ -64,14 +64,7 @@ export default function Header() {
                 <Image src={logo} alt={'home'} height={'60'} width={'60'} priority={true}/>
               </button>
             </Link>
-            {menuItems.map((item) => {
-              if (item.label !== 'Search Lists') {
-                return <Button key={item.label} data={item} />;
-              }
-              if (user) {
-                return <Button key={item.label} data={item} />;
-              }
-            })}
+            DOT&E Portal
           </div>
           {!user ? (
             <div className='space-x-4'>
