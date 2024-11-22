@@ -87,7 +87,7 @@ export default function SearchResult({ result }) {
           </div>
           <div className="justify-start items-center gap-1.5 flex">
             <div className="w-5 h-5 relative">
-              <Image src={ClockIcon} className="w-5 h-5 relative flex-col justify-start items-start flex" />
+              <Image src={ClockIcon} alt='Clock' className="w-5 h-5 relative flex-col justify-start items-start flex" />
             </div>
             <div className="text-gray-500 text-sm font-normal  leading-tight">
               {getDeeplyNestedData(config.data?.course_information?.course_time, result) || 'Not available'}
@@ -95,7 +95,7 @@ export default function SearchResult({ result }) {
           </div>
           <div className="justify-start items-center gap-1.5 flex">
             <div className="w-5 h-5 justify-center items-center flex">
-              <Image src={WindowIcon} className="w-5 h-5 relative flex-col justify-start items-start flex" />
+              <Image src={WindowIcon} alt='Window' className="w-5 h-5 relative flex-col justify-start items-start flex" />
             </div>
             <div className="text-gray-500 text-sm font-normal leading-tight">
               {getDeeplyNestedData(config.data?.course_information?.course_deliveryMode, result) || 'Not available'}
