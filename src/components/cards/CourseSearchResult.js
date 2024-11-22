@@ -53,7 +53,7 @@ export default function SearchResult({ result }) {
       className='group hover:text-blue-400 hover:text-shadow cursor-pointer pr-2 pl-1 py-1 rounded-md outline-none focus-within:ring-2 focus-within:ring-blue-500'
       title={title || result.Course.CourseTitle}
     >
-      <div className='flex justify-between items-center'>
+      <div className='flex justify-between gap-2 items-center'>
         <button
           className='text-lg font-semibold group-hover:underline w-full text-left focus:outline-none'
           onClick={handleClick}

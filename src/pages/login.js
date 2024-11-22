@@ -1,6 +1,6 @@
 'use strict';
 
-import { LoginIcon } from '@heroicons/react/outline';
+import { ArrowLeftEndOnRectangleIcon } from '@heroicons/react/24/outline';
 import { authLogin } from '@/config/endpoints';
 import { axiosInstance } from '@/config/axiosConfig';
 import { useAuth } from '@/contexts/AuthContext';
@@ -103,7 +103,7 @@ export default function Login() {
             type='submit'
             id='login-button'
           >
-            <LoginIcon className='w-5 h-5' />
+            <ArrowLeftEndOnRectangleIcon className='w-5 h-5' />
             Login
           </button>
 
