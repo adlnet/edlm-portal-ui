@@ -74,7 +74,7 @@ export default function Course() {
   // state of the fetching
   const course = useCourse(router.query?.courseId);
   const config = useConfig();
-  const [showCourseFlag, setShowCourseFlag] = useState(true);
+  const [showCourseFlag, setShowCourseFlag] = useState(false);
 
 
   // prepare the course data
@@ -156,6 +156,7 @@ export default function Course() {
 
     xAPISendStatement(context);
   }, [router.query?.courseId, data?.title, data?.description, user]);
+
 
   return (
     <>
@@ -343,25 +344,11 @@ export default function Course() {
             </div>
           )
         })}
-        <button onClick={() => setShowCourseFlag(!showCourseFlag)} className='w-full h-10 border rounded-lg text-white bg-blue-900'>Show More Courses</button>
+        <button onClick={()=>{setShowCourseFlag(!showCourseFlag)}} className='w-full h-10 border rounded-lg text-white bg-blue-900'>Show {showCourseFlag ? "Less" : "More"} Courses</button>
 
       </div>
       {/* Related courses */}
       <RelatedCourses id={router.query?.courseId} />
-      {/* {spotlight.isSuccess && spotlight.data.length > 0 && (
-        <>
-          <div className='bg-white-200 mt-10 font-bold block font-sans p-4 '>
-            <div className='w-full gap-10 max-w-7xl text-2xl mx-auto'>Related Courses</div>
-          </div>
-          <div className='flex justify-center w-full overflow-x-hidden my-10 max-w-7xl mx-auto'>
-            <div className='inline-flex overflow-x-auto gap-2 py-4 custom-scroll '>
-              {spotlight.data.map((course) => {
-                return <CourseSpotlight course={course} key={course.meta.id} />;
-              })}
-            </div>
-          </div>
-        </>
-      )} */}
       <Footer />
     </>
   );
