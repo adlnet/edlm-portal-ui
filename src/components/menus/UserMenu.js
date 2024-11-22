@@ -4,10 +4,13 @@ import {
   ArchiveBoxIcon,
   Squares2X2Icon,
   FolderIcon,
+  Bars3Icon,
+  UserIcon,
+  ChevronUpIcon,
   ArrowRightOnRectangleIcon,
   MagnifyingGlassIcon,
 } from '@heroicons/react/24/outline';
-import { ChevronUpIcon, UserIcon, Bars3Icon } from '@heroicons/react/24/solid';
+
 import { Fragment } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import { useAuth } from '@/contexts/AuthContext';

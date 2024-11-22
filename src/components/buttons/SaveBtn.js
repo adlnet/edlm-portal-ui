@@ -1,6 +1,6 @@
 'use strict';
 
-import { ShareIcon, DocumentDuplicateIcon } from '@heroicons/react/24/outline';
+import { ShareIcon, DuplicateIcon, PlusCircleIcon } from '@heroicons/react/24/outline';
 import { useState, Fragment } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useCallback } from 'react';
@@ -8,12 +8,12 @@ import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement';
 import { Dialog, Transition } from '@headlessui/react';
 
 
-export default function ShareButton({ id, courseTitle, courseDescription }) {
+export default function SaveButton({ id, courseTitle, courseDescription }) {
   const { user } = useAuth();
 
   // handle the copy to clipboard action
   const handleCopy = () => {
-    navigator.clipboard.writeText(`${window.origin}/learner/course/${id}`);
+    navigator.clipboard.writeText(`${window.origin}/course/${id}`);
   };
 
   const handleClick = useCallback(() => {
@@ -32,7 +32,7 @@ export default function ShareButton({ id, courseTitle, courseDescription }) {
       object: {
         definitionName: courseTitle,
         description: courseDescription,
-        id: `${window.origin}/learner/course/${id}`,
+        id: `${window.origin}/course/${id}`,
       },
       resultExtName: 'https://w3id.org/xapi/ecc/result/extensions/CourseId',
       resultExtValue: id,
@@ -50,22 +50,17 @@ export default function ShareButton({ id, courseTitle, courseDescription }) {
   
   let url = '';
   if (typeof window !== "undefined"){
-    url = `${window.origin}/learner/course/${id}`;
+    url = `${window.origin}/course/${id}`;
   }
 
   return (
     <>
     <button
-      title='share course'
       onClick={handleClick}
-      className="w-[62px] h-6 px-3 py-2 border justify-center items-center gap-2 inline-flex rounded-lg bg-gradient-to-l from-[#263f9d] to-[#65d4e9] hover:from-[#65d4e9] hover:to-[#263f9d] transition-all ease-in duration-75"
+      className='flex items-center gap-2 min-w-max whitespace-nowrap p-2 text-center text-black hover:text-white hover:shadow-md rounded-2xl bg-white hover:bg-blue-600  font-medium transform transition-all duration-75 ease-in-out focus:ring-2 ring-2 ring-blue-400 outline-2'
     >
-      <div className='justify-center items-center gap-2 flex bg-white rounded-md border-4 border-white'>
-        <ShareIcon className='h-3 w-3' />
-
-        <span className="text-[#1f3764] text-xs font-medium leading-none">Share</span>
-
-      </div>
+      <PlusCircleIcon className='h-5 w-5' />
+      Save
     </button>
     <Transition appear show={isOpen} as={Fragment}>
     <Dialog
@@ -120,7 +115,7 @@ export default function ShareButton({ id, courseTitle, courseDescription }) {
                 className='inline-flex justify-center pl-2 pr-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500'
                 onClick={handleCopy}
               >
-                <DocumentDuplicateIcon className='h-4 w-4 mr-1' />
+                <DuplicateIcon className='h-4 w-4 mr-1' />
                 Copy
               </button>
 

@@ -39,6 +39,8 @@ export default function SearchBar({ parameters, onChange, onClick, onReset }) {
         >
           Search
         </button>
+
     </form>
   );
 }
+

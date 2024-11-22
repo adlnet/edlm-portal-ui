@@ -55,7 +55,7 @@ export default function SearchResult({ result }) {
       className='p-4 bg-white rounded-lg shadow-lg flex flex-col gap-4 hover:shadow-2xl transition-shadow duration-200'
       title={title || result.Course.CourseTitle}
     >
-      <div className='flex justify-between items-center'>
+      <div className='flex justify-between gap-2 items-center'>
         <button
           className='text-xl font-bold text-[#111928] focus:outline-none'
           onClick={handleClick}
