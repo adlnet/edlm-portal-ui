@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/dist/client/router';
 import { useCourseSearch} from '@/hooks/useCourseSearch';
+import { useCompetencySearch} from '@/hooks/useCompetencySearch';
 import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement';
 import { unstable_batchedUpdates } from 'react-dom';
 import SearchCourses from '@/components/SearchCourses'; 
@@ -12,8 +13,6 @@ import TabBar from '@/components/buttons/TabBar';
 import SearchBar from '@/components/inputs/SearchBar';
 import SelectList from '@/components/inputs/SelectList';
 import CreateSavedSearchModal from '@/components/modals/CreateSavedSearch';
-
-import { useCompetencySearch} from '@/hooks/useCompetencySearch';
 
 export default function Search() {
 
@@ -184,13 +183,15 @@ export default function Search() {
             <SearchCourses 
               params={params}
               setParams={setParams}
-            /> : 'SearchCompetencies'}
-            </div>
+            /> : 
+            <SearchCompetencies 
+              Competencies={Competencies} 
+              Name={Name}
+            />
+          }
+        </div>
 
-          </div>
-
-        {/* <SearchCompetencies /> */}
-
+        </div>
       </div>
 
     </DefaultLayout>
