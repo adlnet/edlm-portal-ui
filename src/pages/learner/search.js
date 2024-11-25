@@ -6,12 +6,14 @@ import { useCourseSearch} from '@/hooks/useCourseSearch';
 import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement';
 import { unstable_batchedUpdates } from 'react-dom';
 import SearchCourses from '@/components/SearchCourses'; 
-// import SearchCompetencies from '@/components/SearchCompetencies';
+import SearchCompetencies from '@/components/SearchCompetencies';
 import DefaultLayout from '@/components/layouts/DefaultLayout';
 import TabBar from '@/components/buttons/TabBar';
 import SearchBar from '@/components/inputs/SearchBar';
 import SelectList from '@/components/inputs/SelectList';
 import CreateSavedSearchModal from '@/components/modals/CreateSavedSearch';
+
+import { useCompetencySearch} from '@/hooks/useCompetencySearch';
 
 export default function Search() {
 
@@ -20,6 +22,9 @@ export default function Search() {
   const { setUrl, data, isLoading } = useCourseSearch();
   // const { compData } = useCompSearch();
   const { user } = useAuth();
+
+  const { Competencies, Name} = useCompetencySearch();
+  //console.log('Competencies in Search.js: ', Competencies)
 
   const tabs = ['Courses', 'Competencies'];
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
