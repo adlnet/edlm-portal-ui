@@ -57,7 +57,7 @@ export default function SearchCompetencies({Competencies, Name}){
     const ChildComps = findChildren({Competencies});
 
     const structuredComps = generateStructure({ParentComps, ChildComps, Competencies})
-    console.log('StructuredComps: ', structuredComps)
+    //console.log('StructuredComps: ', structuredComps)
 
     // May need to adjust for not swapping tabs automatically
     // function handleSpecificPage(page) {

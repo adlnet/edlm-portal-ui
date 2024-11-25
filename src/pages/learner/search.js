@@ -23,7 +23,7 @@ export default function Search() {
   const { user } = useAuth();
 
   const { Competencies, Name} = useCompetencySearch();
-  console.log('Competencies in Search.js: ', Competencies)
+  //console.log('Competencies in Search.js: ', Competencies)
 
   const tabs = ['Courses', 'Competencies'];
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
