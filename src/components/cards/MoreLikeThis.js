@@ -15,11 +15,13 @@ export default function MoreLikeThis({ course }) {
   const { Course, meta, Technical_Information, Course_Instance } = {
     ...course,
   };
+  
   const { user } = useAuth();
   const config = useConfig();
 
   const title = useMemo(() => {
     return getDeeplyNestedData(config.data?.course_information?.course_title, course);
+    
   }, [config.isSuccess, config.data]);
 
   const provider = useMemo(() => {
