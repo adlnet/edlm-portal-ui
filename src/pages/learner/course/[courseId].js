@@ -250,7 +250,7 @@ export default function Course() {
 
       {/* Details divider */}
       <div id='details-divider' className='bg-gray-200 mt-4 '>
-        <div className='flex max-w-7xl mx-auto p-4 justify-between'>
+        <div className='flex max-w-7xl mx-auto p-4 justify-around'>
           <div className='flex items-center min-w-max gap-8'>
             <div className='flex justify-center items-center gap-2'>
               <BuildingStorefrontIcon className='h-10' />
