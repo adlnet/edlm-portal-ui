@@ -52,7 +52,7 @@ export default function SearchCourses( { params, setParams, courseSearchTriggerd
     return (
       <div className='mt-4 pb-4'>
         <div className='grid grid-cols-1 md:grid-cols-12 pt-0 gap-6 md:gap-12'>
-          <div id='search-results' className='col-span-12 grid gap-2 relative'>
+          <div id='search-results' className='col-span-12 grid gap-4 relative'>
             {data && data?.hits?.map((course) => (     
               <SearchResult result={course} key={course.meta.id} />    
             ))}  
@@ -68,7 +68,7 @@ export default function SearchCourses( { params, setParams, courseSearchTriggerd
             </div>   
         </div>
         
-        <div className='py-3 sticky bottom-0 -mb-8'>     
+        <div className='pt-4 sticky bottom-0 -mb-8'>     
             {!isLoading && data && (     
               <Pagination     
                 totalPages={Math.ceil(data?.total / config?.data?.search_results_per_page)}    

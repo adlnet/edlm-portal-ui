@@ -9,7 +9,6 @@ import OutdentIcon from '@/public/icons/outdentIcon.svg';
 import BookIcon from '@/public/icons/bookIcon.svg';
 import LifeBuoyIcon from '@/public/icons/lifeBuoyIcon.svg';
 import ChevronDownIcon from '@/public/icons/chevronDownIcon.svg';
-import AngleLeftIcon from '@/public/icons/angleLeftIcon.svg';
 
 export default function StaticSideNav() {
 
@@ -36,7 +35,6 @@ export default function StaticSideNav() {
                     <div className="text-[#111928] text-base font-medium leading-normal">{label}</div>
                 </div>
             </div>
-            {renderActiveIcon(activeBtn === btn || isActivePath(path))}
         </div>
     );
 
@@ -45,18 +43,6 @@ export default function StaticSideNav() {
             <div className="w-[133px] text-[#111928] text-base font-medium leading-normal">{label}</div>
         </div>
     );
-
-    const renderActiveIcon = (isActive) => {
-        if (!isActive) return null;
-        return (
-            <div className="w-8 h-8 justify-center items-center flex">
-                <div className="w-8 h-8 relative">
-                    <div className="w-8 h-8 left-0 top-0 absolute bg-[#1f3764] rounded-full" />
-                    <Image src={AngleLeftIcon} alt='Angle' className="w-[14.55px] h-[14.55px] left-[9px] top-[9px] absolute" />
-                </div>
-            </div>
-        );
-    };
 
     return (
         <div className="h-full sticky top-0 shadow">
@@ -106,7 +92,7 @@ export default function StaticSideNav() {
                     </div>
                 </div>
 
-                <div className="self-stretch h-20 px-2.5 flex-col justify-start items-start gap-2 inline-flex cursor-pointer">
+                <div className="self-stretch h-20 px-3 flex-col justify-start items-start gap-2 inline-flex cursor-pointer">
                     {renderNavBtn('additional', '/additionalResource', BookIcon, 'Additional Resources')}
                     {renderNavBtn('help', '/help', LifeBuoyIcon, 'Help')}
                 </div>
