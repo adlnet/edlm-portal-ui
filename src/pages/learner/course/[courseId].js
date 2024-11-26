@@ -43,11 +43,11 @@ function RelatedCourses({ id }) {
 const mockData = [
   {
       accTitle: "Action Officer Course: Introduction",
-      accDescription: "Description: By the end of this module you will understand DOT&E authorities, responsibilities, and functions as defined by the law and DoD Directives; understand DOT&E organizational structures; align on the expectations to position yourself for success in DOT&E and gain the tools and skills to respond to OT&E and LFT&E demand"
+      accDescription: "By the end of this module you will understand DOT&E authorities, responsibilities, and functions as defined by the law and DoD Directives; understand DOT&E organizational structures; align on the expectations to position yourself for success in DOT&E and gain the tools and skills to respond to OT&E and LFT&E demand"
   },
   {
       accTitle: "Action Officer Course: DAS and Aquisiton Contracts",
-      accDescription: "Description: By the end of this module you will understand DOT&E authorities, responsibilities, and functions as defined by the law and DoD Directives; understand DOT&E organizational structures; align on the expectations to position yourself for success in DOT&E and gain the tools and skills to respond to OT&E and LFT&E demand"
+      accDescription: "By the end of this module you will understand DOT&E authorities, responsibilities, and functions as defined by the law and DoD Directives; understand DOT&E organizational structures; align on the expectations to position yourself for success in DOT&E and gain the tools and skills to respond to OT&E and LFT&E demand"
   },
   {
       accTitle: "Action Officer Course: JCIDS and Requirements",
@@ -55,15 +55,15 @@ const mockData = [
   },
   {
       accTitle: "Action Officer Course: Introduction to IDA Support to DOT&E",
-      accDescription: "Description: By the end of this module you will understand DOT&E authorities, responsibilities, and functions as defined by the law and DoD Directives; understand DOT&E organizational structures; align on the expectations to position yourself for success in DOT&E and gain the tools and skills to respond to OT&E and LFT&E demand"
+      accDescription: "By the end of this module you will understand DOT&E authorities, responsibilities, and functions as defined by the law and DoD Directives; understand DOT&E organizational structures; align on the expectations to position yourself for success in DOT&E and gain the tools and skills to respond to OT&E and LFT&E demand"
   },
   {
       accTitle: "Action Officer Course: The famous fifth course",
-      accDescription: "Description: By the end of this module you will understand DOT&E authorities, responsibilities, and functions as defined by the law and DoD Directives; understand DOT&E organizational structures; align on the expectations to position yourself for success in DOT&E and gain the tools and skills to respond to OT&E and LFT&E demand"
+      accDescription: "By the end of this module you will understand DOT&E authorities, responsibilities, and functions as defined by the law and DoD Directives; understand DOT&E organizational structures; align on the expectations to position yourself for success in DOT&E and gain the tools and skills to respond to OT&E and LFT&E demand"
   },
   {
       accTitle: "Action Officer Course: The famous sixth course",
-      accDescription: "Description: By the end of this module you will understand DOT&E authorities, responsibilities, and functions as defined by the law and DoD Directives; understand DOT&E organizational structures; align on the expectations to position yourself for success in DOT&E and gain the tools and skills to respond to OT&E and LFT&E demand"
+      accDescription: "By the end of this module you will understand DOT&E authorities, responsibilities, and functions as defined by the law and DoD Directives; understand DOT&E organizational structures; align on the expectations to position yourself for success in DOT&E and gain the tools and skills to respond to OT&E and LFT&E demand"
   },
 ]
 
@@ -156,6 +156,8 @@ export default function Course() {
 
     xAPISendStatement(context);
   }, [router.query?.courseId, data?.title, data?.description, user]);
+
+  console.log(data);
 
 
   return (
@@ -264,7 +266,7 @@ export default function Course() {
               <span>
                 <div className='text-sm font-semibold'>Duration</div>
                 <div className='text-sm'>
-                  {data?.details || '45 Min'}
+                  {data?.timeframe || '45 Min'}
                 </div>
               </span>
             </div>
