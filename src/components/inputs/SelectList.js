@@ -69,25 +69,25 @@ export default function SelectList({
 
       {isOpen && (
         <div className="p-4 bg-white rounded-lg shadow flex-col justify-start items-start inline-flex absolute left-0 top-10 z-50 w-56 max-h-80 overflow-auto">
-          <div className="self-stretch py-1 flex-col justify-start items-start gap-3 flex">
+          <div>
             {options?.buckets?.map((group) => (
-              <div key={group.key} className="self-stretch justify-start items-center inline-flex">
-                <div className="grow shrink basis-0 h-4 rounded justify-start items-start gap-2 flex whitespace-nowrap">
-                  <input
-                    type='checkbox'
-                    id={`${options.field_name}-${group.key}`}
-                    name={options.field_name}
-                    value={group.key}
-                    checked={selected.includes(group.key)}
-                    onChange={(e) => handleCheckboxChange(e, group.key)}
-                    className="w-4 h-4 bg-[#faf9fb] rounded border border-[#d6d2db] cursor-pointer mr-2"
-                  />
-                  <div className="grow shrink basis-0 flex-col justify-start items-start gap-0.5 inline-flex">
-                    <label htmlFor={`${options.field_name}-${group.key}`} className="text-[#1b1128] text-sm font-medium font-['Inter'] leading-[14px] cursor-pointer">
-                      {group.key}
-                    </label>
-                  </div>
+              <div key={group.key} className="flex items-center mb-2 ">
+
+                <input
+                  type='checkbox'
+                  id={`${options.field_name}-${group.key}`}
+                  name={options.field_name}
+                  value={group.key}
+                  checked={selected.includes(group.key)}
+                  onChange={(e) => handleCheckboxChange(e, group.key)}
+                  className="w-4 h-4 bg-[#faf9fb] rounded border border-[#d6d2db] cursor-pointer mr-2 "
+                />
+                <div className="grow shrink basis-0 flex-col justify-start items-start gap-0.5 inline-flex">
+                  <label htmlFor={`${options.field_name}-${group.key}`} className="text-[#1b1128] text-sm font-medium font-['Inter'] leading-[14px] cursor-pointer">
+                    {group.key}
+                  </label>
                 </div>
+
               </div>
             ))}
           </div>
