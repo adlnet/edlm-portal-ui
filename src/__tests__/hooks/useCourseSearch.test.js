@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { act, renderHook } from '@testing-library/react-hooks';
+import { act, renderHook } from '@testing-library/react';
 import mockAxios from 'jest-mock-axios';
 
 import { useCourseSearch } from '@/hooks/useCourseSearch';

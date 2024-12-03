@@ -1,7 +1,7 @@
 // tests for useInterestLists hook
 
 import { QueryClientWrapper } from '@/__mocks__/queryClientMock';
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react';
 import { useInterestLists } from '@/hooks/useInterestLists';
 import mockAxios from 'jest-mock-axios';
 import userListsData from '@/__mocks__/data/userLists.data';

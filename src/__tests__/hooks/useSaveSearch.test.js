@@ -1,6 +1,6 @@
 // test cases for useSaveSearch hook
 import { QueryClientWrapper } from '@/__mocks__/queryClientMock';
-import { act, renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react';
 import { useSaveSearchList } from '@/hooks/useSaveSearch';
 
 import mockAxios from 'jest-mock-axios';

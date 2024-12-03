@@ -1,5 +1,5 @@
 import { QueryClientWrapper } from '@/__mocks__/queryClientMock';
-import { renderHook } from '@testing-library/react-hooks';
+import { act, renderHook } from '@testing-library/react';
 import { useCreateUserList } from '@/hooks/useCreateUserList';
 import mockAxios from 'jest-mock-axios';
 

@@ -1,4 +1,4 @@
-const { renderHook, act } = require('@testing-library/react-hooks');
+const { renderHook, act } = require('@testing-library/react');
 import { useSearchUrl } from '../../hooks/useSearchUrl';
 
 jest.unmock('@/hooks/useSearchUrl');
