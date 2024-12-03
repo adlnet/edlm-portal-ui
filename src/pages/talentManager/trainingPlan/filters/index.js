@@ -8,7 +8,7 @@ import Button from "@/components/Button";
 import Accordion from "@/components/Accordion";
 import DefaultLayout from "@/components/layouts/DefaultLayout";
 import { Checkbox, Dropdown, Label } from "flowbite-react";
-import { HomeIcon } from "@heroicons/react/outline";
+import { HomeIcon } from "@heroicons/react/24/solid";
 
 export default function TalentFinderFilters() {
     const router = useRouter();

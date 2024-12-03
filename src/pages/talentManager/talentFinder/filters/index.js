@@ -6,7 +6,7 @@ import { Checkbox, Label } from "flowbite-react";
 import { useRouter } from 'next/router';
 import Button from "@/components/Button";
 import DefaultLayout from "@/components/layouts/DefaultLayout";
-import { HomeIcon } from "@heroicons/react/outline";
+import { HomeIcon } from "@heroicons/react/24/solid";
 
 
 export default function TalentFinderFilters() {

@@ -8,7 +8,7 @@ import Button from "@/components/Button";
 import Accordion from "@/components/Accordion";
 import { TalentTable } from "@/components/tables/TalentTable";
 import DefaultLayout from "@/components/layouts/DefaultLayout";
-import { HomeIcon } from "@heroicons/react/outline";
+import { HomeIcon } from "@heroicons/react/24/solid";
 import { useEffect, useState } from "react";
 import { axiosInstance, axiosxapiInstance } from "@/config/axiosConfig";
 import { xapiUsers } from "@/config/endpoints";
