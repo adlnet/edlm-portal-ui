@@ -78,7 +78,7 @@ export default function UserMenu() {
   return (
     <Menu
       as='div'
-      className='relative inline-block text-left mt-0.5 max-w-min '
+      className='relative inline-block text-left mt-0.5 max-w-min z-50'
     >
       {({ open }) => (
         <div className='relative'>
@@ -109,7 +109,7 @@ export default function UserMenu() {
             leaveFrom='transform opacity-100 scale-100'
             leaveTo='transform opacity-0 scale-95'
           >
-            <Menu.Items className='absolute right-0 origin-top w-44 mt-2 bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-10'>
+            <Menu.Items className='absolute right-0 origin-top w-44 mt-2 bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50'>
               <div className='text-gray-700'>
                 <div className='p-2'>
                   <h3 className='text-md font-semibold w-full border-b'>

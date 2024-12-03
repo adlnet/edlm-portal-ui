@@ -19,11 +19,11 @@ export const Pagination = ({ handleSpecificPage, totalPages, currentPage }) => {
   }
 
   return (
-    <div className='flex justify-center items-center gpa-4 py-4'>
+    <div className='flex justify-center items-center pb-2'>
 
       <button
         onClick={() => handleSpecificPage(currentPage - 1)}
-        className={`${currentPage === 1 ? 'cursor-not-allowed text-gray-400' : 'text-blue-500 hover:text-blue-800'} px-4 py-2 border border-[#d6d2db] rounded`}
+        className={`${currentPage === 1 ? 'cursor-not-allowed text-gray-400' : 'text-blue-500 hover:text-blue-800'} px-4 py-2 border border-[#d6d2db] rounded bg-white`}
         disabled={currentPage === 1 ? true : false}
       >
         Previous
@@ -45,7 +45,7 @@ export const Pagination = ({ handleSpecificPage, totalPages, currentPage }) => {
 
       <button
         onClick={() => handleSpecificPage(currentPage + 1)}
-        className={`${currentPage === totalPages ? 'cursor-not-allowed text-gray-400' : 'text-blue-500 hover:text-blue-800'} px-4 py-2 border border-[#d6d2db] rounded`}
+        className={`${currentPage === totalPages ? 'cursor-not-allowed text-gray-400' : 'text-blue-500 hover:text-blue-800'} px-4 py-2 border border-[#d6d2db] rounded bg-white`}
         disabled={totalPages <= currentPage ? true : false}
       >
         Next

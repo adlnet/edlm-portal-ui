@@ -20,6 +20,7 @@ import SaveModal from '@/components/modals/SaveModal';
 import FlowbiteAccordion from '@/components/fAccordion';
 import { useState } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
+import DefaultLayout from '@/components/layouts/DefaultLayout';
 
 
 function RelatedCourses({ id }) {
@@ -161,8 +162,7 @@ export default function Course() {
 
 
   return (
-    <>
-      <Header />
+    <DefaultLayout>
       {/* content */}
       <div className='flex max-w-7xl px-4 mx-auto gap-8 mt-10'>
         <div className='w-full'>
@@ -351,7 +351,6 @@ export default function Course() {
       </div>
       {/* Related courses */}
       <RelatedCourses id={router.query?.courseId} />
-      <Footer />
-    </>
+    </DefaultLayout>
   );
 }
