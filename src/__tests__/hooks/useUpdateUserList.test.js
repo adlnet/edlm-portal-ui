@@ -14,13 +14,16 @@ const wrapper = ({ children }) => (
 it('should make a patch call and return new data', async () => {
   // mockAxios
   mockAxios.patch.mockReturnValue({ data: { message: 'tada' } });
-  const { result, waitForNextUpdate } = renderHook(
+  const { result } = renderHook(
     () => useUpdateUserList('token'),
     { wrapper }
   );
 
   result.current.mutate({ listData: 'tada', id: 'tada' });
-  await waitForNextUpdate(result.current.isSuccess);
+  await act(async () => {  
+    await result.current.isSuccess;
+  }
+  );
 
   expect(mockAxios.patch).toHaveBeenCalled();
 });

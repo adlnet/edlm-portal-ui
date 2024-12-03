@@ -1,6 +1,6 @@
 // test cases for useSaveSearch hook
 import { QueryClientWrapper } from '@/__mocks__/queryClientMock';
-import { renderHook } from '@testing-library/react';
+import { act, renderHook } from '@testing-library/react';
 import { useSaveSearchList } from '@/hooks/useSaveSearch';
 
 import mockAxios from 'jest-mock-axios';
@@ -13,11 +13,14 @@ const wrapper = ({ children }) => (
 
 it('should return the data from axios mock', async () => {
   mockAxios.get.mockResolvedValue({ data: 'success' });
-  const { result, waitForNextUpdate } = renderHook(() => useSaveSearchList(), {
+  const { result } = renderHook(() => useSaveSearchList(), {
     wrapper,
   });
 
-  await waitForNextUpdate(result.current.isSuccess);
+  await act(async () => {
+    await result.current.isSuccess;
+  }
+  );
   expect(result.current.isSuccess).toBe(true);
   expect(result.current.data).toBe('success');
   expect(mockAxios.get).toHaveBeenCalledTimes(1);

@@ -16,11 +16,14 @@ const wrapper = ({ children }) => (
 test('should return a list of courses found', async () => {
   mockAxios.get.mockResolvedValue({ data: searchData });
 
-  const { result, waitForNextUpdate } = renderHook(() => useCourseSearch(), {
+  const { result } = renderHook(() => useCourseSearch(), {
     wrapper,
   });
 
-  await waitForNextUpdate(result.current.isSuccess);
+  await act(async () => {
+    result.current.isSuccess;
+  }
+  );
 
   expect(result.current.data).toMatchObject(searchData);
 });

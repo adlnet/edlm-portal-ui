@@ -23,17 +23,19 @@ it('should make an axios.post call', async () => {
       updatedAt: '2020-01-01',
     },
   });
-  const { result, waitForNextUpdate } = renderHook(() => useCreateUserList(), {
+  const { result } = renderHook(() => useCreateUserList(), {
     wrapper,
   });
 
-  await waitForNextUpdate(
-    result.current.mutate({
+  await act(async () => {
+    await result.current.mutate({
       name: 'test',
       description: 'test',
       experiences: [],
-    })
+    });
+  }
   );
+
 
   expect(mockAxios.post).toHaveBeenCalledTimes(1);
 });

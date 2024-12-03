@@ -13,13 +13,13 @@ it('should make an api call', async () => {
   // mock the axios post
   mockAxios.post.mockResolvedValue({ data: 'success' });
 
-  const { result, waitForNextUpdate } = renderHook(
+  const { result } = renderHook(
     () => useCreateSaveSearch(),
     { wrapper }
   );
 
   // wait for the api call to finish
-  await waitForNextUpdate(
+  await act(async () =>
     result.current.mutate({ path: 'test', name: 'name' })
   );
 

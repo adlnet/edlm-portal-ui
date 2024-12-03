@@ -1,5 +1,5 @@
 import { QueryClientWrapper } from '@/__mocks__/queryClientMock';
-import { renderHook } from '@testing-library/react';
+import { act, renderHook } from '@testing-library/react';
 import { useUserList } from '@/hooks/useUserList';
 
 import mockAxios from 'jest-mock-axios';
@@ -25,11 +25,15 @@ const wrapper = ({ children }) => (
 it('should return null if there is no id', async () => {
   mockAxios.get.mockResolvedValue({ data: 'success' });
 
-  const { result, waitForNextUpdate } = renderHook(() => useUserList(), {
+  const { result } = renderHook(() => useUserList(), {
     wrapper,
   });
 
-  await waitForNextUpdate(result.current.isSuccess);
+  await act(async () => {
+    await result.current.isSuccess;
+  }
+  );
+
   expect(result.current.data).toBeUndefined();
   expect(mockAxios.get).toHaveBeenCalledTimes(0);
 

@@ -1,5 +1,5 @@
 // tests for hooks/useSubscribedLists.js
-import { renderHook } from '@testing-library/react';
+import { act, renderHook } from '@testing-library/react';
 import mockAxios from 'jest-mock-axios';
 
 import { QueryClientWrapper } from '@/__mocks__/queryClientMock';
@@ -13,10 +13,13 @@ const wrapper = ({ children }) => (
 
 it('should return the mocked data', async () => {
   mockAxios.get.mockResolvedValue({ data: [{test: test}] });
-  const { result, waitForNextUpdate } = renderHook(() => useSubscribedLists(), {
+  const { result } = renderHook(() => useSubscribedLists(), {
     wrapper,
   });
-  await waitForNextUpdate(result.current.isSuccess);
+  await act(async () => {
+    await result.current.isSuccess;
+  }
+  );
 
   expect(result.current.isSuccess).toBe(true);
   expect(mockAxios.get).toHaveBeenCalledTimes(1);

@@ -17,11 +17,15 @@ const wrapper = ({ children }) => (
 
 it('should return a list of courses like based on the id', async () => {
   mockAxios.get.mockResolvedValue({ data: searchData });
-  const { result, waitForNextUpdate } = renderHook(
+  const { result } = renderHook(
     () => useMoreCoursesLikeThis('123'),
     { wrapper }
   );
 
-  await waitForNextUpdate(result.current.isSuccess);
+  await act(async () => {
+    result.current.isSuccess;
+  }
+  );
+
   expect(result.current.data).toEqual(searchData);
 });

@@ -15,11 +15,15 @@ const wrapper = ({ children }) => (
 describe('useUserOwnedLists', () => {
   it('should return a list of courses found', async () => {
     mockAxios.get.mockResolvedValue({ data: userOwnedListsData });
-    const { result, waitForNextUpdate } = renderHook(
+    const { result } = renderHook(
       () => useUserOwnedLists('testToken'),
       { wrapper }
     );
-    await waitForNextUpdate(result.current.isSuccess);
+    await act(async () => {
+      await result.current.isSuccess;
+    }
+    );
+
     expect(result.current.data).toEqual(userOwnedListsData);
   });
 });

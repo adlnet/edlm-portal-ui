@@ -15,10 +15,12 @@ const wrapper = ({ children }) => (
 jest.mock('axios');
 test('should should return UI config data', async () => {
   mockAxios.get.mockResolvedValue({ data: uiConfigData });
-  const { result, waitForNextUpdate } = renderHook(() => useConfig(), {
+  const { result } = renderHook(() => useConfig(), {
     wrapper,
   });
 
-  await waitForNextUpdate(result.current.isSuccess);
+  await act(async () => {
+    result.current.isSuccess;
+  });
   expect(result.current.data).toEqual(uiConfigData);
 });
