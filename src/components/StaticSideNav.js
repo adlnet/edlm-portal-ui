@@ -49,7 +49,7 @@ export default function StaticSideNav() {
             <div className="w-60 h-screen pt-px bg-white flex-col justify-start items-start gap-4 inline-flex">
                 <div className="self-stretch flex-col justify-start items-start gap-2 inline-flex">
                     <div className="self-stretch px-4 pt-2 pb-6 border-b border-gray-200 flex-col justify-center items-center gap-2 flex">
-                        {renderNavBtn('home', '/talentManager', HomeIcon, 'Home')}
+                        {renderNavBtn('home', '/learner', HomeIcon, 'Home')}
                         {renderNavBtn('search', '/learner/search', SearchIcon, 'Search')}
                         {renderNavBtn('learningPlan', '/learner/learningPlan', ClipboardCheckIcon, 'Learning Plan')}
 
