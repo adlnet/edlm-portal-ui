@@ -1,6 +1,6 @@
 'use strict';
 
-import { EyeIcon, TrashIcon } from '@heroicons/react/outline';
+import { EyeIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { useAuth } from '@/contexts/AuthContext';
 import { useDeleteSavedSearch } from '@/hooks/useDeleteSavedSearch';
 import { useEffect } from 'react';

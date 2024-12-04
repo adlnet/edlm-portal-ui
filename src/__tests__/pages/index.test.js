@@ -34,7 +34,7 @@ describe('should render the title', () => {
     expect(screen.getByText(`Enterprise Course Catalog`)).toBeInTheDocument();
     expect(screen.getByText(`Department of Defense`)).toBeInTheDocument();
     expect(
-      screen.getByPlaceholderText(`Search the catalog`)
+      screen.getByPlaceholderText(`Search for Learning Content`)
     ).toBeInTheDocument();
   });
 
@@ -53,12 +53,12 @@ describe('should render the title', () => {
 
   it('should update the value of the search bar', () => {
     act(() => {
-      fireEvent.change(screen.getByPlaceholderText('Search the catalog'), {
+      fireEvent.change(screen.getByPlaceholderText('Search for Learning Content'), {
         target: { value: 'updated value' },
       });
     });
 
-    expect(screen.getByPlaceholderText('Search the catalog').value).toBe(
+    expect(screen.getByPlaceholderText('Search for Learning Content').value).toBe(
       'updated value'
     );
 
@@ -66,7 +66,7 @@ describe('should render the title', () => {
       fireEvent.click(screen.getByTitle(/search/i));
     });
     expect(singletonRouter).toMatchObject({
-      asPath: '/search/?keyword=updated%20value&p=1',
+      asPath: '/learner/search?keyword=updated+value&p=1',
     });
   });
 

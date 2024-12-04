@@ -83,7 +83,7 @@ describe('List page', () => {
     useAuthenticatedUser();
     renderer();
 
-    expect(singletonRouter).toMatchObject({ asPath: '/learner/401' });
+    expect(singletonRouter).toMatchObject({ asPath: '/401' });
   });
 
   it('should navigate user to 403 page', () => {
@@ -91,7 +91,7 @@ describe('List page', () => {
     useAuthenticatedUser();
     renderer();
 
-    expect(singletonRouter).toMatchObject({ asPath: '/learner/403' });
+    expect(singletonRouter).toMatchObject({ asPath: '/403' });
   });
 
   it('should show "No courses added yet." message', () => {

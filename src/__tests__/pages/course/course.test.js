@@ -61,7 +61,7 @@ describe('Course Page', () => {
     useMockCourse();
     const screen = renderer();
 
-    expect(screen.getByText('Test Title')).toBeInTheDocument();
+    expect(screen.getAllByText('Test Title')[0]).toBeInTheDocument();
     expect(screen.getByText('Test Short Description')).toBeInTheDocument();
     expect(screen.getByText('2023-03-20')).toBeInTheDocument();
     expect(screen.getByText('2023-03-21')).toBeInTheDocument();
@@ -75,23 +75,23 @@ describe('Course Page', () => {
     );
   });
 
-  it('should display a save course button if the user is authenticated', () => {
+  it('should display a save button if the user is authenticated', () => {
     useAuthenticatedUser();
     useMockMoreLikeThis();
     useMockCourse();
     const screen = renderer();
 
-    expect(screen.getByText('Save Course')).toBeEnabled();
+    expect(screen.getByText('Save')).toBeEnabled();
   });
 
-  it('should not display a save course button if the user is not authenticated', () => {
+  it('should not display a save button if the user is not authenticated', () => {
     useUnauthenticatedUser();
     useMockMoreLikeThis();
     useMockCourse();
     const screen = renderer();
 
     // expect(screen.queryByText('Save Course')).not.toBeInTheDocument();
-    expect(screen.queryByText('Save Course')).toBeDisabled();
+    expect(screen.queryByText('Save')).toBeDisabled();
   });
 
   it('should display "Not Available" if specific course data is not available', () => {
