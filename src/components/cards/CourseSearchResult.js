@@ -52,7 +52,7 @@ export default function SearchResult({ result }) {
 
   return (
     <div
-      className='p-4 bg-white rounded-lg shadow-lg flex flex-col gap-4 hover:shadow-2xl transition-shadow duration-200'
+      className='p-4 bg-white rounded-lg shadow-xl flex flex-col gap-4 hover:shadow-2xl transition-shadow duration-200'
       title={title || result.Course.CourseTitle}
     >
       <div className='flex justify-between gap-2 items-center'>

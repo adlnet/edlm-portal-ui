@@ -135,10 +135,18 @@ export default function Search() {
 
   return (
     <DefaultLayout>
-        <div className='bg-white shadow-md p-5 py-0 w-full mb-5 rounded-xl m-4 -my-6'>
+        <div className='bg-white shadow-md p-5 py-0 w-full mb-5 rounded-xl m-4 -my-6 overflow-clip'>
           <div className='mt-10 pb-4 py-4'>
             {selectedTab === tabs[0] ? <div className='text-2xl font-bold'>Course Search</div> : <div className='text-2xl font-bold'>Competency Search</div>}
-            <div className='flex flex-col xl:flex-row py-2 -mb-1 max-w-min sticky top-0 z-10 bg-white'>
+            
+            <div className='py-4'>
+              <TabBar
+              selectedTab={selectedTab}
+              setSelectedTab={setSelectedTab}
+              tabs={tabs}
+            />
+          </div>
+          <div className='flex flex-col md:flex-row -mb-1 max-w-min sticky top-0 z-10 bg-white'>
             <div className='flex-grow w-[22rem] xl:w-[44rem]'>
               <SearchBar
                 parameters={params}
@@ -149,9 +157,9 @@ export default function Search() {
               />
             </div>
             {data && !isLoading && selectedTab === 'Courses' && (
-              <div className='flex flex-row my-3 xl:my-0 xl:flex-row gap-2 pl-2'>{data && createLists()}</div>
+              <div className='flex flex-row my-3 -mx-2 md:my-0 md:mx-0 xl:flex-row gap-2 pl-2'>{data && createLists()}</div>
             )}
-            <div className='self-start flex -mt-0 xl:mt-2.5 ml-2 -my-2'>
+            <div className='self-start flex -mt-0  md:mt-2.5 ml-2 -my-2'>
               {selectedTab === 'Courses' && user && <CreateSavedSearchModal path={router.asPath} />}
               <button 
                 title='Clear Search'
@@ -184,8 +192,6 @@ export default function Search() {
               setParams={setParams}
             />
           }
-        </div>
-
         </div>
       </div>
 

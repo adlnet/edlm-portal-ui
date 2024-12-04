@@ -20,6 +20,7 @@ import SaveModal from '@/components/modals/SaveModal';
 import FlowbiteAccordion from '@/components/fAccordion';
 import { useState } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
+import DefaultLayout from '@/components/layouts/DefaultLayout';
 
 
 function RelatedCourses({ id }) {
@@ -43,11 +44,11 @@ function RelatedCourses({ id }) {
 const mockData = [
   {
       accTitle: "Action Officer Course: Introduction",
-      accDescription: "Description: By the end of this module you will understand DOT&E authorities, responsibilities, and functions as defined by the law and DoD Directives; understand DOT&E organizational structures; align on the expectations to position yourself for success in DOT&E and gain the tools and skills to respond to OT&E and LFT&E demand"
+      accDescription: "By the end of this module you will understand DOT&E authorities, responsibilities, and functions as defined by the law and DoD Directives; understand DOT&E organizational structures; align on the expectations to position yourself for success in DOT&E and gain the tools and skills to respond to OT&E and LFT&E demand"
   },
   {
       accTitle: "Action Officer Course: DAS and Aquisiton Contracts",
-      accDescription: "Description: By the end of this module you will understand DOT&E authorities, responsibilities, and functions as defined by the law and DoD Directives; understand DOT&E organizational structures; align on the expectations to position yourself for success in DOT&E and gain the tools and skills to respond to OT&E and LFT&E demand"
+      accDescription: "By the end of this module you will understand DOT&E authorities, responsibilities, and functions as defined by the law and DoD Directives; understand DOT&E organizational structures; align on the expectations to position yourself for success in DOT&E and gain the tools and skills to respond to OT&E and LFT&E demand"
   },
   {
       accTitle: "Action Officer Course: JCIDS and Requirements",
@@ -55,15 +56,15 @@ const mockData = [
   },
   {
       accTitle: "Action Officer Course: Introduction to IDA Support to DOT&E",
-      accDescription: "Description: By the end of this module you will understand DOT&E authorities, responsibilities, and functions as defined by the law and DoD Directives; understand DOT&E organizational structures; align on the expectations to position yourself for success in DOT&E and gain the tools and skills to respond to OT&E and LFT&E demand"
+      accDescription: "By the end of this module you will understand DOT&E authorities, responsibilities, and functions as defined by the law and DoD Directives; understand DOT&E organizational structures; align on the expectations to position yourself for success in DOT&E and gain the tools and skills to respond to OT&E and LFT&E demand"
   },
   {
       accTitle: "Action Officer Course: The famous fifth course",
-      accDescription: "Description: By the end of this module you will understand DOT&E authorities, responsibilities, and functions as defined by the law and DoD Directives; understand DOT&E organizational structures; align on the expectations to position yourself for success in DOT&E and gain the tools and skills to respond to OT&E and LFT&E demand"
+      accDescription: "By the end of this module you will understand DOT&E authorities, responsibilities, and functions as defined by the law and DoD Directives; understand DOT&E organizational structures; align on the expectations to position yourself for success in DOT&E and gain the tools and skills to respond to OT&E and LFT&E demand"
   },
   {
       accTitle: "Action Officer Course: The famous sixth course",
-      accDescription: "Description: By the end of this module you will understand DOT&E authorities, responsibilities, and functions as defined by the law and DoD Directives; understand DOT&E organizational structures; align on the expectations to position yourself for success in DOT&E and gain the tools and skills to respond to OT&E and LFT&E demand"
+      accDescription: "By the end of this module you will understand DOT&E authorities, responsibilities, and functions as defined by the law and DoD Directives; understand DOT&E organizational structures; align on the expectations to position yourself for success in DOT&E and gain the tools and skills to respond to OT&E and LFT&E demand"
   },
 ]
 
@@ -157,10 +158,11 @@ export default function Course() {
     xAPISendStatement(context);
   }, [router.query?.courseId, data?.title, data?.description, user]);
 
+  console.log(data);
+
 
   return (
-    <>
-      <Header />
+    <DefaultLayout>
       {/* content */}
       <div className='flex max-w-7xl px-4 mx-auto gap-8 mt-10'>
         <div className='w-full'>
@@ -248,7 +250,7 @@ export default function Course() {
 
       {/* Details divider */}
       <div id='details-divider' className='bg-gray-200 mt-4 '>
-        <div className='flex max-w-7xl mx-auto p-4 justify-between'>
+        <div className='flex max-w-7xl mx-auto p-4 justify-around'>
           <div className='flex items-center min-w-max gap-8'>
             <div className='flex justify-center items-center gap-2'>
               <BuildingStorefrontIcon className='h-10' />
@@ -264,7 +266,7 @@ export default function Course() {
               <span>
                 <div className='text-sm font-semibold'>Duration</div>
                 <div className='text-sm'>
-                  {data?.details || '45 Min'}
+                  {data?.timeframe || '45 Min'}
                 </div>
               </span>
             </div>
@@ -349,7 +351,6 @@ export default function Course() {
       </div>
       {/* Related courses */}
       <RelatedCourses id={router.query?.courseId} />
-      <Footer />
-    </>
+    </DefaultLayout>
   );
 }
