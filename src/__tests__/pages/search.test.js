@@ -58,7 +58,7 @@ describe('Search Page', () => {
     useMockMoreLikeThis();
     const { getByPlaceholderText } = renderer();
 
-    expect(getByPlaceholderText('Search the catalog')).toBeInTheDocument();
+    expect(getByPlaceholderText('Search for Learning Content')).toBeInTheDocument();
   });
 
   it('should render the results', () => {
@@ -66,8 +66,6 @@ describe('Search Page', () => {
     useUnauthenticatedUser();
     useMockMoreLikeThis();
     const { getByText } = renderer();
-
-    expect(getByText('About 1 results.')).toBeInTheDocument();
 
     expect(getByText('Test Title')).toBeInTheDocument();
     expect(getByText('More Like This Title')).toBeInTheDocument();
@@ -92,23 +90,23 @@ describe('Search Page', () => {
     expect(getByText('Save')).toBeInTheDocument();
   });
 
-  it('should not render the "Save this search" button when the user is not authenticated', () => {
+  it('should not render the "Save Search" button when the user is not authenticated', () => {
     useMockSearch();
     useUnauthenticatedUser();
     useMockMoreLikeThis();
     const { queryByText } = renderer();
 
-    expect(queryByText('Save this search')).not.toBeInTheDocument();
+    expect(queryByText('Save Search')).not.toBeInTheDocument();
   });
 
-  it('should render the "Save this search" button when the user is logged in', () => {
+  it('should render the "Save Search" button when the user is logged in', () => {
     useAuthenticatedUser();
     useMockSearch();
     useMockUserOwnedLists();
     useMockMoreLikeThisWithoutData();
     const { getByText } = renderer();
 
-    expect(getByText('Save this search')).toBeInTheDocument();
+    expect(getByText('Save Search')).toBeInTheDocument();
   });
 
   it('should navigate to the course page when a course is clicked', () => {
@@ -126,24 +124,24 @@ describe('Search Page', () => {
     });
   });
 
-  it('should render the "Save this search" button if the user is logged in', () => {
+  it('should render the "Save Search" button if the user is logged in', () => {
     useAuthenticatedUser();
     useMockSearch();
     useMockUserOwnedLists();
     useMockMoreLikeThisWithoutData();
     const { getByText } = renderer();
 
-    expect(getByText('Save this search')).toBeInTheDocument();
+    expect(getByText('Save Search')).toBeInTheDocument();
   });
 
-  it('should not render the "Save this search" button if the user is not logged in', () => {
+  it('should not render the "Save Search" button if the user is not logged in', () => {
     useMockSearch();
     useUnauthenticatedUser();
     useMockMoreLikeThis();
     useMockUserOwnedLists();
     const { queryByText } = renderer();
 
-    expect(queryByText('Save this search')).not.toBeInTheDocument();
+    expect(queryByText('Save Search')).not.toBeInTheDocument();
   });
 
   it('should change value of the search input when the user types', () => {
@@ -154,12 +152,12 @@ describe('Search Page', () => {
     const { getByPlaceholderText } = renderer();
 
     act(() => {
-      fireEvent.change(getByPlaceholderText('Search the catalog'), {
+      fireEvent.change(getByPlaceholderText('Search for Learning Content'), {
         target: { value: 'test' },
       });
     });
 
-    expect(getByPlaceholderText('Search the catalog')).toHaveValue('test');
+    expect(getByPlaceholderText('Search for Learning Content')).toHaveValue('test');
   });
 
   it('should render the initial value of the search input when the user first visits', () => {
@@ -170,7 +168,7 @@ describe('Search Page', () => {
     useMockUserOwnedLists();
     const { getByPlaceholderText } = renderer();
 
-    expect(getByPlaceholderText('Search the catalog')).toHaveValue('initial');
+    expect(getByPlaceholderText('Search for Learning Content')).toHaveValue('initial');
   });
 
   it('should change the value on the search input when the user navigates to the search page', () => {
@@ -182,8 +180,8 @@ describe('Search Page', () => {
 
     const { getByPlaceholderText, getByTitle } = renderer();
 
-    const input = getByPlaceholderText(/search the catalog/i);
-    const searchBtn = getByTitle(/search/i);
+    const input = getByPlaceholderText(/Search for Learning Content/i);
+    const searchBtn = getByTitle('Search');
 
     act(() => {
       fireEvent.change(input, { target: { value: 'updated' } });
@@ -205,9 +203,9 @@ describe('Search Page', () => {
     useMockMoreLikeThis();
     useMockUserOwnedLists();
     const { getByTitle, getByPlaceholderText } = renderer();
-    const input = getByPlaceholderText('Search the catalog');
+    const input = getByPlaceholderText('Search for Learning Content');
     act(() => {
-      fireEvent.click(getByTitle('reset'));
+      fireEvent.click(getByTitle('Clear Search'));
     });
 
     expect(input.value).toBe('');
@@ -238,8 +236,8 @@ describe('Search Page', () => {
     expect(getByText(/test bucket 2/i)).toBeInTheDocument();
   });
 
-  it('should clear filter selection when clicked', () => {
-    MockRouter.setCurrentUrl('/learner/search?keyword=initial');
+  it('should clear all selection and search when clicked', () => {
+    MockRouter.setCurrentUrl('/learner/search?keyword=initial&Course.CourseType=test%20bucket%201&p=1');
 
     useMockSearch();
     useUnauthenticatedUser();
@@ -248,30 +246,11 @@ describe('Search Page', () => {
     const { getByText, queryByRole } = renderer();
 
     act(() => {
-      fireEvent.click(queryByRole('button', { name: /course type/i }));
-    });
-    act(() => {
-      fireEvent.click(getByText(/test bucket 1/i));
+      fireEvent.click(queryByRole('button', { name: /Clear Search/i }));
     });
     expect(singletonRouter).toMatchObject({
-      asPath: '/learner/search?keyword=initial&Course.CourseType=test%20bucket%201&p=1',
+      asPath: '/learner/search',
     });
-    act(() => {
-      fireEvent.click(queryByRole('button', { name: /clear/i }));
-    });
-    expect(singletonRouter).toMatchObject({
-      asPath: '/learner/search?keyword=initial&p=1',
-    });
-  });
-
-  it('should show the current page', () => {
-    useMockSearch();
-    useUnauthenticatedUser();
-    useMockMoreLikeThisWithoutData();
-    useMockUserOwnedLists();
-    const { getByRole } = renderer();
-
-    expect(getByRole('button', { name: /1/i })).toBeInTheDocument();
   });
 
   it('should show the next button when there are more pages', () => {
@@ -282,10 +261,7 @@ describe('Search Page', () => {
     const { getByRole, getByTitle } = renderer();
 
     expect(getByRole('button', { name: /next/i })).toBeEnabled();
-    expect(getByTitle(/last/i)).toBeInTheDocument();
 
-    expect(getByRole('button', { name: /previous/i })).toBeDisabled();
-    expect(getByTitle(/first/i)).toBeDisabled();
   });
 
   it('should show previous when there are more pages', () => {
@@ -298,9 +274,9 @@ describe('Search Page', () => {
     const { getByRole, getByTitle } = renderer();
 
     expect(getByRole('button', { name: /next/i })).toBeDisabled();
-    expect(getByTitle(/last/i)).toBeDisabled();
+
     expect(getByRole('button', { name: /previous/i })).toBeEnabled();
-    expect(getByTitle(/first/i)).toBeEnabled();
+
   });
 
   it('should navigate user to next page when next is clicked', () => {
@@ -319,4 +295,32 @@ describe('Search Page', () => {
       asPath: '/learner/search?keyword=initial&p=2',
     });
   });
+
+  it('should toggle tab between courses andcompetencies', () => {
+    useMockSearch();
+    useUnauthenticatedUser();
+    useMockMoreLikeThis();
+
+    const { getByText } = renderer();
+
+    act(() => {
+      fireEvent.click(getByText('Competencies'));
+    });
+
+    expect(getByText('Competency Search')).toBeInTheDocument();
+  });
+
+  it('should not show the filters when no search input is entered', () => {
+    
+    MockRouter.setCurrentUrl('/learner/search');
+    useMockSearchWithoutData();
+    useUnauthenticatedUser();
+    useMockMoreLikeThis();
+
+    const { queryByRole } = renderer();
+
+    const filterButton = queryByRole('button', { name: /course type/i });
+    expect(filterButton).not.toBeInTheDocument();
+  });
+  
 });

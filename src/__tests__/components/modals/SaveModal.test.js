@@ -27,13 +27,13 @@ jest.mock('@/contexts/AuthContext', () => ({
   useAuth: jest.fn(),
 }));
 
-const mockIntersectionObserver = jest.fn();
-mockIntersectionObserver.mockReturnValue({
+const mockResizeObserver = jest.fn();
+mockResizeObserver.mockReturnValue({
   observe: () => null,
   unobserve: () => null,
   disconnect: () => null,
 });
-window.IntersectionObserver = mockIntersectionObserver;
+window.ResizeObserver = mockResizeObserver;
 
 const mutateFn = jest.fn();
 

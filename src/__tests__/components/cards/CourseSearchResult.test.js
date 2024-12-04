@@ -2,6 +2,7 @@ import { QueryClientWrapper } from '@/__mocks__/queryClientMock';
 import { act, fireEvent, render } from '@testing-library/react';
 import {
   useAuthenticatedUser,
+  useMockConfig,
   useMockCreateUserList,
   useMockUpdateUserList,
   useMockUserOwnedListsWithoutData,
@@ -23,6 +24,7 @@ beforeEach(() => {
   useMockUserOwnedListsWithoutData();
   useMockUpdateUserList();
   useMockCreateUserList();
+  useMockConfig();
 });
 
 describe('CourseSearchResult', () => {
@@ -39,7 +41,7 @@ describe('CourseSearchResult', () => {
     const screen = renderer();
     expect(screen.getByText('Save'));
   });
-
+  
   it('should not show the save button when a user is not authenticated', () => {
     useUnauthenticatedUser();
     const screen = renderer();

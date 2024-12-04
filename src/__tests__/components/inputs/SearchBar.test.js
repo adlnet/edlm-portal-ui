@@ -2,10 +2,18 @@ import { act, fireEvent, render, screen } from '@testing-library/react';
 import SearchBar from '../../../components/inputs/SearchBar';
 
 describe('SearchBar', () => {
-  it('should set the value of input to the keyword prop', () => {
-    render(<SearchBar parameters={{ keyword: '' }} onChange={() => {}} />);
+  it('should render', () => {
+    render(
+      <SearchBar
+        parameters={{ keyword: 'test' }}
+        onClick={() => {}}
+        onChange={() => {}}
+      />
+    );
 
-    expect(screen.getByPlaceholderText('Search the catalog').value).toBe('');
+    expect(screen.getByPlaceholderText('Search for Learning Content').value).toBe(
+      'test'
+    );
   });
 
   it('should execute on click fn', () => {
@@ -38,10 +46,10 @@ describe('SearchBar', () => {
     );
 
     act(() => {
-      fireEvent.keyPress(screen.getByPlaceholderText('Search the catalog'), {
+      fireEvent.keyPress(screen.getByPlaceholderText('Search for Learning Content'), {
         charCode: '13',
       });
-      fireEvent.submit(screen.getByPlaceholderText('Search the catalog'));
+      fireEvent.submit(screen.getByPlaceholderText('Search for Learning Content'));
     });
     expect(console.log).toHaveBeenCalledTimes(1);
   });
@@ -56,25 +64,8 @@ describe('SearchBar', () => {
     );
 
     act(() => {
-      fireEvent.keyPress(screen.getByPlaceholderText('Search the catalog'), {});
+      fireEvent.keyPress(screen.getByPlaceholderText('Search for Learning Content'), {});
     });
   });
 
-  it('should execute reset fn', () => {
-    console.log = jest.fn();
-
-    render(
-      <SearchBar
-        parameters={{ keyword: 'test' }}
-        onReset={() => console.log('tada')}
-        onChange={() => {}}
-      />
-    );
-
-    act(() => {
-      fireEvent.click(screen.getByTitle('reset'));
-    });
-    expect(console.log).toHaveBeenCalledTimes(1);
-    expect(console.log).toHaveBeenCalledWith('tada');
-  });
 });

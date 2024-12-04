@@ -13,6 +13,7 @@ describe('ShareButton', () => {
 
     expect(screen.getByText('Share')).toBeEnabled();
   });
+  
   it.skip('should call xAPISendStatement', async () => {
     mock.xAPISendStatement.mockImplementation(mockXAPISendStatement);
     useUnauthenticatedUser();

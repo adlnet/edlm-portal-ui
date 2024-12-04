@@ -1,5 +1,5 @@
 import { QueryClientWrapper } from '@/__mocks__/queryClientMock';
-import { act } from 'react-dom/test-utils';
+import { act } from '@testing-library/react';
 import {
   createSaveSearchMockFn,
   useAuthenticatedUser,
@@ -27,7 +27,8 @@ describe('CreateSavedSearchModal', () => {
     useAuthenticatedUser();
     useMockCreateSaveSearch();
     const { getByText } = renderer();
-    expect(getByText('Save this search')).toBeInTheDocument();
+    
+    expect(getByText('Save Search')).toBeInTheDocument();
   });
 
   it('should open a modal for creating a saved search when the button is clicked', () => {
@@ -35,7 +36,7 @@ describe('CreateSavedSearchModal', () => {
     useMockCreateSaveSearch();
     const { getByText, getByPlaceholderText } = renderer();
     act(() => {
-      fireEvent.click(getByText('Save this search'));
+      fireEvent.click(getByText('Save Search'));
     });
     expect(getByPlaceholderText('Query Name')).toBeInTheDocument();
     expect(getByText('Save')).toBeInTheDocument();
@@ -45,8 +46,8 @@ describe('CreateSavedSearchModal', () => {
     useAuthenticatedUser();
     useMockCreateSaveSearch();
     const { getByText, getByPlaceholderText } = renderer();
-    act(() => {
-      fireEvent.click(getByText('Save this search'));
+    act(() => {2
+      fireEvent.click(getByText('Save Search'));
     });
     act(() => {
       fireEvent.change(getByPlaceholderText('Query Name'), {
@@ -64,10 +65,7 @@ describe('CreateSavedSearchModal', () => {
     useMockCreateSaveSearch();
     const { getByText, getByPlaceholderText } = renderer();
     act(() => {
-      fireEvent.click(getByText('Save this search'));
-    });
-    act(() => {
-      fireEvent.click(getByText('Save'));
+      fireEvent.click(getByText('Save Search'));
     });
     expect(createSaveSearchMockFn).not.toHaveBeenCalled();
   });

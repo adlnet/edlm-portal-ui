@@ -15,46 +15,33 @@ describe('Pagination', () => {
     );
 
     act(() => {
-      fireEvent.click(screen.getByRole('button', { name: 'First' }));
+      fireEvent.click(screen.getByRole('button', { name: 'Previous' }));
     });
 
     expect(testMock).toHaveBeenCalledTimes(1);
 
     act(() => {
-      fireEvent.click(screen.getByRole('button', { name: 'Previous' }));
+      fireEvent.click(screen.getByRole('button', { name: '1' }));
     });
 
     expect(testMock).toHaveBeenCalledTimes(2);
 
     act(() => {
-      fireEvent.click(screen.getByRole('button', { name: '1' }));
+      fireEvent.click(screen.getByRole('button', { name: 'Next' }));
     });
 
     expect(testMock).toHaveBeenCalledTimes(3);
 
-    act(() => {
-      fireEvent.click(screen.getByRole('button', { name: 'Next' }));
-    });
-
-    expect(testMock).toHaveBeenCalledTimes(4);
-
-    act(() => {
-      fireEvent.click(screen.getByRole('button', { name: 'Last' }));
-    });
-
-    expect(testMock).toHaveBeenCalledTimes(5);
 
     expect(screen.getByRole('button', { name: '1' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: '2' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: '3' })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: '4' })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: '5' })).toBeInTheDocument();
+
 
     expect(screen.getByRole('button', { name: 'Next' })).toBeEnabled();
-    expect(screen.getByRole('button', { name: 'Last' })).toBeEnabled();
 
     expect(screen.getByRole('button', { name: 'Previous' })).toBeEnabled();
-    expect(screen.getByRole('button', { name: 'First' })).toBeEnabled();
+
   });
 
   it('should show previous buttons as disabled when on first page', () => {
@@ -68,7 +55,7 @@ describe('Pagination', () => {
     );
 
     expect(screen.getByRole('button', { name: 'Previous' })).toBeDisabled();
-    expect(screen.getByRole('button', { name: 'First' })).toBeDisabled();
+
   });
 
   it('should show next buttons as disabled when on last page', () => {
@@ -82,6 +69,6 @@ describe('Pagination', () => {
     );
 
     expect(screen.getByRole('button', { name: 'Next' })).toBeDisabled();
-    expect(screen.getByRole('button', { name: 'Last' })).toBeDisabled();
+
   });
 });
