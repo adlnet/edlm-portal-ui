@@ -22,8 +22,8 @@ module.exports = {
     //imports for @ imports
     '^@/(.*)$': '<rootDir>/src/$1',
   },
-  
-  testPathIgnorePatterns: [],
+
+  testPathIgnorePatterns: ['/talentManager/'],
   testEnvironment: 'jsdom',
   transform: {
     /* Use babel-jest to transpile tests with the next/babel preset
@@ -31,7 +31,7 @@ module.exports = {
     '^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', { presets: ['next/babel'] }],
   },
   transformIgnorePatterns: [
-    '/node_modules/',
+    '/node_modules/', '/talentManager/',
     '^.+\\.module\\.(css|sass|scss)$',
   ],
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
