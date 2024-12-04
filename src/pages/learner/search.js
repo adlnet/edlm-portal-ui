@@ -20,9 +20,7 @@ export default function Search() {
   const [params, setParams] = useState(router?.query);
   const { setUrl, data, isLoading } = useCourseSearch();
   const { user } = useAuth();
-
   const { Competencies } = useCompetencySearch();
-  //console.log('Competencies in Search.js: ', Competencies)
 
   const tabs = ['Courses', 'Competencies'];
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
@@ -135,12 +133,8 @@ export default function Search() {
     });
   }
 
-
   return (
     <DefaultLayout>
-      {/* Title, searchbar, filters, tab bar section */}
-
-      {/* call course + comp search */}
         <div className='bg-white shadow-md p-5 py-0 w-full mb-5 rounded-xl m-4 -my-6'>
           <div className='mt-10 pb-4 py-4'>
             {selectedTab === tabs[0] ? <div className='text-2xl font-bold'>Course Search</div> : <div className='text-2xl font-bold'>Competency Search</div>}
@@ -177,6 +171,7 @@ export default function Search() {
             selectedTab={selectedTab}
             setSelectedTab={setSelectedTab}
             tabs={tabs}
+            loaded={Competencies.length === 0}
           />
           {selectedTab === tabs[0] ?
             <SearchCourses 

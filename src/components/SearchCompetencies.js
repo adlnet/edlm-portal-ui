@@ -2,12 +2,8 @@
 
 import { useRouter } from 'next/dist/client/router';
 import React, { useEffect, useMemo, useState } from 'react';
-import { useCompetencySearch} from '@/hooks/useCompetencySearch';
 import CompetencySearchResult from './cards/CompetencySearchResults';
 import { unstable_batchedUpdates } from 'react-dom';
-
-// Temporary data if the ECCR is down 
-import tempData from "@/public/temp_data.json" assert {type: 'json'};
 
 // Helper function that returns all parent competencies
 function findParents({Competencies}){
@@ -62,8 +58,6 @@ function generateStructure({ParentComps, ChildComps}){
 export default function SearchCompetencies({Competencies, params, setParams}){
     
     const router = useRouter();
-    
-    //console.log('Params: ', params['keyword'])
 
     // Sort the competencies into the proper order
     Competencies.sort((a,b) => a.name.localeCompare(b.name));
@@ -73,12 +67,8 @@ export default function SearchCompetencies({Competencies, params, setParams}){
     const ChildComps = findChildren({Competencies});
 
     // Construct the proper competency format from the arrays of parents and children
+    const structuredComps = generateStructure({ParentComps, ChildComps})
     
-    //const structuredComps = generateStructure({ParentComps, ChildComps})
-    //console.log('StructuredComps: ', structuredComps)
-
-    const structuredComps = tempData;
-
     useEffect(() => {
         if (router?.query) {
           unstable_batchedUpdates(() => {
@@ -88,27 +78,11 @@ export default function SearchCompetencies({Competencies, params, setParams}){
         }
     }, [router.query]);
     
-    // function handleSpecificPage(page) {
-    //     const modified = { ...params };
-    //     modified.p = page;
-    //     unstable_batchedUpdates(() => {
-    //         setParams(modified);
-    //         setUrl(modified);
-    //     });
-    //     router.push({ pathname: '/learner/search', query: modified }, undefined, {
-    //         scroll: true,
-    //     });
-    // } 
-    
-      // TODO: Search bar filtering 
-
-
-    // returns a list of lists that match the search query and are chunked into
-    //  pages of 10
+    // returns a list of competencies that match the search query 
     const compsToDisplay = useMemo(() => {
         if (structuredComps.length <= 0) return [];
 
-        // default to empty list if params find nothing
+        // default to all comps if params are empty
         if (params === undefined || params['keyword'] === undefined){
             return structuredComps;
         }
@@ -124,23 +98,19 @@ export default function SearchCompetencies({Competencies, params, setParams}){
         if (filteredComps?.length > 0) {
             return filteredComps;
         }
-        // default to structured comps if params is empty
+        // return empty list if there are params and nothing is found
         else{
             return [];
         }
-
     }, [params]);
-
-    // console.log('Comps to display: ', compsToDisplay)
-
-    return(
-        <>
-            <div className='mt-4'>            
+        
+    return ( 
+        <> 
+            <div className='mt-4'>      
                 {compsToDisplay.map((comp) => (
                     <CompetencySearchResult key={comp.id} result={comp} />
                 ))}
             </div>
         </>
-    ) 
-
+    )
 }
