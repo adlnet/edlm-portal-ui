@@ -1,7 +1,7 @@
 import {
     CheckCircleIcon,
-    RefreshIcon,
-    UserAddIcon,
+    ArrowPathIcon as RefreshIcon,
+    UserPlusIcon as UserAddIcon,
     XCircleIcon,
   } from '@heroicons/react/24/outline';
   import { authRegister } from '@/config/endpoints';

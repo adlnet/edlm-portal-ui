@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import Button from "@/components/Button";
 import { WorkforceAlignmentTable } from "@/components/tables/WorkforceAlignmentTable";
 import DefaultLayout from "@/components/layouts/DefaultLayout";
-import { HomeIcon } from "@heroicons/react/outline";
+import { HomeIcon } from "@heroicons/react/24/solid";
 import { workRole } from '@/components/tables/WorkRoleTable';
 import { useEffect, useState } from 'react';
 import { axiosInstance } from '@/config/axiosConfig';

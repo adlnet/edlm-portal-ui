@@ -7,7 +7,7 @@ import {
   UploadIcon,
   XCircleIcon,
   XIcon,
-} from '@heroicons/react/outline';
+} from '@heroicons/react/24/outline';
 import { Switch } from '@headlessui/react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useEffect, useState, useMemo } from 'react';

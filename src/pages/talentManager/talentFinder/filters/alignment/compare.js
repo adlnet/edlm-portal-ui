@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import Button from "@/components/Button";
 import { users } from "@/components/tables/WorkforceAlignmentTable";
 import DefaultLayout from "@/components/layouts/DefaultLayout";
-import { HomeIcon } from "@heroicons/react/outline";
+import { HomeIcon } from "@heroicons/react/24/solid";
 import Image from 'next/image';
 import graphImage from '@/public/pregenplot.png';
 import { backendHost, candidateList, graph, vacancies } from '@/config/endpoints';

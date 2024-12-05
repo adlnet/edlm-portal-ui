@@ -1,5 +1,4 @@
 // import { useConfig } from '../../hooks/useConfig';
-import SideNav from '../SideNav';
 import Header from '../Header';
 import StaticSideNav from '../StaticSideNav';
 import Footer from '../Footer';
