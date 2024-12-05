@@ -175,12 +175,6 @@ export default function Search() {
         
         </div>
         <div className='py-4'>
-          <TabBar
-            selectedTab={selectedTab}
-            setSelectedTab={setSelectedTab}
-            tabs={tabs}
-            loaded={Competencies.length === 0}
-          />
           {selectedTab === tabs[0] ?
             <SearchCourses 
               params={params}
@@ -193,6 +187,7 @@ export default function Search() {
             />
           }
         </div>
+      </div>
       </div>
 
     </DefaultLayout>
