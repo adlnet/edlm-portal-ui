@@ -144,6 +144,7 @@ export default function Search() {
               selectedTab={selectedTab}
               setSelectedTab={setSelectedTab}
               tabs={tabs}
+              loaded={Competencies.length === 0}
             />
           </div>
           <div className='flex flex-col md:flex-row -mb-1 max-w-min sticky top-0 z-10 bg-white'>
