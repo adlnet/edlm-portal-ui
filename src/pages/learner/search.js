@@ -3,10 +3,11 @@ import { useCallback, useEffect, useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/dist/client/router';
 import { useCourseSearch} from '@/hooks/useCourseSearch';
+import { useCompetencySearch} from '@/hooks/useCompetencySearch';
 import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement';
 import { unstable_batchedUpdates } from 'react-dom';
 import SearchCourses from '@/components/SearchCourses'; 
-// import SearchCompetencies from '@/components/SearchCompetencies';
+import SearchCompetencies from '@/components/SearchCompetencies';
 import DefaultLayout from '@/components/layouts/DefaultLayout';
 import TabBar from '@/components/buttons/TabBar';
 import SearchBar from '@/components/inputs/SearchBar';
@@ -18,8 +19,8 @@ export default function Search() {
   const router = useRouter();
   const [params, setParams] = useState(router?.query);
   const { setUrl, data, isLoading } = useCourseSearch();
-  // const { compData } = useCompSearch();
   const { user } = useAuth();
+  const { Competencies } = useCompetencySearch();
 
   const tabs = ['Courses', 'Competencies'];
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
@@ -132,12 +133,8 @@ export default function Search() {
     });
   }
 
-
   return (
     <DefaultLayout>
-      {/* Title, searchbar, filters, tab bar section */}
-
-      {/* call course + comp search */}
         <div className='bg-white shadow-md p-5 py-0 w-full mb-5 rounded-xl m-4 -my-6 overflow-clip'>
           <div className='mt-10 pb-4 py-4'>
             {selectedTab === tabs[0] ? <div className='text-2xl font-bold'>Course Search</div> : <div className='text-2xl font-bold'>Competency Search</div>}
@@ -182,13 +179,15 @@ export default function Search() {
             <SearchCourses 
               params={params}
               setParams={setParams}
-            /> : 'SearchCompetencies'}
+            /> : 
+            <SearchCompetencies 
+              Competencies={Competencies} 
+              params={params}
+              setParams={setParams}
+            />
+          }
         </div>
-
-          </div>
-
-        {/* <SearchCompetencies /> */}
-
+      </div>
       </div>
 
     </DefaultLayout>
