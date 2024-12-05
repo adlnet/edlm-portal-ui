@@ -34,7 +34,7 @@ jobs:
         IMAGE_TAG: latest
         NEXT_PUBLIC_PORTAL_BACKEND_HOST: https://edlmportal-admin.deloitteopenlxp.com/
         NEXT_PUBLIC_XDS_BACKEND: https://dev-xds-admin.deloitteopenlxp.com/
-        NEXT_PUBLIC_LDSS_API: https://dev-lrsql.deloitteopenlxp.com/
+        NEXT_PUBLIC_LRS_API: https://dev-lrsql.deloitteopenlxp.com/
       run: |
         echo "Starting docker build"
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .                     
