@@ -7,6 +7,8 @@ import { useUserOwnedLists } from '@/hooks/useUserOwnedLists';
 import DefaultLayout from '@/components/layouts/DefaultLayout';
 import Link from 'next/link';
 import React, { useEffect } from 'react';
+import CollectionsLayout from '@/components/layouts/CollectionsLayout';
+
 
 export default function Owned() {
   const router = useRouter();
@@ -21,11 +23,9 @@ export default function Owned() {
   }, []);
 
   return (
-    <DefaultLayout footerLocation='absolute'>
-      <div id='title' className='mt-10 pb-4 border-b mb-8'>
-        <h1 className='font-semibold text-3xl'>My Lists</h1>
-      </div>
-      <div className='grid grid-cols-3 gap-8 pb-20'>
+    <CollectionsLayout title={'My Collections'}>
+    <div className='mt-7 pb-5'>
+      <div className='grid grid-cols-3 gap-8'>
         {isSuccess &&
           data.map((list) => {
             return (
@@ -76,7 +76,8 @@ export default function Owned() {
             </p>
           </div>
         )}
+        </div>
       </div>
-    </DefaultLayout>
+    </CollectionsLayout>
   );
 }

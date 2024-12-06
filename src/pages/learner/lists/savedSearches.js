@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import { useSaveSearchList } from '@/hooks/useSaveSearch';
 import DefaultLayout from '@/components/layouts/DefaultLayout';
 import Link from 'next/link';
+import CollectionsLayout from '@/components/layouts/CollectionsLayout';
 
 export default function SavedSearches() {
   const { user } = useAuth();
@@ -22,11 +23,8 @@ export default function SavedSearches() {
   }, [isError]);
 
   return (
-    <DefaultLayout>
-      <div className='mt-10 pb-20'>
-        <div id='title' className='pb-4 border-b mb-8'>
-          <h1 className='font-semibold text-3xl'>Saved Searches</h1>
-        </div>
+    <CollectionsLayout title={'Saved Search'}>
+      <div className='mt-7 pb-5'>
         <div className=' rounded-md overflow-hidden shadow border'>
           <div className='grid grid-cols-8 bg-gray-50 h-12 items-center px-2 font-sans font-semibold'>
             <div className='col-span-3'>Search Title</div>
@@ -89,6 +87,6 @@ export default function SavedSearches() {
           </div>
         </div>
       </div>
-    </DefaultLayout>
+    </CollectionsLayout>
   );
 }
