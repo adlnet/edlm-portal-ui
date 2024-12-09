@@ -4,16 +4,18 @@ import CardDropdown from '@/components/menus/CardDropdown';
 import { ClockIcon } from '@heroicons/react/24/outline';
 import LockClose from '@/public/icons/lockClose.svg';
 import lockOpen from '@/public/icons/lockOpen.svg';
+import Link from 'next/link';
 
-export default function CollectionCard({ title, description, itemsCount, totalTime, isPrivate, menuItems = [], showPrivateToggle = false }) {
+export default function CollectionCard({ title, description, itemsCount, totalTime, isPrivate, menuItems = [], cardDetailLink, showPrivateToggle = false }) {
     return (
       <div className='relative max-w-sm pt-7 pl-3 pb-3 pr-3 bg-white border border-gray-200 rounded-lg shadow hover:shadow-lg transition shadow'>
         <div className='absolute top-2 right-2'>
         {menuItems.length > 0 && (<CardDropdown menuItems={menuItems} showPrivateToggle={showPrivateToggle}/>)}
         </div>
         <div className="flex flex-col gap-2">
-          <div className="text-[#1b1128] text-2xl font-bold font-['Roboto'] leading-[30px]">{title}</div>
-        
+          <Link href={cardDetailLink}>
+            <div className="text-[#1b1128] text-2xl font-bold font-['Roboto'] leading-[30px]">{title}</div>
+          </Link>
           <div className="text-gray-500 text-base font-normal leading-normal line-clamp-1">{description}</div>     
         </div>
 

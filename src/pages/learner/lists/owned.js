@@ -13,6 +13,7 @@ import Image from 'next/image';
 import EditIcon from '@/public/icons/editIcon.svg';
 import ShareIcon from '@/public/icons/shareIcon.svg';
 import DeleteIcon from '@/public/icons/deleteIcon.svg';
+import { useUserOwnedLists } from '@/hooks/useUserOwnedLists';
 
 
 export default function Owned() {
@@ -37,53 +38,10 @@ const getMenuItems = id => [
   }
 ];
   
-const cardItems =  [
-    {
-      id: 1,
-      title: 'List 1',
-      itemsCount: 2,
-      totalTime: 2,
-      description: 'This is the description for List 1. This is the description for List 1 This is the description for List 1',
-      isPrivate: true,
-    },
-    {
-      id:2,
-      title: 'List 2',
-      itemsCount: 2,
-      totalTime: 2,
-      description: 'This is the description for List 2.',
-      isPrivate: false,
-    },
-    {
-      id: 3,
-      title: 'List 3',
-      itemsCount: 2,
-      totalTime: 2,
-      description: 'This is the description for List 3.',
-      isPrivate: true,
-    },
-    {
-      id:4,
-      title: 'List 4',
-      itemsCount: 2,
-      totalTime: 2,
-      description: 'This is the description for List 4.',
-      isPrivate: false,
-    }
-  ];
-    
-  
-  const useUserOwnedLists = () => {
-    return {
-      data: cardItems,
-      isSuccess: true,
-      isError: false,
-      error: null,
-    };
-  };
-  
   const { user } = useAuth();
   const { data, isSuccess, isError, error } = useUserOwnedLists();
+
+  console.log(data)
 
   useEffect(() => {
     if (!user) router.push('/');
@@ -147,14 +105,15 @@ const cardItems =  [
           </div>
         )}
         </div> */}
-          {cardItems.map((cardItem, i) => (
+          {isSuccess && data?.map((cardItem, i) => (
             <CollectionCard
               key={i}
-              title={cardItem.title}
-              itemsCount={cardItem.itemsCount}
+              title={cardItem.name}
+              itemsCount={'10'}
               totalTime={cardItem.totalTime}
               description={cardItem.description}
               isPrivate={cardItem.isPrivate}
+              cardDetailLink={`/learner/lists/${cardItem.id}`}
               menuItems= {getMenuItems(cardItem.id)}
               showPrivateToggle={true}
             />
