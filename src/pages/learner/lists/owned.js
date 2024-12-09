@@ -3,16 +3,85 @@
 import { BookOpenIcon, UsersIcon } from '@heroicons/react/24/solid';
 import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/router';
-import { useUserOwnedLists } from '@/hooks/useUserOwnedLists';
+// import { useUserOwnedLists } from '@/hooks/useUserOwnedLists';
 import DefaultLayout from '@/components/layouts/DefaultLayout';
 import Link from 'next/link';
 import React, { useEffect } from 'react';
 import CollectionsLayout from '@/components/layouts/CollectionsLayout';
+import CollectionCard from '@/components/cards/CollectionCard';
+import Image from 'next/image';
+import EditIcon from '@/public/icons/editIcon.svg';
+import ShareIcon from '@/public/icons/shareIcon.svg';
+import DeleteIcon from '@/public/icons/deleteIcon.svg';
 
 
 export default function Owned() {
   const router = useRouter();
 
+//Mock datas for development
+const getMenuItems = id => [
+  {
+    icon: <Image src={EditIcon} alt='Edit' />,
+    label: 'Edit',
+    onClick: () => router.push(`/learner/lists/edit/${id}`),
+  },
+  {
+    icon: <Image src={ShareIcon} alt='Share' />,
+    label: 'Share',
+    onClick: () => console.log('Share clicked'),
+  },
+  {
+    icon: <Image src={DeleteIcon} alt='Delete' />,
+    label: 'Delete',
+    onClick: () => console.log('Delete clicked'),
+  }
+];
+  
+const cardItems =  [
+    {
+      id: 1,
+      title: 'List 1',
+      itemsCount: 2,
+      totalTime: 2,
+      description: 'This is the description for List 1. This is the description for List 1 This is the description for List 1',
+      isPrivate: true,
+    },
+    {
+      id:2,
+      title: 'List 2',
+      itemsCount: 2,
+      totalTime: 2,
+      description: 'This is the description for List 2.',
+      isPrivate: false,
+    },
+    {
+      id: 3,
+      title: 'List 3',
+      itemsCount: 2,
+      totalTime: 2,
+      description: 'This is the description for List 3.',
+      isPrivate: true,
+    },
+    {
+      id:4,
+      title: 'List 4',
+      itemsCount: 2,
+      totalTime: 2,
+      description: 'This is the description for List 4.',
+      isPrivate: false,
+    }
+  ];
+    
+  
+  const useUserOwnedLists = () => {
+    return {
+      data: cardItems,
+      isSuccess: true,
+      isError: false,
+      error: null,
+    };
+  };
+  
   const { user } = useAuth();
   const { data, isSuccess, isError, error } = useUserOwnedLists();
 
@@ -25,7 +94,8 @@ export default function Owned() {
   return (
     <CollectionsLayout title={'My Collections'}>
     <div className='mt-7 pb-5'>
-      <div className='grid grid-cols-3 gap-8'>
+      <div className= 'grid grid-cols-1 md:grid-cols-3 gap-8'>
+      {/* <div className='grid grid-cols-3 gap-8'>
         {isSuccess &&
           data.map((list) => {
             return (
@@ -76,6 +146,19 @@ export default function Owned() {
             </p>
           </div>
         )}
+        </div> */}
+          {cardItems.map((cardItem, i) => (
+            <CollectionCard
+              key={i}
+              title={cardItem.title}
+              itemsCount={cardItem.itemsCount}
+              totalTime={cardItem.totalTime}
+              description={cardItem.description}
+              isPrivate={cardItem.isPrivate}
+              menuItems= {getMenuItems(cardItem.id)}
+              showPrivateToggle={true}
+            />
+          ))}
         </div>
       </div>
     </CollectionsLayout>
