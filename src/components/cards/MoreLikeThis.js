@@ -9,12 +9,16 @@ import { getDeeplyNestedData } from '@/utils/getDeeplyNestedData';
 import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement';
 import Link from 'next/link';
 import ContentLoadingAnimate from '@/utils/ContentLoadingAnimate';
+import {useRouter} from 'next/router';
 
 export default function MoreLikeThis({ course }) {
   const { data, isLoading } = useMoreCoursesLikeThis(course?.meta.id);
   const { Course, meta, Technical_Information, Course_Instance } = {
     ...course,
   };
+
+  const router = useRouter();
+
   
   const { user } = useAuth();
   const config = useConfig();
