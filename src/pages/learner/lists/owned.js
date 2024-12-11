@@ -18,7 +18,6 @@ import { useState } from 'react';
 import CheckMessageCard from '@/components/cards/CheckMessageCard';
 import { useDeleteMyCollection } from '@/hooks/useDeleteMyCollection';
 
-
 export default function Owned() {
   const router = useRouter();
   const { user } = useAuth();
@@ -61,7 +60,6 @@ export default function Owned() {
       }, 2000);
     });
   }
-  
 
   useEffect(() => {
     if (!user) router.push('/');
@@ -77,10 +75,10 @@ export default function Owned() {
             <CollectionCard
               key={i}
               title={cardItem.name}
-              itemsCount={'10'}
+              itemsCount={cardItem.experiences.length}
               totalTime={cardItem.totalTime}
               description={cardItem.description}
-              isPrivate={cardItem.isPrivate}
+              isPublic={cardItem.public}
               cardDetailLink={`/learner/lists/${cardItem.id}`}
               menuItems= {getMenuItems(cardItem.id)}
               showPrivateToggle={true}

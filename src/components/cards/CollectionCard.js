@@ -6,11 +6,16 @@ import LockClose from '@/public/icons/lockClose.svg';
 import lockOpen from '@/public/icons/lockOpen.svg';
 import Link from 'next/link';
 
-export default function CollectionCard({ title, description, itemsCount, totalTime, isPrivate, menuItems = [], cardDetailLink, showPrivateToggle = false }) {
+export default function CollectionCard({ title, description, itemsCount, totalTime, isPublic, menuItems = [], cardDetailLink, showPrivateToggle = false }) {
     return (
       <div className='relative max-w-sm pt-7 pl-3 pb-3 pr-3 bg-white border border-gray-200 rounded-lg shadow hover:shadow-lg transition shadow'>
         <div className='absolute top-2 right-2'>
-        {menuItems.length > 0 && (<CardDropdown menuItems={menuItems} showPrivateToggle={showPrivateToggle}/>)}
+        {menuItems.length > 0 && (
+          <CardDropdown 
+            menuItems={menuItems}
+            showPrivateToggle={showPrivateToggle}
+            isPublic={isPublic}  
+          />)}
         </div>
         <div className="flex flex-col gap-2">
           <Link href={cardDetailLink}>
@@ -36,8 +41,8 @@ export default function CollectionCard({ title, description, itemsCount, totalTi
             <span className='text-gray-500 text-nowrap'>{totalTime > 1 ? `${totalTime} hours` : `${totalTime} hour`}</span>
           </div> */}
           <div className='flex items-center space-x-1'>
-            <Image src={isPrivate ? LockClose : lockOpen} alt='Lock Icon' className='w-4 h-4' />
-            <span className='text-gray-500 text-nowrap'>{isPrivate ? 'Private' : 'Public'}</span>
+            <Image src={isPublic ? lockOpen : LockClose} alt='Lock Icon' className='w-4 h-4' />
+            <span className='text-gray-500 text-nowrap'>{isPublic ? 'Public' : 'Private'}</span>
           </div>
         </div>
       </div>

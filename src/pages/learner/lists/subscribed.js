@@ -73,10 +73,10 @@ export default function Subscribed() {
               <CollectionCard
                 key={i}
                 title={cardItem.name}
-                itemsCount={'10'}
+                itemsCount={cardItem.experiences.length}
                 totalTime={cardItem.totalTime}
                 description={cardItem.description}
-                isPrivate={cardItem.isPrivate}
+                isPublic={cardItem.public}
                 cardDetailLink={`/learner/lists/${cardItem.id}`}
                 menuItems= {getMenuItems(cardItem.id)}
               />
