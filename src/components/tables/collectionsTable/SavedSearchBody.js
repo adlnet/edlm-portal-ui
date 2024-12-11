@@ -42,7 +42,7 @@ const TableBody = ({ tableData, columns }) => {
 
          })}
 
-        {/* Trash Icon for delete function */}
+        {/* Trash Icon for delete function (fix link)*/}
         <div className='text-right items-center pt-4 pr-4 text-[#135F9B]'>
             <button
                 onClick={() => mutate({ id: data.id })}
