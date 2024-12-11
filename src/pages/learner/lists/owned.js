@@ -14,34 +14,54 @@ import EditIcon from '@/public/icons/editIcon.svg';
 import ShareIcon from '@/public/icons/shareIcon.svg';
 import DeleteIcon from '@/public/icons/deleteIcon.svg';
 import { useUserOwnedLists } from '@/hooks/useUserOwnedLists';
+import { useState } from 'react';
+import CheckMessageCard from '@/components/cards/CheckMessageCard';
+import { useDeleteMyCollection } from '@/hooks/useDeleteMyCollection';
 
 
 export default function Owned() {
   const router = useRouter();
-
-//Mock datas for development
-const getMenuItems = id => [
-  {
-    icon: <Image src={EditIcon} alt='Edit' />,
-    label: 'Edit',
-    onClick: () => router.push(`/learner/lists/edit/${id}`),
-  },
-  {
-    icon: <Image src={ShareIcon} alt='Share' />,
-    label: 'Share',
-    onClick: () => console.log('Share clicked'),
-  },
-  {
-    icon: <Image src={DeleteIcon} alt='Delete' />,
-    label: 'Delete',
-    onClick: () => console.log('Delete clicked'),
-  }
-];
-  
   const { user } = useAuth();
   const { data, isSuccess, isError, error } = useUserOwnedLists();
+  const { mutate } = useDeleteMyCollection();
 
-  console.log(data)
+  const [copy, setCopy] = useState('');
+
+  // Card dropdown menu options
+  const getMenuItems = id => [
+    {
+      icon: <Image src={EditIcon} alt='Edit' />,
+      label: 'Edit',
+      onClick: () => router.push(`/learner/lists/edit/${id}`),
+    },
+    {
+      icon: <Image src={ShareIcon} alt='Share' />,
+      label: 'Share',
+      onClick: () => handleShare(id),
+    },
+    {
+      icon: <Image src={DeleteIcon} alt='Delete' />,
+      label: 'Delete',
+      onClick: () => mutate({id}),
+    }
+  ];
+
+  const handleShare = id => {
+    navigator.clipboard.writeText(`${window.origin}/learner/lists/${id}`)
+    .then(() => {
+      setCopy('Copied Successfully!');
+      setTimeout(() => {
+        setCopy('');
+      }, 2000);
+    })
+    .catch(() => {
+      setCopy('Failed to copy');
+      setTimeout(() => {
+        setCopy('');
+      }, 2000);
+    });
+  }
+  
 
   useEffect(() => {
     if (!user) router.push('/');
@@ -53,58 +73,6 @@ const getMenuItems = id => [
     <CollectionsLayout title={'My Collections'}>
     <div className='mt-7 pb-5'>
       <div className= 'grid grid-cols-1 md:grid-cols-3 gap-8'>
-      {/* <div className='grid grid-cols-3 gap-8'>
-        {isSuccess &&
-          data.map((list) => {
-            return (
-              <div
-                className='relative w-full bg-white border border-gray-200 shadow rounded-md'
-                key={list.id}
-              >
-                <h2 className='font-semibold text-lg px-2 pt-2'>{list.name}</h2>
-                <span className='inline-flex gap-2 px-2'>
-                  <div className='inline-flex -py-1 justify-start items-center gap-0.5 text-sm bg-blue-100 border border-blue-500 rounded-full px-2 text-blue-500'>
-                    <UsersIcon className='h-3 w-3' /> {list.subscribers.length}
-                  </div>
-                  <div
-                    className='inline-flex -py-1 justify-start items-center gap-0.5 text-sm
-                    bg-green-100 border border-green-500 rounded-full px-2 text-green-500'
-                  >
-                    <BookOpenIcon className='h-3 w-3 mt-0.5' />
-                    {list.experiences.length}
-                  </div>
-                </span>
-                <p className='text-base line-clamp-4 pt-3 mb-20 px-2'>
-                  {list.description}
-                </p>
-                <div className='absolute bottom-0 left-0 w-full flex justify-around items-center border-t divide-x mt-2'>
-                  <Link href={`/learner/lists/edit/${list.id}`} passHref>
-                    <button className='cursor-pointer flex-shrink-0 py-4 hover:bg-gray-100 w-1/2 text-center'>
-                      Edit
-                    </button>
-                  </Link>
-                  <Link href={`/learner/lists/${list.id}`} passHref>
-                    <button className='cursor-pointer flex-shrink-0 py-4 hover:bg-gray-100 w-1/2 text-center'>
-                      View
-                    </button>
-                  </Link>
-                </div>
-              </div>
-            );
-          })}
-        {isSuccess && data.length === 0 && (
-          <div className='text-center w-full col-span-3'>
-            <h2 className='text-lg font-medium px-2 pt-2'>
-              You are not subscribed to any lists.
-            </h2>
-            <p className='inline-flex w-[80%] pt-8'>
-              To create a new list, head over to the search courses page and
-              find a course you&apos;d like to save. Click the save button and
-              you&apos;ll be able to add it a list or create a new one.
-            </p>
-          </div>
-        )}
-        </div> */}
           {isSuccess && data?.map((cardItem, i) => (
             <CollectionCard
               key={i}
@@ -120,6 +88,7 @@ const getMenuItems = id => [
           ))}
         </div>
       </div>
+      <CheckMessageCard message={copy} />
     </CollectionsLayout>
   );
 }
