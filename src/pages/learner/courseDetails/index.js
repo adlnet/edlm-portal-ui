@@ -221,7 +221,6 @@ export default function CourseDetails() {
 
 
                 </div>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
             </div>
 
             {/* Dates */}
