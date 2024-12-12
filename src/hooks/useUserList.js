@@ -19,8 +19,8 @@ const getUserList = (id, setCurrentListInfo) => {
 };
 
 export function useUserList(id, setCurrentListInfo) {
+  const queryClient = new QueryClient();
   return useQuery(['list', id], getUserList(id, setCurrentListInfo), {
-    const queryClient = new QueryClient();
     refetchOnReconnect: true,
     onSuccess: (data) => {
       // add each of the hits to the query client as a list
