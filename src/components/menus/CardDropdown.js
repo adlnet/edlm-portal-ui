@@ -1,9 +1,23 @@
 import { Menu, Switch } from '@headlessui/react';
 import { EllipsisVerticalIcon } from '@heroicons/react/24/outline';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-export default function CardDropdown({ menuItems, isPublic, showPrivateToggle = false, onTogglePrivate}) {
+export default function CardDropdown({ menuItems, isPublic, showPrivateToggle = false, onTogglePrivatePublic}) {
   const [isPrivate, setIsPrivate] = useState(!isPublic);
+
+  const handleToggle = () => {
+    const newIsPrivate = !isPrivate;
+    setIsPrivate(newIsPrivate);
+    if (onTogglePrivatePublic) {
+      // Passing the public state
+      onTogglePrivatePublic(!newIsPrivate);
+    }
+  };
+
+  useEffect(() => {
+    setIsPrivate(!isPublic);
+  }, [isPublic]);
+
   return(
     <Menu as='div' className='relative'>
       <Menu.Button className='hover:bg-gray-100 rounded-full'>
@@ -34,7 +48,7 @@ export default function CardDropdown({ menuItems, isPublic, showPrivateToggle = 
                 <Switch
                   title='toggle'
                   checked={isPrivate}
-                  onChange={() => setIsPrivate(!isPrivate)}
+                  onChange={handleToggle}
                   className={`${
                     isPrivate ? 'bg-gray-300' : 'bg-blue-500'
                   } w-10 h-5 relative inline-flex items-center rounded-full transition-colors focus:outline-none`}
@@ -42,7 +56,7 @@ export default function CardDropdown({ menuItems, isPublic, showPrivateToggle = 
                   <span className={`${isPrivate ? 'translate-x-1' : 'translate-x-6'} inline-block w-4 h-4 transform bg-white rounded-full transition-transform`}
                   />
                 </Switch>
-                <span className="text-[#1b1128] text-sm font-medium font-['Inter'] ml-3 leading-[17.50px]">{isPrivate ?'Private' : 'Public'}</span>
+                <span className="text-[#1b1128] text-sm font-medium font-['Inter'] ml-3 leading-[17.50px]">{isPrivate ? 'Private' : 'Public'}</span>
               </div>
             </Menu.Item>
           )}

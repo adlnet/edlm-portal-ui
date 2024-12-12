@@ -17,12 +17,14 @@ import { useUserOwnedLists } from '@/hooks/useUserOwnedLists';
 import { useState } from 'react';
 import CheckMessageCard from '@/components/cards/CheckMessageCard';
 import { useDeleteMyCollection } from '@/hooks/useDeleteMyCollection';
+import { useUpdateUserList } from '@/hooks/useUpdateUserList';
 
 export default function Owned() {
   const router = useRouter();
   const { user } = useAuth();
   const { data, isSuccess, isError, error } = useUserOwnedLists();
-  const { mutate } = useDeleteMyCollection();
+  const { mutate: deleteCollection } = useDeleteMyCollection();
+  const { mutate: updateList } = useUpdateUserList();
 
   const [copy, setCopy] = useState('');
 
@@ -41,7 +43,7 @@ export default function Owned() {
     {
       icon: <Image src={DeleteIcon} alt='Delete' />,
       label: 'Delete',
-      onClick: () => mutate({id}),
+      onClick: () => deleteCollection({id}),
     }
   ];
 
@@ -59,7 +61,19 @@ export default function Owned() {
         setCopy('');
       }, 2000);
     });
-  }
+  };
+
+  const handlePrivatePublicToggle = (id, isPublic) => {
+    // Get the current list data from the list of lists with the matching id
+    const currentList = data.find(list => list.id === id);
+    updateList({
+      id,
+      listData: ({
+        ...currentList,
+        public: isPublic
+      })
+    });
+  };
 
   useEffect(() => {
     if (!user) router.push('/');
@@ -82,6 +96,7 @@ export default function Owned() {
               cardDetailLink={`/learner/lists/${cardItem.id}`}
               menuItems= {getMenuItems(cardItem.id)}
               showPrivateToggle={true}
+              onTogglePrivatePublic={isPublic => handlePrivatePublicToggle(cardItem.id, isPublic)}
             />
           ))}
         </div>

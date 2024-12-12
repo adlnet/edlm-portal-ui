@@ -6,7 +6,7 @@ import LockClose from '@/public/icons/lockClose.svg';
 import lockOpen from '@/public/icons/lockOpen.svg';
 import Link from 'next/link';
 
-export default function CollectionCard({ title, description, itemsCount, totalTime, isPublic, menuItems = [], cardDetailLink, showPrivateToggle = false }) {
+export default function CollectionCard({ title, description, itemsCount, totalTime, isPublic, menuItems = [], cardDetailLink, showPrivateToggle = false, onTogglePrivatePublic }) {
     return (
       <div className='relative max-w-sm pt-7 pl-3 pb-3 pr-3 bg-white border border-gray-200 rounded-lg shadow hover:shadow-lg transition shadow'>
         <div className='absolute top-2 right-2'>
@@ -14,7 +14,8 @@ export default function CollectionCard({ title, description, itemsCount, totalTi
           <CardDropdown 
             menuItems={menuItems}
             showPrivateToggle={showPrivateToggle}
-            isPublic={isPublic}  
+            isPublic={isPublic}
+            onTogglePrivatePublic={onTogglePrivatePublic}
           />)}
         </div>
         <div className="flex flex-col gap-2">
