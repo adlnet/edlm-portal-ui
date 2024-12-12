@@ -5,8 +5,8 @@ import { TrashIcon } from '@heroicons/react/24/outline';
 import { useAuth } from '@/contexts/AuthContext';
 import { useDeleteSavedSearch } from '@/hooks/useDeleteSavedSearch';
 
-const TableBody = ({ tableData, columns }) => {
-
+const TableBody = ({ tableData, columns}) => {
+    
     const { user } = useAuth();
     const { mutate } = useDeleteSavedSearch(user?.token);
 
@@ -39,20 +39,19 @@ const TableBody = ({ tableData, columns }) => {
                 const tData = data[accessor] ? data[accessor] : "——";
                 return <td key={accessor} className='pl-4' >{new URLSearchParams(tData).get('/learner/search?keyword')}</td>;
             }
-
          })}
 
         {/* Trash Icon for delete function (fix link)*/}
-        <div className='text-right items-center pt-4 pr-4 text-[#135F9B]'>
-            <button
-                onClick={() => mutate({ id: data.id })}
-                id='delete'
-                title='delete'
-                className=''
-                >
-                <TrashIcon className='h-5 w-5'/>
-            </button>
-        </div>
+         <div className='text-right items-center pt-4 pr-4 text-[#135F9B]'>
+          <button
+           onClick={() => mutate({ id: data.id })}
+           id='delete'
+           title='delete'
+           className=''
+           >
+            <TrashIcon className='h-5 w-5'/>
+          </button>
+         </div>
          
         </tr>
        );

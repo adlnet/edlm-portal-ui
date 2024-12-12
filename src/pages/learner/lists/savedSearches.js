@@ -41,7 +41,7 @@ export default function SavedSearches() {
             You have no saved searches
           </div>
         )}
-        {isSuccess &&(
+        {isSuccess && (
           <div>
             <SavedSearchTable data={data} columns={columns}/>
           </div>
