@@ -10,6 +10,8 @@
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
     "@xapi/xapi": "^2.0.1",
+    "ag-charts-community": "^11.0.0",
+    "ag-charts-react": "^11.0.0",
     "axios": "^1.7.3",
     "flowbite": "^2.4.1",
     "flowbite-react": "^0.10.1",

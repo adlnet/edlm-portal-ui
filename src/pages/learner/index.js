@@ -19,6 +19,8 @@ import { candidateList } from '@/config/endpoints';
 import Carousel from 'react-grid-carousel'
 import useSpotlightCourses from '@/hooks/useSpotlightCourses';
 import CourseSpotlight from '@/components/cards/CourseSpotlight';
+import { AgCharts } from 'ag-charts-react';
+
 
 
 
@@ -36,6 +38,41 @@ export default function Home() {
   //     {title: "Upcoming Vaccancies", lastViewed: "Viewed 1 hour ago"},
   //   ]
   // }
+
+  const [chartOptions, setChartOptions] = useState({
+    // Data: Data to be displayed in the chart
+    data: [
+      { asset: "Stocks", amount: 60000 },
+      { asset: "Bonds", amount: 40000 },
+      { asset: "Cash", amount: 7000 },
+      { asset: "Real Estate", amount: 5000 },
+      { asset: "Commodities", amount: 3000 },
+    ],
+    // Series: Defines which chart type and data to use
+    series: [
+      {
+        type: 'donut',
+          calloutLabelKey: 'asset',
+          angleKey: 'amount',
+          innerRadiusRatio: 0.8,
+          innerLabels: [
+            {
+                text: '11',
+                spacing: 4,
+                fontSize: 36,
+                fontWeight: 'bold',
+            },
+            {
+                text: 'Unique Competencies',
+                spacing: 4,
+                fontSize: 14,
+                color: 'gray',
+            },
+        ],
+
+      },
+  ],
+});
 
   useEffect(() => {
     axiosInstance
@@ -155,6 +192,21 @@ export default function Home() {
               </Carousel.Item>
               {/* ... */}
             </Carousel>
+          </div>
+        </div>
+
+        <div className='flex flex-row mt-10 h-100 '>
+
+          <div className='flex flex-row'>
+            <div className='w-1/2 bg-white shadow-md rounded-lg justify-between m-5'> 
+              <div className='p-4 text-xl font-bold'>Pick Up Where you Left Off</div>
+              <div className='p-4 text-gray-500'>This portal is designed to support your unique educational journey as you grow your career within DOT&E. Here, you'll find an immersive environment that caters to your learning needs inclusive of organized lists to manage your learning materials and resources, planning tools to match learning to career growth, and reporting to monitor progress and track achievements.</div>
+              
+            </div>
+            <div className='w-1/2 bg-white shadow-md rounded-lg'>
+            <div className='p-4 text-xl font-bold'>Learning Summary</div>
+              <AgCharts options={chartOptions} style={{ width: "500px", height: "500px" }}/>
+            </div>
           </div>
         </div>
 
