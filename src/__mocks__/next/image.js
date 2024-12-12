@@ -1,5 +1,5 @@
 import img from 'next/image'
 
-export default NextImage = (props) => {
+export default function NextImage = (props) => {
   return <img {...props} />;
 }

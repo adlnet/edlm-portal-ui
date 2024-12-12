@@ -3,6 +3,7 @@
 import { axiosInstance } from '@/config/axiosConfig';
 import { interestLists } from '@/config/endpoints';
 import { useQuery } from 'react-query';
+import { QueryClient } from 'react-query';
 
 const getUserList = (id, setCurrentListInfo) => {
   if (!id) return null;
@@ -19,6 +20,7 @@ const getUserList = (id, setCurrentListInfo) => {
 
 export function useUserList(id, setCurrentListInfo) {
   return useQuery(['list', id], getUserList(id, setCurrentListInfo), {
+    const queryClient = new QueryClient();
     refetchOnReconnect: true,
     onSuccess: (data) => {
       // add each of the hits to the query client as a list
