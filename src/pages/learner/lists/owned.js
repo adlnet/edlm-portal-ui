@@ -101,6 +101,18 @@ export default function Owned() {
           ))}
         </div>
       </div>
+      {isSuccess && data.length === 0 && (
+          <div className='text-center w-full col-span-3'>
+            <h2 className='text-lg font-medium px-2 pt-2'>
+              You are not subscribed to any lists.
+            </h2>
+            <p className='inline-flex w-[80%] pt-8'>
+              To create a new list, head over to the search courses page and
+              find a course you&apos;d like to save. Click the save button and
+              you&apos;ll be able to add it a list or create a new one.
+            </p>
+          </div>
+        )}
       <CheckMessageCard message={copy} />
     </CollectionsLayout>
   );
