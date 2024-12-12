@@ -7,7 +7,7 @@ import { useState } from 'react';
 export default function TabBar({ selectedTab, setSelectedTab, tabs, loaded }) {
   const [hovered, setHovered] = useState(null);
 
-  const tabClasses = selected => `${'grow shrink basis-0 h-10 px-3 justify-center items-center gap-2 flex focus:outline-none'} ${selected ? 'bg-white shadow text-[#1f3764]' : 'bg-[#dae0e7] text-[#515151]'} text-sm font-semibold font-['Inter] learding-tight`;
+  const tabClasses = selected => `${'grow shrink basis-0 h-10 px-3 justify-center items-center gap-2 flex focus:outline-none'} ${selected ? 'bg-white shadow text-[#1f3764]' : 'bg-gray-200 text-[#515151]'} text-sm font-semibold font-['Inter] learding-tight`;
 
   return (
     <Tab.Group defaultIndex={0} onChange={i => setSelectedTab(tabs[i])}>

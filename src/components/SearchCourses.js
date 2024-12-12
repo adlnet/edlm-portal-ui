@@ -51,7 +51,7 @@ export default function SearchCourses( { params, setParams, courseSearchTriggerd
 
     return (
       <div className='mt-4 pb-4'>
-        <div className='grid grid-cols-1 md:grid-cols-12 pt-0 gap-6 md:gap-12'>
+        <div>
           <div id='search-results' className='col-span-12 grid gap-4 relative'>
             {data && data?.hits?.map((course) => (     
               <SearchResult result={course} key={course.meta.id} />    
@@ -61,7 +61,7 @@ export default function SearchCourses( { params, setParams, courseSearchTriggerd
           
 
           <div className='col-span-1 md:col-span-12 flex flex-col justify-center w-full -mt-4 px-2 max-w-7xl mx-auto'>
-            <div className="text-[#1b1128] text-2xl font-bold leading-normal">Similar Courses</div>       
+            <div className="text-[#1b1128] text-2xl font-bold leading-normal mt-12">Similar Courses</div>       
               <div className='inline-flex overflow-x-auto gap-2 pb-4 py-2 custom-scroll'>    
                 {moreLikeThis.data?.hits?.map((course) => <MoreLikeThis course={course} key={course.meta.id} />)}  
               </div>   

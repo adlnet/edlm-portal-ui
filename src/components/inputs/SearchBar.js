@@ -35,7 +35,7 @@ export default function SearchBar({ parameters, onChange, onClick, onReset }) {
         <button
           title='Search'
           type='submit'
-          className="h-full px-4 bg-[#1f3764] text-white text-sm font-medium font-['Inter'] "
+          className="h-full px-4 bg-blue-900 text-white text-sm font-medium font-['Inter'] "
         >
           Search
         </button>
