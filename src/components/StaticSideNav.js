@@ -83,9 +83,9 @@ export default function StaticSideNav() {
                             </div>
                             {showCollections && (
                                 <>
-                                    {renderDropdownBtn('myCollections', '/myCollections', 'My Collections')}
-                                    {renderDropdownBtn('mySubscriptions', '/mySubscriptions', 'My Subscriptions')}
-                                    {renderDropdownBtn('savedSearches', '/savedSearches', 'Saved Searches')}
+                                    {renderDropdownBtn('myCollections', '/learner/lists/owned', 'My Collections')}
+                                    {renderDropdownBtn('mySubscriptions', '/learner/lists/subscribed', 'My Subscriptions')}
+                                    {renderDropdownBtn('savedSearches', '/learner/lists/savedSearches', 'Saved Searches')}
                                 </>
                             )}
                         </div>

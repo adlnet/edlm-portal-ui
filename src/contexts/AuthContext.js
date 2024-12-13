@@ -1,5 +1,5 @@
 import { axiosInstance } from '@/config/axiosConfig';
-import { backendHost, XDSbackendHost } from '../config/endpoints';
+import { XDSbackendHost } from '../config/endpoints';
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useLocalStorage } from '../hooks/useStorage';
 

@@ -126,9 +126,8 @@ export default function SaveModal({ courseId, title }) {
     <>
       <button
         title='save course'
-        type='button'
         onClick={openModal}
-        className='w-[62px] h-6 px-3 py-2 border justify-center items-center gap-2 inline-flex rounded-lg bg-gradient-to-l from-[#263f9d] to-[#65d4e9] hover:from-[#65d4e9] hover:to-[#263f9d] transition-all ease-in duration-75'
+        className='w-[62px] h-6 px-3 py-2 border justify-center items-center gap-2 inline-flex rounded-lg bg-gradient-to-l from-blue-900 to-cyan-400 hover:from-cyan-400 hover:to-blue-900 transition-all ease-in duration-75'
       >
         <div className='justify-center items-center gap-2 flex bg-white rounded-md border-4 border-white px-[0.5rem]'>
 

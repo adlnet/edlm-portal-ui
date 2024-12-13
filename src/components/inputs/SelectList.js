@@ -1,6 +1,6 @@
 'use strict';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 
 export default function SelectList({
   options,
@@ -27,24 +27,28 @@ export default function SelectList({
     }
   }
 
-  const handleMenuButtonClick = () => {
+  const handleMenuButtonClick = (e) => {
     if (isOpen) {
       onChange({ target: { name: options.field_name, value: selected } });
     }
     setIsOpen(!isOpen);
   }
 
-  useEffect(() => {
-    const handleClickOutOfMenu = e => {
-      // Close the dropdown if the click is outside the dropdown
-      if (dropDownRef.current && !dropDownRef.current.contains(e.target)) {
-        setIsOpen(false);
-      }
+  const handleClickOutOfMenu = e => {
+    // Close the dropdown if the click is outside the dropdown
+    if (isOpen && !dropDownRef.current.contains(e.target)) {
+      setIsOpen(false);
+      onChange({ target: { name: options.field_name, value: selected } });
     }
+  };
+
+  useEffect(() => {
     // Add event listener to handle clicks outside the dropdown
     document.addEventListener('click', handleClickOutOfMenu);
+      
     return () => document.removeEventListener('click', handleClickOutOfMenu);
-  }, []);
+  }, [handleClickOutOfMenu]);
+
 
   return (
     <div ref={dropDownRef} className='relative inline-block text-left mt-0.5'>

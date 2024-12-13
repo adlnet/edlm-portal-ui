@@ -1,5 +1,5 @@
 // local host endpoint from .env
-export const backendHost = process.env.NEXT_PUBLIC_PORTAL_BACKEND_HOST;
+export const backendHost = process.env.NEXT_PUBLIC_XDS_BACKEND;
 export const XDSbackendHost = process.env.NEXT_PUBLIC_XDS_BACKEND;
 export const LRSbackendHost = process.env.NEXT_PUBLIC_LRS_API;
 const api = '/api/';

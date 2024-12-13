@@ -7,8 +7,14 @@ import { useSubscribedLists } from '@/hooks/useSubscribedLists';
 import { useUnsubscribeFromList } from '@/hooks/useUnsubscribeFromList';
 import DefaultLayout from '@/components/layouts/DefaultLayout';
 import Link from 'next/link';
+import Image from 'next/image';
 import React, { useEffect } from 'react';
 import CollectionsLayout from '@/components/layouts/CollectionsLayout';
+import ShareIcon from '@/public/icons/shareIcon.svg';
+import MinusIcon from '@/public/icons/minusIcon.svg';
+import CollectionCard from '@/components/cards/CollectionCard';
+import { useState } from 'react';
+import CheckMessageCard from '@/components/cards/CheckMessageCard';
 
 export default function Subscribed() {
   const { user } = useAuth();
@@ -21,60 +27,63 @@ export default function Subscribed() {
   const { mutate: unsubscribe } = useUnsubscribeFromList(user?.token);
   const router = useRouter();
 
+  const [copy, setCopy] = useState('');
+
   useEffect(() => {
     if (!user) router.push('/');
     if (isError && error.response.status === 401) router.push('/401');
     if (isError && error.response.status === 403) router.push('/403');
   }, []);
 
+  // card dropdown menu options for subscribed lists
+  const getMenuItems = id => [
+    {
+      icon: <Image src={ShareIcon} alt='Share' />,
+      label: 'Share',
+      onClick: () => handleShare(id),
+    },
+    {
+      icon: <Image src={MinusIcon} alt='Unsubscribed' />,
+      label: 'Unsubscribed',
+      onClick: () => unsubscribe({ id }),
+    }
+  ];
+
+  const handleShare = id => {
+    navigator.clipboard.writeText(`${window.origin}/learner/lists/${id}`)
+    .then(() => {
+      setCopy('Copied Successfully!');
+      setTimeout(() => {
+        setCopy('');
+      }, 2000);
+    })
+    .catch(() => {
+      setCopy('Failed to copy');
+      setTimeout(() => {
+        setCopy('');
+      }, 2000);
+    });
+  }
+  
   return (
     <CollectionsLayout title={'My Subscriptions'}>
       <div className='mt-7 pb-5'>
         <div className='grid grid-cols-3 gap-8'>
-          {isSuccess &&
-            subscribed.map((list) => {
-              return (
-                <div
-                  className='relative w-full bg-white border border-gray-200 shadow rounded-md'
-                  key={list.id}
-                >
-                  <h2 className='font-semibold text-lg px-2 pt-2'>
-                    {list.name}
-                  </h2>
-                  <span className='inline-flex gap-2 px-2'>
-                    <div className='inline-flex -py-1 justify-start items-center gap-0.5 text-sm bg-blue-100 border border-blue-500 rounded-full px-2 text-blue-500'>
-                      <UsersIcon className='h-3 w-3' />{' '}
-                      {list.subscribers.length}
-                    </div>
-                    <div
-                      className='inline-flex -py-1 justify-start items-center gap-0.5 text-sm
-                    bg-green-100 border border-green-500 rounded-full px-2 text-green-500'
-                    >
-                      <BookOpenIcon className='h-3 w-3 mt-0.5' />
-                      {list.experiences.length}
-                    </div>
-                  </span>
-                  <p className='text-base line-clamp-4 pt-3 mb-20 px-2'>
-                    {list.description}
-                  </p>
-                  <div className='absolute bottom-0 left-0 w-full flex justify-around items-center border-t divide-x mt-2'>
-                    <button
-                      onClick={() => unsubscribe({ id: list.id })}
-                      className='cursor-pointer flex-shrink-0 py-4 hover:bg-gray-100 w-1/2 text-center hover:text-red-500'
-                    >
-                      Unsubscribe
-                    </button>
-
-                    <Link href={`/learner/lists/${list.id}`} passHref>
-                      <button className='cursor-pointer flex-shrink-0 py-4 hover:bg-gray-100 w-1/2 text-center'>
-                        View
-                      </button>
-                    </Link>
-                  </div>
-                </div>
-              );
-            })}
-          {isSuccess && subscribed.length === 0 && (
+          {isSuccess && subscribed?.map((cardItem, i) => (
+              <CollectionCard
+                key={i}
+                title={cardItem.name}
+                itemsCount={cardItem.experiences.length}
+                totalTime={cardItem.totalTime}
+                description={cardItem.description}
+                isPublic={cardItem.public}
+                cardDetailLink={`/learner/lists/${cardItem.id}`}
+                menuItems= {getMenuItems(cardItem.id)}
+              />
+            ))}
+        </div>
+      </div>
+      {isSuccess && subscribed.length === 0 && (
             <div className='text-center w-full col-span-3'>
               <h2 className='text-lg px-2 pt-2 font-medium'>
                 You are not subscribed to any lists.
@@ -88,8 +97,7 @@ export default function Subscribed() {
               </div>
             </div>
           )}
-        </div>
-      </div>
+      <CheckMessageCard message={copy} />
     </CollectionsLayout>
   );
 }
