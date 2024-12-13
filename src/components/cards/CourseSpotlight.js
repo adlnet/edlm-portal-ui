@@ -79,7 +79,6 @@ export default function CourseSpotlight({ course }) {
           {provider || Course?.CourseProviderName }
         </div>
         {thumbnail && (
-          // eslint-disable-next-line @next/next/no-img-element
           <img
             src={thumbnail}
             alt=''

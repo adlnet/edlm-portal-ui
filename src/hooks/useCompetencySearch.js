@@ -87,7 +87,7 @@ function getCompData(compLinks){
   return fetchData();
 }
 
-/** TODO: Change this comment
+/** 
  * Hook to get the competency results
  * @returns all competencies from the DOT&E Framework defined in the Dev-ECCR
  */
