@@ -42,17 +42,22 @@ export default function Home() {
   const [chartOptions, setChartOptions] = useState({
     // Data: Data to be displayed in the chart
     data: [
-      { asset: "Stocks", amount: 60000 },
-      { asset: "Bonds", amount: 40000 },
-      { asset: "Cash", amount: 7000 },
-      { asset: "Real Estate", amount: 5000 },
-      { asset: "Commodities", amount: 3000 },
+      { asset: "Stocks", amount: 2 },
+      { asset: "Bonds", amount: 1 },
+      { asset: "Cash", amount: 3 },
+      { asset: "Real Estate", amount: 4 },
+      { asset: "Commodities", amount: 1 },
+      { asset: "Stocks", amount: 1 },
+      { asset: "Bonds", amount: 1 },
+      { asset: "Cash", amount: 1 },
+      { asset: "Real Estate", amount: 1 },
+      { asset: "Commodities", amount: 3 },
+      { asset: "Stocks", amount: 1 },
     ],
     // Series: Defines which chart type and data to use
     series: [
       {
         type: 'donut',
-          calloutLabelKey: 'asset',
           angleKey: 'amount',
           innerRadiusRatio: 0.8,
           innerLabels: [
@@ -198,14 +203,33 @@ export default function Home() {
         <div className='flex flex-row mt-10 h-100 '>
 
           <div className='flex flex-row'>
-            <div className='w-1/2 bg-white shadow-md rounded-lg justify-between m-5'> 
+            <div className='w-1/2 bg-white shadow-md rounded-lg justify-between mr-5'> 
               <div className='p-4 text-xl font-bold'>Pick Up Where you Left Off</div>
               <div className='p-4 text-gray-500'>This portal is designed to support your unique educational journey as you grow your career within DOT&E. Here, you'll find an immersive environment that caters to your learning needs inclusive of organized lists to manage your learning materials and resources, planning tools to match learning to career growth, and reporting to monitor progress and track achievements.</div>
-              
+              <div className="flex justify-end">
+                <Button className="m-4 bg-white-900 text-blue-800 text-sm hover:bg-blue-600">
+                    View more
+                </Button>
+              </div>
             </div>
             <div className='w-1/2 bg-white shadow-md rounded-lg'>
-            <div className='p-4 text-xl font-bold'>Learning Summary</div>
-              <AgCharts options={chartOptions} style={{ width: "500px", height: "500px" }}/>
+            <div className='flex flex-row p-4 text-xl font-bold'>Learning Summary</div>
+              <div className="flex flex-row pl-16 items-center">
+                <AgCharts options={chartOptions} style={{ width: "350px", height: "350px" }}/>
+                <div className="flex flex-col pl-4 w-1/4 items-center text-center">
+                  <div className=' text-3xl text-blue-800 font-bold'>3</div>
+                  <div className='pb-2 text-sm text-gray-500'>Courses Completed</div>
+                  <div className='text-3xl text-blue-800 font-bold'>43</div>
+                  <div className='pb-2 text-sm text-gray-500'>In Progress Courses</div>
+                  <div className='text-3xl text-blue-800 font-bold'>2</div>
+                  <div className='pb-4 text-sm text-gray-500 '>Upcoming Courses</div>
+                </div>
+              </div>
+              <div className="flex justify-end">
+                <Button className="m-4 bg-white-900 text-blue-800 text-sm hover:bg-blue-600">
+                    View more
+                </Button>
+              </div>
             </div>
           </div>
         </div>
