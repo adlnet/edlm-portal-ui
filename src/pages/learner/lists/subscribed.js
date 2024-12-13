@@ -8,6 +8,7 @@ import { useUnsubscribeFromList } from '@/hooks/useUnsubscribeFromList';
 import DefaultLayout from '@/components/layouts/DefaultLayout';
 import Link from 'next/link';
 import React, { useEffect } from 'react';
+import CollectionsLayout from '@/components/layouts/CollectionsLayout';
 
 export default function Subscribed() {
   const { user } = useAuth();
@@ -27,11 +28,8 @@ export default function Subscribed() {
   }, []);
 
   return (
-    <DefaultLayout>
-      <div className='mt-10 pb-20'>
-        <h1 className='pb-4 border-b mb-8 font-semibold text-3xl'>
-          Subscribed Lists
-        </h1>
+    <CollectionsLayout title={'My Subscriptions'}>
+      <div className='mt-7 pb-5'>
         <div className='grid grid-cols-3 gap-8'>
           {isSuccess &&
             subscribed.map((list) => {
@@ -92,6 +90,6 @@ export default function Subscribed() {
           )}
         </div>
       </div>
-    </DefaultLayout>
+    </CollectionsLayout>
   );
 }
