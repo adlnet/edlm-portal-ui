@@ -20,6 +20,7 @@ import prepareListDataToSend from '@/utils/prepListDataToSend';
 import Image from 'next/image';
 import LockClose from '@/public/icons/lockClose.svg';
 import lockOpen from '@/public/icons/lockOpen.svg';
+import CheckMessageCard from '@/components/cards/CheckMessageCard';
 
 export function getServerSideProps({ query }) {
   return {
@@ -45,6 +46,11 @@ export default function EditList({ listId }) {
   });
 
   const initialList = useList(parseInt(listId), setCurrentListInfo);
+
+  const [toast, setToast] = useState({
+    show: false,
+    message: ''
+  });
 
   useEffect(() => {
     // no user
@@ -116,7 +122,19 @@ export default function EditList({ listId }) {
         id: parseInt(listId),
       },
       {
-        onSuccess: () => initialList.refetch(),
+        onSuccess: () => {
+          initialList.refetch();
+          setToast({
+            show: true,
+            message: 'Saved Successfully!'
+          });
+          setTimeout(() => {
+            setToast({
+              show: false,
+              message: ''
+            });
+          }, 2000);
+        }
       }
     );
   };
@@ -253,13 +271,14 @@ export default function EditList({ listId }) {
                 Cancel
               </button>
               <button
-                className='w-[92px] h-[37px] px-3 py-2 bg-[#1f3764] rounded-lg justify-center items-center gap-2 inline-flex text-white text-sm font-medium leading-[21px] hover:bg-blue-50 focus:ring-2 ring-blue-400'
+                className='w-[92px] h-[37px] px-3 py-2 bg-blue-900 rounded-lg justify-center items-center gap-2 inline-flex text-white text-sm font-medium leading-[21px] focus:ring-2 ring-blue-400'
                 type='submit'
               >
                 Save
               </button>
             </div>
           </form>
+          <CheckMessageCard message={toast.message} />
         </div>
       </div>
     </DefaultLayout>
