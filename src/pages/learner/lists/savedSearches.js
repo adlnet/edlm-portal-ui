@@ -16,7 +16,7 @@ export default function SavedSearches() {
     {label: 'SEARCH TITLE', accessor: 'name'},
     {label: 'SEARCH TERMS', accessor: 'query'}
   ]
-  
+
   useEffect(() => {
     if (!user) router.push('/');
     if (isError && error?.response.status === 401) router.push('/401');

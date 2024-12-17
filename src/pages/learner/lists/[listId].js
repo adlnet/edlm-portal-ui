@@ -1,11 +1,16 @@
 'use strict';
 
+import { getDeeplyNestedData } from '@/utils/getDeeplyNestedData';
 import { useAuth } from '@/contexts/AuthContext';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
+import { useCourse } from '@/hooks/useCourse';
 import { useList } from '@/hooks/useList';
+import { useConfig } from '@/hooks/useConfig';
 import { useRouter } from 'next/router';
 import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement';
+import { removeHTML } from '@/utils/cleaning';
 import DefaultLayout from '@/components/layouts/DefaultLayout';
+import CollectionTable from '@/components/tables/collectionsTable/CollectionTable';
 
 export function getServerSideProps(context) {
   const { listId } = context.query;
@@ -23,6 +28,44 @@ export default function ListsView({ listId }) {
   const { user } = useAuth();
 
   const list = useList(parseInt(listId));
+  const config = useConfig();
+  
+  const columns = [
+    {label: 'TITLE', accessor: 'title'},
+    {label: 'INSTRUCTOR', accessor: 'instructor'},
+    {label: 'COURSE START DATE', accessor: 'date'},
+    {label: 'DURATION', accessor: 'duration'}
+  ]
+
+  // prepare the experience data
+  const data = useMemo(() => {
+    const courses = []
+    for (let i = 0; i < list?.data?.experiences.length; i++){
+      const course = {
+          id: (list?.data?.experiences[i]?.meta?.metadata_key_hash),
+          title: removeHTML(
+            getDeeplyNestedData(
+                config.data?.course_information?.course_title,
+                list?.data?.experiences[i]
+            )
+          ),
+          instructor: getDeeplyNestedData(
+            config.data?.course_information?.course_instructor,
+            list?.data?.experiences[i]
+          ),
+          date: getDeeplyNestedData(
+            config.data?.course_information.course_startDate,
+            list?.data?.experiences[i]
+          ),
+          duration: getDeeplyNestedData(
+            config.data?.course_information?.course_time,
+            list?.data?.experiences[i]
+          )
+        };
+      courses.push(course)
+    }
+    return courses
+  },[list.isSuccess, list.data]);
 
   // verify a user is logged in otherwise redirect to home page
   useEffect(() => {
@@ -89,34 +132,10 @@ export default function ListsView({ listId }) {
         {list?.data?.description}
       </p>
       <h2 className='border-b text-lg mt-10 font-semibold'>Included Courses</h2>
-      <table className='w-full bg-white rounded-md overflow-hidden shadow mt-8'>
-        <thead className='border-b'>
-          <tr>
-            <th className='text-left px-2 py-6 text-lg'>Title</th>
-            <th className='text-left px-2 py-6 text-lg w-96'>Provider</th>
-          </tr>
-        </thead>
-        <tbody>
-          {list.isSuccess &&
-            list?.data?.experiences.map((exp) => (
-              <tr
-                key={exp?.meta?.metadata_key_hash}
-                className='odd:bg-gray-100 even:bg-white'
-              >
-                <td className='p-2 overflow-hidden text-ellipsis'>
-                  <button
-                    className='hover:underline hover:text-blue-400
-                    cursor-pointer w-full h-full text-left py-2'
-                    onClick={(e) => visitCourse(exp)}
-                  >
-                    {exp?.Course?.CourseTitle}
-                  </button>
-                </td>
-                <td className='p-2'>{exp?.Course?.CourseProviderName}</td>
-              </tr>
-            ))}
-        </tbody>
-      </table>
+      
+      {/* Collections Table component */}
+      <CollectionTable data={data} columns={columns} edit={false} rowsPerPage={4}/>
+      
       {/* When there are no courses */}
       {list.isSuccess && list?.data?.experiences.length === 0 && (
         <div className='text-center font-medium py-2 bg-white/90 rounded-b'>
