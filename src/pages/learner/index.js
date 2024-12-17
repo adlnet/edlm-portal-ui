@@ -22,8 +22,6 @@ import CourseSpotlight from '@/components/cards/CourseSpotlight';
 import { AgCharts } from 'ag-charts-react';
 
 
-
-
 export default function Home() {
   const router = useRouter();
   const { user } = useAuth();
@@ -37,7 +35,7 @@ export default function Home() {
   //     {title: "Project Management", lastViewed: "Viewed 2 hour ago"},
   //     {title: "Upcoming Vaccancies", lastViewed: "Viewed 1 hour ago"},
   //   ]
-  // }
+  //}
 
   const [chartOptions, setChartOptions] = useState({
     // Data: Data to be displayed in the chart

@@ -180,7 +180,7 @@ export default function Search() {
                   onClear={handleClear}
                 />
               </div>
-            </Popover>
+          </Popover>
               {data && !isLoading && selectedTab === 'Courses' && (
                 <div className='flex flex-row my-3 -mx-2 md:my-0 md:mx-0 xl:flex-row gap-2 pl-2'>{data && createLists()}</div>
               )}
