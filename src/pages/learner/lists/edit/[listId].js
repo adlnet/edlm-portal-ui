@@ -77,7 +77,7 @@ export default function EditList({ listId }) {
         public: initialList.data?.public,
       });
     }
-  },[]);
+  },[initialList.data, user, initialList.isSuccess ]);
 
   const handleChange = (event) => {
     setCurrentListInfo((prev) => ({
@@ -108,6 +108,20 @@ export default function EditList({ listId }) {
   const resetData = (e) => {
     e.preventDefault();
     setCurrentListInfo(initialList.data);
+  };
+
+  const resetTitleData = (e) => {
+    setCurrentListInfo(prev => ({
+      ...prev,
+      name: initialList.data.name
+    }));
+  };
+
+  const resetDescriptionData = (e) => {
+    setCurrentListInfo(prev => ({
+      ...prev,
+      description: initialList.data.description
+    }));
   };
 
   const submitData = (e) => {
@@ -208,28 +222,50 @@ export default function EditList({ listId }) {
             <div className='space-y-4 mt-4'>
               <div>
                 <span className='text-gray-900 text-sm font-medium leading-[21px] mb-1'>Edit Collection Title</span>
-                <input
-                  className='w-full px-4 py-2 bg-[#faf9fb] rounded-lg border border-[#d6d2db] justify-start items-center gap-2.5 inline-flex'
-                  type='text'
-                  placeholder='List Name'
-                  value={currentListInfo?.name}
-                  onChange={handleChange}
-                  name='name'
-                  maxLength="200"
-                  onKeyPress={(e)=>checkSpecialChar(e)}
-                />
+                <div className='relative'>
+                  <input
+                    className='w-full px-4 py-2 pr-8 bg-[#faf9fb] rounded-lg border border-[#d6d2db] justify-start items-center gap-2.5 inline-flex'
+                    type='text'
+                    placeholder='List Name'
+                    value={currentListInfo?.name}
+                    onChange={handleChange}
+                    name='name'
+                    maxLength="200"
+                    onKeyPress={(e)=>checkSpecialChar(e)}
+                  />
+                  {currentListInfo?.name !== initialList?.data?.name && (
+                    <button
+                      type='button'
+                      onClick={resetTitleData}
+                      className='absolute right-4 top-0 h-full flex items-center w-2.5 h-2.5 text-gray-500 hover:text-gray-100'
+                    >
+                      x
+                    </button>
+                  )}
+                </div>
               </div>
               <div>
                 <span className='text-gray-900 text-sm font-medium leading-[21px] mb-1'>Edit Collection Description</span>
-                <textarea
-                  className='w-full px-4 py-2 bg-[#faf9fb] rounded-lg border border-[#d6d2db] justify-start items-center gap-2.5 inline-flex'
-                  name='description'
-                  placeholder='List Description'
-                  onChange={handleChange}
-                  value={currentListInfo?.description}
-                  maxLength="1000"
-                  onKeyPress={(e)=>checkSpecialChar(e)}
-                />
+                <div className='relative'>
+                  <textarea
+                    className='w-full px-4 py-2 bg-[#faf9fb] rounded-lg border border-[#d6d2db] justify-start items-center gap-2.5 inline-flex'
+                    name='description'
+                    placeholder='List Description'
+                    onChange={handleChange}
+                    value={currentListInfo?.description}
+                    maxLength="1000"
+                    onKeyPress={(e)=>checkSpecialChar(e)}
+                  />
+                  {currentListInfo?.description !== initialList?.data?.description && (
+                    <button
+                      type='button'
+                      onClick={resetDescriptionData}
+                      className='absolute right-4 top-2 w-2.5 h-2.5 text-gray-500 hover:text-gray-100'
+                    >
+                      x
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
 
@@ -245,12 +281,15 @@ export default function EditList({ listId }) {
 
             {/* Action buttons */}
             <div className='mt-6 flex justify-end gap-4'>
-            <button
-                type='reset'
-                className='w-[92px] h-[37px] px-3 py-2 rounded-lg border border-[#263f9d] justify-center items-center gap-2 inline-flex text-[#1f3764] text-sm font-medium leading-none hover:bg-blue-50 focus:ring-2 ring-gray-400'
-              >
-                Cancel
-              </button>
+              <div className='relative rounded-lg p-[0.06rem] bg-gradient-to-l from-blue-900 to-cyan-400'>
+                <button
+                  type='button'
+                  onClick={() => router.back()}
+                  className='w-[92px] h-[37px] px-3 py-2 rounded-lg border border-[#263f9d] justify-center bg-white items-center border-gray-200 gap-2 inline-flex text-[#1f3764] text-sm font-medium leading-none hover:bg-blue-50 focus:ring-2 ring-gray-400'
+                >
+                  Cancel
+                </button>
+              </div>
               <button
                 className='w-[92px] h-[37px] px-3 py-2 bg-blue-900 rounded-lg justify-center items-center gap-2 inline-flex text-white text-sm font-medium leading-[21px] focus:ring-2 ring-blue-400'
                 type='submit'
