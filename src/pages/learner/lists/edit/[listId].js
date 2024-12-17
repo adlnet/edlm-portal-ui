@@ -1,13 +1,5 @@
 'use strict';
 
-import {
-  EyeIcon,
-  EyeOffIcon,
-  RefreshIcon,
-  UploadIcon,
-  XCircleIcon,
-  XIcon,
-} from '@heroicons/react/24/outline';
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
 import { Switch } from '@headlessui/react';
 import { useAuth } from '@/contexts/AuthContext';
@@ -15,12 +7,15 @@ import { useEffect, useState, useMemo } from 'react';
 import { useRouter } from 'next/router';
 import { useUpdateUserList } from '@/hooks/useUpdateUserList';
 import { useList } from '@/hooks/useList';
+import { useConfig } from '@/hooks/useConfig';
+import { removeHTML } from '@/utils/cleaning';
+import { getDeeplyNestedData } from '@/utils/getDeeplyNestedData';
 import DefaultLayout from '@/components/layouts/DefaultLayout';
 import prepareListDataToSend from '@/utils/prepListDataToSend';
 import Image from 'next/image';
 import LockClose from '@/public/icons/lockClose.svg';
 import lockOpen from '@/public/icons/lockOpen.svg';
-import CheckMessageCard from '@/components/cards/CheckMessageCard';
+import CollectionTable from '@/components/tables/collectionsTable/CollectionTable';
 
 export function getServerSideProps({ query }) {
   return {
@@ -33,6 +28,15 @@ export function getServerSideProps({ query }) {
 export default function EditList({ listId }) {
   const router = useRouter();
   const { user } = useAuth();
+  const config = useConfig();
+
+  // columns for table
+  const columns = [
+    {label: 'TITLE', accessor: 'title'},
+    {label: 'INSTRUCTOR', accessor: 'instructor'},
+    {label: 'COURSE START DATE', accessor: 'date'},
+    {label: 'DURATION', accessor: 'duration'}
+  ]
 
   // handles the mutation
   const mutation = useUpdateUserList();
@@ -46,11 +50,6 @@ export default function EditList({ listId }) {
   });
 
   const initialList = useList(parseInt(listId), setCurrentListInfo);
-
-  const [toast, setToast] = useState({
-    show: false,
-    message: ''
-  });
 
   useEffect(() => {
     // no user
@@ -69,6 +68,7 @@ export default function EditList({ listId }) {
         return router.push(`/learner/lists/${listId}`);
       } 
     }
+
     if (initialList?.isSuccess) {
       setCurrentListInfo({
         name: initialList.data?.name,
@@ -77,18 +77,13 @@ export default function EditList({ listId }) {
         public: initialList.data?.public,
       });
     }
-  }, []);
+  },[]);
 
   const handleChange = (event) => {
     setCurrentListInfo((prev) => ({
       ...prev,
       [event.target.name]: event.target.value,
     }));
-  };
-
-  const visitCourse = (event, id) => {
-    event.preventDefault();
-    router.push(`/learner/course/${id}`);
   };
 
   const toggleListVisibility = () => {
@@ -99,6 +94,7 @@ export default function EditList({ listId }) {
   };
 
   const removeCourse = (id) => {
+    console.log("Delete: ", id)
     setCurrentListInfo((prev) => {
       return {
         ...prev,
@@ -124,16 +120,6 @@ export default function EditList({ listId }) {
       {
         onSuccess: () => {
           initialList.refetch();
-          setToast({
-            show: true,
-            message: 'Saved Successfully!'
-          });
-          setTimeout(() => {
-            setToast({
-              show: false,
-              message: ''
-            });
-          }, 2000);
         }
       }
     );
@@ -144,6 +130,39 @@ export default function EditList({ listId }) {
      e.preventDefault();
     }
    };
+
+  // prepare the experience data
+  console.log('curListInfo: ', currentListInfo)
+  const data = useMemo(() => {
+    const courses = []
+    console.log('In Use Memo: ', currentListInfo)
+    for (let i = 0; i < currentListInfo?.experiences.length; i++){
+      const course = {
+          id: (currentListInfo?.experiences[i]?.meta?.metadata_key_hash),
+          title: removeHTML(
+            getDeeplyNestedData(
+                config.data?.course_information?.course_title,
+                currentListInfo?.experiences[i]
+            )
+          ),
+          instructor: getDeeplyNestedData(
+            config.data?.course_information?.course_instructor,
+            currentListInfo?.experiences[i]
+          ),
+          date: getDeeplyNestedData(
+            config.data?.course_information.course_startDate,
+            currentListInfo?.experiences[i]
+          ),
+          duration: getDeeplyNestedData(
+            config.data?.course_information?.course_time,
+            currentListInfo?.experiences[i]
+          )
+        };
+      courses.push(course)
+    }
+    return courses
+  },[currentListInfo.experiences, initialList.isSuccess]);
+  console.log('Data edit: ', data)
    
   return (
     <DefaultLayout>
@@ -210,50 +229,12 @@ export default function EditList({ listId }) {
                   value={currentListInfo?.description}
                   maxLength="1000"
                   onKeyPress={(e)=>checkSpecialChar(e)}
-
                 />
               </div>
             </div>
 
-            {/* Course list display */}
-            <table className='w-full bg-white rounded-md overflow-hidden shadow mt-8'>
-              <thead className='border-b '>
-                <tr className=''>
-                  <th className='text-left px-2 py-6 text-lg'>Title</th>
-                  <th className='text-left px-2 py-6 text-lg w-[13rem]'>
-                    Provider
-                  </th>
-                  <th className='sr-only'>Remove</th>
-                </tr>
-              </thead>
-              <tbody className=''>
-                {currentListInfo?.experiences?.map((exp) => (
-                  <tr
-                    key={exp?.meta?.metadata_key_hash}
-                    className='odd:bg-gray-100 even:bg-white'
-                  >
-                    <td className='p-2 overflow-hidden text-ellipsis'>
-                      <button
-                        className='hover:underline hover:text-blue-400
-                        cursor-pointer w-full h-full text-left '
-                        onClick={(e) => visitCourse(e, exp?.meta?.metadata_key_hash)}
-                      >
-                        {exp?.Course?.CourseTitle}
-                      </button>
-                    </td>
-                    <td className='p-2'>{exp?.Course?.CourseProviderName}</td>
-                    <td className='text-right p-2'>
-                      <button
-                        className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded'
-                        onClick={() => removeCourse(exp?.meta?.metadata_key_hash)}
-                      >
-                        Remove
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            {/* Collections Table component */}
+            <CollectionTable data={data} columns={columns} deleteCourse={removeCourse} rowsPerPage={4}/>
 
             {/* message for no courses */}
             {currentListInfo?.experiences?.length < 0 && (
@@ -273,12 +254,12 @@ export default function EditList({ listId }) {
               <button
                 className='w-[92px] h-[37px] px-3 py-2 bg-blue-900 rounded-lg justify-center items-center gap-2 inline-flex text-white text-sm font-medium leading-[21px] focus:ring-2 ring-blue-400'
                 type='submit'
+                onClick={() => router.push(`/learner/lists/${listId}`)}
               >
                 Save
               </button>
             </div>
           </form>
-          <CheckMessageCard message={toast.message} />
         </div>
       </div>
     </DefaultLayout>

@@ -2,14 +2,9 @@
 
 import Link from 'next/link';
 import { TrashIcon } from '@heroicons/react/24/outline';
-import { useAuth } from '@/contexts/AuthContext';
-import { useDeleteSavedSearch } from '@/hooks/useDeleteSavedSearch';
 
-const TableBody = ({ pageData, columns, edit}) => {
+const TableBody = ({ pageData, columns, deleteCourse}) => {
     
-    const { user } = useAuth();
-    const { mutate } = useDeleteSavedSearch(user?.token);
-
     return (
      <tbody className='w-full'>
       {pageData?.map((data, index) => {
@@ -46,10 +41,10 @@ const TableBody = ({ pageData, columns, edit}) => {
          })}
 
         {/* Trash Icon for delete function (fix link)*/}
-            {edit === true ?
+            {deleteCourse != null ?
              <div className='text-right items-center pt-4 pr-4 text-[#135F9B]'>
               <button
-                onClick={() => mutate({ id: data.id })}
+                onClick={() => deleteCourse(data.id)}
                 id='delete'
                 title='delete'
                 className=''

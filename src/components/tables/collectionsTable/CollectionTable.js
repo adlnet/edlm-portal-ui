@@ -7,7 +7,7 @@ import { useState } from "react";
 import { useSortableTable } from "@/hooks/useSortableTable";
 import { useTablePagination } from "@/hooks/useTablePagination";
 
-const CollectionTable = ({data, columns, edit, rowsPerPage}) => {
+const CollectionTable = ({data, columns, deleteCourse, rowsPerPage}) => {
 
  // Setting data to a state where it can be sorted
  const [tableData, handleSorting] = useSortableTable(data);
@@ -22,8 +22,8 @@ const CollectionTable = ({data, columns, edit, rowsPerPage}) => {
    <table className="table mt-7 pb-5 w-full rounded-t-lg overflow-hidden shadow border-1 px-2 font-sans">
     <TableHead columns={columns} handleSorting={handleSorting} />
     {rowsPerPage > 0 ? 
-     <TableBody columns={columns} pageData={pageData} edit={edit} /> :
-     <TableBody columns={columns} pageData={tableData} edit={edit} />
+     <TableBody columns={columns} pageData={pageData} deleteCourse={deleteCourse} /> :
+     <TableBody columns={columns} pageData={tableData} deleteCourse={deleteCourse} />
     }
    </table>
    {rowsPerPage > 0 ?

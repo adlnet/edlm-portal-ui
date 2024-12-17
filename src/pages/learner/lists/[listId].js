@@ -70,6 +70,8 @@ export default function ListsView({ listId }) {
     return courses
   },[list.isSuccess, list.data]);
 
+  console.log('data: ', data)
+
   // verify a user is logged in otherwise redirect to home page
   useEffect(() => {
     // if the user is not logged in, redirect to the home page
@@ -153,7 +155,7 @@ export default function ListsView({ listId }) {
             <p className='text-black text-base font-normal leading-normal'>{list?.data?.description || 'No description provided.'}</p>
           </div>
            {/* Collections Table component */}
-          <CollectionTable data={data} columns={columns} edit={false} rowsPerPage={4}/>
+          <CollectionTable data={data} columns={columns} deleteCourse={null} rowsPerPage={4}/>
           {/* When there are no courses */}
           {list.isSuccess && list?.data?.experiences.length === 0 && (
             <div className='text-center font-medium py-2 bg-white/90 rounded-b'>
