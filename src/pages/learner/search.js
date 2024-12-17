@@ -13,6 +13,8 @@ import TabBar from '@/components/buttons/TabBar';
 import SearchBar from '@/components/inputs/SearchBar';
 import SelectList from '@/components/inputs/SelectList';
 import CreateSavedSearchModal from '@/components/modals/CreateSavedSearch';
+import { Button, Popover } from "flowbite-react";
+
 
 export default function Search() {
 
@@ -148,31 +150,53 @@ export default function Search() {
             />
           </div>
           <div className='flex flex-col md:flex-row -mb-1 max-w-min sticky top-0 z-10 bg-white'>
-            <div className='flex-grow w-[22rem] xl:w-[44rem]'>
-              <SearchBar
-                parameters={params}
-                onChange={handleChange}
-                onReset={handleReset}
-                onClick={handleSearch}
-                onClear={handleClear}
-              />
-            </div>
-            {data && !isLoading && selectedTab === 'Courses' && (
-              <div className='flex flex-row my-3 -mx-2 md:my-0 md:mx-0 xl:flex-row gap-2 pl-2'>{data && createLists()}</div>
-            )}
-            <div className='self-start flex -mt-0  md:mt-2.5 ml-2 -my-2'>
-              {selectedTab === 'Courses' && user && <CreateSavedSearchModal path={router.asPath} />}
-              <button 
-                title='Clear Search'
-                onClick= {() => 
-                  setParams((prev) => ({ ...prev, keyword: '' }),
-                  router.push({ pathname: '/learner/search' })
-                )}
-                className="italic text-sm font-sans text-[#3892f3] underline whitespace-nowrap"
-              >     
-              Clear Search
-            </button>
-            </div>
+          <Popover
+              aria-labelledby="default-popover"
+              content={
+                <div className="w-64 text-sm text-gray-500 rounded-lg dark:text-gray-400">
+                  <div className="border-b border-gray-200 bg-blue-700 px-3 py-2 dark:border-gray-600 dark:bg-gray-700">
+                    <h3 id="default-popover" className="font-semibold bg-blue-700 text-white dark:text-white">Search for Courses Here</h3>
+                  </div>
+                  <div className="px-3 py-2">
+                    <p>Search by key topics such as: </p>
+                    <ul class="list-disc list-inside"> 
+                      <li>Testing </li>
+                      <li> Acquisiton </li>
+                      <li> Artificial Intelligence </li>
+                    </ul>
+                  </div>
+                </div>
+              }
+              placement="right"
+              onShow = {"something"}
+              show          
+            >
+              <div className='flex-grow w-[22rem] xl:w-[44rem]'>
+                <SearchBar
+                  parameters={params}
+                  onChange={handleChange}
+                  onReset={handleReset}
+                  onClick={handleSearch}
+                  onClear={handleClear}
+                />
+              </div>
+            </Popover>
+              {data && !isLoading && selectedTab === 'Courses' && (
+                <div className='flex flex-row my-3 -mx-2 md:my-0 md:mx-0 xl:flex-row gap-2 pl-2'>{data && createLists()}</div>
+              )}
+              <div className='self-start flex -mt-0  md:mt-2.5 ml-2 -my-2'>
+                {selectedTab === 'Courses' && user && <CreateSavedSearchModal path={router.asPath} />}
+                <button 
+                  title='Clear Search'
+                  onClick= {() => 
+                    setParams((prev) => ({ ...prev, keyword: '' }),
+                    router.push({ pathname: '/learner/search' })
+                  )}
+                  className="italic text-sm font-sans text-[#3892f3] underline whitespace-nowrap"
+                >     
+                Clear Search
+                </button>
+              </div>
         
         </div>
         <div className='py-4'>

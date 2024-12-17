@@ -7,7 +7,7 @@ import { useRouter } from 'next/dist/client/router';
 import { useCourseSearch} from '@/hooks/useCourseSearch';
 import MoreLikeThis from '@/components/cards/MoreLikeThis';
 import SearchResult from '@/components/cards/CourseSearchResult';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useMoreCoursesLikeThis } from '@/hooks/useMoreCoursesLikeThis';
 import ContentLoadingAnimate from '@/utils/ContentLoadingAnimate';
 
@@ -39,12 +39,11 @@ export default function SearchCourses( { params, setParams, courseSearchTriggerd
       router.push({ pathname: '/learner/search', query: modified }, undefined, {
         scroll: true,
       });
-    } if (isLoading) {
-      return <ContentLoadingAnimate />;
-    }
+    } 
+    
 
 
-    // if loading
+   // if loading
   if (isLoading) {
     return <ContentLoadingAnimate />;
   }
@@ -56,7 +55,7 @@ export default function SearchCourses( { params, setParams, courseSearchTriggerd
             {data && data?.hits?.map((course) => (     
               <SearchResult result={course} key={course.meta.id} />    
             ))}  
-            {(!isLoading && !data) && <ContentLoadingAnimate />}    
+            {/* {(!isLoading && !data) && <ContentLoadingAnimate />}     */}
           </div>
           
 
