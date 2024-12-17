@@ -18,12 +18,12 @@ import { useRouter } from 'next/router';
 
 const listMenuButtons = [
   {
-    name: 'My Lists',
+    name: 'My Collections',
     icon: <FolderIcon className='h-4 w-4' />,
     href: '/learner/lists/owned',
   },
   {
-    name: 'Subscribed',
+    name: 'My Subscriptions',
     icon: <Squares2X2Icon className='h-4 w-4' />,
     href: '/learner/lists/subscribed',
   },
@@ -113,7 +113,7 @@ export default function UserMenu() {
               <div className='text-gray-700'>
                 <div className='p-2'>
                   <h3 className='text-md font-semibold w-full border-b'>
-                    Lists
+                    Collections
                   </h3>
                   <div className='grid gap-1 pt-1'>
                     {listMenuButtons.map((button) => (

@@ -258,22 +258,22 @@ export default function SaveModal({ courseId, title }) {
                     />
                   </div>
                   <p className='text-red-600 mb-5'>{error.message}</p>
-                  <input
-                    type='submit'
-                    name='submit'
-                    value='Create'
-                    className='text-blue-500 bg-blue-50 border-blue-400 border-2 rounded-md px-2 py-1 self-end transform transition-all duration-150 ease-in-out hover:bg-blue-400 hover:text-gray-50 cursor-pointer hover:shadow-md'
-                  />
+                  <div className='flex flex-row justify-between'>
+                    <button
+                      type='button'
+                      className='inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500'
+                      onClick={closeModal}
+                    >
+                      Close
+                    </button>
+                    <input
+                      type='submit'
+                      name='submit'
+                      value='Create'
+                      className='text-blue-500 bg-blue-50 border-blue-400 border-2 rounded-md px-2 py-1 self-end transform transition-all duration-150 ease-in-out hover:bg-blue-400 hover:text-gray-50 cursor-pointer hover:shadow-md'
+                    />
+                  </div>
                 </form>
-                <div className='mt-4'>
-                  <button
-                    type='button'
-                    className='inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500'
-                    onClick={closeModal}
-                  >
-                    Close
-                  </button>
-                </div>
               </div>
             </Transition.Child>
           </div>
