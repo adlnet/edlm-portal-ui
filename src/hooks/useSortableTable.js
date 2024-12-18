@@ -12,7 +12,8 @@ export const useSortableTable = (data) => {
  }, [data])
 
  const handleSorting = (sortField, sortOrder) => {
-  if (sortField) {
+
+  if (sortField && sortField !== 'date') {
    const sorted = [...tableData].sort((a, b) => {
     if (a[sortField] === null) return 1;
     if (b[sortField] === null) return -1;
@@ -24,6 +25,19 @@ export const useSortableTable = (data) => {
     );
    });
    setTableData(sorted);
+  }
+  else if (sortField === 'date'){
+    const sorted = [...tableData].sort((a, b) => {
+     if (a[sortField] === null) return 1;
+     if (b[sortField] === null) return -1;
+     if (a[sortField] === null && b[sortField] === null) return 0;
+     const date_a = new Date(a[sortField])
+     const date_b = new Date(b[sortField])
+     return( 
+        (date_a - date_b) * (sortOrder === "asc" ? 1 : -1)
+     );
+    });
+    setTableData(sorted);
   }
  };
 

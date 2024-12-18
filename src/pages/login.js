@@ -43,7 +43,7 @@ export default function Login() {
       .post(authLogin, credentials)
       .then((res) => {
         login(res.data);
-        router.push('/');
+        router.push('/learner');
       })
       .catch((error) => {
         setErrorMsg('Invalid credentials');
