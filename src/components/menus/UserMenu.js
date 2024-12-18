@@ -68,12 +68,19 @@ const MenuButton = ({ name, icon, href }) => {
 };
 
 export default function UserMenu() {
+  const router = useRouter();
+
   const {
     user: {
       user: { first_name },
     },
     logout,
   } = useAuth();
+
+  const handleLogout=(e)=>{
+    e.preventDefault();
+    router.push("/login")
+}
 
   return (
     <Menu
@@ -126,7 +133,7 @@ export default function UserMenu() {
                 <Menu.Item>
                   {({ active }) => (
                     <button
-                      onClick={logout}
+                      onClick={handleLogout}
                       className={`flex justify-start items-center gap-2 hover:bg-gray-50 rounded-md p-1 transition-all duration-75 ease-in-out text-sm hover:shadow-inner-sm shadow-md border-gray-200 border hover:border-transparent ${
                         active && 'ring-2 ring-blue-500 ring-offset-1'
                       } hover:ring-transparent`}

@@ -24,10 +24,15 @@ import { AgCharts } from 'ag-charts-react';
 
 export default function Home() {
   const router = useRouter();
-  const { user } = useAuth();
+   const { user } = useAuth();
   const [spotlightData, setSpotlightData] = useState(null);
 
   const spotlight = useSpotlightCourses();
+  // const {
+  //   user: {
+  //     user: { first_name },
+  //   },
+  // } = useAuth();
   
   // const spotlight = {
   //   data: [{title: "Cybersecurity", lastViewed: "Viewed 1 hour ago"},
@@ -101,7 +106,7 @@ export default function Home() {
 
           <div className='flex flex-row justify-between'>
             <div className='w-1/2 m-5'> 
-              <div className='pt-2 text-lg font-bold'>Welcome Jamie,</div>
+              <div className='pt-2 text-lg font-bold'>Welcome {user?.user?.first_name},</div>
               <div className='pt-2 text-gray-500'>This portal is designed to support your unique educational journey as you grow your career within DOT&E. Here, you'll find an immersive environment that caters to your learning needs inclusive of organized lists to manage your learning materials and resources, planning tools to match learning to career growth, and reporting to monitor progress and track achievements.</div>
               <div className='pt-12'>
               </div>
