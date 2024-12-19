@@ -117,8 +117,8 @@ export default function UserMenu() {
             leaveFrom='transform opacity-100 scale-100'
             leaveTo='transform opacity-0 scale-95'
           >
-            <Menu.Items className='absolute right-0 origin-top w-44 mt-2 bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50'>
-              <div className='text-gray-700'>
+            <Menu.Items className='absolute right-0 origin-top w-24 mt-2 bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50'>
+              {/* <div className='text-gray-700'>
                 <div className='p-2'>
                   <h3 className='text-md font-semibold w-full border-b'>
                     Collections
@@ -129,13 +129,13 @@ export default function UserMenu() {
                     ))}
                   </div>
                 </div>
-              </div>
-              <div className='p-2 flex w-full justify-between items-center'>
+              </div> */}
+              <div className='p-2 flex w-full justify-end items-center'>
                 <Menu.Item>
                   {({ active }) => (
                     <button
                       onClick={handleLogout}
-                      className={`flex justify-start items-center gap-2 hover:bg-gray-50 rounded-md p-1 transition-all duration-75 ease-in-out text-sm hover:shadow-inner-sm shadow-md border-gray-200 border hover:border-transparent ${
+                      className={`flex justify-end items-center gap-2 hover:bg-gray-50 rounded-md p-1 transition-all duration-75 ease-in-out text-sm hover:shadow-inner-sm hover:border-transparent ${
                         active && 'ring-2 ring-blue-500 ring-offset-1'
                       } hover:ring-transparent`}
                     >

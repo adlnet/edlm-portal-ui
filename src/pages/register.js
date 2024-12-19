@@ -23,7 +23,7 @@ import {
   import DefaultLayout from '@/components/layouts/DefaultLayout';
   import Image from 'next/image';
   import Link from 'next/link';
-  import logo from '@/public/logo.png';
+  import logo from '@/public/doteLogo.png';
   
   function validateEmail (email, setEmailError, setError) {
     if (email === '') {
@@ -222,24 +222,26 @@ import {
     }, [credentials.first_name]);
   
     return (
-      <DefaultLayout>
+      <div>
         <div className='flex flex-col text-center mt-10 items-center '>
           <Image src={logo} alt='logo' width={100} height={100} />
-          <h1 className='font-bold text-xl pt-4'>Create your account</h1>
-          <p className='text-sm'>
-            or&nbsp;
-            <Link href={'/login'} passHref>
-              <button className='text-blue-400 hover:text-blue-600 hover:text-shadow'>
-                Sign in to your account
-              </button>
-            </Link>
-          </p>
         </div>
         <form
           onSubmit={handleSubmit}
           onChange={handleUpdateCredentials}
           className='mt-8 w-[34rem] mx-auto bg-white px-10 py-6 shadow-md rounded-md flex flex-col justify-center items-center'
         >
+           <div className='flex flex-col justify-start mt-2 '>
+            <h1 className='font-bold text-xl pt-2'>Create your account</h1>
+            <p className='text-sm'>
+              Already have an account?&nbsp;
+              <Link href={'/login'} passHref>
+                <button className='text-blue-400 hover:text-blue-600 hover:text-shadow'>
+                  Sign in 
+                </button>
+              </Link>
+            </p>
+          </div>
           <div className='w-full flex gap-4'>
             <input
               type='text'
@@ -375,7 +377,7 @@ import {
             })}
           </div>
         </form>
-      </DefaultLayout>
+      </div>
     );
   }
   

@@ -71,14 +71,14 @@ export default function Login() {
             </p>
             <span>
               Don't have an account yet? &nbsp;
-              <Link href={'/register'} passHref>
+              {/* <Link href={'/register'} passHref>
                 <button
                   id={'create-account-button'}
                   className='text-blue-400 hover:underline hover:text-blue-500 cursor-pointer transition-all duration-150 ease-in-out'
                 >
                   Sign Up
                 </button>
-              </Link>
+              </Link> */}
             </span>
           <input
             type='text'
