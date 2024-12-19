@@ -22,14 +22,17 @@ import CourseSpotlight from '@/components/cards/CourseSpotlight';
 import { AgCharts } from 'ag-charts-react';
 
 
-
-
 export default function Home() {
   const router = useRouter();
-  const { user } = useAuth();
+   const { user } = useAuth();
   const [spotlightData, setSpotlightData] = useState(null);
 
   const spotlight = useSpotlightCourses();
+  // const {
+  //   user: {
+  //     user: { first_name },
+  //   },
+  // } = useAuth();
   
   // const spotlight = {
   //   data: [{title: "Cybersecurity", lastViewed: "Viewed 1 hour ago"},
@@ -37,7 +40,7 @@ export default function Home() {
   //     {title: "Project Management", lastViewed: "Viewed 2 hour ago"},
   //     {title: "Upcoming Vaccancies", lastViewed: "Viewed 1 hour ago"},
   //   ]
-  // }
+  //}
 
   const [chartOptions, setChartOptions] = useState({
     // Data: Data to be displayed in the chart
@@ -103,7 +106,7 @@ export default function Home() {
 
           <div className='flex flex-row justify-between'>
             <div className='w-1/2 m-5'> 
-              <div className='pt-2 text-lg font-bold'>Welcome Jamie,</div>
+              <div className='pt-2 text-lg font-bold'>Welcome {user?.user?.first_name},</div>
               <div className='pt-2 text-gray-500'>This portal is designed to support your unique educational journey as you grow your career within DOT&E. Here, you'll find an immersive environment that caters to your learning needs inclusive of organized lists to manage your learning materials and resources, planning tools to match learning to career growth, and reporting to monitor progress and track achievements.</div>
               <div className='pt-12'>
               </div>
@@ -118,7 +121,7 @@ export default function Home() {
           <div className='flex flex-col'>
               <p className='text-xl font-semibold h-6 pt-4 pl-4'>Learning Action</p>
               <p className='flex pt-3 mt-4 pl-4 font-sans line-clamp-6 text-gray-500'>
-                Take Action & Learn!  
+                Structure your professional development through personalized learning plans 
               </p>
           </div>
           <div className="p-5 pt-4 mr-6">
@@ -139,10 +142,10 @@ export default function Home() {
             mobileBreakpoint={670}
           >
               <Carousel.Item>
-                <Card href="#" className="w-80 h-fit rounded-xl" renderImage={() => <Image width={500} height={500} src={armyImage} alt="image 1" />}>
+                <Card href="/learner/learningPlan" className="w-80 h-fit rounded-xl" renderImage={() => <Image width={500} height={500} src={armyImage} alt="image 1" />}>
                   {/* <Image src={armyImage}  alt='' className=' object-fill h-50 w-150'/> */}
                   <h5 className="text-2xl font-bold justify-left tracking-tight text-gray-900 dark:text-white">
-                    Learning Journey
+                    Learning Plan
                   </h5>
                   <p className="font-normal text-sm text-gray-600 dark:text-gray-400">
                     Learning Journeys are your structured pathway to professional development at DOT&E and are intended to guide newly hired Action Officers through Orientation.
@@ -153,10 +156,10 @@ export default function Home() {
                 </Card>
               </Carousel.Item>
               <Carousel.Item>
-                <Card href="#" className="w-80 h-full rounded-xl" renderImage={() => <Image width={500} height={500} src={armyImage1} alt="image 1" />}>
+                <Card href='/learner/lists/owned' className="w-80 h-full rounded-xl" renderImage={() => <Image width={500} height={500} src={armyImage1} alt="image 1" />}>
                   {/* <Image src={armyImage1}  alt='' className=' object-fill h-50 w-150'/> */}
                   <h5 className="text-2xl font-bold text-left tracking-tight text-gray-900 dark:text-white">
-                    My lists
+                    My Collections
                   </h5>
                   <p className="font-normal mb-8 text-sm text-gray-600 dark:text-gray-400">
                     Access your saved and subscribed lists of learnings.

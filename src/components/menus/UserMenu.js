@@ -18,12 +18,12 @@ import { useRouter } from 'next/router';
 
 const listMenuButtons = [
   {
-    name: 'My Lists',
+    name: 'My Collections',
     icon: <FolderIcon className='h-4 w-4' />,
     href: '/learner/lists/owned',
   },
   {
-    name: 'Subscribed',
+    name: 'My Subscriptions',
     icon: <Squares2X2Icon className='h-4 w-4' />,
     href: '/learner/lists/subscribed',
   },
@@ -68,12 +68,20 @@ const MenuButton = ({ name, icon, href }) => {
 };
 
 export default function UserMenu() {
+  const router = useRouter();
+
   const {
     user: {
       user: { first_name },
     },
     logout,
   } = useAuth();
+
+  const handleLogout = async (e)=>{
+    e.preventDefault();
+    await logout();
+    router.push("/login")
+}
 
   return (
     <Menu
@@ -113,7 +121,7 @@ export default function UserMenu() {
               <div className='text-gray-700'>
                 <div className='p-2'>
                   <h3 className='text-md font-semibold w-full border-b'>
-                    Lists
+                    Collections
                   </h3>
                   <div className='grid gap-1 pt-1'>
                     {listMenuButtons.map((button) => (
@@ -126,7 +134,7 @@ export default function UserMenu() {
                 <Menu.Item>
                   {({ active }) => (
                     <button
-                      onClick={logout}
+                      onClick={handleLogout}
                       className={`flex justify-start items-center gap-2 hover:bg-gray-50 rounded-md p-1 transition-all duration-75 ease-in-out text-sm hover:shadow-inner-sm shadow-md border-gray-200 border hover:border-transparent ${
                         active && 'ring-2 ring-blue-500 ring-offset-1'
                       } hover:ring-transparent`}

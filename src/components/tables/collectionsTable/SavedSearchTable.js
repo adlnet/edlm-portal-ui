@@ -1,8 +1,8 @@
 'use strict'
 
 import TableBody from "./SavedSearchBody";
-import TableHead from "./SavedSearchHead";
-import { useSortableTable } from "./useSortableTable";
+import TableHead from "./TableHead";
+import { useSortableTable } from "../../../hooks/useSortableTable";
 
 const SavedSearchTable = ({data, columns}) => {
 
@@ -12,7 +12,7 @@ const SavedSearchTable = ({data, columns}) => {
   <>
    <table className="table mt-7 pb-5 w-full rounded-lg overflow-hidden shadow border-1 px-2 font-sans">
     <TableHead {...{ columns, handleSorting }} />
-    <TableBody {...{ columns, tableData }} />
+    <TableBody {...{ columns, tableData}} />
    </table>
   </>
  );
