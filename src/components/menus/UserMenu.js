@@ -77,8 +77,9 @@ export default function UserMenu() {
     logout,
   } = useAuth();
 
-  const handleLogout=(e)=>{
+  const handleLogout = async (e)=>{
     e.preventDefault();
+    await logout();
     router.push("/login")
 }
 

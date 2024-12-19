@@ -176,7 +176,6 @@ export default function EditList({ listId }) {
     }
     return courses
   },[currentListInfo.experiences, initialList.isSuccess]);
-  console.log('Data edit: ', data)
    
   return (
     <DefaultLayout>
