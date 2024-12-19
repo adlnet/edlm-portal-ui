@@ -236,9 +236,9 @@ import {
             <p className='text-sm'>
               Already have an account?&nbsp;
               <Link href={'/login'} passHref>
-                <button className='text-blue-400 hover:text-blue-600 hover:text-shadow'>
+                <span className='text-blue-400 hover:text-blue-600 hover:text-shadow'>
                   Sign in 
-                </button>
+                </span>
               </Link>
             </p>
           </div>
