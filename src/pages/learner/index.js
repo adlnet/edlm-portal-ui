@@ -16,6 +16,8 @@ import {Card, Button} from 'flowbite-react';
 import Spotlight from '@/components/SpotlightCard';
 import { axiosInstance } from '@/config/axiosConfig';
 import { candidateList } from '@/config/endpoints';
+import { useInterestLists } from "@/hooks/useInterestLists";
+import { useUserOwnedLists } from "@/hooks/useUserOwnedLists";
 import Carousel from 'react-grid-carousel'
 import useSpotlightCourses from '@/hooks/useSpotlightCourses';
 import CourseSpotlight from '@/components/cards/CourseSpotlight';
@@ -24,10 +26,24 @@ import { AgCharts } from 'ag-charts-react';
 
 export default function Home() {
   const router = useRouter();
-   const { user } = useAuth();
+  const { user } = useAuth();
   const [spotlightData, setSpotlightData] = useState(null);
 
   const spotlight = useSpotlightCourses();
+
+  const interestLists = useInterestLists();
+  const ownedLists = useUserOwnedLists();
+
+  // May need to sort this list 
+  let lunchNLearn = ''
+
+  // Searching the unowned collections for learning plans
+  for (let i = 0; i < interestLists?.data?.length; i++){
+    if (interestLists?.data[i]?.name === 'Lunch and Learn'){
+      lunchNLearn = interestLists?.data[i]
+    }
+  }
+
   // const {
   //   user: {
   //     user: { first_name },

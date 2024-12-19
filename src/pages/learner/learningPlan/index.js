@@ -25,15 +25,13 @@ export default function LearningPlan() {
 
   // Searching the unowned collections for learning plans
   for (let i = 0; i < interestLists?.data?.length; i++){
-    console.log('Name: ', interestLists?.data[i]?.name)
     if (interestLists?.data[i]?.name === 'Phase I: First 30 Days'){
-      console.log('Hello: ', interestLists?.data[i])
       learningPlans.push(interestLists?.data[i])
     }
     else if (interestLists?.data[i]?.name === 'Phase II: First 90 Days'){
       learningPlans.push(interestLists?.data[i])
     }
-    else if (interestLists?.data[i]?.name === 'Phase I: First 30 Days'){
+    else if (interestLists?.data[i]?.name === 'Phase III: After 90 Days'){
       learningPlans.push(interestLists?.data[i])
     }
   }
@@ -50,8 +48,6 @@ export default function LearningPlan() {
       learningPlans.push(ownedLists?.data[i])
     }
   }
-
-  console.log('learningPlans: ', learningPlans)
 
   // 3 steps for learning plan
   const steps = ['30 Days', '90 Days', '90+ Days'];
