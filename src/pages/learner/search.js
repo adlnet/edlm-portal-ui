@@ -28,7 +28,6 @@ export default function Search() {
 
   useEffect(() => {
     if (router?.query) {
-      console.log('Overwriting 1')
       unstable_batchedUpdates(() => {
         setParams(router?.query);
         setUrl(router?.query);
@@ -37,7 +36,6 @@ export default function Search() {
   }, [router.query]);
 
   function handleChange(event) {
-    console.log('Overwriting 2')
     setParams((previous) => ({
       ...previous,
       [event.target.name]: event.target.value,
@@ -50,7 +48,6 @@ export default function Search() {
       delete modified[key];
       delete modified['undefined'];
 
-      console.log('Overwriting 5')
       modified.p = 1;
       setParams(modified);
       setUrl(modified);
@@ -61,7 +58,6 @@ export default function Search() {
 
   function handleListSelect(event) {
     if (params.keyword && params.keyword !== '') {
-      console.log('Overwriting 3')
       const modified = { ...params };
       modified[event.target.name] = event.target.value;
       modified.p = 1;
@@ -74,7 +70,6 @@ export default function Search() {
   }
 
   function handleReset(key) {
-    console.log('Overwriting 6')
     setParams((prev) => ({ ...prev, [key]: '' }));
   }
 
@@ -89,7 +84,6 @@ export default function Search() {
       const modified = { ...params };
       modified.p = 1;
 
-      console.log('Overwriting 4')
       unstable_batchedUpdates(() => {
         setParams(modified);
         setUrl(modified);

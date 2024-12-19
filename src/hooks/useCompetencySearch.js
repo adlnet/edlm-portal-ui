@@ -148,7 +148,6 @@ export function useCompetencySearch() {
           setData({
             Competencies: backupData
           })
-          console.log('Backup Data: ', backupData)
         })
   },[])
 
