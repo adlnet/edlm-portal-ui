@@ -56,7 +56,7 @@ export default function CardDropdown({ menuItems, isPublic, showPrivateToggle = 
                   <span className={`${isPrivate ? 'translate-x-1' : 'translate-x-6'} inline-block w-4 h-4 transform bg-white rounded-full transition-transform`}
                   />
                 </Switch>
-                <span className="text-[#1b1128] text-sm font-medium font-['Inter'] ml-3 leading-[17.50px]">{isPrivate ? 'Private' : 'Public'}</span>
+                <span className="text-[#1b1128] text-sm font-medium  ml-3 leading-[17.50px]">{isPrivate ? 'Private' : 'Public'}</span>
               </div>
             </Menu.Item>
           )}

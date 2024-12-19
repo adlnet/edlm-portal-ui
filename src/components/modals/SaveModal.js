@@ -177,7 +177,7 @@ export default function SaveModal({ courseId, title }) {
                   as='h3'
                   className='text-lg font-medium leading-6 text-gray-900'
                 >
-                  Add "{title}" to lists
+                  Add "{title}" to collections
                 </Dialog.Title>
                 <div className='mt-2 w-full py-2 px-0.5 rounded-md overflow-y-auto h-56 custom-scroll border bg-gray-50 space-y-1'>
                   {isSuccess &&
@@ -218,9 +218,9 @@ export default function SaveModal({ courseId, title }) {
                   className='my-2 flex flex-col w-full'
                   onSubmit={handleSubmit}
                 >
-                  <h4 className='py-2 text-lg font-medium leading-6 text-gray-900'>Create a new list</h4>
+                  <h4 className='py-2 text-lg font-medium leading-6 text-gray-900'>Create a new collections</h4>
                   <div>
-                    <label htmlFor='name'>List Name</label>
+                    <label htmlFor='name'>Collections Name</label>
                     <InputField
                       placeholder='Name'
                       type='text'
@@ -235,10 +235,10 @@ export default function SaveModal({ courseId, title }) {
                       }}
                     />
                   </div>
-                  <div className='relative'>
-                    <label htmlFor='description'>List Description</label>
+                  <div className='relative mt-2'>
+                    <label htmlFor='description'>Collections Description</label>
                     <textarea
-                      placeholder='List Description...'
+                      placeholder='Collections Description...'
                       name='description'
                       id='description'
                       maxLength="1000"
