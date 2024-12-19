@@ -121,7 +121,7 @@ export default function Home() {
           <div className='flex flex-col'>
               <p className='text-xl font-semibold h-6 pt-4 pl-4'>Learning Action</p>
               <p className='flex pt-3 mt-4 pl-4 font-sans line-clamp-6 text-gray-500'>
-                Take Action & Learn!  
+                Structure your professional development through personalized learning plans 
               </p>
           </div>
           <div className="p-5 pt-4 mr-6">
