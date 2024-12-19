@@ -20,13 +20,15 @@ export default function Search() {
   const [params, setParams] = useState(router?.query);
   const { setUrl, data, isLoading } = useCourseSearch();
   const { user } = useAuth();
-  const { Competencies } = useCompetencySearch();
+  
+  const Competencies = useCompetencySearch()
 
   const tabs = ['Courses', 'Competencies'];
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
 
   useEffect(() => {
     if (router?.query) {
+      console.log('Overwriting 1')
       unstable_batchedUpdates(() => {
         setParams(router?.query);
         setUrl(router?.query);
@@ -35,6 +37,7 @@ export default function Search() {
   }, [router.query]);
 
   function handleChange(event) {
+    console.log('Overwriting 2')
     setParams((previous) => ({
       ...previous,
       [event.target.name]: event.target.value,
@@ -47,6 +50,7 @@ export default function Search() {
       delete modified[key];
       delete modified['undefined'];
 
+      console.log('Overwriting 5')
       modified.p = 1;
       setParams(modified);
       setUrl(modified);
@@ -57,6 +61,7 @@ export default function Search() {
 
   function handleListSelect(event) {
     if (params.keyword && params.keyword !== '') {
+      console.log('Overwriting 3')
       const modified = { ...params };
       modified[event.target.name] = event.target.value;
       modified.p = 1;
@@ -69,6 +74,7 @@ export default function Search() {
   }
 
   function handleReset(key) {
+    console.log('Overwriting 6')
     setParams((prev) => ({ ...prev, [key]: '' }));
   }
 
@@ -83,6 +89,7 @@ export default function Search() {
       const modified = { ...params };
       modified.p = 1;
 
+      console.log('Overwriting 4')
       unstable_batchedUpdates(() => {
         setParams(modified);
         setUrl(modified);
@@ -110,6 +117,19 @@ export default function Search() {
     },
     [params, user]
   );
+
+  function handleCompetencyTag(comp){
+    console.log('Comp Pushed: ', comp)
+    setSelectedTab(tabs[1])
+
+    unstable_batchedUpdates(() => {
+      setParams((prev) => ({ ...prev, keyword: comp }));  
+      //setUrl(modified);
+    });
+    
+    
+    console.log('Params: ', params)
+  }
 
   function createLists() {
     if (!data?.aggregations) return null;
@@ -155,6 +175,8 @@ export default function Search() {
                 onReset={handleReset}
                 onClick={handleSearch}
                 onClear={handleClear}
+                // compParam={comp}
+                // tabCheck={tabs[1] === selectedTab}
               />
             </div>
             {data && !isLoading && selectedTab === 'Courses' && (
@@ -180,6 +202,7 @@ export default function Search() {
             <SearchCourses 
               params={params}
               setParams={setParams}
+              handleCompetencyTag={handleCompetencyTag}
             /> : 
             <SearchCompetencies 
               Competencies={Competencies} 

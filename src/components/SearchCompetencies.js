@@ -71,12 +71,20 @@ export default function SearchCompetencies({Competencies, params, setParams}){
     
     useEffect(() => {
         if (router?.query) {
+          console.log('I found you ')
           unstable_batchedUpdates(() => {
             setParams(router?.query);
             //setUrl(router?.query);
           });
         }
     }, [router.query]);
+
+    // function setCompParams (comp){
+    //     setParams({
+    //         keyword: comp,
+    //         p: 1
+    //     })
+    // }
     
     // returns a list of competencies that match the search query 
     const compsToDisplay = useMemo(() => {
