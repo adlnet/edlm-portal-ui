@@ -151,7 +151,7 @@ export default function ListsView({ listId }) {
             </span>
           </div>
           {/* description section of the list */}
-          <div className='h-[101px] mt-4 bg-[#f4f3f6] p-4 rounded-lg'>
+          <div className='min-h-[101px] mt-4 bg-[#f4f3f6] p-4 rounded-lg'>
             <p className='text-black text-base font-normal leading-normal'>{list?.data?.description || 'No description provided.'}</p>
           </div>
            {/* Collections Table component */}

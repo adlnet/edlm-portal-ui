@@ -158,9 +158,6 @@ export default function Course() {
     xAPISendStatement(context);
   }, [router.query?.courseId, data?.title, data?.description, user]);
 
-  console.log(data);
-
-
   return (
     <DefaultLayout>
       {/* content */}
@@ -186,7 +183,7 @@ export default function Course() {
                         courseTitle={data?.title}
                         courseDescription={data?.description}
                     /> */}
-              <SaveModal courseId={data?.meta?.id} title={data?.title || data?.Course?.CourseTitle} />
+              <SaveModal courseId={router.query?.courseId} title={data?.title || data?.Course?.CourseTitle} />
             </div>
           </div>
           <p className='flex my-2'>
