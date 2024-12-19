@@ -156,10 +156,10 @@ export default function Home() {
                 </Card>
               </Carousel.Item>
               <Carousel.Item>
-                <Card href="#" className="w-80 h-full rounded-xl" renderImage={() => <Image width={500} height={500} src={armyImage1} alt="image 1" />}>
+                <Card href='/learner/lists/owned' className="w-80 h-full rounded-xl" renderImage={() => <Image width={500} height={500} src={armyImage1} alt="image 1" />}>
                   {/* <Image src={armyImage1}  alt='' className=' object-fill h-50 w-150'/> */}
                   <h5 className="text-2xl font-bold text-left tracking-tight text-gray-900 dark:text-white">
-                    My lists
+                    My Collections
                   </h5>
                   <p className="font-normal mb-8 text-sm text-gray-600 dark:text-gray-400">
                     Access your saved and subscribed lists of learnings.
