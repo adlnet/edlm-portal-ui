@@ -38,8 +38,8 @@ export default function StaticSideNav() {
         </div>
     );
 
-    const renderDropdownBtn = (btn, path, label) => (
-        <div className={`w-[210px] h-10 flex-col justify-center rounded-lg items-center gap-2.5 inline-flex hover:bg-gray-100 ${activeBtn === btn || isActivePath(path) ? 'bg-[#f4f3f6]' : ''}`} onClick={() => handleSidebarClick(btn, path)}>
+    const renderDropdownBtn = (btn, path, label, disable=false) => (
+        <div className={`w-[210px] h-10 flex-col justify-center rounded-lg items-center gap-2.5 inline-flex hover:bg-gray-100 ${activeBtn === btn || isActivePath(path) ? 'bg-[#f4f3f6]' : ''}`} onClick={() => !disable && handleSidebarClick(btn, path)}>
             <div className="w-[133px] text-[#111928] text-base font-medium leading-normal">{label}</div>
         </div>
     );
@@ -95,8 +95,8 @@ export default function StaticSideNav() {
                 </div>
 
                 <div className="self-stretch h-20 px-3 flex-col justify-start items-start gap-2 inline-flex cursor-pointer">
-                    {renderNavBtn('additional', '/additionalResource', BookIcon, 'Additional Resources')}
-                    {renderNavBtn('help', '/help', LifeBuoyIcon, 'Help')}
+                    {renderNavBtn('additional', null, BookIcon, 'Additional Resources', true)}
+                    {renderNavBtn('help', null, LifeBuoyIcon, 'Help', true)}
                 </div>
             </div>
         </div>
