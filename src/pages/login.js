@@ -9,7 +9,7 @@ import DefaultLayout from '@/components/layouts/DefaultLayout';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
-import logo from '@/public/logo.png';
+import logo from '@/public/doteLogo.png';
 import { useConfig } from '@/hooks/useConfig';
 
 export default function Login() {
@@ -57,30 +57,29 @@ export default function Login() {
   };
 
   return (
-    <DefaultLayout>
-      <div className={'pb-32'}>
-        <div className='mt-10 mx-52 flex flex-col items-center justify-between'>
-          <Image src={logo} alt={'home'} height={'200'} width={'200'} priority={true}/>
-          <p className={'mt-2 text-2xl font-extrabold '}>
-            Sign in to your account
-          </p>
-          <span>
-            or &nbsp;
-            <Link href={'/register'} passHref>
-              <button
-                id={'create-account-button'}
-                className='text-blue-400 hover:underline hover:text-blue-500 cursor-pointer transition-all duration-150 ease-in-out'
-              >
-                Create an Account
-              </button>
-            </Link>
-          </span>
-        </div>
+      <div className={' bg-hero bg-cover pt-8 pb-80'}>
+         <div className='mt-10 mx-52 flex flex-col items-center justify-between'>
+            <Image src={logo} alt={'home'} height={'150'} width={'150'} priority={true}/>
+          </div>
         <form
           onSubmit={handleLogin}
           onChange={(event) => handleChange(event)}
           className='w-1/3 mx-auto bg-white p-8 rounded shadow grid gap-4 mt-10'
         >
+            <p className={'mt-2 text-2xl font-extrabold '}>
+              Welcome back
+            </p>
+            <span>
+              Don't have an account yet? &nbsp;
+              <Link href={'/register'} passHref>
+                <button
+                  id={'create-account-button'}
+                  className='text-blue-400 hover:underline hover:text-blue-500 cursor-pointer transition-all duration-150 ease-in-out'
+                >
+                  Sign Up
+                </button>
+              </Link>
+            </span>
           <input
             type='text'
             name='username'
@@ -99,20 +98,26 @@ export default function Login() {
           />
           <span>{errorMsg}</span>
           <button
-            className='mt-4 mx-auto max-w-max items-center inline-flex gap-2 text-blue-400 rounded-md hover:shadow-md bg-blue-50 hover:bg-blue-400 hover:text-white px-4 py-2 transform transition-all duration-75 ease-in-out border-blue-400 border-2 outline-none focus:ring-2 ring-blue-400'
+            className='flex flex-row mt-4 mx-auto w-full inline-flex justify-center items-center gap-2 text-white rounded-md hover:shadow-md bg-blue-900 hover:bg-blue-400 hover:text-white px-4 py-2 transform transition-all duration-75 ease-in-out outline-none'
             type='submit'
             id='login-button'
           >
-            <ArrowLeftEndOnRectangleIcon className='w-5 h-5' />
             Login
           </button>
 
-          <p className={'my-8 relative border-b-2 w-full'}>
+          <p className={'my-6 relative border-b-2 w-full'}>
             <span className='absolute top-1/2 left-1/2 transform text-center -translate-x-1/2 -translate-y-1/2 bg-white px-2 w-max'>
-              or continue with
+              or
             </span>
           </p>
-          {config.isSuccess &&
+          <button
+            className='flex flex-row mx-auto w-full items-center inline-flex justify-center gap-2 text-blue-400 rounded-md hover:shadow-md bg-blue-50 hover:bg-blue-400 hover:text-white px-4 py-2 transform transition-all duration-75 ease-in-out border-blue-400 border-2 outline-none focus:ring-2 ring-blue-400'
+            type='submit'
+            id='login-button'
+          >
+            Log in with Single Sign On
+          </button>
+          {/* {config.isSuccess &&
             config.data.single_sign_on_options.map(({ name, path }) => {
               return (
                 <a
@@ -123,9 +128,8 @@ export default function Login() {
                   {name}
                 </a>
               );
-            })}
+            })} */}
         </form>
       </div>
-    </DefaultLayout>
   );
 }

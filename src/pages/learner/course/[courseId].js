@@ -190,32 +190,32 @@ export default function Course() {
             </div>
           </div>
           <p className='flex my-2'>
-            <InformationCircleIcon className='h-5  my-0.5' /> <strong>Course Code:&nbsp;</strong>
+            <InformationCircleIcon className='h-5  my-0.5 text-blue-900' /> <strong>Course Code:&nbsp;</strong>
             {data?.code || '202510-DNS-CTR101-01'}
-            <CurrencyDollarIcon className='h-5 pl-10 my-0.5' /> <strong>Course Cost:</strong>
+            <CurrencyDollarIcon className='h-5 pl-10 my-0.5 text-blue-900' /> <strong>Course Cost:</strong>
             {data?.cost || '$312'}
 
           </p>
           <p>{data?.description || 'Cras fermentum odio eu feugiat pretium nibh ipsum consequat nisl. Ipsum a arcu cursus vitae. Sapien et ligula ullamcorper malesuada proin libero. Nibh mauris cursus mattis molestie a iaculis at. Ullamcorper a lacus vestibulum sed arcu non odio euismod. Dui accumsan sit amet nulla. Aenean et tortor at risus viverra adipiscing at in. Etiam dignissim diam quis enim lobortis scelerisque fermentum dui faucibus. Vel turpis nunc eget lorem dolor sed viverra.'}</p>
-          <div className='flex  w-1/4 mt-10 gap-4 '>
-            <span className=''>
-              <Square3Stack3DIcon className='h-10 pr-4' />
-              <div className='text-sm font-semibold'>Competency</div>
+          <div className='flex flex-row w-1/4 mt-10 gap-4 '>
+            <span className='flex flex-row'>
+              <Square3Stack3DIcon className='h-20 pr-4 text-blue-800 opacity-85' />
               <div className='text-sm'>
+                <b className='flex flex-row gap-8'>Competency </b>
                 {data?.competency || 'Policy Development & Implementation'}
               </div>
             </span>
-            <span>
-              <Square3Stack3DIcon className='h-10 pr-4' />
-              <div className='text-sm font-semibold'>Competency</div>
+            <span className='flex flex-row'>
+              <Square3Stack3DIcon className='h-20 pr-4 text-blue-800 opacity-85' />
               <div className='text-sm'>
+                <b className='flex flex-row gap-8'>Competency </b>
                 {data?.competency || 'Policy Development & Implementation'}
               </div>
             </span>
-            <span>
-              <Square3Stack3DIcon className='h-10 pr-4' />
-              <div className='text-sm font-semibold'>Competency</div>
+            <span className='flex flex-row'>
+              <Square3Stack3DIcon className='h-20 pr-4 text-blue-800 opacity-85' />
               <div className='text-sm'>
+                <b className='flex flex-row gap-8'>Competency </b>
                 {data?.competency || 'Policy Development & Implementation'}
               </div>
             </span>
@@ -252,7 +252,7 @@ export default function Course() {
         <div className='flex max-w-7xl mx-auto p-4 justify-around'>
           <div className='flex items-center min-w-max gap-8'>
             <div className='flex justify-center items-center gap-2'>
-              <BuildingStorefrontIcon className='h-10' />
+              <BuildingStorefrontIcon className='h-10 text-blue-900' />
               <span>
                 <div className='text-sm font-semibold'>Provider</div>
                 <div className='text-sm'>
@@ -261,7 +261,7 @@ export default function Course() {
               </span>
             </div>
             <div className='flex justify-center items-center gap-2'>
-              <ClockIcon className='h-10' />
+              <ClockIcon className='h-10 text-blue-900' />
               <span>
                 <div className='text-sm font-semibold'>Duration</div>
                 <div className='text-sm'>
@@ -270,7 +270,7 @@ export default function Course() {
               </span>
             </div>
             <div className='flex justify-center items-center gap-2'>
-              <ComputerDesktopIcon className='h-10' />
+              <ComputerDesktopIcon className='h-10 text-blue-900' />
               <span>
                 <div className='text-sm font-semibold'>Modality</div>
                 <div className='text-sm'>
@@ -279,7 +279,7 @@ export default function Course() {
               </span>
             </div>
             <div className='flex justify-center items-center gap-2'>
-              <UserIcon className='h-10' />
+              <UserIcon className='h-10 text-blue-900' />
               <span>
                 <div className='text-sm font-semibold'>Instructor</div>
                 <div className='text-sm'>
@@ -288,7 +288,7 @@ export default function Course() {
               </span>
             </div>
             <div className='flex justify-center items-center gap-2'>
-              <AcademicCapIcon className='h-10' />
+              <AcademicCapIcon className='h-10 text-blue-900' />
               <span>
                 <div className='text-sm font-semibold'>Course Proficiency</div>
                 <div className='text-sm'>
@@ -297,7 +297,7 @@ export default function Course() {
               </span>
             </div>
             <div className='flex justify-center items-center gap-2'>
-              <CalendarIcon className='h-10' />
+              <CalendarIcon className='h-10 text-blue-900' />
               <span>
                 <div className='text-sm font-semibold'>Start Date: <text className='text-sm font-normal'>{data?.date?.start || '09/24/2024'}</text></div>
                 <div className='text-sm font-semibold'>End Date: <text className='text-sm font-normal'>{data?.date?.end || '11/05/2025'}</text></div>
