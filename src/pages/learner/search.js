@@ -119,16 +119,12 @@ export default function Search() {
   );
 
   function handleCompetencyTag(comp){
-    console.log('Comp Pushed: ', comp)
     setSelectedTab(tabs[1])
 
-    unstable_batchedUpdates(() => {
-      setParams((prev) => ({ ...prev, keyword: comp }));  
-      //setUrl(modified);
-    });
-    
-    
-    console.log('Params: ', params)
+    const modified = { ...params, keyword: comp };
+    modified.p = 1;
+
+    router.push({ pathname: '/learner/search', query: modified });
   }
 
   function createLists() {
