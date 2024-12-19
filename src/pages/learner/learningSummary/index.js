@@ -122,7 +122,7 @@ export default function LearningSummary() {
             Track your competency progress by seeing what competency you're contributing to.
           </p>
           <div className='flex flex-row'>
-            <div className='flex items-center justify-center mr-2 -ml-6'>
+            <div className='flex items-center justify-center mr-2 ml-6'>
               <CompetencyChart
                 data={mockComptencyData}
                 colors={mockCompetencyColor}
