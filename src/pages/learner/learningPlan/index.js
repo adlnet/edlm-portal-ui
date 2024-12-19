@@ -7,6 +7,8 @@ import Image from "next/image";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/router";
 import { useEffect, useState} from "react";
+import { useInterestLists } from "@/hooks/useInterestLists";
+import { useUserOwnedLists } from "@/hooks/useUserOwnedLists";
 import CheckMessageCard from "@/components/cards/CheckMessageCard";
 import ShareIcon from "@/public/icons/shareIcon.svg";
 
@@ -15,8 +17,44 @@ export default function LearningPlan() {
   const router = useRouter();
   const { user } = useAuth();
 
+  const interestLists = useInterestLists();
+  const ownedLists = useUserOwnedLists();
+
+  // May need to sort this list 
+  const learningPlans = []
+
+  // Searching the unowned collections for learning plans
+  for (let i = 0; i < interestLists?.data?.length; i++){
+    console.log('Name: ', interestLists?.data[i]?.name)
+    if (interestLists?.data[i]?.name === 'Phase I: First 30 Days'){
+      console.log('Hello: ', interestLists?.data[i])
+      learningPlans.push(interestLists?.data[i])
+    }
+    else if (interestLists?.data[i]?.name === 'Phase II: First 90 Days'){
+      learningPlans.push(interestLists?.data[i])
+    }
+    else if (interestLists?.data[i]?.name === 'Phase I: First 30 Days'){
+      learningPlans.push(interestLists?.data[i])
+    }
+  }
+
+  // Searching the owned collections for learning plans
+  for (let i = 0; i < ownedLists?.data?.length; i++){
+    if (ownedLists?.data[i]?.name === 'Phase I: First 30 Days'){
+      learningPlans.push(ownedLists?.data[i])
+    }
+    else if (ownedLists?.data[i]?.name === 'Phase II: First 90 Days'){
+      learningPlans.push(ownedLists?.data[i])
+    }
+    else if (ownedLists?.data[i]?.name === 'Phase III: After 90 Days'){
+      learningPlans.push(ownedLists?.data[i])
+    }
+  }
+
+  console.log('learningPlans: ', learningPlans)
+
   // 3 steps for learning plan
-  const steps = ['30 Days', '60 Days', '90 Days'];
+  const steps = ['30 Days', '90 Days', '90+ Days'];
 
   const LEARNING_PLAN_DECRIPTION = 'This Learning Plan phase onboards new AOs and familiarizes them with DOT&E policies and procedures by providing a robust foundation through comprehensive onboarding requirements and policy resources. This phase will ensure that new AOs gain a thorough understanding of the organizational standards, operational guidelines, and essential procedures necessary for their roles.';
 
@@ -32,29 +70,29 @@ export default function LearningPlan() {
   ];
 
   // Mock data for collection card component
-  const data = [
-    {
-      id: 1,
-      name: 'Phase I (30 Days)',
-      description: 'This phase is phase I.',
-      experiences: [],
-      public: true,
-    },
-    {
-      id: 2,
-      name: 'Phase II (30-60 Days)',
-      description: 'This phase is phase II.',
-      experiences: [],
-      public: true,
-    },
-    {
-      id: 3,
-      name: 'Phase III (60-90 Days)',
-      description: 'This phase is phase III.',
-      experiences: [],
-      public: true,
-    },
-  ];
+  // const data = [
+  //   {
+  //     id: 1,
+  //     name: 'Phase I (30 Days)',
+  //     description: 'This phase is phase I.',
+  //     experiences: [],
+  //     public: true,
+  //   },
+  //   {
+  //     id: 2,
+  //     name: 'Phase II (30-60 Days)',
+  //     description: 'This phase is phase II.',
+  //     experiences: [],
+  //     public: true,
+  //   },
+  //   {
+  //     id: 3,
+  //     name: 'Phase III (60-90 Days)',
+  //     description: 'This phase is phase III.',
+  //     experiences: [],
+  //     public: true,
+  //   },
+  // ];
 
   const handleShare = id => {
     navigator.clipboard.writeText(`${window.origin}/learner/lists/${id}`)
@@ -93,14 +131,14 @@ export default function LearningPlan() {
           <Stepper steps={steps} />
 
           <div className= 'grid grid-cols-1 md:grid-cols-3 gap-8 pb-20'>
-          {data?.map((cardItem, i) => (
+          {learningPlans?.map((cardItem, i) => (
             <CollectionCard
               key={i}
               title={cardItem.name}
               itemsCount={cardItem.experiences.length}
               description={cardItem.description}
               isPublic={cardItem.public}
-              cardDetailLink={`/learner/learningPlan/${cardItem.id}`}
+              cardDetailLink={`/learner/lists/${cardItem.id}`}
               menuItems= {getMenuItems(cardItem.id)}
             />
           ))}
