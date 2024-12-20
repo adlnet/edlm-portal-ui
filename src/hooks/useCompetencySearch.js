@@ -1,8 +1,10 @@
 'use strict';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import axios from 'axios';
-import axiosRetry from 'axios-retry';
+import axiosRetry, { retryAfter } from 'axios-retry';
+import { axiosInstance } from '@/config/axiosConfig';
+import backupData from '@/public/backup_competencies.json';
 
 const DOTE_UUID = '41b9bcc4-c455-4c80-a88d-a9511937011f';
 const type = 'schema.cassproject.org.0.4.Framework'
@@ -93,7 +95,7 @@ function getCompData(compLinks){
  */
 export function useCompetencySearch() {
 
-  // Setting up form data for API call
+  // // Setting up form data for API call
   const FormData = require('form-data');
   let data = new FormData();
   data.append('signatureSheet', '[]');
@@ -104,6 +106,8 @@ export function useCompetencySearch() {
     url: compSearchUrl,
     headers: {},
     data: data,
+    timeout: 510,
+    retryAfter: 500
   };
 
   // Setting up return data
@@ -112,38 +116,40 @@ export function useCompetencySearch() {
     Competencies:[]
   })
 
-  axiosRetry(axios, { 
+  axiosRetry(axiosInstance, { 
     retries: 5, 
     shouldResetTimeout: true
   });
 
   useEffect(() => {
     // Making API request
-    axios.request(config)
-      .then(response=>{
+      axios.request(config)
+        .then(response=>{
 
-        // Setting competency from response
-        let compData = response.data;
-        
-        let relateLinks = compData.relation;
-        let compLinks = compData.competency;
+          // Setting competency from response
+          let compData = response.data;
+          
+          let relateLinks = compData.relation;
+          let compLinks = compData.competency;
 
-        const promiseResponse = getCompData(compLinks)
-          .then( res => {
-            const allRelateData = getRelateLinks(relateLinks, res)
+          const promiseResponse = getCompData(compLinks)
+            .then( res => {
+              const allRelateData = getRelateLinks(relateLinks, res)
 
-            setData({
-              Name:compData.name["@value"],
-              Competencies: allRelateData
-            }) 
+              setData({
+                Name:compData.name["@value"],
+                Competencies: allRelateData
+              }) 
+            })
+
+        })
+        .catch(error=>{
+          console.log('Error on initial API request - using backup data: ', error)
+          setData({
+            Competencies: backupData
           })
-
-      })
-      .catch(error=>{
-        console.log(error);
-      })
+        })
   },[])
 
-  return Data
-
+  return Data.Competencies
 }

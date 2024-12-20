@@ -73,7 +73,6 @@ export default function SearchCompetencies({Competencies, params, setParams}){
         if (router?.query) {
           unstable_batchedUpdates(() => {
             setParams(router?.query);
-            //setUrl(router?.query);
           });
         }
     }, [router.query]);

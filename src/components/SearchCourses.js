@@ -15,7 +15,7 @@ import useSpotlightCourses from '@/hooks/useSpotlightCourses';
 import CourseSpotlight from '@/components/cards/CourseSpotlight';
 import ContentLoadingAnimate from '@/utils/ContentLoadingAnimate';
 
-export default function SearchCourses( { params, setParams, courseSearchTriggerd }) {
+export default function SearchCourses( { params, setParams, handleCompetencyTag }) {
 
     const router = useRouter();
     const config = useConfig();
@@ -68,7 +68,7 @@ export default function SearchCourses( { params, setParams, courseSearchTriggerd
         <div>
           <div id='search-results' className='col-span-12 grid gap-4 relative'>
             {data && data?.hits?.map((course) => (     
-              <SearchResult result={course} key={course.meta.id} />    
+              <SearchResult result={course} key={course.meta.id} handleCompetencyTag={handleCompetencyTag}/>    
             ))}  
             {/* {(!isLoading && !data) && <ContentLoadingAnimate />}     */}
           </div>

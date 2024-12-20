@@ -13,7 +13,42 @@ import StoreIcon from '@/public/store.svg';
 import ClockIcon from '@/public/clock.svg';
 import WindowIcon from '@/public/window.svg';
 
-export default function SearchResult({ result }) {
+// Helper function to extract competencies
+function getComps(subjects){
+
+  const comps = subjects?.split(',');
+  
+  for (let i = 1; i < comps?.length; i++){
+    //Trimming whitespace 
+    comps[i] = comps[i]?.trim();
+    //Accounting for comp #4 with commas
+    if (comps[i][0] !== 'C'){
+      comps[i-1] = comps[i - 1] + ', ' + comps[i] + ',' + comps[i + 1];
+      let removed = comps.splice(i, i+1);
+      i--;
+    }
+    comps[i] = comps[i].replace('4A', '')
+    comps[i] = comps[i].replace('4B', '')
+    comps[i] = comps[i].replace('4C', '')
+    comps[i] = comps[i].replace('4D', '')
+    comps[i] = comps[i].replace(/[0-9]/g, '')
+    comps[i] = comps[i].replace('Competency #','')
+    comps[i] = comps[i].trim()
+  }
+
+  // There is probably a way to make this one statement but I don't know how lol
+  comps[0] = comps[0].replace('4A', '')
+  comps[0] = comps[0].replace('4B', '')
+  comps[0] = comps[0].replace('4C', '')
+  comps[0] = comps[0].replace('4D', '')
+  comps[0] = comps[0].replace('Competency #', '')
+  comps[0] = comps[0].replace(/[0-9]/g, '')
+  comps[0] = comps[0].trim()
+  
+  return comps
+}
+
+export default function SearchResult({ result, handleCompetencyTag}) {
   const { user } = useAuth();
   const router = useRouter();
   const config = useConfig();
@@ -25,6 +60,8 @@ export default function SearchResult({ result }) {
   const subject = useMemo(() => {
     return (getDeeplyNestedData(config.data?.course_information?.course_subject, result));
   }, [config.isSuccess, config.data]);
+
+  const competencies = getComps(subject)
 
   const handleClick = useCallback(() => {
     // create the context
@@ -101,12 +138,21 @@ export default function SearchResult({ result }) {
               {getDeeplyNestedData(config.data?.course_information?.course_deliveryMode, result) || 'Not available'}
             </div>
           </div>
-
-          <div className="w-auto h-7 px-[15px] py-1.5 bg-[#e5efff] rounded-xl justify-center items-center gap-2 flex">
-            <div className="text-center text-[#3892f3] text-sm font-normal font-['Roboto'] leading-tight whitespace-nowrap">
-              {subject || 'Not available' }
-            </div>
-          </div>
+          { competencies.map((comp) =>{
+            return (
+              <div className="w-auto h-7 px-[15px] py-1.5 bg-[#e5efff] rounded-xl justify-center items-center gap-2 flex">
+                <div className="text-center text-[#3892f3] text-sm font-normal font-['Roboto'] leading-tight whitespace-nowrap">
+                  <button
+                    className=''
+                    onClick={()=> handleCompetencyTag(comp)}
+                  >
+                    {comp || 'Not available' }
+                  </button>
+                </div>
+              </div>
+            )
+            })
+          }
       </div>
     </div>
   </div>

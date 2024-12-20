@@ -22,7 +22,8 @@ export default function Search() {
   const [params, setParams] = useState(router?.query);
   const { setUrl, data, isLoading } = useCourseSearch();
   const { user } = useAuth();
-  const { Competencies } = useCompetencySearch();
+  
+  const Competencies = useCompetencySearch()
 
   const tabs = ['Courses', 'Competencies'];
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
@@ -112,6 +113,15 @@ export default function Search() {
     },
     [params, user]
   );
+
+  function handleCompetencyTag(comp){
+    setSelectedTab(tabs[1])
+
+    const modified = { ...params, keyword: comp };
+    modified.p = 1;
+
+    router.push({ pathname: '/learner/search', query: modified });
+  }
 
   function createLists() {
     if (!data?.aggregations) return null;
@@ -204,6 +214,7 @@ export default function Search() {
             <SearchCourses 
               params={params}
               setParams={setParams}
+              handleCompetencyTag={handleCompetencyTag}
             /> : 
             <SearchCompetencies 
               Competencies={Competencies} 
