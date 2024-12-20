@@ -19,7 +19,7 @@ import { candidateList } from '@/config/endpoints';
 import Carousel from 'react-grid-carousel'
 import useSpotlightCourses from '@/hooks/useSpotlightCourses';
 import CourseSpotlight from '@/components/cards/CourseSpotlight';
-import { AgCharts } from 'ag-charts-react';
+import CompetencyChart from '@/components/CompetencyChart';
 import CollectionTable from '@/components/tables/collectionsTable/CollectionTable';
 
 export default function Home() {
@@ -56,45 +56,33 @@ export default function Home() {
     {label: 'COURSES STATUS', accessor: 'status'},
   ]
 
-  const [chartOptions, setChartOptions] = useState({
-    // Data: Data to be displayed in the chart
-    data: [
-      { asset: "Stocks", amount: 2 },
-      { asset: "Bonds", amount: 1 },
-      { asset: "Cash", amount: 3 },
-      { asset: "Real Estate", amount: 4 },
-      { asset: "Commodities", amount: 1 },
-      { asset: "Stocks", amount: 1 },
-      { asset: "Bonds", amount: 1 },
-      { asset: "Cash", amount: 1 },
-      { asset: "Real Estate", amount: 1 },
-      { asset: "Commodities", amount: 3 },
-      { asset: "Stocks", amount: 1 },
-    ],
-    // Series: Defines which chart type and data to use
-    series: [
-      {
-        type: 'donut',
-          angleKey: 'amount',
-          innerRadiusRatio: 0.8,
-          innerLabels: [
-            {
-                text: '11',
-                spacing: 4,
-                fontSize: 36,
-                fontWeight: 'bold',
-            },
-            {
-                text: 'Unique Competencies',
-                spacing: 4,
-                fontSize: 14,
-                color: 'gray',
-            },
-        ],
-
-      },
-  ],
-});
+  const mockComptencyData = [
+    { name: 'Operating & System Design', courses:4, hours: 4 },
+    { name: 'Acquisition & Requirements Process', courses: 2, hours: 3 },
+    { name: 'Policy Development & Implementation', courses: 3, hours: 5 },
+    { name: 'Test Planning, Execution & Reporting', courses: 2, hours: 2 },
+    { name: 'Data Management & Reporting', courses: 2, hours: 3 },
+    { name: 'TEMP/T&E Strategy & Development', courses: 2, hours: 3 },
+    { name: 'Modeling & Stimulation VV&A', courses: 2, hours: 3 },
+    { name: 'Software', courses: 2, hours: 3 },
+    { name: 'Full Spectrum Survivability & Lethality', courses: 2, hours: 3 },
+    { name: 'Artificial Intelligence', courses: 2, hours: 3 },
+    { name: 'Leadership', courses: 2, hours: 3 }
+  ];
+  
+  const mockCompetencyColor = {
+    'Operating & System Design': '#E8EAA1',
+    'Acquisition & Requirements Process': '#00AAA0',
+    'Policy Development & Implementation': '#5068C3',
+    'Test Planning, Execution & Reporting': '#927FBF',
+    'Data Management & Reporting': '#F7C873',
+    'TEMP/T&E Strategy & Development': '#E29578',
+    'Modeling & Stimulation VV&A': '#CCF186',
+    'Software': '#3b445b',
+    'Full Spectrum Survivability & Lethality': '#307672',
+    'Artificial Intelligence': '#694B7C',
+    'Leadership': '#BADFDB'
+  }
 
   useEffect(() => {
     axiosInstance
@@ -234,7 +222,12 @@ export default function Home() {
             <div className='w-1/2 bg-white shadow-md rounded-lg'>
             <div className='flex flex-row p-4 text-xl font-bold'>Learning Summary</div>
               <div className="flex flex-row items-center">
-                <AgCharts options={chartOptions} style={{ width: "350px", height: "350px" }}/>
+                <div className='ml-2 mt-6'>
+                  <CompetencyChart
+                    data={mockComptencyData}
+                    colors={mockCompetencyColor}
+                  />
+                </div>
                 <div className="flex flex-col pl-4 w-1/4 items-center text-center">
                   <div className=' text-3xl text-blue-800 font-bold'>3</div>
                   <div className='pb-2 text-sm text-gray-500'>Courses Completed</div>
@@ -245,7 +238,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="flex justify-end">
-                <Button className="m-4 bg-white-900 text-blue-800 text-sm hover:bg-blue-600">
+                <Button className="m-4 bg-white-900 text-blue-800 text-sm hover:bg-blue-600 mt-10" onClick={() => router.push('/learner/learningSummary')}>
                     View more
                 </Button>
               </div>
