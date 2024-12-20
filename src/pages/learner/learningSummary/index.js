@@ -44,7 +44,7 @@ const mockCompetencyColor = {
   'Data Management & Reporting': '#F7C873',
   'TEMP/T&E Strategy & Development': '#E29578',
   'Modeling & Stimulation VV&A': '#CCF186',
-  'Software': '#F7C873',
+  'Software': '#3b445b',
   'Full Spectrum Survivability & Lethality': '#307672',
   'Artificial Intelligence': '#694B7C',
   'Leadership': '#BADFDB'
@@ -110,7 +110,7 @@ export default function LearningSummary() {
             {mockSummaryData.map((summary, i) => (
               <div key={i} className='flex-1 flex flex-col items-center justify-center p-4 md:pl-8'>
                 <span className='text-[#00509f] text-4xl font-bold'>{summary.value}</span>
-                <span className="text-gray-800 text-base font-normal font-['Inter'] leading-normal text-nowrap">{summary.name}</span>
+                <span className="text-gray-800 text-base font-normal  leading-normal text-nowrap">{summary.name}</span>
               </div>
             ))}
           </div>
@@ -135,8 +135,8 @@ export default function LearningSummary() {
                   <thead className='bg-blue-800 text-white p-4 bg-[#00509f]'>
                     <tr>
                       <th className='p-3 text-white text-xs font-semibold  uppercase leading-[18px] text-start '><span className='pl-10'>Competency</span></th>
-                      <th className=" p-3 text-white text-xs font-semibold font-['Inter'] uppercase leading-[18px] text-start">NUMBER OF COURSES PER<br /> COMPETENCY</th>
-                      <th className="p-3 text-white text-xs font-semibold font-['Inter'] uppercase leading-[18px] text-start">NUMBER OF HOURS PER<br /> COMPETENCY</th>
+                      <th className=" p-3 text-white text-xs font-semibold  uppercase leading-[18px] text-start">NUMBER OF COURSES PER<br /> COMPETENCY</th>
+                      <th className="p-3 text-white text-xs font-semibold  uppercase leading-[18px] text-start">NUMBER OF HOURS PER<br /> COMPETENCY</th>
                     </tr>
                   </thead>
                   <tbody>

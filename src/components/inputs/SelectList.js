@@ -87,7 +87,7 @@ export default function SelectList({
                   className="w-4 h-4 bg-[#faf9fb] rounded border border-[#d6d2db] cursor-pointer mr-2 "
                 />
                 <div className="grow shrink basis-0 flex-col justify-start items-start gap-0.5 inline-flex">
-                  <label htmlFor={`${options.field_name}-${group.key}`} className="text-[#1b1128] text-sm font-medium font-['Inter'] leading-[14px] cursor-pointer">
+                  <label htmlFor={`${options.field_name}-${group.key}`} className="text-[#1b1128] text-sm font-medium  leading-[14px] cursor-pointer">
                     {group.key}
                   </label>
                 </div>

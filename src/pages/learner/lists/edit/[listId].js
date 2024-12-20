@@ -184,12 +184,12 @@ export default function EditList({ listId }) {
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-2">
               <a 
-                href='/learner/lists/owned' className="text-[#3892f3] text-sm font-medium font-['Inter'] leading-[21px]  hover:underline">
+                href='/learner/lists/owned' className="text-[#3892f3] text-sm font-medium  leading-[21px]  hover:underline">
                 My Collections
               </a>
               <ChevronRightIcon className="w-3 h-3 relative" />
               <div className="justify-center items-center flex">
-                <span className="text-gray-500 text-sm font-medium font-['Inter'] leading-[21px]">{initialList?.data?.name}</ span>              
+                <span className="text-gray-500 text-sm font-medium  leading-[21px]">{initialList?.data?.name}</ span>              
               </div>
             </div>
           </div>
