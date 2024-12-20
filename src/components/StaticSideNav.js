@@ -68,7 +68,7 @@ export default function StaticSideNav() {
                                     <div className='text-nowrap'>
                                         {renderDropdownBtn('myLearningSummary', '/learner/learningSummary', 'My Learning Summary')}
                                     </div>
-                                    {renderDropdownBtn('reportC', '/reportC', 'Report C')}
+                                    {renderDropdownBtn('reportC', null, 'Report C', true)}
                                 </>
                             )}
                         </div>
