@@ -123,7 +123,7 @@ export default function Home() {
           <div className='flex flex-col'>
               <p className='text-xl font-semibold h-6 pt-4 pl-4'>Learning Action</p>
               <p className='flex pt-3 mt-4 pl-4 font-sans line-clamp-6 text-gray-500'>
-                Take Action & Learn!  
+                Structure your professional development through personalized learning plans 
               </p>
           </div>
           <div className="p-5 pt-4 mr-6">
@@ -144,10 +144,10 @@ export default function Home() {
             mobileBreakpoint={670}
           >
               <Carousel.Item>
-                <Card href="#" className="w-80 h-fit rounded-xl" renderImage={() => <Image width={500} height={500} src={armyImage} alt="image 1" />}>
+                <Card href="/learner/learningPlan" className="w-80 h-fit rounded-xl" renderImage={() => <Image width={500} height={500} src={armyImage} alt="image 1" />}>
                   {/* <Image src={armyImage}  alt='' className=' object-fill h-50 w-150'/> */}
                   <h5 className="text-2xl font-bold justify-left tracking-tight text-gray-900 dark:text-white">
-                    Learning Journey
+                    Learning Plan
                   </h5>
                   <p className="font-normal text-sm text-gray-600 dark:text-gray-400">
                     Learning Journeys are your structured pathway to professional development at DOT&E and are intended to guide newly hired Action Officers through Orientation.
@@ -158,10 +158,10 @@ export default function Home() {
                 </Card>
               </Carousel.Item>
               <Carousel.Item>
-                <Card href="#" className="w-80 h-full rounded-xl" renderImage={() => <Image width={500} height={500} src={armyImage1} alt="image 1" />}>
+                <Card href='/learner/lists/owned' className="w-80 h-full rounded-xl" renderImage={() => <Image width={500} height={500} src={armyImage1} alt="image 1" />}>
                   {/* <Image src={armyImage1}  alt='' className=' object-fill h-50 w-150'/> */}
                   <h5 className="text-2xl font-bold text-left tracking-tight text-gray-900 dark:text-white">
-                    My lists
+                    My Collections
                   </h5>
                   <p className="font-normal mb-8 text-sm text-gray-600 dark:text-gray-400">
                     Access your saved and subscribed lists of learnings.
