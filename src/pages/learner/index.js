@@ -34,15 +34,15 @@ export default function Home() {
   const interestLists = useInterestLists();
   const ownedLists = useUserOwnedLists();
 
-  // May need to sort this list 
-  let lunchNLearn = ''
+  const [lunchNLearn, setLunchNLearn] = useState(null);
 
-  // Searching the unowned collections for learning plans
-  for (let i = 0; i < interestLists?.data?.length; i++){
-    if (interestLists?.data[i]?.name === 'Lunch and Learn'){
-      lunchNLearn = interestLists?.data[i]
-    }
-  }
+  // Searching for launch and learn plans
+  useEffect(() => {
+    const lunchNLearnList = 
+      interestLists?.data?.find(list => list.name === 'Lunch & Learns') || 
+      ownedLists?.data?.find(list => list.name === 'Lunch & Learns');
+    setLunchNLearn(lunchNLearnList);
+  }, [interestLists, ownedLists]);
 
   // const {
   //   user: {
@@ -186,7 +186,7 @@ export default function Home() {
                 </Card>
               </Carousel.Item>
               <Carousel.Item>
-                <Card href="#" className="w-80 h-full rounded-xl" renderImage={() => <Image width={500} height={500} src={armyImage2} alt="image 1" />}>
+                <Card href={`/learner/lists/${lunchNLearn?.id}`} className="w-80 h-full rounded-xl" renderImage={() => <Image width={500} height={500} src={armyImage2} alt="image 1" />}>
                   {/* <Image src={armyImage2}  alt='' className=' object-fill h-50 w-150'/> */}
                   <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                     Lunch & Learns
@@ -194,7 +194,7 @@ export default function Home() {
                   <p className="font-normal mb-8 text-sm text-gray-600 dark:text-gray-400">
                     Access saved recordings of DOT&E Lunch & Learns.
                   </p>
-                  <Button className="flex ml-32 justify-center bg-blue-900 hover:bg-blue-600">
+                  <Button className="flex ml-32 justify-center bg-blue-900 hover:bg-blue-600" onClick={() => router.push(`/learner/lists/${lunchNLearn?.id}`)}>
                     View more
                   </Button>
                 </Card>
