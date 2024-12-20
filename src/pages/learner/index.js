@@ -20,7 +20,7 @@ import Carousel from 'react-grid-carousel'
 import useSpotlightCourses from '@/hooks/useSpotlightCourses';
 import CourseSpotlight from '@/components/cards/CourseSpotlight';
 import { AgCharts } from 'ag-charts-react';
-
+import CollectionTable from '@/components/tables/collectionsTable/CollectionTable';
 
 export default function Home() {
   const router = useRouter();
@@ -41,6 +41,20 @@ export default function Home() {
   //     {title: "Upcoming Vaccancies", lastViewed: "Viewed 1 hour ago"},
   //   ]
   //}
+
+  // Mock data for development
+  const mockInProgressCourses = [
+    { id: 1, title: 'AI Ethics', status: 'In Progress' },
+    { id: 2, title: 'NLP', status: 'In Progress' },
+    { id: 3, title: 'Machine Learning', status: 'In Progress'},
+    { id: 4, title: 'Deep Learning', status: 'In Progress'},
+    { id: 5, title: 'Data Science', status: 'In Progress'},
+  ];
+
+  const columns = [
+    {label: 'COURSES', accessor: 'title'},
+    {label: 'COURSES STATUS', accessor: 'status'},
+  ]
 
   const [chartOptions, setChartOptions] = useState({
     // Data: Data to be displayed in the chart
@@ -100,7 +114,7 @@ export default function Home() {
         <link rel="icon" href="/doteLogo.png" />
       </Head>
 
-      <div className='flex flex-col mt-8'>
+      <div className='flex flex-col p-6'>
         {/* <div className='py-4 text-xl font-bold'>Welcome, Talent Manager, Andrea Wilson! </div> */}
         <div className='bg-white h-100 shadow-md rounded-lg '>
 
@@ -203,21 +217,23 @@ export default function Home() {
           </div>
         </div>
 
-        <div className='flex flex-row mt-10 h-100 '>
+        <div className='flex flex-row mt-10 h-100'>
 
-          <div className='flex flex-row'>
+          <div className='flex flex-row w-full'>
             <div className='w-1/2 bg-white shadow-md rounded-lg justify-between mr-5'> 
               <div className='p-4 text-xl font-bold'>Pick Up Where you Left Off</div>
-              <div className='p-4 text-gray-500'>This portal is designed to support your unique educational journey as you grow your career within DOT&E. Here, you'll find an immersive environment that caters to your learning needs inclusive of organized lists to manage your learning materials and resources, planning tools to match learning to career growth, and reporting to monitor progress and track achievements.</div>
-              <div className="flex justify-end">
-                <Button className="m-4 bg-white-900 text-blue-800 text-sm hover:bg-blue-600">
+              <div className='p-4 -mt-10'>              
+                <CollectionTable data={mockInProgressCourses} edit={false} columns={columns} rowsPerPage={5}/>
+              </div>
+              <div className="flex justify-end -mt-4">
+                <Button className="m-4 bg-white-900 text-blue-800 text-sm hover:bg-blue-600" onClick={() => router.push('/learner/learningSummary')}>
                     View more
                 </Button>
               </div>
             </div>
             <div className='w-1/2 bg-white shadow-md rounded-lg'>
             <div className='flex flex-row p-4 text-xl font-bold'>Learning Summary</div>
-              <div className="flex flex-row pl-16 items-center">
+              <div className="flex flex-row items-center">
                 <AgCharts options={chartOptions} style={{ width: "350px", height: "350px" }}/>
                 <div className="flex flex-col pl-4 w-1/4 items-center text-center">
                   <div className=' text-3xl text-blue-800 font-bold'>3</div>

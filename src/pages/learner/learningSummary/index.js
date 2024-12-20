@@ -44,7 +44,7 @@ const mockCompetencyColor = {
   'Data Management & Reporting': '#F7C873',
   'TEMP/T&E Strategy & Development': '#E29578',
   'Modeling & Stimulation VV&A': '#CCF186',
-  'Software': '#F7C873',
+  'Software': '#307672',
   'Full Spectrum Survivability & Lethality': '#307672',
   'Artificial Intelligence': '#694B7C',
   'Leadership': '#BADFDB'
