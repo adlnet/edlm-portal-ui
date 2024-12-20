@@ -16,6 +16,8 @@ import {Card, Button} from 'flowbite-react';
 import Spotlight from '@/components/SpotlightCard';
 import { axiosInstance } from '@/config/axiosConfig';
 import { candidateList } from '@/config/endpoints';
+import { useInterestLists } from "@/hooks/useInterestLists";
+import { useUserOwnedLists } from "@/hooks/useUserOwnedLists";
 import Carousel from 'react-grid-carousel'
 import useSpotlightCourses from '@/hooks/useSpotlightCourses';
 import CourseSpotlight from '@/components/cards/CourseSpotlight';
@@ -24,10 +26,24 @@ import { AgCharts } from 'ag-charts-react';
 
 export default function Home() {
   const router = useRouter();
-   const { user } = useAuth();
+  const { user } = useAuth();
   const [spotlightData, setSpotlightData] = useState(null);
 
   const spotlight = useSpotlightCourses();
+
+  const interestLists = useInterestLists();
+  const ownedLists = useUserOwnedLists();
+
+  const [lunchNLearn, setLunchNLearn] = useState(null);
+
+  // Searching for launch and learn plans
+  useEffect(() => {
+    const lunchNLearnList = 
+      interestLists?.data?.find(list => list.name === 'Lunch & Learns') || 
+      ownedLists?.data?.find(list => list.name === 'Lunch & Learns');
+    setLunchNLearn(lunchNLearnList);
+  }, [interestLists, ownedLists]);
+
   // const {
   //   user: {
   //     user: { first_name },
@@ -170,7 +186,7 @@ export default function Home() {
                 </Card>
               </Carousel.Item>
               <Carousel.Item>
-                <Card href="#" className="w-80 h-full rounded-xl" renderImage={() => <Image width={500} height={500} src={armyImage2} alt="image 1" />}>
+                <Card href={`/learner/lists/${lunchNLearn?.id}`} className="w-80 h-full rounded-xl" renderImage={() => <Image width={500} height={500} src={armyImage2} alt="image 1" />}>
                   {/* <Image src={armyImage2}  alt='' className=' object-fill h-50 w-150'/> */}
                   <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                     Lunch & Learns
@@ -178,7 +194,7 @@ export default function Home() {
                   <p className="font-normal mb-8 text-sm text-gray-600 dark:text-gray-400">
                     Access saved recordings of DOT&E Lunch & Learns.
                   </p>
-                  <Button className="flex ml-32 justify-center bg-blue-900 hover:bg-blue-600">
+                  <Button className="flex ml-32 justify-center bg-blue-900 hover:bg-blue-600" onClick={() => router.push(`/learner/lists/${lunchNLearn?.id}`)}>
                     View more
                   </Button>
                 </Card>
