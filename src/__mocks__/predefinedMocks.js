@@ -581,11 +581,15 @@ export function useMockCourse() {
         CourseCode: 'Test Code',
         CourseURL: 'https://www.test.com',
         CourseSectionDeliveryMode: 'Online',
+        CourseSubject: 'Competency #1 Test, Competency #4 Test Planning, Execution, & Evaluation'
       },
       Course_Instance: {
         Thumbnail: 'Test_Thumbnail',
         StartDate: '2023-03-20T16:00:00Z',
         EndDate: '2023-03-21T16:00:00Z',
+      },
+      p2881_course_profile: {
+        Cost: '$100'
       },
       meta: {
         id: '1',
@@ -642,6 +646,7 @@ export function useMockConfig() {
         course_endDate: 'Course_Instance.EndDate',
         course_instructor: 'Course_Instance.Instructor',
         course_deliveryMode: 'Course.CourseSectionDeliveryMode',
+        course_subject: 'Course.CourseSubject',
       },
       course_img_fallback: 'some/fallback',
       search_results_per_page: 10,
@@ -1096,4 +1101,8 @@ export function useMockUserListWithDifferentUserId() {
     isSuccess: true,
     isError: false,
   }));
+}
+
+export function useMockHandleCompetencyTag(comp){
+  return (comp)
 }

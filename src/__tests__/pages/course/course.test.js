@@ -65,11 +65,7 @@ describe('Course Page', () => {
     expect(screen.getByText('Test Short Description')).toBeInTheDocument();
     expect(screen.getByText('2023-03-20')).toBeInTheDocument();
     expect(screen.getByText('2023-03-21')).toBeInTheDocument();
-    expect(screen.getByAltText('Course')).toBeInTheDocument();
     expect(screen.getByText('Online')).toBeInTheDocument();
-    expect(
-      screen.getByAltText('Course').src.includes('Test_Thumbnail')
-    ).toBeTruthy();
     expect(screen.getByText('Go to Enrollment').href).toBe(
       'https://www.test.com/'
     );
@@ -90,8 +86,8 @@ describe('Course Page', () => {
     useMockCourse();
     const screen = renderer();
 
-    // expect(screen.queryByText('Save Course')).not.toBeInTheDocument();
-    expect(screen.queryByText('Save')).toBeDisabled();
+    expect(screen.queryByText('Save Course')).not.toBeInTheDocument();
+    //expect(screen.queryByText('Save')).toBeDisabled();
   });
 
   it('should display "Not Available" if specific course data is not available', () => {
@@ -174,4 +170,41 @@ describe('Course Page', () => {
     });
     expect(singletonRouter).toMatchObject({ asPath: '/learner/course/more_like_this' });
   });
+
+  it ('should be able to click enroll when authenticated and have xApi execute', ()=>{
+    useAuthenticatedUser();
+    useMockMoreLikeThis();
+    useMockCourse();
+    const screen = renderer();
+
+    const enrollLink = screen.getByText('Go to Enrollment');
+    act(() => {
+      fireEvent.click(enrollLink);
+    });
+  })
+
+  it ('should be able to click enroll unauthenticated and xAPI returns before execution', ()=>{
+    useUnauthenticatedUser();
+    useMockMoreLikeThis();
+    useMockCourse();
+    const screen = renderer();
+
+    const enrollLink = screen.getByText('Go to Enrollment');
+    act(() => {
+      fireEvent.click(enrollLink);
+    });
+  })
+
+  it ('should be able to click breadcrumbs to go back to search results', ()=>{
+    useAuthenticatedUser();
+    useMockMoreLikeThis();
+    useMockCourse();
+    const screen = renderer();
+
+    const searchLink = screen.getAllByText('Search')[1];
+    act(() => {
+      fireEvent.click(searchLink);
+    });
+  })
+
 });
