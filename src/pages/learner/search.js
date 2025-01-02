@@ -161,7 +161,8 @@ export default function Search() {
           </div>
           <div className='flex flex-col md:flex-row -mb-1 max-w-min sticky top-0 z-10 bg-white'>
           <Popover
-              aria-labelledby="default-popover"
+              trigger='hover'
+              initialOpen='true'
               content={
                 <div className="w-64 text-sm text-gray-500 rounded-lg dark:text-gray-400">
                   <div className="border-b border-gray-200 bg-blue-700 px-3 py-2 dark:border-gray-600 dark:bg-gray-700">
@@ -170,16 +171,14 @@ export default function Search() {
                   <div className="px-3 py-2">
                     <p>Search by key topics such as: </p>
                     <ul class="list-disc list-inside"> 
-                      <li>Testing </li>
+                      <li> Testing </li>
                       <li> Acquisiton </li>
                       <li> Artificial Intelligence </li>
                     </ul>
                   </div>
                 </div>
               }
-              placement="right"
-              onShow = {"something"}
-              show          
+              placement="right"       
             >
               <div className='flex-grow w-[22rem] xl:w-[44rem]'>
                 <SearchBar
