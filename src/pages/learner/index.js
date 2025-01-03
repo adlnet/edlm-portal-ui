@@ -20,7 +20,7 @@ import { useInterestLists } from "@/hooks/useInterestLists";
 import { useUserOwnedLists } from "@/hooks/useUserOwnedLists";
 import Carousel from 'react-grid-carousel'
 import useSpotlightCourses from '@/hooks/useSpotlightCourses';
-import CourseSpotlight from '@/components/cards/CourseSpotlight';
+import CourseSpotlightCarousel from '@/components/cards/CourseSpotlightCarousel';
 import CompetencyChart from '@/components/CompetencyChart';
 import CollectionTable from '@/components/tables/collectionsTable/CollectionTable';
 
@@ -201,21 +201,6 @@ export default function Home() {
                   </Button>
                 </Card>
               </Carousel.Item>
-              <Carousel.Item>
-                {/* anything you want to show in the grid */}
-                <Card href="#" className="w-80 h-fit rounded-xl" renderImage={() => <Image width={500} height={500} src={armyImage} alt="image 1" />}>
-                  {/* <Image src={armyImage}  alt='' className=' object-fill h-50 w-150'/> */}
-                  <h5 className="text-2xl font-bold justify-left tracking-tight text-gray-900 dark:text-white">
-                    Learning Journey
-                  </h5>
-                  <p className="font-normal text-sm text-gray-600 dark:text-gray-400">
-                    Learning Journeys are your structured pathway to professional development at DOT&E and are intended to guide newly hired Action Officers through Orientation.
-                  </p>
-                  <Button className="flex ml-32 justify-center bg-blue-900 hover:bg-blue-600">
-                    View more
-                  </Button>
-                </Card>
-              </Carousel.Item>
               {/* ... */}
             </Carousel>
           </div>
@@ -273,11 +258,9 @@ export default function Home() {
           </div>
 
           <div className='flex flex-col justify-center w-full mt-4 px-2 max-w-7xl mx-auto mb-12'>
-            <div className='inline-flex overflow-x-auto gap-6 pb-4 custom-scroll'>
               {spotlight && spotlight.data?.map((course) => {
-                  return <CourseSpotlight course={course} key={course.meta.id} />;
+                   return <CourseSpotlightCarousel course={course} key={course.meta.id} />;
                 })}
-            </div>
           </div>
         </div>
       </div>
