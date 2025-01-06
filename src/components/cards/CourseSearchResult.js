@@ -67,8 +67,8 @@ export default function SearchResult({ result, handleCompetencyTag}) {
     // create the context
     const context = {
       actor: {
-        first_name: user?.user?.first_name || 'Anonymous',
-        last_name: user?.user?.last_name || 'User',
+        first_name: user?.user?.first_name,
+        last_name: user?.user?.last_name,
       },
       verb: {
         id: 'https://w3id.org/xapi/tla/verbs/explored',
@@ -76,8 +76,8 @@ export default function SearchResult({ result, handleCompetencyTag}) {
       },
       object: {
         id: `${window.origin}/learner/course/${result.meta.id}`,
-        definitionName: title || result.Course.CourseTitle,
-        description: removeHTML(getDeeplyNestedData(config.data?.course_information?.course_description, result)) || result.Course.CourseShortDescription,
+        definitionName: title,
+        description: removeHTML(getDeeplyNestedData(config.data?.course_information?.course_description, result)),
       },
       resultExtName: 'https://w3id.org/xapi/ecc/result/extensions/CourseId',
       resultExtValue: result.meta.id,
@@ -90,27 +90,27 @@ export default function SearchResult({ result, handleCompetencyTag}) {
   return (
     <div
       className='p-4 bg-white rounded-lg shadow-xl flex flex-col gap-4 hover:shadow-2xl transition-shadow duration-200'
-      title={title || result.Course.CourseTitle}
+      title={title}
     >
       <div className='flex justify-between gap-2 items-center'>
         <button
           className='text-xl font-bold text-[#111928] focus:outline-none'
           onClick={handleClick}
         >
-          <h3>{title || result.Course.CourseTitle}</h3>
+          <h3>{title}</h3>
         </button>
         <div className='flex gap-2'>
           <ShareButton
                   id={result.meta.id}
-                  courseTitle={title || result.Course.CourseTitle}
-                  courseDescription={removeHTML(getDeeplyNestedData(config.data?.course_information?.course_description, result)) || removeHTML(result.Course.CourseShortDescription)}
+                  courseTitle={title}
+                  courseDescription={removeHTML(getDeeplyNestedData(config.data?.course_information?.course_description, result))}
           />
-          {user && <SaveModal courseId={result.meta.id} title={title || result.Course.CourseTitle} />}
+          {user && <SaveModal courseId={result.meta.id} title={title} />}
         </div>
       </div>
       <div className='text-gray-500 text-base'>
         <p className='line-clamp-4 pr-4'>
-          {removeHTML(getDeeplyNestedData(config.data?.course_information?.course_description, result)) ||removeHTML(result.Course.CourseShortDescription)}
+          {removeHTML(getDeeplyNestedData(config.data?.course_information?.course_description, result))}
         </p>
 
         <div className="h-7 justify-start items-center gap-2 inline-flex flex-wrap my-6">
@@ -119,7 +119,7 @@ export default function SearchResult({ result, handleCompetencyTag}) {
               <Image src={StoreIcon} alt="Store" className="w-5 h-5 relative flex-col justify-start items-start flex" />
             </div>
             <div className="text-gray-500 text-sm font-normal leading-tight">
-              {getDeeplyNestedData(config.data?.course_information?.course_provider, result) || result.Course.CourseProviderName}
+              {getDeeplyNestedData(config.data?.course_information?.course_provider, result)}
             </div>
           </div>
           <div className="justify-start items-center gap-1.5 flex">
@@ -127,7 +127,7 @@ export default function SearchResult({ result, handleCompetencyTag}) {
               <Image src={ClockIcon} alt='Clock' className="w-5 h-5 relative flex-col justify-start items-start flex" />
             </div>
             <div className="text-gray-500 text-sm font-normal  leading-tight">
-              {getDeeplyNestedData(config.data?.course_information?.course_time, result) || 'Not available'}
+              {getDeeplyNestedData(config.data?.course_information?.course_time, result)}
             </div>
           </div>
           <div className="justify-start items-center gap-1.5 flex">
@@ -135,7 +135,7 @@ export default function SearchResult({ result, handleCompetencyTag}) {
               <Image src={WindowIcon} alt='Window' className="w-5 h-5 relative flex-col justify-start items-start flex" />
             </div>
             <div className="text-gray-500 text-sm font-normal leading-tight">
-              {getDeeplyNestedData(config.data?.course_information?.course_deliveryMode, result) || 'Not available'}
+              {getDeeplyNestedData(config.data?.course_information?.course_deliveryMode, result)}
             </div>
           </div>
           { competencies.map((comp) =>{
@@ -146,7 +146,7 @@ export default function SearchResult({ result, handleCompetencyTag}) {
                     className=''
                     onClick={()=> handleCompetencyTag(comp)}
                   >
-                    {comp || 'Not available' }
+                    {comp}
                   </button>
                 </div>
               </div>

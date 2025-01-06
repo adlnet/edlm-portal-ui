@@ -7,6 +7,8 @@ import {
   useMockUpdateUserList,
   useMockUserOwnedListsWithoutData,
   useUnauthenticatedUser,
+  useMockHandleCompetencyTag,
+  useMockCourseWithoutData
 } from '@/__mocks__/predefinedMocks';
 import CourseSearchResult from '@/components/cards/CourseSearchResult';
 import courseData from '@/__mocks__/data/course.data';
@@ -15,7 +17,7 @@ import singletonRouter from 'next/router';
 const renderer = (props) => {
   return render(
     <QueryClientWrapper>
-      <CourseSearchResult result={courseData} />
+      <CourseSearchResult result={courseData} key={courseData.meta.key} handleCompetencyTag={useMockHandleCompetencyTag} />
     </QueryClientWrapper>
   );
 };
@@ -58,4 +60,23 @@ describe('CourseSearchResult', () => {
       asPath: '/learner/course/123456',
     });
   });
+
+  it ('should click the competency button and expect a test result', ()=> {
+    useAuthenticatedUser();
+    const screen = renderer();
+
+    act(() =>{
+      fireEvent.click(screen.getByText('Test Planning, Execution, & Evaluation'));
+    })
+    expect('Test Planning, Execution, & Evaluation');
+
+  });
+
+  // it ('should show not available when course data is empty', ()=> {
+  //   useAuthenticatedUser();
+  //   useMockCourseWithoutData();
+  //   const screen = renderer();
+
+  //   expect(screen.queryAllByText('Not Available').length).toBe(5);
+  // })
 });

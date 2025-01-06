@@ -8,24 +8,22 @@ import { ClockIcon,
         AcademicCapIcon, 
         InformationCircleIcon, 
         CurrencyDollarIcon, 
-        Square3Stack3DIcon } from '@heroicons/react/24/solid';
+        Square3Stack3DIcon,
+        ChevronRightIcon } from '@heroicons/react/24/solid';
 import { getDeeplyNestedData } from '@/utils/getDeeplyNestedData';
 import { removeHTML } from '@/utils/cleaning';
 import { useAuth } from '@/contexts/AuthContext';
 import { useConfig } from '@/hooks/useConfig';
 import { useCourse } from '@/hooks/useCourse';
-import { useMemo, useCallback, useEffect } from 'react';
+import { useMemo, useCallback } from 'react';
 import { useMoreCoursesLikeThis } from '@/hooks/useMoreCoursesLikeThis';
 import { useRouter } from 'next/router';
-import CourseSpotlight from '@/components/cards/CourseSpotlight';
-import ShareButton from '@/components/buttons/ShareBtn';
 import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement';
 import SaveModal from '@/components/modals/SaveModal';
-import FlowbiteAccordion from '@/components/fAccordion';
-import { useState } from 'react';
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
+import CourseSpotlight from '@/components/cards/CourseSpotlight';
+import ShareButton from '@/components/buttons/ShareBtn';
 import DefaultLayout from '@/components/layouts/DefaultLayout';
-
+//import FlowbiteAccordion from '@/components/fAccordion';
 
 function RelatedCourses({ id }) {
   const moreLikeThis = useMoreCoursesLikeThis(id);
@@ -103,7 +101,6 @@ export default function Course() {
       ),
       code: getDeeplyNestedData(config.data?.course_information?.course_code, course.data),
       photo:
-        getDeeplyNestedData('Course_Instance.Thumbnail', course.data) ||
         getDeeplyNestedData(config.data?.course_information?.course_thumbnail, course.data),
 
       provider: getDeeplyNestedData(config.data?.course_information?.course_provider, course.data),
@@ -123,7 +120,7 @@ export default function Course() {
         config.data?.course_information?.course_time,
         course.data
       ),
-      cost: course.data.p2881_course_profile.Cost,
+      cost: course.data?.p2881_course_profile?.Cost,
       details: config.data?.course_highlights?.map((highlight) => {
         return {
           title: highlight.display_name,
@@ -144,8 +141,8 @@ export default function Course() {
 
     const context = {
       actor: {
-        first_name: user?.user?.first_name || 'anonymous',
-        last_name: user?.user?.last_name || 'user',
+        first_name: user?.user?.first_name,
+        last_name: user?.user?.last_name,
       },
       verb: {
         id: 'https://w3id.org/xapi/tla/verbs/registered',
@@ -162,6 +159,7 @@ export default function Course() {
 
     xAPISendStatement(context);
   }, [router.query?.courseId, data?.title, data?.description, user]);
+  
   return (
     <DefaultLayout>
       {/* content */}
@@ -183,7 +181,7 @@ export default function Course() {
                   courseTitle={data?.title}
                   courseDescription={data?.description}
                 />
-                <SaveModal courseId={router.query?.courseId} title={data?.title || data?.Course?.CourseTitle} />
+                <SaveModal courseId={router.query?.courseId} title={data?.title} />
               </div>
             </div>
             <p className='flex my-2 text-sm'>
@@ -192,7 +190,7 @@ export default function Course() {
               <CurrencyDollarIcon className='h-4 pl-10 my-0.5 text-blue-900 italic' /> <strong className='italic'>Course Cost:&nbsp;</strong>
               <span className='italic'>{data?.cost || 'Not Available'}</span>
             </p>
-            <p className='mt-2 text-sm'>{data?.description || 'Description not available'}</p>
+            <p className='mt-2 text-sm'>{data?.description || 'Not available'}</p>
             <div className='flex flex-row w-1/4 mt-6 gap-4 '>
               {competencies?.map((comp) => {
                 return (
@@ -266,7 +264,7 @@ export default function Course() {
                 <span>
                   <div className='text-xs font-semibold'>Course Proficiency</div>
                   <div className='text-xs'>
-                    {data?.proficiency || 'Basic/ Knowledgeable'}
+                    {data?.proficiency || 'Not Available'}
                   </div>
                 </span>
               </div>
@@ -291,7 +289,7 @@ export default function Course() {
               <h2 className='min-w-max col-span-1 font-semibold'>
                 {detail.title}
               </h2>
-              <p className='col-span-4'>{detail.content || 'Not Available'}</p>
+              <p className='col-span-4'>{detail?.content || 'Not Available'}</p>
             </div>
           );
         })}
