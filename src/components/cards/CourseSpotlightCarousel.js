@@ -93,7 +93,7 @@ export default function CourseSpotlight({ course }) {
             mobileBreakpoint={670}
         >
             <Carousel.Item>
-                <Card href="/learner/learningPlan" className="w-80 h-fit rounded-xl" >
+                <Card className="w-80 h-fit rounded-xl" >
                   {/* <Image src={armyImage}  alt='' className=' object-fill h-50 w-150'/> */}
                   <div className=''>
                     <h5 className="text-2xl font-bold justify-left tracking-tight text-gray-900 dark:text-white">
@@ -105,7 +105,7 @@ export default function CourseSpotlight({ course }) {
                           `${description?.substring(0, 250)}...` : description}
                       {/* {description } */}
                   </p>
-                  <Button className="flex ml-32 justify-center bg-blue-900 hover:bg-blue-600">
+                  <Button onClick={handleClick} className="flex ml-32 justify-center bg-blue-900 hover:bg-blue-600">
                       View more
                   </Button>
                 </Card>
