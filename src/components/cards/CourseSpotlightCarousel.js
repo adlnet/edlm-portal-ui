@@ -93,67 +93,21 @@ export default function CourseSpotlight({ course }) {
             mobileBreakpoint={670}
         >
             <Carousel.Item>
-                <Card href="/learner/learningPlan" className="w-80 h-fit bg-blue-90 rounded-xl" >
-                {/* <Image src={armyImage}  alt='' className=' object-fill h-50 w-150'/> */}
-                <h5 className="text-2xl font-bold justify-left tracking-tight text-gray-900 dark:text-white">
-                {title || Course?.CourseTitle}
-                </h5>
-                <p className="font-normal text-sm text-gray-600 dark:text-gray-400">
-                    {description?.length > 250 ?
-                        `${description?.substring(0, 250)}...` : description}
-                    {/* {description } */}
-                </p>
-                <Button className="flex ml-32 justify-center bg-blue-900 hover:bg-blue-600">
-                    View more
-                </Button>
-                </Card>
-            </Carousel.Item>
-            <Carousel.Item>
                 <Card href="/learner/learningPlan" className="w-80 h-fit rounded-xl" >
-                {/* <Image src={armyImage}  alt='' className=' object-fill h-50 w-150'/> */}
-                <h5 className="text-2xl font-bold justify-left tracking-tight text-gray-900 dark:text-white">
-                {title || Course?.CourseTitle}
-                </h5>
-                <p className="font-normal text-sm text-gray-600 dark:text-gray-400">
-                    {description?.length > 250 ?
-                        `${description?.substring(0, 250)}...` : description}
-                    {/* {description } */}
-                </p>
-                <Button className="flex ml-32 justify-center bg-blue-900 hover:bg-blue-600">
-                    View more
-                </Button>
-                </Card>
-            </Carousel.Item>
-            <Carousel.Item>
-                <Card href="/learner/learningPlan" className="w-80 h-fit rounded-xl" >
-                {/* <Image src={armyImage}  alt='' className=' object-fill h-50 w-150'/> */}
-                <h5 className="text-2xl font-bold justify-left tracking-tight text-gray-900 dark:text-white">
-                {title || Course?.CourseTitle}
-                </h5>
-                <p className="font-normal text-sm text-gray-600 dark:text-gray-400">
-                    {description.length > 250 ?
-                        `${description?.substring(0, 250)}...` : description}
-                    {/* {description } */}
-                </p>
-                <Button className="flex ml-32 justify-center bg-blue-900 hover:bg-blue-600">
-                    View more
-                </Button>
-                </Card>
-            </Carousel.Item>
-            <Carousel.Item>
-                <Card href="/learner/learningPlan" className="w-80 h-fit rounded-xl" >
-                {/* <Image src={armyImage}  alt='' className=' object-fill h-50 w-150'/> */}
-                <h5 className="text-2xl font-bold justify-left tracking-tight text-gray-900 dark:text-white">
-                {title || Course?.CourseTitle}
-                </h5>
-                <p className="font-normal text-sm text-gray-600 dark:text-gray-400">
-                    {description.length > 250 ?
-                        `${description?.substring(0, 250)}...` : description}
-                    {/* {description } */}
-                </p>
-                <Button className="flex ml-32 justify-center bg-blue-900 hover:bg-blue-600">
-                    View more
-                </Button>
+                  {/* <Image src={armyImage}  alt='' className=' object-fill h-50 w-150'/> */}
+                  <div className=''>
+                    <h5 className="text-2xl font-bold justify-left tracking-tight text-gray-900 dark:text-white">
+                      {title || Course?.CourseTitle}
+                    </h5>
+                  </div>
+                  <p className="font-normal text-sm text-gray-600 dark:text-gray-400">
+                      {description?.length > 250 ?
+                          `${description?.substring(0, 250)}...` : description}
+                      {/* {description } */}
+                  </p>
+                  <Button className="flex ml-32 justify-center bg-blue-900 hover:bg-blue-600">
+                      View more
+                  </Button>
                 </Card>
             </Carousel.Item>
         </Carousel>
