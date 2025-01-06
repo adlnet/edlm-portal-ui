@@ -75,24 +75,6 @@ export default function CourseSpotlight({ course }) {
   return (
     // <Link href={`/learner/course/${meta.metadata_key_hash || meta.id}`} passHref>
     <div>
-        {console.log("thumbnail: ", config.data?.course_information)}
-        <Carousel
-            cols={3}
-            rows={1}
-            gap={1}
-            responsiveLayout={[
-                {
-                breakpoint: 1200,
-                cols: 3
-                },
-                {
-                breakpoint: 990,
-                cols: 2
-                }
-            ]}
-            mobileBreakpoint={670}
-        >
-            <Carousel.Item>
                 <Card className="w-80 h-fit rounded-xl" >
                   {/* <Image src={armyImage}  alt='' className=' object-fill h-50 w-150'/> */}
                   <div className=''>
@@ -109,8 +91,6 @@ export default function CourseSpotlight({ course }) {
                       View more
                   </Button>
                 </Card>
-            </Carousel.Item>
-        </Carousel>
     </div>
     // </Link>
   );

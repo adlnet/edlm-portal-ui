@@ -20,7 +20,7 @@ import { useInterestLists } from "@/hooks/useInterestLists";
 import { useUserOwnedLists } from "@/hooks/useUserOwnedLists";
 import Carousel from 'react-grid-carousel'
 import useSpotlightCourses from '@/hooks/useSpotlightCourses';
-import CourseSpotlightCarousel from '@/components/cards/CourseSpotlightCarousel';
+import CourseSpotlightCarouselCard from '@/components/cards/CourseSpotlightCarousel';
 import CompetencyChart from '@/components/CompetencyChart';
 import CollectionTable from '@/components/tables/collectionsTable/CollectionTable';
 
@@ -258,9 +258,30 @@ export default function Home() {
           </div>
 
           <div className='flex flex-col justify-center w-full mt-4 px-2 max-w-7xl mx-auto mb-12'>
+          <Carousel
+                      cols={3}
+                      rows={1}
+                      gap={1}
+                      responsiveLayout={[
+                          {
+                          breakpoint: 1200,
+                          cols: 3
+                          },
+                          {
+                          breakpoint: 990,
+                          cols: 2
+                          }
+                      ]}
+                      mobileBreakpoint={670}
+                  >
               {spotlight && spotlight.data?.map((course) => {
-                   return <CourseSpotlightCarousel course={course} key={course.meta.id} />;
+                  //  return <CourseSpotlightCarousel course={course} key={course.meta.id} />;
+                  return(
+                      <Carousel.Item>
+                        <CourseSpotlightCarouselCard course={course} key={course.meta.id} />
+                      </Carousel.Item>)
                 })}
+                </Carousel>
           </div>
         </div>
       </div>
