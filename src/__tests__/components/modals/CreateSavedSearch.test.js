@@ -60,6 +60,34 @@ describe('CreateSavedSearchModal', () => {
     expect(createSaveSearchMockFn).toHaveBeenCalled();
   });
 
+  it('should call the api when save is clicked and block special chars', () => {
+    useAuthenticatedUser();
+    useMockCreateSaveSearch();
+    const { getByText, getByPlaceholderText } = renderer();
+    act(() => {2
+      fireEvent.click(getByText('Save Search'));
+    });
+    act(() => {
+      fireEvent.keyPress(getByPlaceholderText('Query Name'), {
+        key: ";", code: 186, charCode: 186 
+      });
+    });
+    act(() => {
+      fireEvent.keyPress(getByPlaceholderText('Query Name'), {
+        key: "1", code: 49, charCode: 49
+      });
+    });
+    act(() => {
+      fireEvent.change(getByPlaceholderText('Query Name'), {
+        target: { value: 'test' },
+      });
+    });
+    act(() => {
+      fireEvent.click(getByText('Save'));
+    });
+    expect(createSaveSearchMockFn).toHaveBeenCalled();
+  });
+
   it('should not call the api when there is no query to save', () => {
     useAuthenticatedUser();
     useMockCreateSaveSearch();

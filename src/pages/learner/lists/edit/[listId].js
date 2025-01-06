@@ -94,7 +94,6 @@ export default function EditList({ listId }) {
   };
 
   const removeCourse = (id) => {
-    console.log("Delete: ", id)
     setCurrentListInfo((prev) => {
       return {
         ...prev,

@@ -24,6 +24,7 @@ const TableHead = ({ columns, handleSorting }) => {
             <th key={accessor}
                 onClick={() => handleSortingChange(accessor)}
                 className='text-left pl-4'
+                label={accessor}
             >
                 <div className='flex items-center h-12'>
                     <div>{label}</div>
