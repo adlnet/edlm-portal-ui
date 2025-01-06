@@ -4,6 +4,9 @@ import SelectList from '@/components/inputs/SelectList';
 import aggregationsData from '@/__mocks__/data/aggregations.data';
 
 describe('Select List', () => {
+  const mockOnChange = jest.fn();
+  const mockOnClear = jest.fn();
+
   beforeEach(() => {
     console.log = jest.fn();
     let params = {};
@@ -14,10 +17,14 @@ describe('Select List', () => {
         initialValue={params[local.field_name]}
         options={local}
         keyName={keys[0]}
-        onChange={() => console.log('tada')}
-        onClear={() => console.log('cleared')}
+        onChange={mockOnChange}
+        onClear={mockOnClear}
       />
     );
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
   it('should show default name', () => {
@@ -48,19 +55,88 @@ describe('Select List', () => {
     expect(screen.getAllByText('test bucket 1').length).toBe(1);
   });
 
-  // it('should execute passed fn on change', () => {
-  //   act(() => {
-  //     const button = screen.getByText('Course Type');
-  //     fireEvent.click(button);
-  //   });
+  it('should handle checkbox selection and de selection', () => {
+    act(() => {
+      const button = screen.getByText('Course Type');
+      fireEvent.click(button);
+    });
 
-  //   act(() => {
-  //     const selection = screen.getByText('test bucket 1');
-  //     fireEvent.click(selection);
-  //   });
+    const checkBox = screen.getByLabelText('test bucket 1');
 
-  //   expect(console.log).toHaveBeenCalledWith('tada');
-  //   expect(console.log).toHaveBeenCalledTimes(1);
-  // } );
-  
+    act(() => {
+      fireEvent.click(checkBox);
+    });
+
+    expect(checkBox).toBeChecked();
+    
+    act(() => {
+      fireEvent.click(checkBox);
+    });
+
+    expect(checkBox).not.toBeChecked();
+    
+  })
+
+  it('should call on change when closing dropdown with selections', () => {
+    act(() => {
+      const button = screen.getByText('Course Type');
+      fireEvent.click(button);
+    });
+
+    const checkBox = screen.getByLabelText('test bucket 1');
+
+    act(() => {
+      fireEvent.click(checkBox);
+    });
+
+    act(() => {
+      const button = screen.getByText('Course Type');
+      fireEvent.click(button);
+    });
+
+    expect(mockOnChange).toHaveBeenCalled();
+  });
+
+  it('should close dropdown when clicking out', () => {
+    act(() => {
+      const button = screen.getByText('Course Type');
+      fireEvent.click(button);
+    });
+
+    act(() => {
+      fireEvent.click((screen.getByLabelText('test bucket 1')));
+    });
+
+    act(() => {
+      fireEvent.click(document.body);
+    });
+
+    expect(screen.queryByText('test bucket 1')).not.toBeInTheDocument();
+  });
+
+  it('should handle multiple dropdown selections', () => {
+    act(() => {
+      const button = screen.getByText('Course Type');
+      fireEvent.click(button);
+    });
+
+    const checkBox1 = screen.getByLabelText('test bucket 1');
+    const checkBox2 = screen.getByLabelText('test bucket 2');
+
+    act(() => {
+      fireEvent.click(checkBox1);
+    });
+
+    act(() => {
+      fireEvent.click(checkBox2);
+    });
+
+    act(() => {
+      const button = screen.getByText('Course Type');
+      fireEvent.click(button);
+    });
+
+    expect(checkBox1).toBeChecked();
+    expect(checkBox2).toBeChecked();
+  });
 });

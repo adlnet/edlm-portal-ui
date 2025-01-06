@@ -21,6 +21,8 @@ const renderer = () => {
   );
 };
 
+const mockPush = jest.fn();
+
 jest.mock('@/contexts/AuthContext');
 jest.mock('@/hooks/useMoreCoursesLikeThis');
 jest.mock('@/hooks/useConfig');
@@ -42,7 +44,7 @@ describe('MoreLikeThis Card', () => {
     useAuth.mockReturnValue({ user: mockUser });
     useMoreCoursesLikeThis.mockReturnValue({ data: { hits: [mockCourse] }, isLoading: false });
     useConfig.mockReturnValue({ data: { course_information: { course_title: 'Test Title', course_provider: 'Test Provider' } }, isSuccess: true });
-    useRouter.mockReturnValue({ push: jest.fn() });
+    useRouter.mockReturnValue({ push: mockPush });
   });
 
   it('renders loading state', () => {
@@ -65,14 +67,17 @@ describe('MoreLikeThis Card', () => {
     expect(screen.queryByText('Provider Name')).not.toBeInTheDocument();
   });
 
-  // it('should navigate user to the course page when clicked', () => {
-  //   renderer();
-  //   act(() => {
-  //     fireEvent.click(screen.getByRole('button'));
-  //   });
-  //   expect(mockRouter).toMatchObject({
-  //     asPath: `/learner/course/${mockCourse.meta.metadata_key_hash}`,
-  //   });
-  // });
-
+  it('navigates to course page on card click', () => {
+    render(
+      <QueryClientWrapper>
+        <MoreLikeThis course={mockCourse} />
+      </QueryClientWrapper>
+    )
+    const { getByRole } = render(<MoreLikeThis course={mockCourse} />);
+    const cards = screen.getAllByRole('button', { hidden: true });
+    const card = cards[0];
+    fireEvent.click(card);
+    expect(mockPush).toHaveBeenCalledWith(`/learner/course/${mockCourse.meta.metadata_key_hash}`);
+  });
+  
 });
