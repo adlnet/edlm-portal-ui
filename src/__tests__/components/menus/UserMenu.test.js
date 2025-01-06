@@ -4,6 +4,7 @@ import { act, fireEvent, render, screen } from '@testing-library/react';
 import { useAuth } from '@/contexts/AuthContext';
 import UserMenu from '@/components/menus/UserMenu';
 import singletonRouter from 'next/router';
+import { logoutFn } from '@/__mocks__/predefinedMocks';
 
 jest.mock('../../../contexts/AuthContext', () => ({
   useAuth: jest.fn(),
@@ -14,6 +15,7 @@ describe('User Menu', () => {
     beforeEach(() => {
       useAuth.mockImplementation(() => ({
         user: { user: { first_name: 'value' } },
+        logout: logoutFn
       }));
       render(<UserMenu />);
     });
@@ -29,53 +31,33 @@ describe('User Menu', () => {
 
       expect(screen.getByText(/logout/i)).toBeInTheDocument();
     });
-    it('shows list options', () => {
+    it('Show logout and test logout option', async() => {
       const button = screen.getByText(/value/i);
 
       fireEvent.click(button);
-
-      expect(screen.getByText(/My Lists/i)).toBeInTheDocument();
-      fireEvent.click(screen.getByText(/My Lists/i));
-      expect(singletonRouter).toMatchObject({
-        asPath: '/learner/lists/owned',
+      
+      expect(screen.getByText(/Logout/i)).toBeInTheDocument();
+      await act (async() => {
+        fireEvent.click(screen.getByText(/Logout/i));
       });
-      expect(screen.getByText(/Subscribed/i)).toBeInTheDocument();
-      fireEvent.click(screen.getByText(/Subscribed/i));
-      expect(singletonRouter).toMatchObject({
-        asPath: '/learner/lists/subscribed',
-      });
-
-      expect(screen.getByText(/Saved Search/i)).toBeInTheDocument();
-      fireEvent.click(screen.getByText(/Saved Search/i));
-      expect(singletonRouter).toMatchObject({
-        asPath: '/learner/lists/savedSearches',
-      });
-
-      // expect(screen.getByText(/Search Courses/i)).toBeInTheDocument();
-      // fireEvent.click(screen.getByText(/Search Courses/i));
       // expect(singletonRouter).toMatchObject({
-      //   asPath: '/',
+      //   asPath: '/login',
       // });
 
-      // expect(screen.getByText(/Search Lists/i)).toBeInTheDocument();
-      // fireEvent.click(screen.getByText(/Search Lists/i));
-      // expect(singletonRouter).toMatchObject({
-      //   asPath: '/lists/searchLists',
-      // });
     });
 
-    it('applies the correct styling', () => {
-      const button = screen.getByText(/value/i);
+    // it('applies the correct styling', () => {
+    //   const button = screen.getByText(/value/i);
 
-      fireEvent.click(button);
+    //   fireEvent.click(button);
 
-      // hover over the button
-      const menuOption = screen.getByText(/My Lists/i);
-      expect(menuOption.className.includes('bg-white')).toBeTruthy();
+    //   // hover over the button
+    //   const menuOption = screen.getByText(/My Lists/i);
+    //   expect(menuOption.className.includes('bg-white')).toBeTruthy();
 
-      fireEvent.focus(menuOption);
-      expect(menuOption.className.includes('bg-gray-100')).toBeTruthy();
-    });
+    //   fireEvent.focus(menuOption);
+    //   expect(menuOption.className.includes('bg-gray-100')).toBeTruthy();
+    // });
 
     it('applies the correct styling when focused', () => {
       const button = screen.getByText(/value/i);

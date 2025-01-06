@@ -1138,3 +1138,7 @@ export function useMockCompetencySearch(){
     ]
   ));
 }
+
+export function useMockDeleteCourse(id){
+  console.log(id)
+}

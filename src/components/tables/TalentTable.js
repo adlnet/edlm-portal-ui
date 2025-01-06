@@ -1,6 +1,6 @@
 import { Checkbox, Label } from "flowbite-react";
 
-export function TalentTable( talentData) {
+export function TalentTable(talentData) {
 
     const data = [
         {overallAlignment: '95%', lastName: "Jenson", firstName: "Adam", trainingNeeded: "1 course", trainingTime: "3 weeks", service: "Air Force", location: "Virginia", currentPosition: "Master Sergeant (MSgt) (E7)", careerState: "Mid-Career", IDPAlignment:95, relocate: "Yes" },
@@ -119,9 +119,10 @@ export function TalentTable( talentData) {
                                         <Label htmlFor={data.firstName}></Label>
                                     </div>
                                     {/* <td class="px-4 py-3">{data.vacancies}</td> */}
-                                    <td class="px-4 py-3">{talentData.talentData?.statements[index]?.actor.name.split(' ').pop()}</td>
-                                    <td class="px-4 py-3">{talentData.talentData?.statements[index]?.actor.name.split(' ')[0]}</td>
-                                    {/* <td class="px-4 py-3">{data.firstName}</td> */}
+                                    <td class="px-4 py-3">{data.lastName}</td>
+                                    {/* <td class="px-4 py-3">{talentData.talentData?.statements[index]?.actor.name.split(' ').pop()}</td>
+                                    <td class="px-4 py-3">{talentData.talentData?.statements[index]?.actor.name.split(' ')[0]}</td> */}
+                                    <td class="px-4 py-3">{data.firstName}</td>
                                     <td class="px-4 py-3">{data.service}</td>
                                     <td class="px-4 py-3">{data.location}</td>
                                     <td class="px-4 py-3">{data.relocate}</td>

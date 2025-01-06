@@ -16,56 +16,56 @@ import { Menu, Transition } from '@headlessui/react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/router';
 
-const listMenuButtons = [
-  {
-    name: 'My Collections',
-    icon: <FolderIcon className='h-4 w-4' />,
-    href: '/learner/lists/owned',
-  },
-  {
-    name: 'My Subscriptions',
-    icon: <Squares2X2Icon className='h-4 w-4' />,
-    href: '/learner/lists/subscribed',
-  },
-  {
-    name: 'Saved Search',
-    icon: <Bars3Icon className='h-4 w-4' />,
-    href: '/learner/lists/savedSearches',
-  },
-];
+// const listMenuButtons = [
+//   {
+//     name: 'My Collections',
+//     icon: <FolderIcon className='h-4 w-4' />,
+//     href: '/learner/lists/owned',
+//   },
+//   {
+//     name: 'My Subscriptions',
+//     icon: <Squares2X2Icon className='h-4 w-4' />,
+//     href: '/learner/lists/subscribed',
+//   },
+//   {
+//     name: 'Saved Search',
+//     icon: <Bars3Icon className='h-4 w-4' />,
+//     href: '/learner/lists/savedSearches',
+//   },
+// ];
 
-const searchMenuButtons = [
-  {
-    name: 'Search Courses',
-    icon: <MagnifyingGlassIcon className='h-4 w-4' />,
-    href: '/learner',
-  },
-  {
-    name: 'Search Lists',
-    icon: <ArchiveBoxIcon className='h-4 w-4' />,
-    href: '/learner/lists/searchLists',
-  },
-];
+// const searchMenuButtons = [
+//   {
+//     name: 'Search Courses',
+//     icon: <MagnifyingGlassIcon className='h-4 w-4' />,
+//     href: '/learner',
+//   },
+//   {
+//     name: 'Search Lists',
+//     icon: <ArchiveBoxIcon className='h-4 w-4' />,
+//     href: '/learner/lists/searchLists',
+//   },
+// ];
 
-const MenuButton = ({ name, icon, href }) => {
-  const router = useRouter();
-  return (
-    <Menu.Item>
-      {({ active }) => (
-        <button
-          onClick={() => router.push(href)}
-          id={name.toLowerCase().replace(/\s/g, '-')}
-          className={`${
-            active ? 'bg-gray-100' : 'bg-white'
-          } p-1 transition-colors duration-75 ease-in-out cursor-pointer rounded-md w-full flex justify-start gap-2 items-center`}
-        >
-          {icon}
-          {name}
-        </button>
-      )}
-    </Menu.Item>
-  );
-};
+// const MenuButton = ({ name, icon, href }) => {
+//   const router = useRouter();
+//   return (
+//     <Menu.Item>
+//       {({ active }) => (
+//         <button
+//           onClick={() => router.push(href)}
+//           id={name.toLowerCase().replace(/\s/g, '-')}
+//           className={`${
+//             active ? 'bg-gray-100' : 'bg-white'
+//           } p-1 transition-colors duration-75 ease-in-out cursor-pointer rounded-md w-full flex justify-start gap-2 items-center`}
+//         >
+//           {icon}
+//           {name}
+//         </button>
+//       )}
+//     </Menu.Item>
+//   );
+// };
 
 export default function UserMenu() {
   const router = useRouter();
