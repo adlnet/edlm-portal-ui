@@ -1,7 +1,7 @@
 'use strict';
 
 import { useRouter } from 'next/dist/client/router';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import CompetencySearchResult from './cards/CompetencySearchResults';
 import { unstable_batchedUpdates } from 'react-dom';
 
