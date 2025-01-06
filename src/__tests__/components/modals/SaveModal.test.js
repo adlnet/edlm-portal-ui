@@ -9,6 +9,7 @@ import { useUserOwnedLists } from '@/hooks/useUserOwnedLists.js';
 import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement';
 import userListData from '@/__mocks__/data/userLists.data';
 import xAPIMapper from '@/utils/xapi/xAPIMapper';
+import { Container } from 'postcss';
 
 jest.mock('@/hooks/useUpdateUserList', () => ({
   useUpdateUserList: jest.fn(),
@@ -89,14 +90,14 @@ describe('Save Modal', () => {
       act(() => {
         fireEvent.click(getByText(/save/i));
       });
-      expect(getByText(/add "test" to lists/i).id).not.toBeNull();
+      expect(getByText(/add "test" to collections/i).id).not.toBeNull();
     });
     it('should render the title', () => {
       const { getByText } = renderer();
       act(() => {
         fireEvent.click(getByText(/save/i));
       });
-      expect(getByText(/add "test" to lists/i)).toBeInTheDocument();
+      expect(getByText(/add "test" to collections/i)).toBeInTheDocument();
     });
   });
   describe('with list data', () => {
@@ -143,8 +144,70 @@ describe('Save Modal', () => {
     });
   });
   describe('create new list', () => {
-    it.todo('should render input fields for name and description');
-    it.todo('should');
+    it('should render input fields for name and description', () => {
+      const { getByText, getByPlaceholderText } = renderer();
+      act(() => {
+        fireEvent.click(getByText(/save/i));
+      });
+
+      expect(getByPlaceholderText(/name/i)).toBeInTheDocument();
+      expect(getByPlaceholderText(/Collections Description.../i)).toBeInTheDocument();
+    });
+
+    it('should show error message when name is not entered', () => {
+      const { getByText, getByPlaceholderText, getByRole } = renderer();
+      act(() => {
+        fireEvent.click(getByText(/save/i));
+      });
+
+      fireEvent.change(getByPlaceholderText(/collections description/i), {
+        target: { value: 'Test Description' },
+      });
+
+      act(() => {
+        fireEvent.click(getByRole('button', { name: /create/i }));
+      });
+
+      expect(getByText(/list name is required/i)).toBeInTheDocument();
+    });
+
+    it('should show error message when description is not entered', () => {
+      const { getByText, getByPlaceholderText, getByRole } = renderer();
+      act(() => {
+        fireEvent.click(getByText(/save/i));
+      });
+
+      fireEvent.change(getByPlaceholderText(/name/i), {
+        target: { value: 'Test Name' },
+      });
+
+      act(() => {
+        fireEvent.click(getByRole('button', { name: /create/i }));
+      });
+
+      expect(getByText(/list description is required/i)).toBeInTheDocument();
+    });
+
+    it('should call create mutation when form is valid', () => {
+      const { getByText, getByPlaceholderText, getByRole } = renderer();
+      act(() => {
+        fireEvent.click(getByText(/save/i));
+      });
+
+      fireEvent.change(getByPlaceholderText(/name/i), {
+        target: { value: 'Test Name' },
+      });
+
+      fireEvent.change(getByPlaceholderText(/Collections Description.../i), {
+        target: { value: 'Test Description' },
+      });
+
+      act(() => {
+        fireEvent.click(getByRole('button', { name: /create/i }));
+      });
+
+      expect(createMutateFn).toHaveBeenCalled
+    });
 
     it.skip('should send xAPI statement when create is clicked', () => {
       const { getByText, getByPlaceholderText } = renderer(true);
@@ -170,5 +233,58 @@ describe('Save Modal', () => {
 
       expect(spy).toHaveBeenCalled();
     });
+
   });
+
+  describe('modal', () => {
+    it('should open modal when save button is clicked', () => {
+      const { getByText, getByRole } = renderer();
+      act(() => {
+        fireEvent.click(getByText(/save/i));
+      });
+
+      expect(getByRole('dialog')).toBeInTheDocument();
+    });
+
+    it('should close modal when close button is clicked', () => {
+      const { getByText, queryByRole } = renderer();
+      act(() => {
+        fireEvent.click(getByText(/save/i));
+      });
+
+      act(() => {
+        fireEvent.click(getByText(/close/i));
+      });
+
+      expect(queryByRole('dialog')).not.toBeInTheDocument();
+    });
+
+    it('should maintain modal state when clicking the modal content', () => {
+      const { getByText, getByRole } = renderer();
+      act(() => {
+        fireEvent.click(getByText(/save/i));
+      });
+
+      act(() => {
+        fireEvent.click(getByRole('dialog'));
+      });
+
+      expect(getByRole('dialog')).toBeInTheDocument();
+    });
+
+    it('should reset modal state when unmounted', () => {
+      const { getByText, queryByRole, unmount } = renderer();
+      act(() => {
+        fireEvent.click(getByText(/save/i));
+      });
+
+      expect(queryByRole('dialog')).toBeInTheDocument();
+
+      unmount();
+
+      expect(queryByRole('dialog')).not.toBeInTheDocument();
+    });
+
+  });
+
 });
