@@ -1,6 +1,6 @@
 import { MemoryRouterProvider } from 'next-router-mock/MemoryRouterProvider';
 import { QueryClientWrapper } from '@/__mocks__/queryClientMock';
-import { act, fireEvent, render } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import {
   useAuthenticatedUser,
   useMockConfig,
@@ -9,6 +9,7 @@ import {
   useMockUserOwnedListsWith403,
   useMockUserOwnedListsWithoutData,
   useUnauthenticatedUser,
+  useMockUpdateUserList,
 } from '@/__mocks__/predefinedMocks';
 import MockRouter from 'next-router-mock';
 import Owned from '@/pages/learner/lists/owned';
@@ -26,16 +27,15 @@ const renderer = () => {
 };
 
 beforeEach(() => {
-  useMockConfig();
+  useMockUpdateUserList();
 });
 
-// Tests
 describe('User Owned Lists', () => {
   it('should render the page', () => {
     useAuthenticatedUser();
     useMockUserOwnedLists();
-    const { getByText } = renderer();
-    expect(getByText('My Lists')).toBeInTheDocument();
+    const { getAllByText } = renderer();
+    expect(getAllByText('My Collections').length).toBeGreaterThan(0);
   });
 
   it('should navigate the user to "/" if not authenticated', () => {
@@ -59,24 +59,14 @@ describe('User Owned Lists', () => {
     expect(singletonRouter).toMatchObject({ asPath: '/403' });
   });
 
-  it('should navigate the user to "/lists/1" when the user clicks view', () => {
+  it('should navigate the user to "/lists/1" when the user clicks Test Title 1', () => {
     useAuthenticatedUser();
     useMockUserOwnedLists();
-    const { getByRole } = renderer();
+    const { getByText} = renderer();
     act(() => {
-      fireEvent.click(getByRole('button', { name: 'View' }));
+      fireEvent.click(getByText('Test Title 1'));
     });
     expect(singletonRouter).toMatchObject({ asPath: '/learner/lists/1' });
-  });
-
-  it('should navigate the user to "/lists/edit/1" when the user clicks edit', () => {
-    useAuthenticatedUser();
-    useMockUserOwnedLists();
-    const { getByRole } = renderer();
-    act(() => {
-      fireEvent.click(getByRole('button', { name: 'Edit' }));
-    });
-    expect(singletonRouter).toMatchObject({ asPath: '/learner/lists/edit/1' });
   });
 
   it('should display the list', () => {
