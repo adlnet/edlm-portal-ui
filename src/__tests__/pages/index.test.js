@@ -1,91 +1,48 @@
 import { QueryClientWrapper } from '@/__mocks__/queryClientMock.js';
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import { useAuth } from '@/contexts/AuthContext';
+import { useUnauthenticatedUser, useAuthenticatedUser } from '@/__mocks__/predefinedMocks';
 import Home from '@/pages/learner/index';
+import InitialPage from '@/pages/index';
 import mockRouter from 'next-router-mock';
 import singletonRouter from 'next/router';
 import xAPIMapper from "@/utils/xapi/xAPIMapper";
 
 jest.mock('next/dist/client/router', () => require('next-router-mock'));
 
-// mock auth
+// mock auth, login and home pages
 jest.mock('@/contexts/AuthContext', () => ({
   useAuth: jest.fn(),
 }));
 
-describe('should render the title', () => {
-  beforeEach(() => {
-    mockRouter.setCurrentUrl('/');
+jest.mock('@/pages/login', () => {
+  return () => <div data-testid='login-page'>Login</div>;
+});
 
-    useAuth.mockImplementation(() =>  {
-      return {
-        user: { user: {email: 'test@email.com'}},
-      };
-    });
+jest.mock('@/pages/learner/index', () => {
+  return () => <div data-testid='home-page'>Home</div>;
+});
 
+describe('IntialPage', () => {
+  it('should render login page when user is not authenticated', () => {
+    useUnauthenticatedUser();
     render(
       <QueryClientWrapper>
-        <Home />
+        <InitialPage />
       </QueryClientWrapper>
     );
+    expect(screen.getByTestId('login-page')).toBeInTheDocument();
+    expect(screen.queryByTestId('home-page')).not.toBeInTheDocument();
   });
-
-  it('should render the title, search bar and button', () => {
-    expect(screen.getByText(`Enterprise Course Catalog`)).toBeInTheDocument();
-    expect(screen.getByText(`Department of Defense`)).toBeInTheDocument();
-    expect(
-      screen.getByPlaceholderText(`Search for Learning Content`)
-    ).toBeInTheDocument();
-  });
-
-  it('should not navigate away if no field.keyword or empty keyword', () => {
-    act(() => {
-      fireEvent.change(screen.getByRole('textbox'), {
-        target: { value: '' },
-      });
-    });
-    act(() => {
-      fireEvent.click(screen.getByTitle(/search/i));
-    });
-
-    expect(screen.getByRole('textbox', { id: /search-bar/i }).value).toBe('');
-  });
-
-  it('should update the value of the search bar', () => {
-    act(() => {
-      fireEvent.change(screen.getByPlaceholderText('Search for Learning Content'), {
-        target: { value: 'updated value' },
-      });
-    });
-
-    expect(screen.getByPlaceholderText('Search for Learning Content').value).toBe(
-      'updated value'
+  
+  it('should render home page when user is authenticated', () => {
+    useAuthenticatedUser();
+    render(
+      <QueryClientWrapper>
+        <InitialPage />
+      </QueryClientWrapper>
     );
-
-    act(() => {
-      fireEvent.click(screen.getByTitle(/search/i));
-    });
-    expect(singletonRouter).toMatchObject({
-      asPath: '/learner/search?keyword=updated+value&p=1',
-    });
-  });
-
-  it('should send xAPI Statement', () => {
-
-    const spy = jest.spyOn(xAPIMapper, 'sendStatement')
-    .mockImplementation(() => Promise.resolve({})
-    );
-
-    act(() => {
-      fireEvent.change(screen.getByRole('textbox'), {
-        target: { value: 'data' },
-      });
-    });
-    act(() => {
-      fireEvent.click(screen.getByTitle(/search/i));
-    });
-
-    expect(spy).toHaveBeenCalled();
-
+    expect(screen.getByTestId('home-page')).toBeInTheDocument();
+    expect(screen.queryByTestId('login-page')).not.toBeInTheDocument();
   });
 });
