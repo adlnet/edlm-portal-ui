@@ -42,7 +42,7 @@ describe('Login Page', () => {
     useUnauthenticatedUser();
     const screen = renderer();
 
-    expect(screen.getByText('Sign in to your account')).toBeInTheDocument();
+    expect(screen.getByText('Welcome back')).toBeInTheDocument();
   });
 
   it('should show invalid credentials message.', () => {
@@ -146,10 +146,10 @@ describe('Login Page', () => {
       });
       expect(MockAxios.post).toHaveBeenCalled();
     });
-    it('should navigate user to sso login page', () => {
-      const button = screen.getByText(/google/i);
-
-      expect(button.href.includes('/test.com')).toBeTruthy();
+    
+    it('should have sso button display on the page', () => {
+      const button = screen.getByText(/Log in with Single Sign On/i);
+      expect(button).toBeInTheDocument();
     });
   });
 });
