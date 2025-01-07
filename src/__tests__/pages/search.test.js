@@ -15,6 +15,7 @@ import {
   useMockUpdateUserList,
   useMockUserOwnedLists,
   useUnauthenticatedUser,
+  useMockCompetencySearch,
 } from '@/__mocks__/predefinedMocks';
 import MockRouter from 'next-router-mock';
 import Search from '@/pages/learner/search';
@@ -30,6 +31,10 @@ beforeEach(() => {
   useMockUserOwnedLists();
   useMockUpdateUserList();
   useMockCreateUserList();
+  useMockCompetencySearch();
+  useMockSearch();
+  useMockMoreLikeThis();
+  useMockCompetencySearch();
 });
 
 afterEach(() => {
@@ -50,6 +55,8 @@ const renderer = () => {
     </MemoryRouterProvider>
   );
 };
+
+jest.mock('@/hooks/useCompetencySearch');
 
 describe('Search Page', () => {
   it('should render the page', () => {

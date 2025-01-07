@@ -13,14 +13,14 @@ import StoreIcon from '@/public/store.svg';
 import ClockIcon from '@/public/clock.svg';
 import WindowIcon from '@/public/window.svg';
 
-// Helper function to extract competencies
+//Helper function to extract competencies
 function getComps(subjects){
 
   const comps = subjects?.split(',');
   
   for (let i = 1; i < comps?.length; i++){
     //Trimming whitespace 
-    comps[i] = comps[i]?.trim();
+    comps[i] = comps[i]?.trim() || '';
     //Accounting for comp #4 with commas
     if (comps[i][0] !== 'C'){
       comps[i-1] = comps[i - 1] + ', ' + comps[i] + ',' + comps[i + 1];
@@ -36,17 +36,21 @@ function getComps(subjects){
     comps[i] = comps[i].trim()
   }
 
-  // There is probably a way to make this one statement but I don't know how lol
-  comps[0] = comps[0].replace('4A', '')
-  comps[0] = comps[0].replace('4B', '')
-  comps[0] = comps[0].replace('4C', '')
-  comps[0] = comps[0].replace('4D', '')
-  comps[0] = comps[0].replace('Competency #', '')
-  comps[0] = comps[0].replace(/[0-9]/g, '')
-  comps[0] = comps[0].trim()
+  //There is probably a way to make this one statement but I don't know how lol
+  if (comps && comps.length > 0) {
+    comps[0] = comps[0].replace('4A', '')
+    comps[0] = comps[0].replace('4B', '')
+    comps[0] = comps[0].replace('4C', '')
+    comps[0] = comps[0].replace('4D', '')
+    comps[0] = comps[0].replace('Competency #', '')
+    comps[0] = comps[0].replace(/[0-9]/g, '')
+    comps[0] = comps[0].trim()
+  }
   
   return comps
 }
+
+// const  competencies = ['aaa', 'bbb', 'ccc', 'ddd', 'eee', 'fff', 'ggg', 'hhh', 'iii']
 
 export default function SearchResult({ result, handleCompetencyTag}) {
   const { user } = useAuth();
