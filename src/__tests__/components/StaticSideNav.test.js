@@ -35,7 +35,7 @@ describe('StaticSideNav', () => {
     const { getByText, queryByText } = render(<StaticSideNav />);
 
     fireEvent.click(getByText('Learning Summary'));
-    expect(getByText('Report B')).toBeInTheDocument();
+    expect(getByText('My Learning Summary')).toBeInTheDocument();
     expect(getByText('Report C')).toBeInTheDocument();
 
     fireEvent.click(getByText('Collections'));
