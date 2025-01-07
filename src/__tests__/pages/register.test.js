@@ -39,7 +39,7 @@ describe('Register Page', () => {
   it('should render a sign-in button', () => {
     renderer();
     expect(
-      screen.getByRole('button', { name: /Sign in to your account/i })
+      screen.getByRole('link', { name: /Sign in/i })
     ).toBeInTheDocument();
   });
 
@@ -54,7 +54,7 @@ describe('Register Page', () => {
   it('should navigate user to login page when sign-in button is clicked', () => {
     renderer();
     fireEvent.click(
-      screen.getByRole('button', { name: /Sign in to your account/i })
+      screen.getByRole('link', { name: /Sign in/i })
     );
     expect(singletonRouter).toMatchObject({
       asPath: '/login',
