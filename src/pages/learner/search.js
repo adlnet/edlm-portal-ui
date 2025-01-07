@@ -117,6 +117,10 @@ export default function Search() {
   function handleCompetencyTag(comp){
     setSelectedTab(tabs[1])
 
+    // DOT&E Specific changes for proper matching 
+    comp = comp.replace(' & ',' and ')    
+    comp = comp.replace('Env', 'Environment')
+
     const modified = { ...params, keyword: comp };
     modified.p = 1;
 
