@@ -21,7 +21,6 @@ import Search from '@/pages/learner/search';
 import singletonRouter from 'next/router';
 import SearchCompetencies from '@/components/SearchCompetencies';
 import competencyData from '@/__mocks__/data/competency.data';
-import { useState } from 'react';
 
 console.log = jest.fn();
 
@@ -29,16 +28,31 @@ afterEach(() => {
     jest.clearAllMocks();
 });
 
+const setParams = jest.fn();
+const useStateMock = (params) => [params, setParams];
+jest.spyOn(React, 'useState').mockImplementation(useStateMock)
+
 const renderer = () => {
-
-  const [params, setParams] = useState(MockRouter?.query)
-
   return render(
     <MemoryRouterProvider>
       <QueryClientWrapper>
         <SearchCompetencies
           Competencies={competencyData}
-          params={params}
+          params={useStateMock}
+          setParams={setParams}
+        />
+      </QueryClientWrapper>
+    </MemoryRouterProvider>
+  );
+};
+
+const rendererEmpty = () => {
+  return render(
+    <MemoryRouterProvider>
+      <QueryClientWrapper>
+        <SearchCompetencies
+          Competencies={[]}
+          params={useStateMock}
           setParams={setParams}
         />
       </QueryClientWrapper>
@@ -51,5 +65,8 @@ describe('Search Competencies Page', () => {
         const screen = renderer();
         expect(screen.getByText('Competency #1: Operating Environment and System Design'))
     });
+    it ('should render nothing if competencies are empty', () =>{
+      const screen = rendererEmpty();
+  });
 })
 
