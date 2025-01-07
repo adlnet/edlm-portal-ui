@@ -48,6 +48,9 @@ describe('Collections Table Tests', () => {
         act(() =>{
             fireEvent.click(sortButtons[0]);
         })
+        act(() =>{
+          fireEvent.click(sortButtons[2]);
+        })
     })
 
     it('Test clicking pages on the footer', () => {
@@ -72,6 +75,14 @@ describe('Collections Table Tests', () => {
         expect(screen.findByText('TITLE'))
         expect(screen.findByText('DURATION'))
         expect(screen.queryAllByText("——").length).toBe(8);
+        
+        const sortButtons = screen.getAllByTitle('sort')
+        act(() =>{
+          fireEvent.click(sortButtons[0]);
+        })
+        act(() =>{
+            fireEvent.click(sortButtons[0]);
+        })
     }) 
 
     it('Test rendering a table without pagination', () => {
