@@ -37,7 +37,10 @@ const TableBody = ({ tableData, columns}) => {
             // Specific row creation for query in saved search
             else if (accessor === 'query'){
                 const tData = data[accessor] ? data[accessor] : "——";
-                return <td key={accessor} className='pl-4' >{new URLSearchParams(tData).get('/learner/search?keyword')}</td>;
+                if (tData === "——")
+                    return <td key={accessor} className='pl-4'>——</td>
+                else
+                    return <td key={accessor} className='pl-4' >{new URLSearchParams(tData).get('/learner/search?keyword')}</td>;
             }
          })}
 

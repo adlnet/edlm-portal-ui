@@ -21,16 +21,24 @@ const emptyRenderer = () => {
     )
 }
 
+const rendererNoPages = () => {
+    return render(
+      <QueryClientWrapper>
+        <CollectionTable data={collectionsTableData} columns={collectionsColumnsData} edit={false} rowsPerPage={0} />
+      </QueryClientWrapper>
+    );
+  };
+
 describe('Collections Table Tests', () => {
     it('Tests that the table renders', () => {
-        const screen = renderer()
+        const screen = renderer();
         expect(screen.findByText('TITLE'))
         expect(screen.findByText('DURATION'))
         expect(screen.findByText('Instructor 2'))
     })
 
     it('Tests that clicking sort works', () => {
-        const screen = renderer()
+        const screen = renderer();
         
         const sortButtons = screen.getAllByTitle('sort')
 
@@ -43,7 +51,7 @@ describe('Collections Table Tests', () => {
     })
 
     it('Test clicking pages on the footer', () => {
-        const screen = renderer()
+        const screen = renderer();
         const pageButtons = screen.getAllByTestId('FooterButton')
         act(() => {
             fireEvent.click(pageButtons[0]);
@@ -60,9 +68,16 @@ describe('Collections Table Tests', () => {
     })
 
     it('Test rendering an empty table', () => {
-        const screen = emptyRenderer()
+        const screen = emptyRenderer();
         expect(screen.findByText('TITLE'))
         expect(screen.findByText('DURATION'))
         expect(screen.queryAllByText("——").length).toBe(8);
+    }) 
+
+    it('Test rendering a table without pagination', () => {
+        const screen = rendererNoPages();
+        expect(screen.findByText('TITLE'))
+        expect(screen.findByText('DURATION'))
+        expect(screen.findByText('course 9'))
     }) 
 });
