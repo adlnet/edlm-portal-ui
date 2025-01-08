@@ -13,7 +13,7 @@ import TabBar from '@/components/buttons/TabBar';
 import SearchBar from '@/components/inputs/SearchBar';
 import SelectList from '@/components/inputs/SelectList';
 import CreateSavedSearchModal from '@/components/modals/CreateSavedSearch';
-import { Button, Popover } from "flowbite-react";
+import { Popover } from "flowbite-react";
 
 
 export default function Search() {
@@ -44,20 +44,6 @@ export default function Search() {
     }));
   }
 
-  function handleClear(key) {
-    if (params[key] && params.keyword && params.keyword !== '') {
-      const modified = { ...params };
-      delete modified[key];
-      delete modified['undefined'];
-
-      modified.p = 1;
-      setParams(modified);
-      setUrl(modified);
-
-      router.push({ pathname: '/learner/search', query: modified });
-    }
-  }
-
   function handleListSelect(event) {
     if (params.keyword && params.keyword !== '') {
       const modified = { ...params };
@@ -69,10 +55,6 @@ export default function Search() {
       });
       router.push({ pathname: '/learner/search', query: modified });
     }
-  }
-
-  function handleReset(key) {
-    setParams((prev) => ({ ...prev, [key]: '' }));
   }
 
   const handleSearch = useCallback(
@@ -139,7 +121,6 @@ export default function Search() {
           options={localData}
           keyName={key}
           onChange={handleListSelect}
-          onClear={handleClear}
         />
       );
     });
@@ -170,8 +151,8 @@ export default function Search() {
                   <div className="px-3 py-2">
                     <p>Search by key topics such as: </p>
                     <ul class="list-disc list-inside"> 
-                      <li>Testing </li>
-                      <li> Acquisiton </li>
+                      <li> Testing </li>
+                      <li> Acquisition </li>
                       <li> Artificial Intelligence </li>
                     </ul>
                   </div>
@@ -185,9 +166,7 @@ export default function Search() {
                 <SearchBar
                   parameters={params}
                   onChange={handleChange}
-                  onReset={handleReset}
                   onClick={handleSearch}
-                  onClear={handleClear}
                 />
               </div>
           </Popover>
@@ -204,10 +183,9 @@ export default function Search() {
                   )}
                   className="italic text-sm font-sans text-[#3892f3] underline whitespace-nowrap"
                 >     
-                Clear Search
+                  Clear Search
                 </button>
               </div>
-        
         </div>
         <div className='py-4'>
           {selectedTab === tabs[0] ?
@@ -217,7 +195,7 @@ export default function Search() {
               handleCompetencyTag={handleCompetencyTag}
             /> : 
             <SearchCompetencies 
-              Competencies={Competencies} 
+              Competencies={Competencies}
               params={params}
               setParams={setParams}
             />

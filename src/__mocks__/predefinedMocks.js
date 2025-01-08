@@ -851,6 +851,7 @@ export function useMockSearchWithMultipleResults() {
             CourseCode: 'Test Code',
             CourseURL: 'https://www.test.com',
             CourseSectionDeliveryMode: 'Online',
+            CourseSubject: 'Competency #5 Software'
           },
           Course_Instance: {
             Thumbnail: 'Test_Thumbnail',
@@ -870,6 +871,7 @@ export function useMockSearchWithMultipleResults() {
             CourseCode: 'Test Code',
             CourseURL: 'https://www.test.com',
             CourseSectionDeliveryMode: 'Online',
+            CourseSubject: 'Competency #5 Software'
           },
           Course_Instance: {
             Thumbnail: 'Test_Thumbnail',
@@ -889,6 +891,7 @@ export function useMockSearchWithMultipleResults() {
             CourseCode: 'Test Code',
             CourseURL: 'https://www.test.com',
             CourseSectionDeliveryMode: 'Online',
+            CourseSubject: 'Competency #5 Software'
           },
           Course_Instance: {
             Thumbnail: 'Test_Thumbnail',
@@ -908,6 +911,7 @@ export function useMockSearchWithMultipleResults() {
             CourseCode: 'Test Code',
             CourseURL: 'https://www.test.com',
             CourseSectionDeliveryMode: 'Online',
+            CourseSubject: 'Competency #5 Software'
           },
           Course_Instance: {
             Thumbnail: 'Test_Thumbnail',
@@ -927,6 +931,7 @@ export function useMockSearchWithMultipleResults() {
             CourseCode: 'Test Code',
             CourseURL: 'https://www.test.com',
             CourseSectionDeliveryMode: 'Online',
+            CourseSubject: 'Competency #5 Software'
           },
           Course_Instance: {
             Thumbnail: 'Test_Thumbnail',
@@ -946,6 +951,7 @@ export function useMockSearchWithMultipleResults() {
             CourseCode: 'Test Code',
             CourseURL: 'https://www.test.com',
             CourseSectionDeliveryMode: 'Online',
+            CourseSubject: 'Competency #5 Software'
           },
           Course_Instance: {
             Thumbnail: 'Test_Thumbnail',
@@ -965,6 +971,7 @@ export function useMockSearchWithMultipleResults() {
             CourseCode: 'Test Code',
             CourseURL: 'https://www.test.com',
             CourseSectionDeliveryMode: 'Online',
+            CourseSubject: 'Competency #5 Software'
           },
           Course_Instance: {
             Thumbnail: 'Test_Thumbnail',
@@ -984,6 +991,7 @@ export function useMockSearchWithMultipleResults() {
             CourseCode: 'Test Code',
             CourseURL: 'https://www.test.com',
             CourseSectionDeliveryMode: 'Online',
+            CourseSubject: 'Competency #5 Software'
           },
           Course_Instance: {
             Thumbnail: 'Test_Thumbnail',
@@ -1003,6 +1011,7 @@ export function useMockSearchWithMultipleResults() {
             CourseCode: 'Test Code',
             CourseURL: 'https://www.test.com',
             CourseSectionDeliveryMode: 'Online',
+            CourseSubject: 'Competency #5 Software'
           },
           Course_Instance: {
             Thumbnail: 'Test_Thumbnail',
@@ -1022,6 +1031,7 @@ export function useMockSearchWithMultipleResults() {
             CourseCode: 'Test Code',
             CourseURL: 'https://www.test.com',
             CourseSectionDeliveryMode: 'Online',
+            CourseSubject: 'Competency #5 Software'
           },
           Course_Instance: {
             Thumbnail: 'Test_Thumbnail',
