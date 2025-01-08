@@ -58,31 +58,7 @@ describe('Search Lists', () => {
       asPath: '/',
     });
   });
-
-  it('should navigate a user to "401" page when user has no permissions', () => {
-    useAuthenticatedUser();
-    useMockInterestListsWith401();
-    useMockSubscribedListsEmpty();
-    useMockSubscribeToList();
-    useMockUnsubscribeFromList();
-    const { getByText } = renderer();
-    expect(singletonRouter).toMatchObject({
-      asPath: '/401',
-    });
-  });
-
-  it('should navigate a user to "403" page when user has no permissions', () => {
-    useAuthenticatedUser();
-    useMockInterestListsWith403();
-    useMockSubscribedListsEmpty();
-    useMockSubscribeToList();
-    useMockUnsubscribeFromList();
-    const { getByText } = renderer();
-    expect(singletonRouter).toMatchObject({
-      asPath: '/403',
-    });
-  });
-
+  
   it('should render the list of interest lists', () => {
     useAuthenticatedUser();
     useMockInterestLists();

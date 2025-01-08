@@ -53,7 +53,7 @@ export default function EditList({ listId }) {
 
   useEffect(() => {
     // no user
-    if (!user) return router.push('/');
+    if (!user) router.push('/');
     // if there is a authorization error
     if (initialList?.isError) {
       if( initialList?.error?.response?.status === 401)
@@ -77,7 +77,7 @@ export default function EditList({ listId }) {
         public: initialList.data?.public,
       });
     }
-  },[initialList.data, user, initialList.isSuccess ]);
+  },[initialList?.data, user, initialList?.isSuccess ]);
 
   const handleChange = (event) => {
     setCurrentListInfo((prev) => ({
@@ -174,7 +174,7 @@ export default function EditList({ listId }) {
       courses.push(course)
     }
     return courses
-  },[currentListInfo.experiences, initialList.isSuccess]);
+  },[currentListInfo.experiences, initialList?.isSuccess]);
    
   return (
     <DefaultLayout>

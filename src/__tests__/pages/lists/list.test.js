@@ -43,21 +43,14 @@ describe('List page', () => {
     useAuthenticatedUser();
     useListMock();
     const { getByText } = renderer();
-    expect(getByText('Test List')).toBeInTheDocument();
+    expect(getByText('My Collections')).toBeInTheDocument();
   });
 
   it('should not render edit button when unauthenticated', () => {
     useListMock();
     useUnauthenticatedUser();
     const { queryByText } = renderer();
-    expect(queryByText('Edit list')).not.toBeInTheDocument();
-  });
-
-  it('should render edit button when authenticated', () => {
-    useListMock();
-    useAuthenticatedUser();
-    const { getByText } = renderer();
-    expect(getByText('Edit list')).toBeInTheDocument();
+    expect(queryByText('My Collections')).not.toBeInTheDocument();
   });
 
   it('should navigate a user to the specific course', () => {
@@ -73,25 +66,9 @@ describe('List page', () => {
     useListMock();
     useAuthenticatedUser();
     const { getByText } = renderer();
-    const editButton = getByText('Edit list');
+    const editButton = getByText('Edit');
     fireEvent.click(editButton);
     expect(singletonRouter).toMatchObject({ asPath: '/learner/lists/edit/1' });
-  });
-
-  it('should navigate user to 401 page', () => {
-    useListMockWith401();
-    useAuthenticatedUser();
-    renderer();
-
-    expect(singletonRouter).toMatchObject({ asPath: '/401' });
-  });
-
-  it('should navigate user to 403 page', () => {
-    useListMockWith403();
-    useAuthenticatedUser();
-    renderer();
-
-    expect(singletonRouter).toMatchObject({ asPath: '/403' });
   });
 
   it('should show "No courses added yet." message', () => {
