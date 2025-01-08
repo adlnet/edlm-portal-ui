@@ -1,24 +1,6 @@
 import { MemoryRouterProvider } from 'next-router-mock/MemoryRouterProvider/next-13.5';
 import { QueryClientWrapper } from '@/__mocks__/queryClientMock';
 import { act, fireEvent, render } from '@testing-library/react';
-import {
-  useAuthenticatedUser,
-  useMockConfig,
-  useMockCreateSaveSearch,
-  useMockCreateUserList,
-  useMockMoreLikeThis,
-  useMockMoreLikeThisWithoutData,
-  useMockSearch,
-  useMockSearchUrl,
-  useMockSearchWithMultipleResults,
-  useMockSearchWithoutData,
-  useMockUpdateUserList,
-  useMockUserOwnedLists,
-  useUnauthenticatedUser,
-} from '@/__mocks__/predefinedMocks';
-import MockRouter from 'next-router-mock';
-import Search from '@/pages/learner/search';
-import singletonRouter from 'next/router';
 import SearchCompetencies from '@/components/SearchCompetencies';
 import competencyData from '@/__mocks__/data/competency.data';
 
@@ -37,7 +19,7 @@ const renderer = () => {
     <MemoryRouterProvider>
       <QueryClientWrapper>
         <SearchCompetencies
-          Competencies={competencyData}
+          Competencies={competencyData.Competencies}
           params={useStateMock}
           setParams={setParams}
         />
