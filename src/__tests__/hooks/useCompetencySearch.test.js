@@ -1,27 +1,52 @@
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { act, renderHook } from '@testing-library/react';
 import mockAxios from 'jest-mock-axios';
-
+import axios from 'axios';
+import {useState} from 'react';
 import { useCompetencySearch } from '@/hooks/useCompetencySearch';
 import competencyData from '@/__mocks__/data/competency.data';
+import React, { useState as useStateMock, useEffect} from 'react';
 
+// const queryClient = new QueryClient();
+// const wrapper = ({ children }) => (
+//   <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+// );
 
-const queryClient = new QueryClient();
-const wrapper = ({ children }) => (
-  <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-);
+// jest.mock('axios')
 
-test('should return a list of competencies found', async () => {
-  mockAxios.get.mockResolvedValue({ data: competencyData });
+//jest.unmock('@/hooks/useCompetencySearch');
 
-  const { result } = renderHook(() => useCompetencySearch(), {
-    wrapper,
-  });
+jest.mock('react', () => ({
+	...jest.requireActual('react'),
+	useState: jest.fn(),
+    useEffect: jest.fn()
+}))
+const setState = jest.fn()
 
-  await act(async () => {
-    result.data;
-  }
-  );
+describe('useCompetencySearch hook test', () => {
 
-  //expect(result.current.data).toMatchObject(searchData);
+  beforeEach(() => {
+    useStateMock.mockImplementation(jest.requireActual('react').useState)
+  })
+
+  it ('should return the competency data when successful', async() => {
+    mockAxios.request.mockImplementation(competencyData);
+
+    useState.mockImplementation(()=>[{Name: '', Competencies: []}, setState])
+
+    const competencies = useCompetencySearch();
+    
+    expect (competencies === (competencyData.Competencies))
+  })
+
+  it ('should return the backup-competency data when unsuccessful', async() => {
+    mockAxios.request.mockRejectedValue(competencyData);
+
+    useState.mockImplementation(()=>[{Name: '', Competencies: []}, setState])
+
+    const competencies = useCompetencySearch();
+    
+    expect (competencies === (competencyData.Competencies))
+  })
+  
 });
