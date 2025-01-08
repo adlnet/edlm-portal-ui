@@ -233,7 +233,7 @@ describe('Search Page', () => {
     useUnauthenticatedUser();
     useMockMoreLikeThisWithoutData();
     useMockUserOwnedLists();
-    const { getByText, queryByRole } = renderer();
+    const { getByText, queryByRole, getByTitle, getByPlaceholderText} = renderer();
 
     act(() => {
       fireEvent.click(queryByRole('button', { name: /course type/i }));
@@ -241,6 +241,25 @@ describe('Search Page', () => {
 
     expect(getByText(/test bucket 1/i)).toBeInTheDocument();
     expect(getByText(/test bucket 2/i)).toBeInTheDocument();
+
+    act(() => {
+      fireEvent.click(getByText(/test bucket 1/i));
+    });
+
+    act(() => {
+      fireEvent.change(getByPlaceholderText('Search for Learning Content'), {
+        target: { value: 'test' },
+      });
+    });
+
+    const searchBtn = getByTitle('Search');
+    act(() => {
+      fireEvent.click(searchBtn);
+    }); 
+
+    expect(singletonRouter).toMatchObject({
+      asPath: '/learner/search?keyword=test&p=1',
+    });
   });
 
   it('should clear all selection and search when clicked', () => {
@@ -251,6 +270,21 @@ describe('Search Page', () => {
     useMockMoreLikeThisWithoutData();
     useMockUserOwnedLists();
     const { getByText, queryByRole } = renderer();
+
+    act(() => {
+      fireEvent.click(queryByRole('button', { name: /course type/i }));
+    });
+
+    expect(getByText(/test bucket 1/i)).toBeInTheDocument();
+    expect(getByText(/test bucket 2/i)).toBeInTheDocument();
+
+    act(() => {
+      fireEvent.click(getByText(/test bucket 1/i));
+    });
+
+    act(() => {
+      fireEvent.click(queryByRole('button', { name: /course type/i }));
+    });
 
     act(() => {
       fireEvent.click(queryByRole('button', { name: /Clear Search/i }));
@@ -278,7 +312,7 @@ describe('Search Page', () => {
     useMockMoreLikeThisWithoutData();
     useMockUserOwnedLists();
 
-    const { getByRole, getByTitle } = renderer();
+    const { getByRole } = renderer();
 
     expect(getByRole('button', { name: /next/i })).toBeDisabled();
 
@@ -303,7 +337,7 @@ describe('Search Page', () => {
     });
   });
 
-  it('should toggle tab between courses andcompetencies', () => {
+  it('should toggle tab between courses and competencies', () => {
     useMockSearch();
     useUnauthenticatedUser();
     useMockMoreLikeThis();
@@ -317,6 +351,21 @@ describe('Search Page', () => {
     expect(getByText('Competency Search')).toBeInTheDocument();
   });
 
+  it('should toggle to competencies when result card tag is clicked', () => {
+    useMockSearch();
+    useUnauthenticatedUser();
+    useMockMoreLikeThis();
+
+    const screen  = renderer();
+    const tagButton = screen.queryByRole('button', { name: /software/i });
+
+    act(() => {
+      fireEvent.click(tagButton);
+    });
+
+    expect(screen.getByText('Competency Search')).toBeInTheDocument();
+  });
+
   it('should not show the filters when no search input is entered', () => {
     
     MockRouter.setCurrentUrl('/learner/search');
@@ -324,10 +373,19 @@ describe('Search Page', () => {
     useUnauthenticatedUser();
     useMockMoreLikeThis();
 
-    const { queryByRole } = renderer();
+    const { queryByRole, getByTitle } = renderer();
+
+    const searchBtn = getByTitle('Search');
+    act(() => {
+      fireEvent.click(searchBtn);
+    }); 
 
     const filterButton = queryByRole('button', { name: /course type/i });
     expect(filterButton).not.toBeInTheDocument();
   });
+
+  // it ('should not be able to search without a keyword', () => {
+    
+  // })
   
 });

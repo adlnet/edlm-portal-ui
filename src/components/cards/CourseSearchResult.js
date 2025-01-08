@@ -148,6 +148,7 @@ export default function SearchResult({ result, handleCompetencyTag}) {
                 <div className="text-center text-[#3892f3] text-sm font-normal font-['Roboto'] leading-tight whitespace-nowrap">
                   <button
                     className=''
+                    id='competencyTag'
                     onClick={()=> handleCompetencyTag(comp)}
                   >
                     {comp}
