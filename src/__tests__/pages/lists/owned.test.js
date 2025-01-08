@@ -1,6 +1,6 @@
 import { MemoryRouterProvider } from 'next-router-mock/MemoryRouterProvider';
 import { QueryClientWrapper } from '@/__mocks__/queryClientMock';
-import { act, fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import {
   useAuthenticatedUser,
   useMockConfig,
@@ -84,5 +84,89 @@ describe('User Owned Lists', () => {
       getByText('You are not subscribed to any lists.')
     ).toBeInTheDocument();
     expect(queryByText('Test Title 1')).not.toBeInTheDocument();
+  });
+
+  it('should render the collection card with dropdown menu', () => {
+    useAuthenticatedUser();
+    useMockUserOwnedLists();
+    const { getByText, getByTestId } = renderer();
+    expect(getByText('Test Title 1')).toBeInTheDocument();
+
+    expect(getByTestId('card-menu-button')).toBeInTheDocument();
+  });
+
+  it('should go to edit list page when edit is clicked', () => {
+    useAuthenticatedUser();
+    useMockUserOwnedLists();
+    const { getByTestId } = renderer();
+
+    fireEvent.click(getByTestId('card-menu-button'));
+
+    fireEvent.click(getByTestId('card-menu-item-Edit'));
+
+    expect(singletonRouter).toMatchObject({ asPath: '/learner/lists/edit/1' });
+  });
+
+  it('should remove a list when "delete" is clicked', async () => {
+    useAuthenticatedUser();
+    useMockUserOwnedLists();
+    const { getByTestId } = renderer();
+
+    fireEvent.click(getByTestId('card-menu-button'));
+
+    fireEvent.click(getByTestId('card-menu-item-Delete'));
+
+    await waitFor(() => {
+      expect(singletonRouter).toMatchObject({ asPath: '/lists/owned' });
+    });
+  });
+
+  describe('Share functionality', () => {
+    beforeEach(() => {
+      Object.assign(navigator, {
+        clipboard: {
+          writeText: jest.fn(() => Promise.resolve()),
+        },
+      });
+    });
+
+    it('should copy list url to clipboard when share is clicked', () => {
+      useAuthenticatedUser();
+      useMockUserOwnedLists();
+      const { getByTestId } = renderer();
+
+      fireEvent.click(getByTestId('card-menu-button'));
+
+      fireEvent.click(getByTestId('card-menu-item-Share'));
+
+      expect(navigator.clipboard.writeText).toHaveBeenCalledWith(
+        'http://localhost/learner/lists/1'
+      );
+    });
+
+    it('should show Copied Successfully! message when copy is successful', async () => {
+      useAuthenticatedUser();
+      useMockUserOwnedLists();
+      const { getByTestId, findByText } = renderer();
+
+      fireEvent.click(getByTestId('card-menu-button'));
+
+      fireEvent.click(getByTestId('card-menu-item-Share'));
+
+      expect(await findByText('Copied Successfully!')).toBeInTheDocument();
+    });
+
+    it('should show Failed to copy message when copy fails', async () => {
+      navigator.clipboard.writeText = jest.fn(() => Promise.reject());
+      useAuthenticatedUser();
+      useMockUserOwnedLists();
+      const { getByTestId, findByText } = renderer();
+
+      fireEvent.click(getByTestId('card-menu-button'));
+
+      fireEvent.click(getByTestId('card-menu-item-Share'));
+
+      expect(await findByText('Failed to copy')).toBeInTheDocument();
+    });
   });
 });

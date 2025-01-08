@@ -28,6 +28,8 @@ export default function CardDropdown({ menuItems, isPublic, showPrivateToggle = 
           <Menu.Item key={i}>
             {({ active }) => (
               <button
+                data-testid={`card-menu-item-${item.label}`}
+                role='menuitem'
                 onClick={item.onClick}
                 className={`${
                   active ? 'bg-gray-100 text-gray-700' : 'text-gray-700'
