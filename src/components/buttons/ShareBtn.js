@@ -1,0 +1,142 @@
+'use strict';
+
+import { ShareIcon, DocumentDuplicateIcon } from '@heroicons/react/24/outline';
+import { useState, Fragment } from 'react';
+import { useAuth } from '@/contexts/AuthContext';
+import { useCallback } from 'react';
+import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement';
+import { Dialog, Transition } from '@headlessui/react';
+
+
+export default function ShareButton({ id, courseTitle, courseDescription }) {
+  const { user } = useAuth();
+
+  // handle the copy to clipboard action
+  const handleCopy = () => {
+    navigator.clipboard.writeText(`${window.origin}/learner/course/${id}`);
+  };
+
+  const handleClick = useCallback(() => {
+    if (!user) return;
+    console.count('share button clicked');
+
+    const context = {
+      actor: {
+        first_name: user?.user?.first_name || 'anonymous',
+        last_name: user?.user?.last_name || 'user',
+      },
+      verb: {
+        id: 'https://w3id.org/xapi/tla/verbs/socialized',
+        display: 'socialized',
+      },
+      object: {
+        definitionName: courseTitle,
+        description: courseDescription,
+        id: `${window.origin}/learner/course/${id}`,
+      },
+      resultExtName: 'https://w3id.org/xapi/ecc/result/extensions/CourseId',
+      resultExtValue: id,
+    };
+
+    handleCopy();
+    openModal();
+    xAPISendStatement(context);
+  }, [id, courseTitle, courseDescription, user]);
+
+  // modal states
+  let [isOpen, setIsOpen] = useState(false);
+  const closeModal = () => setIsOpen(false);
+  const openModal = () => setIsOpen(true);
+  
+  let url = '';
+  if (typeof window !== "undefined"){
+    url = `${window.origin}/learner/course/${id}`;
+  }
+
+  return (
+    <>
+    <button
+      title='share course'
+      onClick={handleClick}
+      className="w-[62px] h-6 px-3 py-2 border justify-center items-center gap-2 inline-flex rounded-lg bg-gradient-to-l from-[#263f9d] to-[#65d4e9] hover:from-[#65d4e9] hover:to-[#263f9d] transition-all ease-in duration-75"
+    >
+      <div className='justify-center items-center gap-2 flex bg-white rounded-md border-4 border-white'>
+        <ShareIcon className='h-3 w-3' />
+
+        <span className="text-[#1f3764] text-xs font-medium leading-none">Share</span>
+
+      </div>
+    </button>
+    <Transition appear show={isOpen} as={Fragment}>
+    <Dialog
+      as='div'
+      className='fixed inset-0 z-10 overflow-y-auto'
+      onClose={closeModal}
+    >
+      <div className='min-h-screen text-center'>
+        <Transition.Child
+          as={Fragment}
+          enter='ease-out duration-200'
+          enterFrom='opacity-0'
+          enterTo='opacity-100'
+          leave='ease-in duration-100'
+          leaveFrom='opacity-100'
+          leaveTo='opacity-0'
+        >
+          <Dialog.Overlay className='fixed inset-0 bg-gray-700 bg-opacity-10' />
+        </Transition.Child>
+
+        {/* This element is to trick the browser into centering the modal contents. */}
+        <span
+          className='inline-block h-screen align-middle'
+          aria-hidden='true'
+        >
+          &#8203;
+        </span>
+        <Transition.Child
+          as={Fragment}
+          enter='ease-out duration-200'
+          enterFrom='opacity-0 scale-95'
+          enterTo='opacity-100 scale-100'
+          leave='ease-in duration-100'
+          leaveFrom='opacity-100 scale-100'
+          leaveTo='opacity-0 scale-95'
+        >
+          <div className='inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl'>
+            <Dialog.Title
+              as='h3'
+              className='text-lg font-medium leading-6 text-gray-900'
+            >
+              Link Copied!
+            </Dialog.Title>
+            <div className='mt-2 w-full py-2 px-0.5 rounded-md overflow-y-auto custom-scroll border bg-gray-50 space-y-1'>
+              {url}
+            </div>
+
+            
+            <div className='mt-4'>
+            <button
+                type='button'
+                className='inline-flex justify-center pl-2 pr-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500'
+                onClick={handleCopy}
+              >
+                <DocumentDuplicateIcon className='h-4 w-4 mr-1' />
+                Copy
+              </button>
+
+              <button
+                type='button'
+                className='inline-flex justify-end ml-60 px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500'
+                onClick={closeModal}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </Transition.Child>
+      </div>
+    </Dialog>
+  </Transition>
+  </>
+  );
+}
