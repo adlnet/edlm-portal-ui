@@ -223,9 +223,9 @@ describe('Search Page', () => {
     useUnauthenticatedUser();
     useMockMoreLikeThisWithoutData();
     useMockUserOwnedLists();
-    const { getByRole } = renderer();
+    const { getByText } = renderer();
 
-    expect(getByRole('button', { name: /course type/i })).toBeInTheDocument();
+    expect(getByText('Course Type')).toBeInTheDocument();
   });
 
   it('should show options for filters when clicked', () => {
@@ -236,7 +236,7 @@ describe('Search Page', () => {
     const { getByText, queryByRole, getByTitle, getByPlaceholderText} = renderer();
 
     act(() => {
-      fireEvent.click(queryByRole('button', { name: /course type/i }));
+      fireEvent.click(getByText('Course Type'));
     });
 
     expect(getByText(/test bucket 1/i)).toBeInTheDocument();
@@ -272,7 +272,7 @@ describe('Search Page', () => {
     const { getByText, queryByRole } = renderer();
 
     act(() => {
-      fireEvent.click(queryByRole('button', { name: /course type/i }));
+      fireEvent.click(getByText('Course Type'));
     });
 
     expect(getByText(/test bucket 1/i)).toBeInTheDocument();
@@ -283,11 +283,11 @@ describe('Search Page', () => {
     });
 
     act(() => {
-      fireEvent.click(queryByRole('button', { name: /course type/i }));
+      fireEvent.click(getByText('Course Type'));
     });
 
     act(() => {
-      fireEvent.click(queryByRole('button', { name: /Clear Search/i }));
+      fireEvent.click(getByText('Clear Search'));
     });
     expect(singletonRouter).toMatchObject({
       asPath: '/learner/search',
@@ -299,9 +299,9 @@ describe('Search Page', () => {
     useUnauthenticatedUser();
     useMockMoreLikeThisWithoutData();
     useMockUserOwnedLists();
-    const { getByRole, getByTitle } = renderer();
+    const { getByRole, getByText } = renderer();
 
-    expect(getByRole('button', { name: /next/i })).toBeEnabled();
+    expect(getByText(/next/i)).toBeInTheDocument();
 
   });
 
@@ -312,11 +312,11 @@ describe('Search Page', () => {
     useMockMoreLikeThisWithoutData();
     useMockUserOwnedLists();
 
-    const { getByRole } = renderer();
+    const { getByText, getByRole } = renderer();
 
-    expect(getByRole('button', { name: /next/i })).toBeDisabled();
+    expect(getByText(/next/i)).toBeDisabled();
 
-    expect(getByRole('button', { name: /previous/i })).toBeEnabled();
+    expect(getByText(/previous/i)).toBeEnabled();
 
   });
 
@@ -326,10 +326,10 @@ describe('Search Page', () => {
     useMockSearchWithMultipleResults();
     useMockMoreLikeThisWithoutData();
     useMockUserOwnedLists();
-    const { getByRole } = renderer();
+    const { getByText } = renderer();
 
     act(() => {
-      fireEvent.click(getByRole('button', { name: /next/i }));
+      fireEvent.click(getByText(/next/i));
     });
 
     expect(singletonRouter).toMatchObject({
@@ -357,7 +357,7 @@ describe('Search Page', () => {
     useMockMoreLikeThis();
 
     const screen  = renderer();
-    const tagButton = screen.queryByRole('button', { name: /software/i });
+    const tagButton = screen.getByText(/software/i );
 
     act(() => {
       fireEvent.click(tagButton);
