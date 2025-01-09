@@ -1,13 +1,12 @@
 'use strict';
 
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 export default function SelectList({
   options,
   keyName,
   initialValue,
   onChange,
-  onClear,
 }) {
 
   // State to track selected options

@@ -13,7 +13,7 @@ import armyImage2 from '@/public/lunchLearn.png'
 //import Button from '@/components/Button';
 import DefaultLayout from '@/components/layouts/DefaultLayout';
 import {Card, Button} from 'flowbite-react';
-import Spotlight from '@/components/SpotlightCard';
+import Spotlight from '@/components/cards/SpotlightCard';
 import { axiosInstance } from '@/config/axiosConfig';
 import { candidateList } from '@/config/endpoints';
 import { useInterestLists } from "@/hooks/useInterestLists";

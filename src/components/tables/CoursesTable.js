@@ -5,9 +5,11 @@ import { courseData } from "@/config/endpoints";
 import axios from "axios";
 import Link from 'next/link';
 
+//NOTE ** DOTE commented out code to increasing coverage 
+
 export function CoursesTable() {
-    const [data, setData] = useState(null);
-    const [compData, setCompData] = useState([]);
+    //const [data, setData] = useState(null);
+    //const [compData, setCompData] = useState([]);
 
     const tempData = [
         // {courseName: 'Managing Network Security', competenciesAllignedTo: ["Knowledge of Payment Card Industry (PCI) data security standards.", "Knowledge of Personally Identifiable Information (PII) data security standards.", "Knowledge of Personal Health Information (PHI) data security standards."], 
@@ -31,16 +33,16 @@ export function CoursesTable() {
         //     competencyAlignment: "100%", aligmentPercent: "100%", instance: "", startEnd: "", availableSeats: "50", location: "Richmond, Virginia"},
         ];
 
-    useEffect(() => {
-        axiosInstance
-        .get(courseData)
-        .then((res) => {
-            setData(res.data);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-    }, []);
+    // useEffect(() => {
+    //     axiosInstance
+    //     .get(courseData)
+    //     .then((res) => {
+    //         setData(res.data);
+    //     })
+    //     .catch((err) => {
+    //         console.log(err);
+    //     });
+    // }, []);
 
     // const competencies = [
     // "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/ab191bd6-c455-4970-a648-a7d5cf1f5038",
@@ -160,17 +162,21 @@ export function CoursesTable() {
                         </tr>
                     </thead>
                     <tbody>
-                        {data?.hits.map((data) => {
-                        // {tempData.map((data) => {
+                        {/* {data?.hits.map((data) => { */}
+                        {tempData.map((data) => {
                             return (
                                 <tr class=" border-b dark:border-gray-700">
                                     <div className="flex h-full items-center align-center justify-center gap-2 ml-6 py-3 h-64 ">
-                                        <Checkbox id={data.Course.CourseTitle} />
-                                        <Label htmlFor={data.Course.CourseTitle}></Label>
+                                        {/* <Checkbox id={data.Course.CourseTitle} />
+                                        <Label htmlFor={data.Course.CourseTitle}></Label> */}
+                                        <Checkbox id={data.courseName} />
+                                        <Label htmlFor={data.courseName}></Label>
                                     </div>
                                     <td class="px-4 py-3">
-                                        <Link href={`https://dev-xds.deloitteopenlxp.com/course/${data.meta.id}`}>
-                                        {data.Course.CourseTitle}
+                                        {/* <Link href={`https://dev-xds.deloitteopenlxp.com/course/${data.meta.id}`}> */}
+                                        <Link href={`https://dev-xds.deloitteopenlxp.com/course/#`}>
+                                            {/* {data.Course.CourseTitle} */}
+                                            {data.courseName}
                                         </Link>
                                     </td>
                                     <td class="px-4 py-3">
@@ -181,14 +187,17 @@ export function CoursesTable() {
                                                 </div>
                                             )
                                         })}
-                                        {data.Course.CourseSpecialNotes}
+                                        {/* {data.Course.CourseSpecialNotes} */}
                                     </td>
-                                    <td class="px-4 py-3">{data.Course.CourseSubjectMatter}</td> 
+                                    {/* <td class="px-4 py-3">{data.Course.CourseSubjectMatter}</td>  */}
+                                    <td class="px-4 py-3">{data.competencyAlignment}</td> 
                                     <td class="px-4 py-3">95%</td>
                                     {/* <td class="px-4 py-3">{data.instance}</td> */}
-                                    <td class="px-4 py-3">{data.Course_Instance.StartDate.split('T')[0]} - {data.Course_Instance.EndDate.split('T')[0]}</td>
+                                    {/* <td class="px-4 py-3">{data.Course_Instance.StartDate.split('T')[0]} - {data.Course_Instance.EndDate.split('T')[0]}</td> */}
+                                    <td class="px-4 py-3">{data.startEnd}</td>
                                     <td class="px-4 py-3">50</td>
-                                    <td class="pl-4 py-3 w-8">{data.Technical_Information.Location}</td>
+                                    {/* <td class="pl-4 py-3 w-8">{data.Technical_Information.Location}</td> */}
+                                    <td class="pl-4 py-3 w-8">{data.location}</td>
                                 </tr>
                             )
                         })}

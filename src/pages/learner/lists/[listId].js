@@ -43,7 +43,7 @@ export default function ListsView({ listId }) {
   // prepare the experience data
   const data = useMemo(() => {
     const courses = []
-    for (let i = 0; i < list?.data?.experiences.length; i++){
+    for (let i = 0; i < list?.data?.experiences?.length; i++){
       const course = {
           id: (list?.data?.experiences[i]?.meta?.metadata_key_hash),
           title: removeHTML(

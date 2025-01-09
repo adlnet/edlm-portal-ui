@@ -20,7 +20,7 @@ export default function CardDropdown({ menuItems, isPublic, showPrivateToggle = 
 
   return(
     <Menu as='div' className='relative'>
-      <Menu.Button className='hover:bg-gray-100 rounded-full focus:outline-none focus:ring-0'>
+      <Menu.Button data-testid='card-menu-button' className='hover:bg-gray-100 rounded-full focus:outline-none focus:ring-0'>
         <EllipsisVerticalIcon className='h-6 w-6 text-gray-500' />
       </Menu.Button>
       <Menu.Items className='absolute -right-12 pb-2 top-0 w-48 mt-2 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 z-30 focus:outline-none focus:ring-0'>
@@ -28,6 +28,8 @@ export default function CardDropdown({ menuItems, isPublic, showPrivateToggle = 
           <Menu.Item key={i}>
             {({ active }) => (
               <button
+                data-testid={`card-menu-item-${item.label}`}
+                role='menuitem'
                 onClick={item.onClick}
                 className={`${
                   active ? 'bg-gray-100 text-gray-700' : 'text-gray-700'

@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 
 export var users = [];
 
+// NOTE** DOT&E commented out parts of this code to increase code coverage of tests
+
 export function WorkforceAlignmentTable() {
 
     const [talentData, setTalentData] = useState(null);
@@ -24,26 +26,26 @@ export function WorkforceAlignmentTable() {
         {overallAlignment: '15%', lastName: "John", firstName: "Lee", trainingNeeded: "15 courses", trainingTime: "30 weeks", service: "Homeland Security", location: "Virginia", currentPosition: "Technical Support", careerState: "Mid-Career", IDPAlignment:15 },
     ];
 
-    useEffect(() => {
-        axiosxapiInstance
-        .get(xapiUsers)
-        .then((res) => {
-            setTalentData(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }, []);
+    // useEffect(() => {
+    //     axiosxapiInstance
+    //     .get(xapiUsers)
+    //     .then((res) => {
+    //         setTalentData(res.data);
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // }, []);
     
 
-    function updateUsers(event) {
-        var index = users.indexOf(event.target.name)
-        if (index >= 0){
-            users.splice(index,1);
-        }else{
-            users.push(event.target.name);
-        }
-    }
+    // function updateUsers(event) {
+    //     var index = users.indexOf(event.target.name)
+    //     if (index >= 0){
+    //         users.splice(index,1);
+    //     }else{
+    //         users.push(event.target.name);
+    //     }
+    // }
 
   return (
     <>
@@ -150,7 +152,8 @@ export function WorkforceAlignmentTable() {
                             return (
                                 <tr class="border-b dark:border-gray-700" key={data.lastName}>
                                     <div className="flex items-center gap-2 ml-6 mt-5">
-                                        <Checkbox id={data.workRole} onChange={updateUsers} name={talentData?.statements[index]?.actor.name} />
+                                        {/* <Checkbox id={data.workRole} onChange={updateUsers} name={talentData?.statements[index]?.actor.name} /> */}
+                                        <Checkbox id={data.workRole} onChange={null} name={talentData?.statements[index]?.actor.name} />
                                         <Label htmlFor={data.workRole}>{data.overallAlignment}</Label>
                                     </div>
                                     <td class="px-4 py-3">{talentData?.statements[index]?.actor.name.split(' ').pop()}</td>

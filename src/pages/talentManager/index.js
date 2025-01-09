@@ -10,7 +10,7 @@ import armyImage2 from '@/public/Army2.jpg'
 import Button from '@/components/Button';
 import DefaultLayout from '@/components/layouts/DefaultLayout';
 import Card from '@/components/Card';
-import Spotlight from '@/components/SpotlightCard';
+import Spotlight from '@/components/cards/SpotlightCard';
 import { axiosInstance } from '@/config/axiosConfig';
 import { candidateList } from '@/config/endpoints';
 
