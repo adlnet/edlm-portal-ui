@@ -14,6 +14,10 @@ import { candidateList } from '@/config/endpoints';
 import useSpotlightCourses from '@/hooks/useSpotlightCourses';
 import CourseSpotlight from '@/components/cards/CourseSpotlight';
 import ContentLoadingAnimate from '@/utils/ContentLoadingAnimate';
+import Carousel from 'react-grid-carousel'
+import CourseSpotlightCarouselCard from '@/components/cards/CourseSpotlightCarousel';
+
+
 
 export default function SearchCourses( { params, setParams, handleCompetencyTag }) {
 
@@ -83,10 +87,31 @@ export default function SearchCourses( { params, setParams, handleCompetencyTag 
                 </div> :
                 <div className="text-[#1b1128] text-2xl font-bold leading-normal mt-6">
                   Spotlight Courses
-                  <div className='flex overflow-x-auto gap-6 pb-4 custom-scroll mt-2'>
-                    {spotlight && spotlight.data?.map((course) => {
-                        return <CourseSpotlight course={course} key={course.meta.id} />;
-                      })}
+                  <div className='mt-6'>
+                      <Carousel
+                          cols={3}
+                          rows={1}
+                          gap={1}
+                          responsiveLayout={[
+                              {
+                              breakpoint: 1200,
+                              cols: 3
+                              },
+                              {
+                              breakpoint: 990,
+                              cols: 2
+                              }
+                          ]}
+                          mobileBreakpoint={670}
+                      >
+                  {spotlight && spotlight.data?.map((course) => {
+                      //  return <CourseSpotlightCarousel course={course} key={course.meta.id} />;
+                      return(
+                          <Carousel.Item>
+                            <CourseSpotlightCarouselCard course={course} key={course.meta.id} />
+                          </Carousel.Item>)
+                    })}
+                    </Carousel>
                   </div>
                 </div>
               }

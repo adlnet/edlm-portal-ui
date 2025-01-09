@@ -218,7 +218,7 @@ export default function SaveModal({ courseId, title }) {
                   className='my-2 flex flex-col w-full'
                   onSubmit={handleSubmit}
                 >
-                  <h4 className='py-2 text-lg font-medium leading-6 text-gray-900'>Create a new collections</h4>
+                  <h4 className='py-2 text-lg font-medium leading-6 text-gray-900'>Create a new collection</h4>
                   <div>
                     <label htmlFor='name'>Collections Name</label>
                     <InputField
