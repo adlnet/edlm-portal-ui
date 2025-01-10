@@ -17,10 +17,11 @@ export default function Footer({ location }) {
   ];
 
   const makeExternalLinks = (links) =>
-    links.map((link, index) => {
+    links.map((link, index) => { 
+      const i = index
       return (
         <a
-          key={index}
+          key={i}
           className='text-center text-gray-500 text-base p-1 hover:text-gray-900 h-auto hover:text-shadow-md transform transition-all duration-75 ease-in-out'
           href={link.url}
         >
