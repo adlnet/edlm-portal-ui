@@ -54,6 +54,9 @@ jobs:
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: ${{ secrets.ECR_REPO }}
+        NEXT_PUBLIC_LDSS_API: ${{ secrets.NEXT_PUBLIC_LRS_API }}
+        NEXT_PUBLIC_XAPI_LRS_KEY: ${{ secrets.NEXT_PUBLIC_XAPI_LRS_KEY }}
+        NEXT_PUBLIC_XAPI_LRS_SECRET: ${{ secrets.NEXT_PUBLIC_XAPI_LRS_SECRET }}
         IMAGE_TAG: latest
       run: |
         echo "Starting docker build"
