@@ -1,15 +1,16 @@
 // "use client";
 
-import { useRouter } from 'next/router';
-import Button from "@/components/Button";
-import { users } from "@/components/tables/WorkforceAlignmentTable";
-import DefaultLayout from "@/components/layouts/DefaultLayout";
 import { HomeIcon } from "@heroicons/react/24/solid";
-import Image from 'next/image';
-import graphImage from '@/public/pregenplot.png';
+import { axiosInstance } from "@/config/axiosConfig";
 import { backendHost, candidateList, graph, vacancies } from '@/config/endpoints';
 import { useEffect, useState } from "react";
-import { axiosInstance } from "@/config/axiosConfig";
+import { useRouter } from 'next/router';
+import { users } from "@/components/tables/WorkforceAlignmentTable";
+import Button from "@/components/Button";
+import DefaultLayout from "@/components/layouts/DefaultLayout";
+import Image from 'next/image';
+import graphImage from '@/public/pregenplot.png';
+
 // import { embed_item, embed_items } from "@bokeh/bokehjs/build/js/lib/embed";
 // import { safely } from "@bokeh/bokehjs";
 import { workRole } from '@/components/tables/WorkRoleTable';
@@ -50,11 +51,13 @@ export default function TalentFinderAlignment() {
             //     })(window);
             //   });
             setIframeURL("https://edlmportal-admin.deloitteopenlxp.com" + resp.data);
+
             // const root_id = all_json.root_id;
             // const docs_json = {"4e5c17ac-4434-4401-a4ff-03ac1eb442ed":all_json.doc};
             // const render_items = [{"docid":"4e5c17ac-4434-4401-a4ff-03ac1eb442ed","roots":{[root_id]:"testPlot"},"root_ids":[root_id]}];
             // embed_items(docs_json, render_items);
         }
+
             // embed_item(resp.data, 'testPlot')
         )
         .catch((err) => {

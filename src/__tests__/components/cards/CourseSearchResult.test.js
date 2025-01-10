@@ -3,12 +3,12 @@ import { act, fireEvent, render } from '@testing-library/react';
 import {
   useAuthenticatedUser,
   useMockConfig,
+  useMockCourseWithoutData,
   useMockCreateUserList,
+  useMockHandleCompetencyTag,
   useMockUpdateUserList,
   useMockUserOwnedListsWithoutData,
-  useUnauthenticatedUser,
-  useMockHandleCompetencyTag,
-  useMockCourseWithoutData
+  useUnauthenticatedUser
 } from '@/__mocks__/predefinedMocks';
 import CourseSearchResult from '@/components/cards/CourseSearchResult';
 import courseData from '@/__mocks__/data/course.data';

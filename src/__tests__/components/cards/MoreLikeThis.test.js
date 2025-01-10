@@ -1,12 +1,12 @@
-import { act, render, screen, fireEvent } from '@testing-library/react';
 import { QueryClientWrapper } from '@/__mocks__/queryClientMock';
-import MoreLikeThis from '@/components/cards/MoreLikeThis';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import { useAuth } from '@/contexts/AuthContext';
-import { useMoreCoursesLikeThis } from '@/hooks/useMoreCoursesLikeThis';
 import { useConfig } from '@/hooks/useConfig';
-import mockRouter from 'next-router-mock';
+import { useMoreCoursesLikeThis } from '@/hooks/useMoreCoursesLikeThis';
 import { useRouter } from 'next/router';
+import MoreLikeThis from '@/components/cards/MoreLikeThis';
 import courseData from '@/__mocks__/data/course.data';
+import mockRouter from 'next-router-mock';
 
 const mockCourse = {
   meta: courseData.meta,

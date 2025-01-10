@@ -1,7 +1,7 @@
-import { axiosInstance } from '@/config/axiosConfig';
 import { AuthContext, AuthProvider, useAuth } from '@/contexts/AuthContext';
-import { render } from '@testing-library/react';
 import { act } from 'react';
+import { axiosInstance } from '@/config/axiosConfig';
+import { render } from '@testing-library/react';
 
 jest.unmock('@/contexts/AuthContext');
 

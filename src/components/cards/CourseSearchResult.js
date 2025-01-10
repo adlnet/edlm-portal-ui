@@ -1,16 +1,16 @@
 'use strict';
+import { getDeeplyNestedData } from '@/utils/getDeeplyNestedData';
 import { removeHTML } from '@/utils/cleaning';
 import { useAuth } from '@/contexts/AuthContext';
 import { useCallback, useMemo } from 'react';
+import { useConfig } from '@/hooks/useConfig';
 import { useRouter } from 'next/router';
 import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement';
-import SaveModal from '@/components/modals/SaveModal';
-import { useConfig } from '@/hooks/useConfig';
-import { getDeeplyNestedData } from '@/utils/getDeeplyNestedData';
-import ShareButton from '@/components/buttons/ShareBtn';
-import Image from 'next/image';
-import StoreIcon from '@/public/store.svg';
 import ClockIcon from '@/public/clock.svg';
+import Image from 'next/image';
+import SaveModal from '@/components/modals/SaveModal';
+import ShareButton from '@/components/buttons/ShareBtn';
+import StoreIcon from '@/public/store.svg';
 import WindowIcon from '@/public/window.svg';
 
 //Helper function to extract competencies
@@ -21,6 +21,7 @@ function getComps(subjects){
   for (let i = 1; i < comps?.length; i++){
     //Trimming whitespace 
     comps[i] = comps[i]?.trim() || '';
+
     //Accounting for comp #4 with commas
     if (comps[i][0] !== 'C'){
       comps[i-1] = comps[i - 1] + ', ' + comps[i] + ',' + comps[i + 1];

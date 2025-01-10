@@ -13,6 +13,7 @@ const wrapper = ({ children }) => (
 
 it('should make an api call', async () => {
   mockAxios.get.mockResolvedValue({ spotlightCoursesData });
+
 //   const { result } = renderHook(() => useSpotlightCourses(), {
 //     wrapper,
 //   });

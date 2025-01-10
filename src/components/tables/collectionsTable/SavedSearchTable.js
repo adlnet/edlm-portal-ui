@@ -1,8 +1,8 @@
 'use strict'
 
+import { useSortableTable } from "../../../hooks/useSortableTable";
 import TableBody from "./SavedSearchBody";
 import TableHead from "./TableHead";
-import { useSortableTable } from "../../../hooks/useSortableTable";
 
 const SavedSearchTable = ({data, columns}) => {
 

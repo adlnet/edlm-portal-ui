@@ -6,23 +6,24 @@ import { useRouter } from 'next/router';
 import Head from 'next/head'
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
-import headerImage from '@/public/welcomeHomePhoto.png';
 import armyImage from '@/public/learnImage.jpeg'
 import armyImage1 from '@/public/listsImage.png'
 import armyImage2 from '@/public/lunchLearn.png'
+import headerImage from '@/public/welcomeHomePhoto.png';
+
 //import Button from '@/components/Button';
-import DefaultLayout from '@/components/layouts/DefaultLayout';
-import {Card, Button} from 'flowbite-react';
-import Spotlight from '@/components/cards/SpotlightCard';
+import {Button, Card} from 'flowbite-react';
 import { axiosInstance } from '@/config/axiosConfig';
 import { candidateList } from '@/config/endpoints';
 import { useInterestLists } from "@/hooks/useInterestLists";
 import { useUserOwnedLists } from "@/hooks/useUserOwnedLists";
 import Carousel from 'react-grid-carousel'
-import useSpotlightCourses from '@/hooks/useSpotlightCourses';
-import CourseSpotlightCarouselCard from '@/components/cards/CourseSpotlightCarousel';
-import CompetencyChart from '@/components/CompetencyChart';
 import CollectionTable from '@/components/tables/collectionsTable/CollectionTable';
+import CompetencyChart from '@/components/CompetencyChart';
+import CourseSpotlightCarouselCard from '@/components/cards/CourseSpotlightCarousel';
+import DefaultLayout from '@/components/layouts/DefaultLayout';
+import Spotlight from '@/components/cards/SpotlightCard';
+import useSpotlightCourses from '@/hooks/useSpotlightCourses';
 
 export default function Home() {
   const router = useRouter();

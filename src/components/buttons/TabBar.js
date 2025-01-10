@@ -1,7 +1,7 @@
 'use strict';
 
-import { Tab } from '@headlessui/react'
 import { Spinner } from "flowbite-react";
+import { Tab } from '@headlessui/react'
 import { useState } from 'react';
 
 export default function TabBar({ selectedTab, setSelectedTab, tabs, loaded }) {

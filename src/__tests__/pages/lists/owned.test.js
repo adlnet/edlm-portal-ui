@@ -4,12 +4,12 @@ import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import {
   useAuthenticatedUser,
   useMockConfig,
+  useMockUpdateUserList,
   useMockUserOwnedLists,
   useMockUserOwnedListsWith401,
   useMockUserOwnedListsWith403,
   useMockUserOwnedListsWithoutData,
   useUnauthenticatedUser,
-  useMockUpdateUserList,
 } from '@/__mocks__/predefinedMocks';
 import MockRouter from 'next-router-mock';
 import Owned from '@/pages/learner/lists/owned';

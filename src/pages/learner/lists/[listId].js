@@ -1,19 +1,19 @@
 'use strict';
 
+import { ChevronRightIcon } from '@heroicons/react/24/outline';
 import { getDeeplyNestedData } from '@/utils/getDeeplyNestedData';
+import { removeHTML } from '@/utils/cleaning';
 import { useAuth } from '@/contexts/AuthContext';
 import { useCallback, useEffect, useMemo } from 'react';
-import { useList } from '@/hooks/useList';
 import { useConfig } from '@/hooks/useConfig';
+import { useList } from '@/hooks/useList';
 import { useRouter } from 'next/router';
 import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement';
-import { removeHTML } from '@/utils/cleaning';
+import CollectionTable from '@/components/tables/collectionsTable/CollectionTable';
 import DefaultLayout from '@/components/layouts/DefaultLayout';
-import { ChevronRightIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import LockClose from '@/public/icons/lockClose.svg';
 import lockOpen from '@/public/icons/lockOpen.svg';
-import CollectionTable from '@/components/tables/collectionsTable/CollectionTable';
 
 export function getServerSideProps(context) {
   const { listId } = context.query;

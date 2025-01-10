@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import CardDropdown from '@/components/menus/CardDropdown';
 describe('CardDropdown', () => {
   const mockItems = [

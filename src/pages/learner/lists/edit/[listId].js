@@ -2,20 +2,20 @@
 
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
 import { Switch } from '@headlessui/react';
+import { getDeeplyNestedData } from '@/utils/getDeeplyNestedData';
+import { removeHTML } from '@/utils/cleaning';
 import { useAuth } from '@/contexts/AuthContext';
-import { useEffect, useState, useMemo } from 'react';
+import { useConfig } from '@/hooks/useConfig';
+import { useEffect, useMemo, useState } from 'react';
+import { useList } from '@/hooks/useList';
 import { useRouter } from 'next/router';
 import { useUpdateUserList } from '@/hooks/useUpdateUserList';
-import { useList } from '@/hooks/useList';
-import { useConfig } from '@/hooks/useConfig';
-import { removeHTML } from '@/utils/cleaning';
-import { getDeeplyNestedData } from '@/utils/getDeeplyNestedData';
+import CollectionTable from '@/components/tables/collectionsTable/CollectionTable';
 import DefaultLayout from '@/components/layouts/DefaultLayout';
-import prepareListDataToSend from '@/utils/prepListDataToSend';
 import Image from 'next/image';
 import LockClose from '@/public/icons/lockClose.svg';
 import lockOpen from '@/public/icons/lockOpen.svg';
-import CollectionTable from '@/components/tables/collectionsTable/CollectionTable';
+import prepareListDataToSend from '@/utils/prepListDataToSend';
 
 export function getServerSideProps({ query }) {
   return {
@@ -54,6 +54,7 @@ export default function EditList({ listId }) {
   useEffect(() => {
     // no user
     if (!user) router.push('/');
+
     // if there is a authorization error
     if (initialList?.isError) {
       if( initialList?.error?.response?.status === 401)

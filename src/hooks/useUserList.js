@@ -1,9 +1,9 @@
 'use strict';
 
+import { QueryClient } from 'react-query';
 import { axiosInstance } from '@/config/axiosConfig';
 import { interestLists } from '@/config/endpoints';
 import { useQuery } from 'react-query';
-import { QueryClient } from 'react-query';
 
 const getUserList = (id, setCurrentListInfo) => {
   if (!id) return null;

@@ -1,4 +1,4 @@
-import { render, fireEvent } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import StaticSideNav from '@/components/StaticSideNav';
 import mockRouter from 'next-router-mock';
 

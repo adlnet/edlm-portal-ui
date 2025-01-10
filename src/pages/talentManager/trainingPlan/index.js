@@ -1,22 +1,24 @@
 // "use client";
 
+import { Checkbox, Dropdown, Label } from "flowbite-react";
+import { HomeIcon } from "@heroicons/react/24/solid";
+import { TalentTable } from "@/components/tables/TalentTable";
+import { axiosInstance, axiosxapiInstance } from "@/config/axiosConfig";
+import { useEffect, useState } from "react";
+import { useRouter } from 'next/router';
+import { xapiUsers } from "@/config/endpoints";
+import Accordion from "@/components/Accordion";
+import Button from "@/components/Button";
+import DefaultLayout from "@/components/layouts/DefaultLayout";
 import Image from "next/image";
 import image from  "@/public/Picture1.png"
-import { Checkbox, Dropdown, Label } from "flowbite-react";
-import { useRouter } from 'next/router';
-import Button from "@/components/Button";
-import Accordion from "@/components/Accordion";
-import { TalentTable } from "@/components/tables/TalentTable";
-import DefaultLayout from "@/components/layouts/DefaultLayout";
-import { HomeIcon } from "@heroicons/react/24/solid";
-import { useEffect, useState } from "react";
-import { axiosInstance, axiosxapiInstance } from "@/config/axiosConfig";
-import { xapiUsers } from "@/config/endpoints";
 
 export default function TrainingPlan() {
     const router = useRouter();
+
     // const config = useConfig();
     const forceFilters = ["Army", "Marine Cops", "Navy", "Air Force", "Space Force", "Coast Guard" ];
+
     // const myUnitFilters = [
     //     {title:"Operations Group", keys:["Operations Support", "Operations Squadrons", "Air Control SQ"]},
     //     {title:"Maintenance Group", keys:["TBD"]},
@@ -121,8 +123,8 @@ export default function TrainingPlan() {
                     <Button children={
                         <div className="flex flex-row gap-2">  
                             <p className="pt-0.5"> Select </p>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
                             </svg>
                         </div>
                     } onClick={()=>router.push("/talentManager/trainingPlan/filters")}/>

@@ -5,8 +5,8 @@ import {
   useAuthenticatedUser,
   useUnauthenticatedUser,
 } from "@/__mocks__/predefinedMocks";
-import MockRouter from "next-router-mock";
 import LearningSummary from "@/pages/learner/learningSummary/index";
+import MockRouter from "next-router-mock";
 import singletonRouter from "next/router";
 
 jest.mock('next/dynamic', () => () => {

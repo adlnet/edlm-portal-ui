@@ -1,9 +1,9 @@
 'use strict';
 
 import { axiosInstance } from '@/config/axiosConfig';
-import { useQuery, useQueryClient } from 'react-query';
-import { spotlightCourses } from '@/config/endpoints';
 import { oneHour } from '@/config/timeConstants';
+import { spotlightCourses } from '@/config/endpoints';
+import { useQuery, useQueryClient } from 'react-query';
 
 // getter for useQuery
 const getSpotlightCourses = () => {

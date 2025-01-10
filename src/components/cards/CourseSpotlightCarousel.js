@@ -1,16 +1,16 @@
 // 'use strict';
 
+import {Button, Card} from 'flowbite-react';
 import { backendHost } from '@/config/endpoints';
+import { getDeeplyNestedData } from '@/utils/getDeeplyNestedData';
+import { removeHTML } from '@/utils/cleaning';
 import { useAuth } from '@/contexts/AuthContext';
 import { useCallback, useMemo } from 'react';
 import { useConfig } from '@/hooks/useConfig';
 import { useRouter } from 'next/router';
 import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement';
-import Link from 'next/link';
-import { getDeeplyNestedData } from '@/utils/getDeeplyNestedData';
-import { removeHTML } from '@/utils/cleaning';
 import Carousel from 'react-grid-carousel'
-import {Card, Button} from 'flowbite-react';
+import Link from 'next/link';
 
 
 
@@ -73,6 +73,7 @@ export default function CourseSpotlight({ course }) {
   );
 
   return (
+
     // <Link href={`/learner/course/${meta.metadata_key_hash || meta.id}`} passHref>
     <div>
                 <Card className="w-80 h-fit rounded-xl" >
@@ -92,6 +93,7 @@ export default function CourseSpotlight({ course }) {
                   </Button>
                 </Card>
     </div>
+
     // </Link>
   )
 }

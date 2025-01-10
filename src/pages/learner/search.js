@@ -1,19 +1,19 @@
 'use strict';
-import { useCallback, useEffect, useState } from 'react';
-import { useAuth } from '@/contexts/AuthContext';
-import { useRouter } from 'next/dist/client/router';
-import { useCourseSearch} from '@/hooks/useCourseSearch';
-import { useCompetencySearch} from '@/hooks/useCompetencySearch';
-import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement';
-import { unstable_batchedUpdates } from 'react-dom';
-import SearchCourses from '@/components/SearchCourses'; 
-import SearchCompetencies from '@/components/SearchCompetencies';
-import DefaultLayout from '@/components/layouts/DefaultLayout';
-import TabBar from '@/components/buttons/TabBar';
-import SearchBar from '@/components/inputs/SearchBar';
-import SelectList from '@/components/inputs/SelectList';
-import CreateSavedSearchModal from '@/components/modals/CreateSavedSearch';
 import { Popover } from "flowbite-react";
+import { unstable_batchedUpdates } from 'react-dom';
+import { useAuth } from '@/contexts/AuthContext';
+import { useCallback, useEffect, useState } from 'react';
+import { useCompetencySearch} from '@/hooks/useCompetencySearch';
+import { useCourseSearch} from '@/hooks/useCourseSearch';
+import { useRouter } from 'next/dist/client/router';
+import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement'; 
+import CreateSavedSearchModal from '@/components/modals/CreateSavedSearch';
+import DefaultLayout from '@/components/layouts/DefaultLayout';
+import SearchBar from '@/components/inputs/SearchBar';
+import SearchCompetencies from '@/components/SearchCompetencies';
+import SearchCourses from '@/components/SearchCourses';
+import SelectList from '@/components/inputs/SelectList';
+import TabBar from '@/components/buttons/TabBar';
 
 
 export default function Search() {
@@ -155,7 +155,7 @@ export default function Search() {
                   </div>
                   <div className="px-3 py-2">
                     <p>Search by key topics such as: </p>
-                    <ul class="list-disc list-inside"> 
+                    <ul className="list-disc list-inside"> 
                       <li> Testing </li>
                       <li> Acquisition </li>
                       <li> Artificial Intelligence </li>

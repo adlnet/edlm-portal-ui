@@ -1,5 +1,5 @@
-import Link from 'next/link';
 import Image from 'next/image';
+import Link from 'next/link';
 import image from '@/public/list1.png'
 
 export default function Spotlight({ course }) {

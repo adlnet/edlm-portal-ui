@@ -1,14 +1,14 @@
 // "use client";
 
-import { useRouter } from 'next/router';
-import Button from "@/components/Button";
-import { WorkforceAlignmentTable } from "@/components/tables/WorkforceAlignmentTable";
-import DefaultLayout from "@/components/layouts/DefaultLayout";
 import { HomeIcon } from "@heroicons/react/24/solid";
-import { workRole } from '@/components/tables/WorkRoleTable';
-import { useEffect, useState } from 'react';
+import { WorkforceAlignmentTable } from "@/components/tables/WorkforceAlignmentTable";
 import { axiosInstance } from '@/config/axiosConfig';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import { vacancies } from '@/config/endpoints';
+import { workRole } from '@/components/tables/WorkRoleTable';
+import Button from "@/components/Button";
+import DefaultLayout from "@/components/layouts/DefaultLayout";
 
 
 export default function TalentFinderAlignment() {

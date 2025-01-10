@@ -1,6 +1,6 @@
 import { QueryClientWrapper } from '@/__mocks__/queryClientMock';
-import { render } from '@testing-library/react';
 import { TalentTable } from '@/components/tables/TalentTable';
+import { render } from '@testing-library/react';
 
 const renderer = () => {
   return render(

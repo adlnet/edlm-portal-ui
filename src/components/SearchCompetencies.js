@@ -1,9 +1,9 @@
 'use strict';
 
-import { useRouter } from 'next/dist/client/router';
-import React, { useEffect, useMemo } from 'react';
-import CompetencySearchResult from './cards/CompetencySearchResults';
 import { unstable_batchedUpdates } from 'react-dom';
+import { useRouter } from 'next/dist/client/router';
+import CompetencySearchResult from './cards/CompetencySearchResults';
+import React, { useEffect, useMemo } from 'react';
 
 // Helper function that returns all parent competencies
 function findParents({Competencies}){
@@ -97,6 +97,7 @@ export default function SearchCompetencies({Competencies, params, setParams}){
         if (filteredComps?.length > 0) {
             return filteredComps;
         }
+
         // return empty list if there are params and nothing is found
         else{
             return [];

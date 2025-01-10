@@ -1,19 +1,20 @@
 // "use client";
 
-import Image from "next/image";
-import image from  "@/public/Picture1.png"
 import { Checkbox, Label } from "flowbite-react";
+import { CoursesTable } from "@/components/tables/CoursesTable";
+import { HomeIcon } from "@heroicons/react/24/solid";
 import { WorkRoleTable } from "@/components/tables/WorkRoleTable";
+import { WorkforceAlignmentTable } from "@/components/tables/WorkforceAlignmentTable";
 import { useRouter } from 'next/router';
 import Button from "@/components/Button";
-import { WorkforceAlignmentTable } from "@/components/tables/WorkforceAlignmentTable";
-import { CoursesTable } from "@/components/tables/CoursesTable";
 import DefaultLayout from "@/components/layouts/DefaultLayout";
-import { HomeIcon } from "@heroicons/react/24/solid";
+import Image from "next/image";
+import image from  "@/public/Picture1.png"
 
 
 export default function TrainingPlanSkills() {
     const router = useRouter();
+
     // const config = useConfig();
 
     return (
@@ -52,8 +53,8 @@ export default function TrainingPlanSkills() {
                     <Button children={
                         <div className="flex flex-row gap-2">  
                         <p className="pt-0.5"> Add to Plan </p>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
                         </svg>
                         </div>
                         

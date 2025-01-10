@@ -1,5 +1,5 @@
-import Image from 'next/image';
 import CalenderIcon from '@/public/icons/calenderIcon.svg';
+import Image from 'next/image';
 export default function Stepper({ steps }) {
 
   return (

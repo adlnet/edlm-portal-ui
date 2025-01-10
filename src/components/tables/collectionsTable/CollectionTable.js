@@ -1,11 +1,11 @@
 'use strict'
 
-import TableBody from "./CollectionBody";
-import TableHead from "./TableHead";
-import TableFooter from "./TableFooter";
-import { useState } from "react";
 import { useSortableTable } from "@/hooks/useSortableTable";
+import { useState } from "react";
 import { useTablePagination } from "@/hooks/useTablePagination";
+import TableBody from "./CollectionBody";
+import TableFooter from "./TableFooter";
+import TableHead from "./TableHead";
 
 const CollectionTable = ({data, columns, deleteCourse, rowsPerPage}) => {
 

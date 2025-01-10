@@ -1,6 +1,6 @@
+import { CoursesTable } from '@/components/tables/CoursesTable';
 import { QueryClientWrapper } from '@/__mocks__/queryClientMock';
 import { render } from '@testing-library/react';
-import { CoursesTable } from '@/components/tables/CoursesTable';
 
 const renderer = () => {
   return render(

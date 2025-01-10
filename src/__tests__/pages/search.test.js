@@ -3,6 +3,7 @@ import { QueryClientWrapper } from '@/__mocks__/queryClientMock';
 import { act, fireEvent, render } from '@testing-library/react';
 import {
   useAuthenticatedUser,
+  useMockCompetencySearch,
   useMockConfig,
   useMockCreateSaveSearch,
   useMockCreateUserList,
@@ -15,7 +16,6 @@ import {
   useMockUpdateUserList,
   useMockUserOwnedLists,
   useUnauthenticatedUser,
-  useMockCompetencySearch,
 } from '@/__mocks__/predefinedMocks';
 import MockRouter from 'next-router-mock';
 import Search from '@/pages/learner/search';

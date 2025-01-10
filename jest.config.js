@@ -1,50 +1,39 @@
 // jest.config.js
 
 module.exports = {
-    // dont collect coverage from tailwind.config.js
-  
-    collectCoverageFrom: [
-      '<rootDir>/src/**/*.js',
-      "!<rootDir>/src/pages/api/**/*.js",
-      "!src/store/**",
-      "!src/configurations/**"
-    ],
-    coveragePathIgnorePatterns: ['<rootDir>/src/pages/_app.js'],
-    moduleNameMapper: {
-      /* Handle CSS imports (with CSS modules)
-       https://jestjs.io/docs/webpack#mocking-css-modules */
-  
-      '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',
-  
-      // Handle CSS imports (without CSS modules)
-      '^.+\\.(css|sass|scss)$': '<rootDir>/src/__mocks__/styleMock.js',
-  
-      /* Handle image imports
-       https://jestjs.io/docs/webpack#handling-static-assets */
-  
-      '^.+\\.(jpg|jpeg|png|gif|webp|svg)$': '<rootDir>/src/__mocks__/fileMock.js',
-  
-      //imports for @ imports
-      '^@/(.*)$': '<rootDir>/src/$1',
-  
-      //for axios
-      // "axios": "axios/dist/node/axios.cjs"
-      '^axios$': require.resolve('jest-mock-axios')
-  
-    },
-  
-    testPathIgnorePatterns: [],
-    testEnvironment: 'jsdom',
-    transform: {
-      /* Use babel-jest to transpile tests with the next/babel preset
-       https://jestjs.io/docs/configuration#transform-objectstring-pathtotransformer--pathtotransformer-object */
-  
-      '^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', { presets: ['next/babel'] }],
-    },
-    transformIgnorePatterns: [
-      '/node_modules/',
-      '^.+\\.module\\.(css|sass|scss)$',
-    ],
-    setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
-  };
-  
+  // dont collect coverage from tailwind.config.js
+  // dont collect coverage from /talentManager/ pattern
+
+  collectCoverageFrom: ['<rootDir>/src/**/*.js'],
+  coveragePathIgnorePatterns: ['<rootDir>/src/pages/_app.js', '/talentManager/'],
+  moduleNameMapper: {
+    /* Handle CSS imports (with CSS modules)
+     https://jestjs.io/docs/webpack#mocking-css-modules */
+    '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',
+
+    // Handle CSS imports (without CSS modules)
+    '^.+\\.(css|sass|scss)$': '<rootDir>/src/__mocks__/styleMock.js',
+
+    '^next/image$': '<rootDir>/src/__mocks__/nextImage.js',
+
+    /* Handle image imports
+     https://jestjs.io/docs/webpack#handling-static-assets */
+    '^.+\\.(jpg|jpeg|png|gif|webp|svg)$': '<rootDir>/src/__mocks__/fileMock.js',
+
+    //imports for @ imports
+    '^@/(.*)$': '<rootDir>/src/$1',
+  },
+
+  testPathIgnorePatterns: ['/talentManager/'],
+  testEnvironment: 'jsdom',
+  transform: {
+    /* Use babel-jest to transpile tests with the next/babel preset
+     https://jestjs.io/docs/configuration#transform-objectstring-pathtotransformer--pathtotransformer-object */
+    '^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', { presets: ['next/babel'] }],
+  },
+  transformIgnorePatterns: [
+    '/node_modules/', '/talentManager/',
+    '^.+\\.module\\.(css|sass|scss)$',
+  ],
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+};

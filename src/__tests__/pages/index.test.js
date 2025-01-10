@@ -1,7 +1,7 @@
 import { QueryClientWrapper } from '@/__mocks__/queryClientMock.js';
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import { useAuth } from '@/contexts/AuthContext';
-import { useUnauthenticatedUser, useAuthenticatedUser } from '@/__mocks__/predefinedMocks';
+import { useAuthenticatedUser, useUnauthenticatedUser } from '@/__mocks__/predefinedMocks';
 import Home from '@/pages/learner/index';
 import InitialPage from '@/pages/index';
 import mockRouter from 'next-router-mock';

@@ -1,12 +1,12 @@
 import { MemoryRouterProvider } from 'next-router-mock/MemoryRouterProvider';
 import { act, fireEvent, render } from '@testing-library/react';
+import { useAuthenticatedUser, useUnauthenticatedUser } from '@/__mocks__/predefinedMocks';
 import { useConfig } from '@/hooks/useConfig';
 import CourseSpotlight from '@/components/cards/CourseSpotlight';
 import courseData from '@/__mocks__/data/course.data';
 import courseNoHashData from '@/__mocks__/data/courseNoHash.data';
 import uiConfigData from '@/__mocks__/data/uiConfig.data';
 import xAPIMapper from "@/utils/xapi/xAPIMapper";
-import { useAuthenticatedUser, useUnauthenticatedUser } from '@/__mocks__/predefinedMocks';
 
 // jest mocks
 jest.mock('next/dist/client/router', () => require('next-router-mock'));

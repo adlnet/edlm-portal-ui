@@ -1,10 +1,10 @@
-import OutdentIcon from '@/public/icons/outdentIcon.svg';
-import Image from 'next/image';
-import CardDropdown from '@/components/menus/CardDropdown';
 import { ClockIcon } from '@heroicons/react/24/outline';
-import LockClose from '@/public/icons/lockClose.svg';
-import lockOpen from '@/public/icons/lockOpen.svg';
+import CardDropdown from '@/components/menus/CardDropdown';
+import Image from 'next/image';
 import Link from 'next/link';
+import LockClose from '@/public/icons/lockClose.svg';
+import OutdentIcon from '@/public/icons/outdentIcon.svg';
+import lockOpen from '@/public/icons/lockOpen.svg';
 
 export default function CollectionCard({ title, description, itemsCount, totalTime, isPublic, menuItems = [], cardDetailLink, showPrivateToggle = false, onTogglePrivatePublic }) {
     return (
@@ -31,7 +31,7 @@ export default function CollectionCard({ title, description, itemsCount, totalTi
             <g id="outdent-outline">
             <g id="outdent">
             <path d="M11.6999 5.86664V10.1333L14.8999 7.99998L11.6999 5.86664Z" fill="#135F9B"/>
-            <path d="M14.8999 1.59998H2.0999M7.43324 5.86664H2.0999M7.43324 10.1333H2.0999M14.8999 14.4H2.0999M11.6999 5.86664V10.1333L14.8999 7.99998L11.6999 5.86664Z" stroke="#135F9B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M14.8999 1.59998H2.0999M7.43324 5.86664H2.0999M7.43324 10.1333H2.0999M14.8999 14.4H2.0999M11.6999 5.86664V10.1333L14.8999 7.99998L11.6999 5.86664Z" stroke="#135F9B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </g>
             </g>
           </svg>

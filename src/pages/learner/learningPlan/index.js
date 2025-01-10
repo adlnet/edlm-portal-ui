@@ -1,16 +1,16 @@
 'use strict';
 
-import Stepper from "@/components/Stepper";
-import DefaultLayout from "@/components/layouts/DefaultLayout";
-import CollectionCard from "@/components/cards/CollectionCard";
-import Image from "next/image";
 import { useAuth } from "@/contexts/AuthContext";
-import { useRouter } from "next/router";
 import { useEffect, useState} from "react";
 import { useInterestLists } from "@/hooks/useInterestLists";
+import { useRouter } from "next/router";
 import { useUserOwnedLists } from "@/hooks/useUserOwnedLists";
 import CheckMessageCard from "@/components/cards/CheckMessageCard";
+import CollectionCard from "@/components/cards/CollectionCard";
+import DefaultLayout from "@/components/layouts/DefaultLayout";
+import Image from "next/image";
 import ShareIcon from "@/public/icons/shareIcon.svg";
+import Stepper from "@/components/Stepper";
 
 export default function LearningPlan() {
 
@@ -108,6 +108,7 @@ export default function LearningPlan() {
 
   useEffect(() => {
     if (!user) router.push('/');
+
     // if (isError && error.response.status === 403) router.push('/403');
     // if (isError && error.response.status === 401) router.push('/401');
   }, []);

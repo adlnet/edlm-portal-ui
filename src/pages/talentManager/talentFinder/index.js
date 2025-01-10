@@ -1,24 +1,27 @@
 // "use client";
 
-import Image from "next/image";
-import image from  "@/public/Picture1.png"
 import { Checkbox, Label } from "flowbite-react";
+import { HomeIcon } from "@heroicons/react/24/solid";
 import { WorkRoleTable } from "@/components/tables/WorkRoleTable";
+import { axiosInstance } from "@/config/axiosConfig";
+import { useEffect, useState } from "react";
 import { useRouter } from 'next/router';
+import { vacancies } from "@/config/endpoints";
 import Button from "@/components/Button";
 import DefaultLayout from "@/components/layouts/DefaultLayout";
-import { HomeIcon } from "@heroicons/react/24/solid";
-import { axiosInstance } from "@/config/axiosConfig";
-import { vacancies } from "@/config/endpoints";
-import { useEffect, useState } from "react";
+import Image from "next/image";
+import image from  "@/public/Picture1.png"
+
 // import {Link, useNavigate} from 'react-router-dom';
 // import Link from 'next/link';
 
 
 export default function TalentFinder() {
     const router = useRouter();
+
     // const config = useConfig();
     const [data, setData] = useState(null);
+
     // const history = useRouter();
 
     useEffect(() => {
@@ -76,13 +79,14 @@ export default function TalentFinder() {
                     <Button children={
                         <div className="flex flex-row gap-2">  
                         <p className="pt-0.5"> Select </p>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
                         </svg>g
                         </div>
                         
                     } onClick={()=>
                         router.push("/talentManager/talentFinder/filters")
+
                         // history.push({
                         //     pathname: '/talentFinder/filters',
                         //     pageProps: data,

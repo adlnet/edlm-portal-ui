@@ -1,7 +1,7 @@
 'use strict';
 
-import React from 'react'
 import { Accordion } from 'flowbite-react';
+import React from 'react'
 
 export default function CompetencySearchResult({ result }) {
 

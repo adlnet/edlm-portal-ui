@@ -1,18 +1,18 @@
+import { axiosInstance } from '@/config/axiosConfig';
+import { candidateList } from '@/config/endpoints';
 import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/router';
+import Button from '@/components/Button';
+import Card from '@/components/Card';
+import DefaultLayout from '@/components/layouts/DefaultLayout';
 import Head from 'next/head'
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
-import headerImage from '@/public/Abstact1.png';
+import Spotlight from '@/components/cards/SpotlightCard';
 import armyImage from '@/public/Army.png'
 import armyImage1 from '@/public/Army1.jpg'
 import armyImage2 from '@/public/Army2.jpg'
-import Button from '@/components/Button';
-import DefaultLayout from '@/components/layouts/DefaultLayout';
-import Card from '@/components/Card';
-import Spotlight from '@/components/cards/SpotlightCard';
-import { axiosInstance } from '@/config/axiosConfig';
-import { candidateList } from '@/config/endpoints';
+import headerImage from '@/public/Abstact1.png';
 
 export default function Home() {
   const router = useRouter();
@@ -56,8 +56,8 @@ export default function Home() {
               <div className='pt-12'>
                 <Button onClick={()=>{router.push("/talentManager/talentFinder")}} children={
                   <div className='flex flex-row gap-2 w-full'> <p className='pt-0.5'>Learn More</p>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
                     </svg>
                   </div>
                 }/>

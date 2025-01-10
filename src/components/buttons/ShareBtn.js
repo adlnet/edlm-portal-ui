@@ -1,11 +1,11 @@
 'use strict';
 
-import { ShareIcon, DocumentDuplicateIcon } from '@heroicons/react/24/outline';
-import { useState, Fragment } from 'react';
+import { Dialog, Transition } from '@headlessui/react';
+import { DocumentDuplicateIcon, ShareIcon } from '@heroicons/react/24/outline';
+import { Fragment, useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useCallback } from 'react';
 import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement';
-import { Dialog, Transition } from '@headlessui/react';
 
 
 export default function ShareButton({ id, courseTitle, courseDescription }) {

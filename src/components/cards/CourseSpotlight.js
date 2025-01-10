@@ -1,14 +1,14 @@
 // 'use strict';
 
 import { backendHost } from '@/config/endpoints';
+import { getDeeplyNestedData } from '@/utils/getDeeplyNestedData';
+import { removeHTML } from '@/utils/cleaning';
 import { useAuth } from '@/contexts/AuthContext';
 import { useCallback, useMemo } from 'react';
 import { useConfig } from '@/hooks/useConfig';
 import { useRouter } from 'next/router';
 import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement';
 import Link from 'next/link';
-import { getDeeplyNestedData } from '@/utils/getDeeplyNestedData';
-import { removeHTML } from '@/utils/cleaning';
 
 export default function CourseSpotlight({ course }) {
   const { Course, meta, Technical_Information, Course_Instance } = {

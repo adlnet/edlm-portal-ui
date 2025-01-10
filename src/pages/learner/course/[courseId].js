@@ -1,28 +1,29 @@
 'use strict';
 
-import { ClockIcon, 
-         UserIcon, 
-        BuildingStorefrontIcon, 
+import { AcademicCapIcon, 
+         BuildingStorefrontIcon, 
         CalendarIcon, 
+        ChevronRightIcon, 
+        ClockIcon, 
         ComputerDesktopIcon, 
-        AcademicCapIcon, 
-        InformationCircleIcon, 
         CurrencyDollarIcon, 
+        InformationCircleIcon, 
         Square3Stack3DIcon,
-        ChevronRightIcon } from '@heroicons/react/24/solid';
+        UserIcon } from '@heroicons/react/24/solid';
 import { getDeeplyNestedData } from '@/utils/getDeeplyNestedData';
 import { removeHTML } from '@/utils/cleaning';
 import { useAuth } from '@/contexts/AuthContext';
+import { useCallback, useMemo } from 'react';
 import { useConfig } from '@/hooks/useConfig';
 import { useCourse } from '@/hooks/useCourse';
-import { useMemo, useCallback } from 'react';
 import { useMoreCoursesLikeThis } from '@/hooks/useMoreCoursesLikeThis';
 import { useRouter } from 'next/router';
 import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement';
-import SaveModal from '@/components/modals/SaveModal';
 import CourseSpotlight from '@/components/cards/CourseSpotlight';
-import ShareButton from '@/components/buttons/ShareBtn';
 import DefaultLayout from '@/components/layouts/DefaultLayout';
+import SaveModal from '@/components/modals/SaveModal';
+import ShareButton from '@/components/buttons/ShareBtn';
+
 //import FlowbiteAccordion from '@/components/fAccordion';
 
 function RelatedCourses({ id }) {
@@ -51,6 +52,7 @@ function getComps(subjects){
   for (let i = 1; i < comps?.length; i++){
     //Trimming whitespace 
     comps[i] = comps[i]?.trim();
+
     //Accounting for comp #4 with commas
     if (comps[i][0] !== 'C'){
       comps[i-1] = comps[i - 1] + ', ' + comps[i] + ',' + comps[i + 1];

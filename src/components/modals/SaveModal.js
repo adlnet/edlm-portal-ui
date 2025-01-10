@@ -81,6 +81,7 @@ export default function SaveModal({ courseId, title }) {
       setFields({ name: '', description: '' });
       create(
         { form: fields },
+
         // {
         //   onSuccess: (data) => {
         //     // note: It assumed that the user is present if the button is available.

@@ -1,11 +1,11 @@
 'use strict';
 
-import DefaultLayout from "@/components/layouts/DefaultLayout";
-import { useEffect } from "react";
 import { useAuth } from '@/contexts/AuthContext';
+import { useEffect } from "react";
 import { useRouter } from 'next/router' ;
-import CompetencyChart from "@/components/CompetencyChart";
 import CollectionTable from "@/components/tables/collectionsTable/CollectionTable";
+import CompetencyChart from "@/components/CompetencyChart";
+import DefaultLayout from "@/components/layouts/DefaultLayout";
 import ProgressCard from "@/components/cards/ProgressCard";
 
 // Mock data for development
@@ -96,6 +96,7 @@ export default function LearningSummary() {
   ]
   useEffect(() => {
     if (!user) router.push('/');
+
     // if (isError && error.response.status === 403) router.push('/403');
     // if (isError && error.response.status === 401) router.push('/401');
   }, []);

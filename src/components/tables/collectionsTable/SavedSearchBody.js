@@ -1,9 +1,9 @@
 'use strict'
 
-import Link from 'next/link';
 import { TrashIcon } from '@heroicons/react/24/outline';
 import { useAuth } from '@/contexts/AuthContext';
 import { useDeleteSavedSearch } from '@/hooks/useDeleteSavedSearch';
+import Link from 'next/link';
 
 const TableBody = ({ tableData, columns}) => {
     
@@ -14,6 +14,7 @@ const TableBody = ({ tableData, columns}) => {
      <tbody className=''>
       {tableData.map((data, index) => {
        return (
+
         // Creating all rows for the data
         <tr key={data.id} 
             className={`${

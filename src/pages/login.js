@@ -4,13 +4,13 @@ import { ArrowLeftEndOnRectangleIcon } from '@heroicons/react/24/outline';
 import { authLogin } from '@/config/endpoints';
 import { axiosInstance } from '@/config/axiosConfig';
 import { useAuth } from '@/contexts/AuthContext';
+import { useConfig } from '@/hooks/useConfig';
 import { useRouter } from 'next/router';
 import DefaultLayout from '@/components/layouts/DefaultLayout';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import logo from '@/public/doteLogo.png';
-import { useConfig } from '@/hooks/useConfig';
 
 export default function Login() {
   const router = useRouter();

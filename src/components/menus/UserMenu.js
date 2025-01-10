@@ -2,13 +2,13 @@
 
 import {
   ArchiveBoxIcon,
-  Squares2X2Icon,
-  FolderIcon,
-  Bars3Icon,
-  UserIcon,
-  ChevronUpIcon,
   ArrowRightOnRectangleIcon,
+  Bars3Icon,
+  ChevronUpIcon,
+  FolderIcon,
   MagnifyingGlassIcon,
+  Squares2X2Icon,
+  UserIcon,
 } from '@heroicons/react/24/outline';
 
 import { Fragment } from 'react';

@@ -3,18 +3,18 @@
 import { BookOpenIcon, UsersIcon } from '@heroicons/react/24/solid';
 import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 import { useSubscribedLists } from '@/hooks/useSubscribedLists';
 import { useUnsubscribeFromList } from '@/hooks/useUnsubscribeFromList';
-import DefaultLayout from '@/components/layouts/DefaultLayout';
-import Link from 'next/link';
-import Image from 'next/image';
-import React, { useEffect } from 'react';
-import CollectionsLayout from '@/components/layouts/CollectionsLayout';
-import ShareIcon from '@/public/icons/shareIcon.svg';
-import MinusIcon from '@/public/icons/minusIcon.svg';
-import CollectionCard from '@/components/cards/CollectionCard';
-import { useState } from 'react';
 import CheckMessageCard from '@/components/cards/CheckMessageCard';
+import CollectionCard from '@/components/cards/CollectionCard';
+import CollectionsLayout from '@/components/layouts/CollectionsLayout';
+import DefaultLayout from '@/components/layouts/DefaultLayout';
+import Image from 'next/image';
+import Link from 'next/link';
+import MinusIcon from '@/public/icons/minusIcon.svg';
+import React, { useEffect } from 'react';
+import ShareIcon from '@/public/icons/shareIcon.svg';
 
 export default function Subscribed() {
   const { user } = useAuth();

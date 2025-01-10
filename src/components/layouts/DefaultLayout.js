@@ -1,7 +1,7 @@
 // import { useConfig } from '../../hooks/useConfig';
+import Footer from '../Footer';
 import Header from '../Header';
 import StaticSideNav from '../StaticSideNav';
-import Footer from '../Footer';
 
 export default function DefaultLayout({ children, footerLocation }) {
   // useConfig();

@@ -1,14 +1,14 @@
-import { useState } from "react";
-import Image from 'next/image';
 import { useRouter } from 'next/router';
-import HomeIcon from '@/public/icons/homeIcon.svg';
-import SearchIcon from '@/public/icons/searchIcon.svg';
+import { useState } from "react";
+import BookIcon from '@/public/icons/bookIcon.svg';
+import ChevronDownIcon from '@/public/icons/chevronDownIcon.svg';
 import ClipboardCheckIcon from '@/public/icons/clipboardCheckIcon.svg';
 import FileBarIcon from '@/public/icons/fileBarIcon.svg';
-import OutdentIcon from '@/public/icons/outdentIcon.svg';
-import BookIcon from '@/public/icons/bookIcon.svg';
+import HomeIcon from '@/public/icons/homeIcon.svg';
+import Image from 'next/image';
 import LifeBuoyIcon from '@/public/icons/lifeBuoyIcon.svg';
-import ChevronDownIcon from '@/public/icons/chevronDownIcon.svg';
+import OutdentIcon from '@/public/icons/outdentIcon.svg';
+import SearchIcon from '@/public/icons/searchIcon.svg';
 
 export default function StaticSideNav() {
 

@@ -1,5 +1,5 @@
 import { QueryClientWrapper } from '@/__mocks__/queryClientMock';
-import { fireEvent, render, act} from '@testing-library/react';
+import { act, fireEvent, render} from '@testing-library/react';
 import CollectionTable from '@/components/tables/collectionsTable/CollectionTable';
 import collectionsColumnsData from '@/__mocks__/data/collectionsColumns.data';
 import collectionsTableData from '@/__mocks__/data/collectionsTable.data';

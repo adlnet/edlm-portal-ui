@@ -1,7 +1,9 @@
 // import jest from 'jest';
 import { useAuth } from '@/contexts/AuthContext';
+import { useCompetencySearch } from '@/hooks/useCompetencySearch';
 import { useConfig } from '@/hooks/useConfig';
 import { useCourse } from '@/hooks/useCourse';
+import { useCourseSearch } from '@/hooks/useCourseSearch';
 import { useCreateSaveSearch } from '@/hooks/useCreateSaveSearch';
 import { useCreateUserList } from '@/hooks/useCreateUserList';
 import { useDeleteSavedSearch } from '@/hooks/useDeleteSavedSearch';
@@ -9,7 +11,6 @@ import { useInterestLists } from '@/hooks/useInterestLists';
 import { useList } from '@/hooks/useList';
 import { useMoreCoursesLikeThis } from '@/hooks/useMoreCoursesLikeThis';
 import { useSaveSearchList } from '@/hooks/useSaveSearch';
-import { useCourseSearch } from '@/hooks/useCourseSearch';
 import { useSearchUrl } from '@/hooks/useSearchUrl';
 import { useSubscribeToList } from '@/hooks/useSubscribeToList';
 import { useSubscribedLists } from '@/hooks/useSubscribedLists';
@@ -17,7 +18,6 @@ import { useUnsubscribeFromList } from '@/hooks/useUnsubscribeFromList';
 import { useUpdateUserList } from '@/hooks/useUpdateUserList';
 import { useUserList } from '@/hooks/useUserList';
 import { useUserOwnedLists } from '@/hooks/useUserOwnedLists';
-import { useCompetencySearch } from '@/hooks/useCompetencySearch';
 
 /**
  *
