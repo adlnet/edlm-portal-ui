@@ -9,10 +9,6 @@ import { useCallback, useMemo } from 'react';
 import { useConfig } from '@/hooks/useConfig';
 import { useRouter } from 'next/router';
 import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement';
-import Carousel from 'react-grid-carousel'
-import Link from 'next/link';
-
-
 
 export default function CourseSpotlight({ course }) {
   const { Course, meta, Technical_Information, Course_Instance } = {
@@ -22,22 +18,8 @@ export default function CourseSpotlight({ course }) {
   const router = useRouter();
   const { user } = useAuth();
 
-  const thumbnail = useMemo(() => {
-    return (
-      Course_Instance?.Thumbnail ||
-      Technical_Information?.Thumbnail ||
-      (config?.data?.course_img_fallback &&
-        `${backendHost}${config?.data.course_img_fallback}`) ||
-      null
-    );
-  }, [Course_Instance, Technical_Information, config]);
-
   const title = useMemo(() => {
     return (getDeeplyNestedData(config.data?.course_information?.course_title, course));
-  }, [config.isSuccess, config.data]);
-
-  const provider = useMemo(() => {
-    return (getDeeplyNestedData(config.data?.course_information?.course_provider, course));
   }, [config.isSuccess, config.data]);
 
   const description = useMemo(() => {
@@ -73,27 +55,21 @@ export default function CourseSpotlight({ course }) {
   );
 
   return (
-
-    // <Link href={`/learner/course/${meta.metadata_key_hash || meta.id}`} passHref>
     <div>
-                <Card className="w-80 h-fit rounded-xl" >
-                  {/* <Image src={armyImage}  alt='' className=' object-fill h-50 w-150'/> */}
-                  <div className=''>
-                    <h5 className="text-2xl font-bold justify-left tracking-tight text-gray-900 dark:text-white">
-                      {title || Course?.CourseTitle}
-                    </h5>
-                  </div>
-                  <p className="font-normal text-sm text-gray-600 dark:text-gray-400">
-                      {description?.length > 250 ?
-                          `${description?.substring(0, 250)}...` : description}
-                      {/* {description } */}
-                  </p>
-                  <Button onClick={handleClick} className="flex ml-32 justify-center bg-blue-900 hover:bg-blue-600">
-                      View more
-                  </Button>
-                </Card>
+      <Card className="w-80 h-80 rounded-xl" >
+        <div className=''>
+          <h5 className="text-l font-bold justify-left tracking-tight text-gray-900 dark:text-white">
+            {title || Course?.CourseTitle}
+          </h5>
+        </div>
+        <p className="font-normal text-sm text-gray-600 dark:text-gray-400">
+            {description?.length > 175 ?
+                `${description?.substring(0, 250)}...` : description}
+        </p>
+        <Button onClick={handleClick} className="flex ml-32 justify-center bg-blue-900 hover:bg-blue-600">
+            View more
+        </Button>
+      </Card>
     </div>
-
-    // </Link>
   )
 }

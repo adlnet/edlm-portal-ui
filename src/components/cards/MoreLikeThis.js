@@ -1,7 +1,6 @@
 'use strict';
 
 import { getDeeplyNestedData } from '@/utils/getDeeplyNestedData';
-import { removeHTML } from '@/utils/cleaning';
 import { useAuth } from '../../contexts/AuthContext';
 import { useCallback, useMemo } from 'react';
 import { useConfig } from '@/hooks/useConfig';
@@ -13,13 +12,12 @@ import Link from 'next/link';
 
 export default function MoreLikeThis({ course }) {
   const { data, isLoading } = useMoreCoursesLikeThis(course?.meta.id);
-  const { Course, meta, Technical_Information, Course_Instance } = {
+  const { Course, meta } = {
     ...course,
   };
 
   const router = useRouter();
 
-  
   const { user } = useAuth();
   const config = useConfig();
 

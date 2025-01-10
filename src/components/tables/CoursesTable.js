@@ -1,9 +1,5 @@
 import { Checkbox, Label } from "flowbite-react";
-import { axiosInstance } from "@/config/axiosConfig";
-import { courseData } from "@/config/endpoints";
-import { useEffect, useState } from "react";
 import Link from 'next/link';
-import axios from "axios";
 
 //NOTE ** DOTE commented out code to increasing coverage 
 
@@ -14,19 +10,19 @@ export function CoursesTable() {
     const tempData = [
         // {courseName: 'Managing Network Security', competenciesAllignedTo: ["Knowledge of Payment Card Industry (PCI) data security standards.", "Knowledge of Personally Identifiable Information (PII) data security standards.", "Knowledge of Personal Health Information (PHI) data security standards."], 
         //     competencyAlignment: "100%", aligmentPercent: "100%", instance: "Spring 2024", startEnd: "08 March 2024 - 03 May 2024", availableSeats: "50", location: "Richmond, Virginia"},
-        {courseName: 'Managing Network Security', competenciesAllignedTo: ["Knowledge of the operations and processes for incident, problem, and event management.", "Knowledge of procedures used for documenting and querying reported incidents, problems, and events.", "Skill to design incident response for cloud service models.", "Ability to accurately define incidents, problems, and events in the trouble ticketing system."], 
+        {id:1, courseName: 'Managing Network Security', competenciesAllignedTo: ["Knowledge of the operations and processes for incident, problem, and event management.", "Knowledge of procedures used for documenting and querying reported incidents, problems, and events.", "Skill to design incident response for cloud service models.", "Ability to accurately define incidents, problems, and events in the trouble ticketing system."], 
             competencyAlignment: "100%", aligmentPercent: "100%", instance: "Fall 2020", startEnd: "Sept 16, 2020 to Nov 20, 2020", availableSeats: "50", location: "Richmond, Virginia"},
-        {courseName: 'Penetration Testing, Incident Response and Forensics', competenciesAllignedTo: ["Knowledge of how information needs and collection requirements are translated, tracked, and prioritized across the extended enterprise.[K0120]", "Skill to translate, track, and prioritize information needs and intelligence collection requirements across the extended enterprise. [S0372]"], 
+        {id:2, courseName: 'Penetration Testing, Incident Response and Forensics', competenciesAllignedTo: ["Knowledge of how information needs and collection requirements are translated, tracked, and prioritized across the extended enterprise.[K0120]", "Skill to translate, track, and prioritize information needs and intelligence collection requirements across the extended enterprise. [S0372]"], 
             competencyAlignment: "100%", aligmentPercent: "100%", instance: "Fall 2021", startEnd: "Sept 18, 2021 to Nov 22, 2021", availableSeats: "50", location: "Richmond, Virginia"},
-        {courseName: 'Tools of the Trade: Linux and SQL', competenciesAllignedTo: ["Knowledge of server administration and systems engineering theories, concepts, and methods.", "Knowledge of system software and organizational design standards, policies, and authorized  approaches relating to system design.", "Knowledge of system life cycle management principles, including software security and usability.", "Knowledge of technology integration processes."], 
+        {id:3, courseName: 'Tools of the Trade: Linux and SQL', competenciesAllignedTo: ["Knowledge of server administration and systems engineering theories, concepts, and methods.", "Knowledge of system software and organizational design standards, policies, and authorized  approaches relating to system design.", "Knowledge of system life cycle management principles, including software security and usability.", "Knowledge of technology integration processes."], 
             competencyAlignment: "100%", aligmentPercent: "100%", instance: "Spring 2021", startEnd: "Jan 4, 2021 to March 27, 2021", availableSeats: "50", location: "Richmond, Virginia"},
-        {courseName: 'Assets, Threats, and Vulnerabilities', competenciesAllignedTo: ["Knowledge of how information needs and collection requirements are translated, tracked, and prioritized across the extended enterprise.[K0120]", "Skill to translate, track, and prioritize information needs and intelligence collection requirements across the extended enterprise. [S0372]"], 
+        {id:4, courseName: 'Assets, Threats, and Vulnerabilities', competenciesAllignedTo: ["Knowledge of how information needs and collection requirements are translated, tracked, and prioritized across the extended enterprise.[K0120]", "Skill to translate, track, and prioritize information needs and intelligence collection requirements across the extended enterprise. [S0372]"], 
             competencyAlignment: "100%", aligmentPercent: "100%", instance: "", startEnd: "Jan 6, 2022 to March 27, 2022", availableSeats: "50", location: "Richmond, Virginia"},
-        {courseName: 'Put It to Work: Prepare for Cybersecurity Jobs', competenciesAllignedTo: ["Knowledge of server administration and systems engineering theories, concepts, and methods.", "Knowledge of system software and organizational design standards, policies, and authorized  approaches relating to system design.", "Knowledge of system life cycle management principles, including software security and usability.", "Knowledge of technology integration processes."], 
+        {id:5, courseName: 'Put It to Work: Prepare for Cybersecurity Jobs', competenciesAllignedTo: ["Knowledge of server administration and systems engineering theories, concepts, and methods.", "Knowledge of system software and organizational design standards, policies, and authorized  approaches relating to system design.", "Knowledge of system life cycle management principles, including software security and usability.", "Knowledge of technology integration processes."], 
             competencyAlignment: "100%", aligmentPercent: "100%", instance: "", startEnd: "Jan 5, 2020 to March 28, 2020", availableSeats: "50", location: "Richmond, Virginia"},
-        {courseName: 'Road to the CISO – Culminating Project Course', competenciesAllignedTo: ["Knowledge of the operations and processes for incident, problem, and event management.", "Knowledge of procedures used for documenting and querying reported incidents, problems, and events.", "Skill to design incident response for cloud service models.", "Ability to accurately define incidents, problems, and events in the trouble ticketing system."], 
+        {id:6, courseName: 'Road to the CISO – Culminating Project Course', competenciesAllignedTo: ["Knowledge of the operations and processes for incident, problem, and event management.", "Knowledge of procedures used for documenting and querying reported incidents, problems, and events.", "Skill to design incident response for cloud service models.", "Ability to accurately define incidents, problems, and events in the trouble ticketing system."], 
             competencyAlignment: "100%", aligmentPercent: "100%", instance: "Fall 2021", startEnd: "Sept 18, 2021 to Nov 22, 2021", availableSeats: "50", location: "Richmond, Virginia"},
-        {courseName: 'Cyber Threat Intelligence', competenciesAllignedTo: ["Knowledge of the operations and processes for incident, problem, and event management.", "Knowledge of procedures used for documenting and querying reported incidents, problems, and events.", "Skill to design incident response for cloud service models.", "Ability to accurately define incidents, problems, and events in the trouble ticketing system."], 
+        {id:7, courseName: 'Cyber Threat Intelligence', competenciesAllignedTo: ["Knowledge of the operations and processes for incident, problem, and event management.", "Knowledge of procedures used for documenting and querying reported incidents, problems, and events.", "Skill to design incident response for cloud service models.", "Ability to accurately define incidents, problems, and events in the trouble ticketing system."], 
             competencyAlignment: "100%", aligmentPercent: "100%", instance: "Spring 2020", startEnd: "Jan 5, 2020 to March 28, 2020", availableSeats: "50", location: "Richmond, Virginia"},
     
     // {courseName: '', competenciesAllignedTo: [""], 
@@ -165,7 +161,7 @@ export function CoursesTable() {
                         {/* {data?.hits.map((data) => { */}
                         {tempData.map((data) => {
                             return (
-                                <tr className=" border-b dark:border-gray-700">
+                                <tr key={data.id} className=" border-b dark:border-gray-700">
                                     <div className="flex h-full items-center align-center justify-center gap-2 ml-6 py-3 h-64 ">
                                         {/* <Checkbox id={data.Course.CourseTitle} />
                                         <Label htmlFor={data.Course.CourseTitle}></Label> */}

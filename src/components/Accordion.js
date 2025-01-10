@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 const Accordion = ({ acctitle, accdescription }) => {
     const [accordionOpen, setAccordionOpen] = useState(false);

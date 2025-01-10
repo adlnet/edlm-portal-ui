@@ -25,7 +25,7 @@ function getComps(subjects){
     //Accounting for comp #4 with commas
     if (comps[i][0] !== 'C'){
       comps[i-1] = comps[i - 1] + ', ' + comps[i] + ',' + comps[i + 1];
-      let removed = comps.splice(i, i+1);
+      comps.splice(i, i+1);
       i--;
     }
     comps[i] = comps[i].replace('4A', '')
@@ -50,8 +50,6 @@ function getComps(subjects){
   
   return comps
 }
-
-// const  competencies = ['aaa', 'bbb', 'ccc', 'ddd', 'eee', 'fff', 'ggg', 'hhh', 'iii']
 
 export default function SearchResult({ result, handleCompetencyTag}) {
   const { user } = useAuth();
@@ -145,7 +143,7 @@ export default function SearchResult({ result, handleCompetencyTag}) {
           </div>
           { competencies.map((comp) =>{
             return (
-              <div className="w-auto h-7 px-[15px] py-1.5 bg-[#e5efff] rounded-xl justify-center items-center gap-2 flex">
+              <div key={comp} className="w-auto h-7 px-[15px] py-1.5 bg-[#e5efff] rounded-xl justify-center items-center gap-2 flex">
                 <div className="text-center text-[#3892f3] text-sm font-normal font-['Roboto'] leading-tight whitespace-nowrap">
                   <button
                     className=''

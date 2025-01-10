@@ -1,9 +1,7 @@
-import { ClockIcon } from '@heroicons/react/24/outline';
 import CardDropdown from '@/components/menus/CardDropdown';
 import Image from 'next/image';
 import Link from 'next/link';
 import LockClose from '@/public/icons/lockClose.svg';
-import OutdentIcon from '@/public/icons/outdentIcon.svg';
 import lockOpen from '@/public/icons/lockOpen.svg';
 
 export default function CollectionCard({ title, description, itemsCount, totalTime, isPublic, menuItems = [], cardDetailLink, showPrivateToggle = false, onTogglePrivatePublic }) {
@@ -37,10 +35,6 @@ export default function CollectionCard({ title, description, itemsCount, totalTi
           </svg>
             <span className='text-gray-500 text-nowrap'>{itemsCount} items</span>
           </div>
-          {/* <div className='flex items-center space-x-1'>
-            <ClockIcon alt='Clock Icon' className='w-5 h-5 text-[#135F9B]' />
-            <span className='text-gray-500 text-nowrap'>{totalTime > 1 ? `${totalTime} hours` : `${totalTime} hour`}</span>
-          </div> */}
           <div className='flex items-center space-x-1'>
             <Image src={isPublic ? lockOpen : LockClose} alt='Lock Icon' className='w-4 h-4' />
             <span className='text-gray-500 text-nowrap'>{isPublic ? 'Public' : 'Private'}</span>

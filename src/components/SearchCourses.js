@@ -105,11 +105,9 @@ export default function SearchCourses( { params, setParams, handleCompetencyTag 
                       >
                   {spotlight && spotlight.data?.map((course) => {
                       return(
-                        <div key={course.meta.id}>
-                          <Carousel.Item>
+                          <Carousel.Item key={course.meta.id}>
                             <CourseSpotlightCarouselCard course={course} key={course.meta.id} />
                           </Carousel.Item>
-                        </div>
                       )
                     })}
                     </Carousel>
