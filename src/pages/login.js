@@ -16,7 +16,7 @@ export default function Login() {
   const config = useConfig();
   const [credentials, setCredentials] = useState({
     username: '',
-    password: '*',
+    password: null,
   });
 
   useEffect(() => {
@@ -34,7 +34,7 @@ export default function Login() {
 
   const handleLogin = (event) => {
     event.preventDefault();
-    if (credentials.username === '' || credentials.password === '*') {
+    if (credentials.username === '' || credentials.password === null) {
       setErrorMsg('All fields required');
     }
     axiosInstance

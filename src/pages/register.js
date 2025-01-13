@@ -46,7 +46,7 @@ import {
   };
   
   function validatePassword (password, setPasswordError, setError) {
-    if (password === '*' || password === '') {
+    if (password === null || password === '') {
       return unstable_batchedUpdates(() => {
         setPasswordError(true);
         setError('Password is required');
@@ -102,7 +102,7 @@ import {
   };
   
   function validateConfPassword (confPassword, password, setConfPasswordError, setError) {
-    if (confPassword === '*' || confPassword === '') {
+    if (confPassword === null || confPassword === '') {
       return unstable_batchedUpdates(() => {
         setConfPasswordError(true);
         setError('Confirmation password is required');
@@ -142,8 +142,8 @@ import {
     const config = useConfig();
     const [credentials, setCredentials] = useState({
       email: '',
-      password: '*',
-      confirmationPassword: '*',
+      password: null,
+      confirmationPassword: null,
       first_name: '',
       last_name: '',
     });
