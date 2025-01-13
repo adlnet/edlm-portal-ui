@@ -209,7 +209,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-
+ 
         <div className='mt-10 pb-10 bg-white h-100 shadow-md rounded-lg '>
           <div className='flex flex-col'>
               <p className='text-xl font-semibold h-6 pt-4 pl-4'>Spotlight Courses</p>
