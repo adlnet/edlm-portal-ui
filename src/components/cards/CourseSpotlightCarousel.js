@@ -64,7 +64,7 @@ export default function CourseSpotlight({ course }) {
         </div>
         <p className="font-normal text-sm text-gray-600 dark:text-gray-400">
             {description?.length > 175 ?
-                `${description?.substring(0, 250)}...` : description}
+                `${description?.substring(0, 175)}...` : description}
         </p>
         <Button onClick={handleClick} className="flex ml-32 justify-center bg-blue-900 hover:bg-blue-600">
             View more

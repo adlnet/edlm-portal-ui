@@ -20,7 +20,6 @@ import {
   import { useConfig } from '@/hooks/useConfig';
   import { useEffect, useState } from 'react';
   import { useRouter } from 'next/router';
-  import DefaultLayout from '@/components/layouts/DefaultLayout';
   import Image from 'next/image';
   import Link from 'next/link';
   import logo from '@/public/doteLogo.png';
@@ -47,7 +46,7 @@ import {
   };
   
   function validatePassword (password, setPasswordError, setError) {
-    if (password === '') {
+    if (password === '*' || password === '') {
       return unstable_batchedUpdates(() => {
         setPasswordError(true);
         setError('Password is required');
@@ -103,7 +102,7 @@ import {
   };
   
   function validateConfPassword (confPassword, password, setConfPasswordError, setError) {
-    if (confPassword === '') {
+    if (confPassword === '*' || confPassword === '') {
       return unstable_batchedUpdates(() => {
         setConfPasswordError(true);
         setError('Confirmation password is required');
@@ -143,8 +142,8 @@ import {
     const config = useConfig();
     const [credentials, setCredentials] = useState({
       email: '',
-      password: '',
-      confirmationPassword: '',
+      password: '*',
+      confirmationPassword: '*',
       first_name: '',
       last_name: '',
     });
