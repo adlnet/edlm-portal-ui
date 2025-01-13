@@ -95,8 +95,8 @@ export default function StaticSideNav() {
                 </div>
 
                 <div className="self-stretch h-20 px-3 flex-col justify-start items-start gap-2 inline-flex cursor-pointer">
-                    {renderNavBtn('additional', null, BookIcon, 'Additional Resources', true)}
-                    {renderNavBtn('help', null, LifeBuoyIcon, 'Help', true)}
+                    {renderNavBtn('additional', null, BookIcon, 'Additional Resources')}
+                    {renderNavBtn('help', null, LifeBuoyIcon, 'Help')}
                 </div>
             </div>
         </div>
