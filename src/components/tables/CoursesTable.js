@@ -4,12 +4,8 @@ import Link from 'next/link';
 //NOTE ** DOTE commented out code to increasing coverage 
 
 export function CoursesTable() {
-    //const [data, setData] = useState(null);
-    //const [compData, setCompData] = useState([]);
 
     const tempData = [
-        // {courseName: 'Managing Network Security', competenciesAllignedTo: ["Knowledge of Payment Card Industry (PCI) data security standards.", "Knowledge of Personally Identifiable Information (PII) data security standards.", "Knowledge of Personal Health Information (PHI) data security standards."], 
-        //     competencyAlignment: "100%", aligmentPercent: "100%", instance: "Spring 2024", startEnd: "08 March 2024 - 03 May 2024", availableSeats: "50", location: "Richmond, Virginia"},
         {id:1, courseName: 'Managing Network Security', competenciesAllignedTo: ["Knowledge of the operations and processes for incident, problem, and event management.", "Knowledge of procedures used for documenting and querying reported incidents, problems, and events.", "Skill to design incident response for cloud service models.", "Ability to accurately define incidents, problems, and events in the trouble ticketing system."], 
             competencyAlignment: "100%", aligmentPercent: "100%", instance: "Fall 2020", startEnd: "Sept 16, 2020 to Nov 20, 2020", availableSeats: "50", location: "Richmond, Virginia"},
         {id:2, courseName: 'Penetration Testing, Incident Response and Forensics', competenciesAllignedTo: ["Knowledge of how information needs and collection requirements are translated, tracked, and prioritized across the extended enterprise.[K0120]", "Skill to translate, track, and prioritize information needs and intelligence collection requirements across the extended enterprise. [S0372]"], 
@@ -24,43 +20,8 @@ export function CoursesTable() {
             competencyAlignment: "100%", aligmentPercent: "100%", instance: "Fall 2021", startEnd: "Sept 18, 2021 to Nov 22, 2021", availableSeats: "50", location: "Richmond, Virginia"},
         {id:7, courseName: 'Cyber Threat Intelligence', competenciesAllignedTo: ["Knowledge of the operations and processes for incident, problem, and event management.", "Knowledge of procedures used for documenting and querying reported incidents, problems, and events.", "Skill to design incident response for cloud service models.", "Ability to accurately define incidents, problems, and events in the trouble ticketing system."], 
             competencyAlignment: "100%", aligmentPercent: "100%", instance: "Spring 2020", startEnd: "Jan 5, 2020 to March 28, 2020", availableSeats: "50", location: "Richmond, Virginia"},
-    
-    // {courseName: '', competenciesAllignedTo: [""], 
-        //     competencyAlignment: "100%", aligmentPercent: "100%", instance: "", startEnd: "", availableSeats: "50", location: "Richmond, Virginia"},
         ];
 
-    // useEffect(() => {
-    //     axiosInstance
-    //     .get(courseData)
-    //     .then((res) => {
-    //         setData(res.data);
-    //     })
-    //     .catch((err) => {
-    //         console.log(err);
-    //     });
-    // }, []);
-
-    // const competencies = [
-    // "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/ab191bd6-c455-4970-a648-a7d5cf1f5038",
-    // "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/542b43c7-c455-440e-a9bb-de9438130feb",
-    // "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/5b67a449-c455-4f07-b534-576e3063fdae",
-    // "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/cde3547c-c455-4cb5-8ccf-b59ea9a0d03d",
-    // ];
-
-    // function handlComp (competencies, setCompData) {
-    //     competencies.map((data) => {
-    //         axios.get(data).then((res) => {
-    //             this.setCompData(previousState => ({
-    //                 myArray: [...previousState.myArray, res.data.description]
-    //             }));
-    //             console.log(res.data.description);
-    //         })
-    //         console.log(compData);
-    //         return (
-    //             <></>
-    //         )
-    //     })
-    // }
 
   return (
     <>
