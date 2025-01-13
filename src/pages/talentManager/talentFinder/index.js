@@ -9,12 +9,6 @@ import { useRouter } from 'next/router';
 import { vacancies } from "@/config/endpoints";
 import Button from "@/components/Button";
 import DefaultLayout from "@/components/layouts/DefaultLayout";
-import Image from "next/image";
-import image from  "@/public/Picture1.png"
-
-// import {Link, useNavigate} from 'react-router-dom';
-// import Link from 'next/link';
-
 
 export default function TalentFinder() {
     const router = useRouter();
@@ -69,13 +63,6 @@ export default function TalentFinder() {
 
               <WorkRoleTable data={data}/>
               <div className="flex justify-end mt-8">
-                {/* <Link 
-                // href={"/talentFinder/filters"}
-                    to={{
-                        pathname: "/talentFinder/filters",
-                        state: data // your data array of objects
-                      }}
-                > */}
                     <Button children={
                         <div className="flex flex-row gap-2">  
                         <p className="pt-0.5"> Select </p>
@@ -86,12 +73,6 @@ export default function TalentFinder() {
                         
                     } onClick={()=>
                         router.push("/talentManager/talentFinder/filters")
-
-                        // history.push({
-                        //     pathname: '/talentFinder/filters',
-                        //     pageProps: data,
-                        //     state: data // your data array of objects
-                        // })
                     }/>
                 {/* </Link> */}
                 </div>

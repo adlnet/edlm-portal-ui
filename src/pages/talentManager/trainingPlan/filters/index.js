@@ -2,18 +2,12 @@
 
 import { Checkbox, Dropdown, Label } from "flowbite-react";
 import { HomeIcon } from "@heroicons/react/24/solid";
-import { WorkRoleTable } from "@/components/tables/WorkRoleTable";
 import { useRouter } from 'next/router';
-import Accordion from "@/components/Accordion";
 import Button from "@/components/Button";
 import DefaultLayout from "@/components/layouts/DefaultLayout";
-import Image from "next/image";
-import image from  "@/public/Picture1.png"
 
 export default function TalentFinderFilters() {
     const router = useRouter();
-
-    // const config = useConfig();
 
     const workforceElementFilters = ["Program Manager (Cybersecurity)", "Technical Support (Cybersecurity)", "Information Systems Security Manager (Cybersecurity)", "Communications Security (COMSEC) Manager (Cybersecurity)", "System Testing and Evaluation Specialist (Cybersecurity)"]
     const NISTFilters = ["TBD"]
@@ -51,7 +45,7 @@ export default function TalentFinderFilters() {
                         <Dropdown label="Workforce Element Filters" dismissOnClick={false} inline>
                             <div className="flex flex-col gap-2">
                             {workforceElementFilters.map((data) => {
-                                return (<Dropdown.Item> 
+                                return (<Dropdown.Item key={data.id}> 
                                 <div className="flex items-center gap-2 ml-1">
                                     <Checkbox id={data} />
                                     <Label htmlFor={data}>{data}</Label>
@@ -69,7 +63,7 @@ export default function TalentFinderFilters() {
                         <Dropdown label="Job Category" dismissOnClick={false} inline>
                             <div className="flex flex-col gap-2">
                             {NISTFilters.map((data) => {
-                                return (<Dropdown.Item> 
+                                return (<Dropdown.Item key={data.id}> 
                                 <div className="flex items-center gap-2 ml-1">
                                     <Checkbox id={data} />
                                     <Label htmlFor={data}>{data}</Label>
@@ -88,7 +82,7 @@ export default function TalentFinderFilters() {
                         <Dropdown label="Force Filters" dismissOnClick={false} inline>
                             <div className="flex flex-col gap-2">
                             {forceFilters.map((data) => {
-                                return (<Dropdown.Item> 
+                                return (<Dropdown.Item key={data.id}> 
                                 <div className="flex items-center gap-2 ml-1">
                                     <Checkbox id={data} />
                                     <Label htmlFor={data}>{data}</Label>
@@ -107,7 +101,7 @@ export default function TalentFinderFilters() {
                         <Dropdown label="Vacancies Filters" dismissOnClick={false} inline>
                             <div className="flex flex-col gap-2">
                             {vacanciesFilters.map((data) => {
-                                return (<Dropdown.Item> 
+                                return (<Dropdown.Item key={data.id}> 
                                 <div className="flex items-center gap-2 ml-1">
                                     <Checkbox id={data} />
                                     <Label htmlFor={data}>{data}</Label>
@@ -125,7 +119,7 @@ export default function TalentFinderFilters() {
                         <Dropdown label="Saved Filters" dismissOnClick={false} inline>
                             <div className="flex flex-col gap-2">
                             {savedFilters.map((data) => {
-                                return (<Dropdown.Item> 
+                                return (<Dropdown.Item key={data.id}> 
                                 <div className="flex items-center gap-2 ml-1">
                                     <Checkbox id={data} />
                                     <Label htmlFor={data}>{data}</Label>
@@ -141,15 +135,14 @@ export default function TalentFinderFilters() {
               </div>
 
               <div className="flex justify-end mt-8">
-                    <Button children={
-                        <div className="flex flex-row gap-2">  
+                    <Button onClick={()=>router.push("/talentManager/trainingPlan/filters/skills")}>
+                    <div className="flex flex-row gap-2">  
                         <p className="pt-0.5"> Find Talent </p>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
                         </svg>
-                        </div>
-                        
-                    } onClick={()=>router.push("/talentManager/trainingPlan/filters/skills")}/>
+                    </div>
+                    </Button>
                 </div>
             </div>
         </DefaultLayout>

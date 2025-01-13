@@ -3,28 +3,18 @@
 import { Checkbox, Dropdown, Label } from "flowbite-react";
 import { HomeIcon } from "@heroicons/react/24/solid";
 import { TalentTable } from "@/components/tables/TalentTable";
-import { axiosInstance, axiosxapiInstance } from "@/config/axiosConfig";
+import { axiosxapiInstance } from "@/config/axiosConfig";
 import { useEffect, useState } from "react";
 import { useRouter } from 'next/router';
 import { xapiUsers } from "@/config/endpoints";
-import Accordion from "@/components/Accordion";
 import Button from "@/components/Button";
 import DefaultLayout from "@/components/layouts/DefaultLayout";
-import Image from "next/image";
-import image from  "@/public/Picture1.png"
+
 
 export default function TrainingPlan() {
     const router = useRouter();
 
-    // const config = useConfig();
     const forceFilters = ["Army", "Marine Cops", "Navy", "Air Force", "Space Force", "Coast Guard" ];
-
-    // const myUnitFilters = [
-    //     {title:"Operations Group", keys:["Operations Support", "Operations Squadrons", "Air Control SQ"]},
-    //     {title:"Maintenance Group", keys:["TBD"]},
-    //     {title:"Mission Support Group", keys:["TBD"]},
-    //     {title:"Medical Group", keys:["TBD"]},
-    // ]; 
     const myUnitFilters = [ "Operations Group", "Maintanance Group", "Mission Support", "Medical Group"]
     const savedFilters = ["Jennifer Waites"]
 
@@ -65,11 +55,12 @@ export default function TrainingPlan() {
                         <Dropdown label="Force Filters" dismissOnClick={false} inline >
                             <div className="flex flex-col gap-2">
                             {forceFilters.map((data) => {
-                                return (<Dropdown.Item> 
-                                <div className="flex items-center gap-2 ml-1">
-                                    <Checkbox id={data} />
-                                    <Label htmlFor={data}>{data}</Label>
-                                </div>
+                                return (
+                                <Dropdown.Item key={data.id}> 
+                                    <div className="flex items-center gap-2 ml-1">
+                                        <Checkbox id={data} />
+                                        <Label htmlFor={data}>{data}</Label>
+                                    </div>
                                 </Dropdown.Item> 
                                 )
                             })}
@@ -84,7 +75,7 @@ export default function TrainingPlan() {
                         <Dropdown label="My Unit Filters" dismissOnClick={false} inline>
                             <div className="flex flex-col gap-2">
                             {myUnitFilters.map((data) => {
-                                return (<Dropdown.Item> 
+                                return (<Dropdown.Item key={data.id}> 
                                 <div className="flex items-center gap-2 ml-1">
                                     <Checkbox id={data} />
                                     <Label htmlFor={data}>{data}</Label>
@@ -102,7 +93,7 @@ export default function TrainingPlan() {
                         <Dropdown label="Saved Filters" dismissOnClick={false} inline>
                             <div className="flex flex-col gap-2">
                             {savedFilters.map((data) => {
-                                return (<Dropdown.Item> 
+                                return (<Dropdown.Item key={data.id}> 
                                 <div className="flex items-center gap-2 ml-1">
                                     <Checkbox id={data} />
                                     <Label htmlFor={data}>{data}</Label>
@@ -120,14 +111,14 @@ export default function TrainingPlan() {
 
               <TalentTable talentData={data}/>
               <div className="flex justify-end mt-8">
-                    <Button children={
+                    <Button onClick={()=>router.push("/talentManager/trainingPlan/filters")}>                      
                         <div className="flex flex-row gap-2">  
                             <p className="pt-0.5"> Select </p>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
                             </svg>
-                        </div>
-                    } onClick={()=>router.push("/talentManager/trainingPlan/filters")}/>
+                        </div>   
+                    </Button>
                 </div>
             </div>
         </DefaultLayout>

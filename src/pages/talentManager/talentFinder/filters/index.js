@@ -5,14 +5,9 @@ import { HomeIcon } from "@heroicons/react/24/solid";
 import { useRouter } from 'next/router';
 import Button from "@/components/Button";
 import DefaultLayout from "@/components/layouts/DefaultLayout";
-import Image from "next/image";
-import image from  "@/public/Picture1.png"
-
 
 export default function TalentFinderFilters() {
     const router = useRouter();
-
-    // const config = useConfig();
 
     return (
         <DefaultLayout>

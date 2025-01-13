@@ -2,18 +2,13 @@
 
 import { HomeIcon } from "@heroicons/react/24/solid";
 import { axiosInstance } from "@/config/axiosConfig";
-import { backendHost, candidateList, graph, vacancies } from '@/config/endpoints';
+import { candidateList, vacancies } from '@/config/endpoints';
 import { useEffect, useState } from "react";
 import { useRouter } from 'next/router';
 import { users } from "@/components/tables/WorkforceAlignmentTable";
+import { workRole } from '@/components/tables/WorkRoleTable';
 import Button from "@/components/Button";
 import DefaultLayout from "@/components/layouts/DefaultLayout";
-import Image from 'next/image';
-import graphImage from '@/public/pregenplot.png';
-
-// import { embed_item, embed_items } from "@bokeh/bokehjs/build/js/lib/embed";
-// import { safely } from "@bokeh/bokehjs";
-import { workRole } from '@/components/tables/WorkRoleTable';
 
 export default function TalentFinderAlignment() {
     const router = useRouter();
@@ -24,41 +19,11 @@ export default function TalentFinderAlignment() {
         axiosInstance
         .get("https://edlmportal-admin.deloitteopenlxp.com/api/graph/?users="+users.join("&users="))
         .then(resp => {
-            // safely(function() {
-            //     (function(root) {
-            //       function embed_document(root) {
-            //       const docs_json = {"4e5c17ac-4434-4401-a4ff-03ac1eb442ed":resp.data};
-            //       const render_items = [{"docid":"4e5c17ac-4434-4401-a4ff-03ac1eb442ed","roots":{"p1004":"testPlot"},"root_ids":["p1004"]}];
-            //       root.Bokeh.embed.embed_items(docs_json, render_items);
-            //       }
-            //       if (root.Bokeh !== undefined) {
-            //         embed_document(root);
-            //       } else {
-            //         let attempts = 0;
-            //         const timer = setInterval(function(root) {
-            //           if (root.Bokeh !== undefined) {
-            //             clearInterval(timer);
-            //             embed_document(root);
-            //           } else {
-            //             attempts++;
-            //             if (attempts > 100) {
-            //               clearInterval(timer);
-            //               console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing");
-            //             }
-            //           }
-            //         }, 10, root)
-            //       }
-            //     })(window);
-            //   });
+
             setIframeURL("https://edlmportal-admin.deloitteopenlxp.com" + resp.data);
 
-            // const root_id = all_json.root_id;
-            // const docs_json = {"4e5c17ac-4434-4401-a4ff-03ac1eb442ed":all_json.doc};
-            // const render_items = [{"docid":"4e5c17ac-4434-4401-a4ff-03ac1eb442ed","roots":{[root_id]:"testPlot"},"root_ids":[root_id]}];
-            // embed_items(docs_json, render_items);
         }
 
-            // embed_item(resp.data, 'testPlot')
         )
         .catch((err) => {
           console.log(err);
@@ -89,9 +54,6 @@ export default function TalentFinderAlignment() {
         router.push("/")
     }
 
-    // const history = useRouter();
-    // console.log(history);
-
     return (
         <DefaultLayout>
             <h2 className="flex w-5/6 text-4xl font-bold mt-8">Talent Finder</h2>
@@ -120,9 +82,6 @@ export default function TalentFinderAlignment() {
               <div className='pt-2 text-gray-600 pb-8'> Compare qualified individuals at the speed of relevance. </div>
 
               <div id='testPlot' className="flex justify-center"><iframe src={iframeURL} height={600} width={600}></iframe></div>
-                {/* <div className='flex justify-center'>
-                    <Image src={graphImage} height={500} alt='' className='m-5 '/>
-                </div> */}
 
               <div className="flex justify-between gap-4 mt-8">
                     <Button children={

@@ -69,9 +69,9 @@ export default function Subscribed() {
     <CollectionsLayout title={'My Subscriptions'}>
       <div className='mt-7 pb-5'>
         <div className='grid grid-cols-3 gap-8'>
-          {isSuccess && subscribed?.map((cardItem, i) => (
+          {isSuccess && subscribed?.map((cardItem) => (
               <CollectionCard
-                key={i}
+                key={cardItem.id}
                 title={cardItem.name}
                 itemsCount={cardItem.experiences.length}
                 totalTime={cardItem.totalTime}

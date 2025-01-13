@@ -3,7 +3,6 @@
 import { authLogin } from '@/config/endpoints';
 import { axiosInstance } from '@/config/axiosConfig';
 import { useAuth } from '@/contexts/AuthContext';
-import { useConfig } from '@/hooks/useConfig';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -13,7 +12,6 @@ import logo from '@/public/doteLogo.png';
 export default function Login() {
   const router = useRouter();
   const { user, login } = useAuth();
-  const config = useConfig();
   const [credentials, setCredentials] = useState({
     username: '',
     password: null,

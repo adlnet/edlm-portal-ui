@@ -1,22 +1,17 @@
 'use strict';
 
-import { BookOpenIcon, UsersIcon } from '@heroicons/react/24/solid';
 import { useAuth } from '@/contexts/AuthContext';
-import { useRouter } from 'next/router';
-
-// import { useUserOwnedLists } from '@/hooks/useUserOwnedLists';
 import { useDeleteMyCollection } from '@/hooks/useDeleteMyCollection';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useUpdateUserList } from '@/hooks/useUpdateUserList';
 import { useUserOwnedLists } from '@/hooks/useUserOwnedLists';
 import CheckMessageCard from '@/components/cards/CheckMessageCard';
 import CollectionCard from '@/components/cards/CollectionCard';
 import CollectionsLayout from '@/components/layouts/CollectionsLayout';
-import DefaultLayout from '@/components/layouts/DefaultLayout';
 import DeleteIcon from '@/public/icons/deleteIcon.svg';
 import EditIcon from '@/public/icons/editIcon.svg';
 import Image from 'next/image';
-import Link from 'next/link';
 import React, { useEffect } from 'react';
 import ShareIcon from '@/public/icons/shareIcon.svg';
 
@@ -86,9 +81,9 @@ export default function Owned() {
     <CollectionsLayout title={'My Collections'}>
     <div className='mt-7 pb-5'>
       <div className= 'grid grid-cols-1 md:grid-cols-3 gap-8'>
-          {isSuccess && data?.map((cardItem, i) => (
+          {isSuccess && data?.map((cardItem) => (
             <CollectionCard
-              key={i}
+              key={cardItem.id}
               title={cardItem.name}
               itemsCount={cardItem.experiences.length}
               totalTime={cardItem.totalTime}

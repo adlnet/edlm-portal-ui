@@ -94,11 +94,10 @@ export default function LearningSummary() {
   const columns = [
     {label: 'COURSES', accessor: 'title'},
   ]
+
+  // Will need to add back 401 and 403 errors when we have data
   useEffect(() => {
     if (!user) router.push('/');
-
-    // if (isError && error.response.status === 403) router.push('/403');
-    // if (isError && error.response.status === 401) router.push('/401');
   }, []);
 
   return (
