@@ -109,6 +109,24 @@ export default function Home() {
       .catch((err) => {
           console.log(err);
       });
+
+    const context = {
+            actor: {
+              first_name: user?.user?.first_name,
+              last_name: user?.user?.last_name,
+            },
+            verb: {
+              id: 'https://w3id.org/xapi/acrossx/verbs/viewed',
+              display: 'viewed',
+            },
+            object: {
+              definitionName: 'ECC Viewed Capability',
+            },
+            resultExtName: 'https://w3id.org/xapi/ecc/result/extensions/searchTerm',
+            resultExtValue: modified.keyword,
+          };
+    
+          xAPISendStatement(context);
   }, []);
 
   return (
