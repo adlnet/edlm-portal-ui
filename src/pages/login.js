@@ -36,6 +36,7 @@ export default function Login() {
     event.preventDefault();
     if (credentials.username === '' || credentials.password === null) {
       setErrorMsg('All fields required');
+      return;
     }
     axiosInstance
       .post(authLogin, credentials)
