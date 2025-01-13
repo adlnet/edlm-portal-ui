@@ -45,6 +45,30 @@ export default function SearchLists() {
     setSearch('');
   };
 
+
+  const handleSubscribe = (e) => {
+
+    const context = {
+            actor: {
+              first_name: user?.user?.first_name,
+              last_name: user?.user?.last_name,
+            },
+            verb: {
+              id: 'https://w3id.org/xapi/acrossx/verbs/curated',
+              display: 'curated',
+            },
+            object: {
+              definitionName: 'DOT&E Subscribe Capability',
+            },
+            resultExtName: 'https://w3id.org/xapi/ecc/result/extensions/CuratedListId',
+            resultExtValue: modified.keyword,
+          };
+    
+    xAPISendStatement(context);
+    
+    subscribe({ id: list.id })
+  };
+
   const goToList = (id) => {
     router.push(`/learner/lists/${id}`);
   };
@@ -138,7 +162,7 @@ export default function SearchLists() {
                     </button>
                   ) : (
                     <button
-                      onClick={() => subscribe({ id: list.id })}
+                      onClick={handleSubscribe}
                       className='bg-green-100 border border-green-500 text-green-500 px-2 py-1.5 my-2 rounded hover:bg-green-500 hover:text-white w-32'
                     >
                       Subscribe

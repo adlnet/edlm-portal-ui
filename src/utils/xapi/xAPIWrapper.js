@@ -20,7 +20,7 @@ export const sendStatement = (actor, verb, obj, resultExtName, resultExtValue) =
     },
     actor: {
       account: {
-        homePage: "https://ecc.gov",
+        homePage: "https://portal-dote.gov",
         name: `${actor.first_name} ${actor.last_name}`,
       },
       objectType: "Agent"
