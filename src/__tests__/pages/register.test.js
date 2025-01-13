@@ -130,8 +130,7 @@ describe('Register Page', () => {
 
     it('should show an error when the password is too short', () => {
       renderer();
-      const password = screen.getByPlaceholderText('Password');
-      fireEvent.change(password, { target: { value: 'a' } });
+      fireEvent.change(screen.getByPlaceholderText('Password'), { target: { value: 'a' } });
       expect(
         screen.getByText('Password must be at least 8 characters')
       ).toBeInTheDocument();
@@ -139,8 +138,7 @@ describe('Register Page', () => {
 
     it('should show an error when the password does not contain a lowercase letter', () => {
       renderer();
-      const password = screen.getByPlaceholderText('Password');
-      fireEvent.change(password, { target: { value: 'AAAAAAAA' } });
+      fireEvent.change(screen.getByPlaceholderText('Password'), { target: { value: 'AAAAAAAA' } });
       expect(
         screen.getByText('Password must contain at least one lowercase letter')
       ).toBeInTheDocument();
@@ -148,8 +146,7 @@ describe('Register Page', () => {
 
     it('should show an error when the password does not contain an uppercase letter', () => {
       renderer();
-      const password = screen.getByPlaceholderText('Password');
-      fireEvent.change(password, { target: { value: 'aaaaaaaa' } });
+      fireEvent.change(screen.getByPlaceholderText('Password'), { target: { value: 'aaaaaaaa' } });
       expect(
         screen.getByText('Password must contain at least one uppercase letter')
       ).toBeInTheDocument();
@@ -157,8 +154,7 @@ describe('Register Page', () => {
 
     it('should show an error when the password does not contain a special character', () => {
       renderer();
-      const password = screen.getByPlaceholderText('Password');
-      fireEvent.change(password, { target: { value: 'AaAAAAAAAA' } });
+      fireEvent.change(screen.getByPlaceholderText('Password'), { target: { value: 'AaAAAAAAAA' } });
       expect(
         screen.getByText('Password must contain at least one special character')
       ).toBeInTheDocument();
@@ -166,8 +162,7 @@ describe('Register Page', () => {
 
     it('should show an error when the password does not contain a number', () => {
       renderer();
-      const password = screen.getByPlaceholderText('Password');
-      fireEvent.change(password, { target: { value: 'AaAAAA!AAA' } });
+      fireEvent.change(screen.getByPlaceholderText('Password'), { target: { value: 'AaAAAA!AAA' } });
       expect(
         screen.getByText('Password must contain at least one number')
       ).toBeInTheDocument();
@@ -175,8 +170,7 @@ describe('Register Page', () => {
 
     it('should show an error when the password has a space', () => {
       renderer();
-      const password = screen.getByPlaceholderText('Password');
-      fireEvent.change(password, { target: { value: 'AaAAAA4!AAA ' } });
+      fireEvent.change(screen.getByPlaceholderText('Password'), { target: { value: 'AaAAAA4!AAA ' } });
       expect(
         screen.getByText('Password must not contain any spaces')
       ).toBeInTheDocument();
@@ -184,27 +178,22 @@ describe('Register Page', () => {
 
     it('should not show an error when password is valid', () => {
       renderer();
-      const password = screen.getByPlaceholderText('Password');
-      fireEvent.change(password, { target: { value: 'AaAAAA4!AAA' } });
+      fireEvent.change(screen.getByPlaceholderText('Password'), { target: { value: 'AaAAAA4!AAA' } });
 
       expect(screen.getByTestId('error-message').innerText).toBeUndefined();
     });
 
     it('should show an error when the password confirmation is invalid', () => {
       renderer();
-      const password = screen.getByPlaceholderText('Password');
-      const confirmPassword = screen.getByPlaceholderText('Confirm Password');
-      fireEvent.change(password, { target: { value: 'AaAAAA4!AAA' } });
-      fireEvent.change(confirmPassword, { target: { value: 'AaAAAA4AAA' } });
+      fireEvent.change(screen.getByPlaceholderText('Password'), { target: { value: 'AaAAAA4!AAA' } });
+      fireEvent.change(screen.getByPlaceholderText('Confirm Password'), { target: { value: 'AaAAAA4AAA' } });
       expect(screen.getByText('Passwords do not match')).toBeInTheDocument();
     });
 
     it('should not show an error when password confirmation is valid', () => {
       renderer();
-      const password = screen.getByPlaceholderText('Password');
-      const confirmPassword = screen.getByPlaceholderText('Confirm Password');
-      fireEvent.change(password, { target: { value: 'AaAAAA4!AAA' } });
-      fireEvent.change(confirmPassword, { target: { value: 'AaAAAA4!AAA' } });
+      fireEvent.change(screen.getByPlaceholderText('Password'), { target: { value: 'AaAAAA4!AAA' } });
+      fireEvent.change(screen.getByPlaceholderText('Confirm Password'), { target: { value: 'AaAAAA4!AAA' } });
 
       expect(screen.getByTestId('error-message').innerText).toBeUndefined();
     });
@@ -214,13 +203,11 @@ describe('Register Page', () => {
       const firstName = screen.getByPlaceholderText('First Name');
       const lastName = screen.getByPlaceholderText('Last Name');
       const email = screen.getByPlaceholderText('Email');
-      const password = screen.getByPlaceholderText('Password');
-      const confirmPassword = screen.getByPlaceholderText('Confirm Password');
       fireEvent.change(firstName, { target: { value: 'a' } });
       fireEvent.change(lastName, { target: { value: 'a' } });
       fireEvent.change(email, { target: { value: 'a' } });
-      fireEvent.change(password, { target: { value: 'a' } });
-      fireEvent.change(confirmPassword, { target: { value: 'a' } });
+      fireEvent.change(screen.getByPlaceholderText('Password'), { target: { value: 'a' } });
+      fireEvent.change(screen.getByPlaceholderText('Confirm Password'), { target: { value: 'a' } });
 
       expect(screen.getByText('Create Account').disabled).toBe(true);
     });
@@ -230,13 +217,11 @@ describe('Register Page', () => {
       const firstName = screen.getByPlaceholderText('First Name');
       const lastName = screen.getByPlaceholderText('Last Name');
       const email = screen.getByPlaceholderText('Email');
-      const password = screen.getByPlaceholderText('Password');
-      const confirmPassword = screen.getByPlaceholderText('Confirm Password');
       fireEvent.change(firstName, { target: { value: 'abc' } });
       fireEvent.change(lastName, { target: { value: 'def' } });
       fireEvent.change(email, { target: { value: 'test@test.com' } });
-      fireEvent.change(password, { target: { value: 'Test!1234' } });
-      fireEvent.change(confirmPassword, { target: { value: 'Test!1234' } });
+      fireEvent.change(screen.getByPlaceholderText('Password'), { target: { value: 'Test!1234' } });
+      fireEvent.change(screen.getByPlaceholderText('Confirm Password'), { target: { value: 'Test!1234' } });
 
       expect(screen.getByText('Create Account').disabled).toBe(false);
     });
@@ -247,13 +232,11 @@ describe('Register Page', () => {
       const firstName = screen.getByPlaceholderText('First Name');
       const lastName = screen.getByPlaceholderText('Last Name');
       const email = screen.getByPlaceholderText('Email');
-      const password = screen.getByPlaceholderText('Password');
-      const confirmPassword = screen.getByPlaceholderText('Confirm Password');
       fireEvent.change(firstName, { target: { value: 'abc' } });
       fireEvent.change(lastName, { target: { value: 'def' } });
       fireEvent.change(email, { target: { value: 'test@test.com' } });
-      fireEvent.change(password, { target: { value: 'Test!1234' } });
-      fireEvent.change(confirmPassword, { target: { value: 'Test!1234' } });
+      fireEvent.change(screen.getByPlaceholderText('Password'), { target: { value: 'Test!1234' } });
+      fireEvent.change(screen.getByPlaceholderText('Confirm Password'), { target: { value: 'Test!1234' } });
       fireEvent.click(screen.getByText('Create Account'));
       expect(mockAxios).toHaveBeenCalled();
     });
