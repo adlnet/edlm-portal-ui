@@ -13,10 +13,7 @@ import DefaultLayout from "@/components/layouts/DefaultLayout";
 export default function TalentFinder() {
     const router = useRouter();
 
-    // const config = useConfig();
     const [data, setData] = useState(null);
-
-    // const history = useRouter();
 
     useEffect(() => {
         axiosInstance

@@ -25,26 +25,18 @@ export default function LearningPlan() {
 
   // Searching the unowned collections for learning plans
   for (let i = 0; i < interestLists?.data?.length; i++){
-    if (interestLists?.data[i]?.name === 'Phase I: First 30 Days'){
-      learningPlans.push(interestLists?.data[i])
-    }
-    else if (interestLists?.data[i]?.name === 'Phase II: First 90 Days'){
-      learningPlans.push(interestLists?.data[i])
-    }
-    else if (interestLists?.data[i]?.name === 'Phase III: After 90 Days'){
+    if (interestLists?.data[i]?.name === 'Phase I: First 30 Days' ||
+        interestLists?.data[i]?.name === 'Phase II: First 90 Days' ||
+        interestLists?.data[i]?.name === 'Phase III: After 90 Days'){
       learningPlans.push(interestLists?.data[i])
     }
   }
 
   // Searching the owned collections for learning plans
   for (let i = 0; i < ownedLists?.data?.length; i++){
-    if (ownedLists?.data[i]?.name === 'Phase I: First 30 Days'){
-      learningPlans.push(ownedLists?.data[i])
-    }
-    else if (ownedLists?.data[i]?.name === 'Phase II: First 90 Days'){
-      learningPlans.push(ownedLists?.data[i])
-    }
-    else if (ownedLists?.data[i]?.name === 'Phase III: After 90 Days'){
+    if (ownedLists?.data[i]?.name === 'Phase I: First 30 Days' ||
+        ownedLists?.data[i]?.name === 'Phase II: First 90 Days' ||
+        ownedLists?.data[i]?.name === 'Phase III: After 90 Days'){
       learningPlans.push(ownedLists?.data[i])
     }
   }
@@ -65,31 +57,6 @@ export default function LearningPlan() {
     },
   ];
 
-  // Mock data for collection card component
-  // const data = [
-  //   {
-  //     id: 1,
-  //     name: 'Phase I (30 Days)',
-  //     description: 'This phase is phase I.',
-  //     experiences: [],
-  //     public: true,
-  //   },
-  //   {
-  //     id: 2,
-  //     name: 'Phase II (30-60 Days)',
-  //     description: 'This phase is phase II.',
-  //     experiences: [],
-  //     public: true,
-  //   },
-  //   {
-  //     id: 3,
-  //     name: 'Phase III (60-90 Days)',
-  //     description: 'This phase is phase III.',
-  //     experiences: [],
-  //     public: true,
-  //   },
-  // ];
-
   const handleShare = id => {
     navigator.clipboard.writeText(`${window.origin}/learner/lists/${id}`)
     .then(() => {
@@ -106,11 +73,9 @@ export default function LearningPlan() {
     });
   };
 
+  // Add back 401 and 403 error when we have live data
   useEffect(() => {
     if (!user) router.push('/');
-
-    // if (isError && error.response.status === 403) router.push('/403');
-    // if (isError && error.response.status === 401) router.push('/401');
   }, []);
 
   return (
@@ -128,9 +93,9 @@ export default function LearningPlan() {
           <Stepper steps={steps} />
 
           <div className= 'grid grid-cols-1 md:grid-cols-3 gap-8 pb-20'>
-          {learningPlans?.map((cardItem, i) => (
+          {learningPlans?.map((cardItem) => (
             <CollectionCard
-              key={i}
+              key={cardItem.id}
               title={cardItem.name}
               itemsCount={cardItem.experiences.length}
               description={cardItem.description}

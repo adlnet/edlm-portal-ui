@@ -55,7 +55,7 @@ describe("Learning Summary Page", () => {
     const mockSummaryData = [
       { name: 'Courses Completed', value: 43 },
       { name: 'Upcoming Courses', value: 2 },
-      { name: 'Comptencies Worked On', value: 11 },
+      { name: 'Competencies Worked On', value: 11 },
       { name: 'In Progress Courses', value: 3 }
     ];
     
