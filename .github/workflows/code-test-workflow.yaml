@@ -28,10 +28,6 @@ jobs:
           uses: borales/actions-yarn@v4
           with:
             cmd: build # will run `yarn build` command
-        # - name: Test the app
-        #   uses: borales/actions-yarn@v4
-        #   with:
-        #     cmd: test # will run `yarn test` command
   build-push:
     name: Build Docker Image
     needs: build-test
@@ -54,12 +50,16 @@ jobs:
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: ${{ secrets.ECR_REPO }}
-        NEXT_PUBLIC_LDSS_API: ${{ secrets.NEXT_PUBLIC_LRS_API }}
-        NEXT_PUBLIC_XAPI_LRS_KEY: ${{ secrets.NEXT_PUBLIC_XAPI_LRS_KEY }}
-        NEXT_PUBLIC_XAPI_LRS_SECRET: ${{ secrets.NEXT_PUBLIC_XAPI_LRS_SECRET }}
         IMAGE_TAG: latest
       run: |
-        echo "Starting docker build"
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .                     
-        echo "Pushing image to ECR..."
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+         run: |
+          echo "Cloning private repository"
+          git clone https://openlxp-host:${{ secrets.ACCESS_TOKEN }}@github.com/OpenLXP/openlxp-private.git
+          echo "Private repository cloned successfully"
+          echo "Copying .env file from openlxp-private to current working directory"
+          cp ./openlxp-private/openlxp-xdsui-dote-env/.env .
+          echo "Copied .env file successfully"
+          echo "Starting docker build"
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          echo "Pushing image to ECR..."
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
