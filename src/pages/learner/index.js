@@ -45,20 +45,6 @@ export default function Home() {
     setLunchNLearn(lunchNLearnList);
   }, [interestLists, ownedLists]);
 
-  // const {
-  //   user: {
-  //     user: { first_name },
-  //   },
-  // } = useAuth();
-  
-  // const spotlight = {
-  //   data: [{title: "Cybersecurity", lastViewed: "Viewed 1 hour ago"},
-  //     {title: "Systems Engineer", lastViewed: "Viewed 1 hour ago"},
-  //     {title: "Project Management", lastViewed: "Viewed 2 hour ago"},
-  //     {title: "Upcoming Vaccancies", lastViewed: "Viewed 1 hour ago"},
-  //   ]
-  //}
-
   // Mock data for development
   const mockInProgressCourses = [
     { id: 1, title: 'AI Ethics', status: 'In Progress' },
@@ -276,7 +262,6 @@ export default function Home() {
                       mobileBreakpoint={670}
                   >
               {spotlight && spotlight.data?.map((course) => {
-                  //  return <CourseSpotlightCarousel course={course} key={course.meta.id} />;
                   return(
                       <Carousel.Item>
                         <CourseSpotlightCarouselCard course={course} key={course.meta.id} />
