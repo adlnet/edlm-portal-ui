@@ -90,6 +90,8 @@ describe('Login Page', () => {
     });
 
     it('should change values on input: Password', () => {
+      const input = screen.getByPlaceholderText('Password');
+
       act(() => {
         fireEvent.change(screen.getByPlaceholderText('Password'), { target: { value: 'password' } });
       });
