@@ -10,6 +10,8 @@ import DefaultLayout from '@/components/layouts/DefaultLayout';
 import React, { useEffect, useMemo, useState } from 'react';
 import SearchBar from '@/components/inputs/SearchBar';
 import SearchListPagination from '@/components/buttons/SearchListPagination';
+import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement';
+
 
 // chunk the lists into pages of a given size
 function chunkArray (array, chunkSize) {
