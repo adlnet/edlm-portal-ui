@@ -145,7 +145,6 @@ export default function LearningSummary() {
                         <td className='h-[38.82px] p-4 flex items-center gap-2 border-r text-nowrap'>
                           <span className='w-3 h-3 rounded-full' style={{ backgroundColor: mockCompetencyColor[competency.name]}}></span>
                           <span className='ml-4 text-sm font-medium leading-[21px]'>{competency.name}</span>
-                          
                         </td>
                         <td className='text-center text-gray-500 text-base font-normal leading-normal border-r '>{competency.courses}</td>
                         <td className='text-center text-gray-500 text-base font-normal leading-normal'>{competency.hours}</td>
