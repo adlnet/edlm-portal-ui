@@ -133,7 +133,7 @@ export function useCompetencySearch() {
           let relateLinks = compData.relation;
           let compLinks = compData.competency;
 
-          const promiseResponse = getCompData(compLinks)
+          getCompData(compLinks)
             .then( res => {
               const allRelateData = getRelateLinks(relateLinks, res)
 
