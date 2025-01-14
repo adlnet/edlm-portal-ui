@@ -1,9 +1,9 @@
 'use strict';
 
 import { axiosInstance } from '@/config/axiosConfig';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
-import axiosRetry, { retryAfter } from 'axios-retry';
+import axiosRetry from 'axios-retry';
 import backupData from '@/public/backup_competencies.json';
 
 const DOTE_UUID = '41b9bcc4-c455-4c80-a88d-a9511937011f';

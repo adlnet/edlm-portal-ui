@@ -6,7 +6,6 @@ import { tenMinutes } from '@/config/timeConstants';
 import { useEffect, useState } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
 import { useRouter } from 'next/router';
-import axios from 'axios';
 import queryString from 'querystring';
 
 const getSearchResults = (searchTerm) => {
