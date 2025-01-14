@@ -4,7 +4,6 @@ import image from '@/public/list1.png'
 
 export default function Spotlight({ course }) {
 
-  console.log(course)
   return (
     <Link href={`/talentManager/talentFinder/filters/alignment`} passHref legacyBehavior>
         <div className="h-108 w-80 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 h-64 my-6">

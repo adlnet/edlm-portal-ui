@@ -146,10 +146,8 @@ export default function EditList({ listId }) {
    };
 
   // prepare the experience data
-  console.log('curListInfo: ', currentListInfo)
   const data = useMemo(() => {
     const courses = []
-    console.log('In Use Memo: ', currentListInfo)
     for (let i = 0; i < currentListInfo?.experiences.length; i++){
       const course = {
           id: (currentListInfo?.experiences[i]?.meta?.metadata_key_hash),

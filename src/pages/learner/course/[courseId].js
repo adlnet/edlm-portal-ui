@@ -136,7 +136,6 @@ export default function Course() {
   }, [course.isSuccess, course.data, config.isSuccess, config.data]);
  
   const competencies = getComps(data?.subject)
-  console.log('Competencies: ', competencies)
 
   const handleClick = useCallback(() => {
     if (!user) return;

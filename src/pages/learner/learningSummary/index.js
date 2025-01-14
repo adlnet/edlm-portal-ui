@@ -31,9 +31,9 @@ const mockCompetencyData = [
 ];
 
 const mockLearningPhases = [
-  { name: 'Phase I (30 Days)', progress: 100, title: 'Onboarding Learning Plan' },
-  { name: 'Phase II (60 Days)', progress: 100, title: 'Onboarding Learning Plan' },
-  { name: 'Phase III (90 Days)', progress: 70, title: 'Onboarding Learning Plan' }
+  { id: 0, name: 'Phase I (30 Days)', progress: 100, title: 'Onboarding Learning Plan' },
+  { id: 1, name: 'Phase II (60 Days)', progress: 100, title: 'Onboarding Learning Plan' },
+  { id: 2, name: 'Phase III (90 Days)', progress: 70, title: 'Onboarding Learning Plan' }
 ]
 
 const mockCompetencyColor = {

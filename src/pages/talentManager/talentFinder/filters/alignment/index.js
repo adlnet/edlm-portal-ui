@@ -26,8 +26,6 @@ export default function TalentFinderAlignment() {
           });
     }, []);
 
-    console.log(workRoleData)
-
     return (
         <DefaultLayout>
             <h2 className="flex w-5/6 text-4xl font-bold mt-8">Talent Finder</h2>
