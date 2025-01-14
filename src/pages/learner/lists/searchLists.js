@@ -48,7 +48,7 @@ export default function SearchLists() {
   };
 
 
-  const handleSubscribe = (e) => {
+  const handleSubscribe = (list) => {
 
     const context = {
             actor: {
@@ -63,9 +63,9 @@ export default function SearchLists() {
               definitionName: 'DOT&E Subscribe Capability',
             },
             resultExtName: 'https://w3id.org/xapi/ecc/result/extensions/CuratedListId',
-            resultExtValue: modified.keyword,
+            resultExtValue: list.name,
           };
-    
+
     xAPISendStatement(context);
     
     subscribe({ id: list.id })
@@ -164,7 +164,7 @@ export default function SearchLists() {
                     </button>
                   ) : (
                     <button
-                      onClick={handleSubscribe}
+                      onClick={()=> handleSubscribe(list)}
                       className='bg-green-100 border border-green-500 text-green-500 px-2 py-1.5 my-2 rounded hover:bg-green-500 hover:text-white w-32'
                     >
                       Subscribe
