@@ -63,7 +63,7 @@ export default function SearchLists() {
               definitionName: 'DOT&E Subscribe Capability',
             },
             resultExtName: 'https://w3id.org/xapi/ecc/result/extensions/CuratedListId',
-            resultExtValue: list.name,
+            resultExtValue: list?.name,
           };
 
     xAPISendStatement(context);
