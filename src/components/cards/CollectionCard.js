@@ -17,7 +17,7 @@ export default function CollectionCard({ title, description, itemsCount, totalTi
           />)}
         </div>
         <div className="flex flex-col gap-2">
-          <Link href={cardDetailLink}>
+          <Link href={cardDetailLink} passHref>
             <div className="text-[#1b1128] text-2xl font-bold font-['Roboto'] leading-[30px]">{title}</div>
           </Link>
           <div className="text-gray-500 text-base font-normal leading-normal line-clamp-1">{description}</div>     

@@ -28,7 +28,7 @@ export default function StaticSideNav() {
     };
 
     const renderNavBtn = (btn, path, icon, label) => (
-        <div className={`w-[221px] h-10 py-1.5 rounded-lg justify-start items-center inline-flex cursor-pointer hover:bg-gray-100 ${activeBtn === btn || isActivePath(path) ? 'bg-[#f4f3f6]' : ''}`} onClick={() => handleSidebarClick(btn, path)}>
+        <div className={`w-[221px] h-10 py-1.5 rounded-lg justify-start items-center inline-flex cursor-pointer hover:bg-gray-100 ${activeBtn === btn || isActivePath(path) ? 'bg-[#f4f3f6]' : ''}`} onClick={() => handleSidebarClick(btn, path)} onKeyDown={e => e.key === 'Enter' && handleSidebarClick(btn, path)} role="button" tabIndex={0}>
             <div className="grow shrink basis-0 h-10 px-2 py-1.5 rounded-lg justify-start items-center flex">
                 <div className="grow shrink basis-0 h-6 justify-start items-center gap-3 flex">
                     <Image src={icon} alt={label} />
@@ -39,7 +39,7 @@ export default function StaticSideNav() {
     );
 
     const renderDropdownBtn = (btn, path, label, disable=false) => (
-        <div className={`w-[210px] h-10 flex-col justify-center rounded-lg items-center gap-2.5 inline-flex hover:bg-gray-100 ${activeBtn === btn || isActivePath(path) ? 'bg-[#f4f3f6]' : ''}`} onClick={() => !disable && handleSidebarClick(btn, path)}>
+        <div className={`w-[210px] h-10 flex-col justify-center rounded-lg items-center gap-2.5 inline-flex hover:bg-gray-100 ${activeBtn === btn || isActivePath(path) ? 'bg-[#f4f3f6]' : ''}`} onClick={() => !disable && handleSidebarClick(btn, path)} onKeyDown={e => e.key === 'Enter' && !disable && handleSidebarClick(btn, path)} role="button" tabIndex={0}>
             <div className="w-[133px] text-[#111928] text-base font-medium leading-normal">{label}</div>
         </div>
     );
@@ -54,7 +54,7 @@ export default function StaticSideNav() {
                         {renderNavBtn('learningPlan', '/learner/learningPlan', ClipboardCheckIcon, 'Learning Plan')}
 
                         <div className={`w-[221px] p-2 rounded-lg flex-col justify-start items-center cursor-pointer`}>
-                            <div className="justify-start items-center flex" onClick={() => setShowLearningSummary(!showLearningSummary)}>
+                            <div className="justify-start items-center flex" onClick={() => setShowLearningSummary(!showLearningSummary)} onKeyDown={e => e.key === 'Enter' && setShowLearningSummary(!showLearningSummary)} role="button" tabIndex={0}>
                                 <div className="grow shrink basis-0 h-6 justify-start items-center gap-3 flex">
                                     <Image src={FileBarIcon} alt='Learning Summary' />
                                     <div className="text-[#111928] text-base font-medium leading-normal">Learning Summary</div>
@@ -74,7 +74,7 @@ export default function StaticSideNav() {
                         </div>
 
                         <div className={`w-[221px] p-2 rounded-lg flex-col justify-start items-center cursor-pointer`}>
-                            <div className="justify-start items-center flex" onClick={() => setShowCollections(!showCollections)}>
+                            <div className="justify-start items-center flex" onClick={() => setShowCollections(!showCollections)} onKeyDown={e => e.key === 'Enter' && setShowCollections(!showCollections)} role="button" tabIndex={0}>
                                 <div className="grow shrink basis-0 h-6 justify-start items-center gap-3 flex">
                                     <Image src={OutdentIcon} alt='Collections' />
                                     <div className="text-[#111928] text-base font-medium leading-normal">Collections</div>

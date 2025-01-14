@@ -8,6 +8,7 @@ import { useCallback, useMemo } from 'react';
 import { useConfig } from '@/hooks/useConfig';
 import { useRouter } from 'next/router';
 import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement';
+import Image from 'next/image';
 import Link from 'next/link';
 
 export default function CourseSpotlight({ course }) {
@@ -79,7 +80,7 @@ export default function CourseSpotlight({ course }) {
           {provider || Course?.CourseProviderName }
         </div>
         {thumbnail && (
-          <img
+          <Image 
             src={thumbnail}
             alt=''
             className='h-8 w-12 absolute bottom-0 right-0 m-2'
