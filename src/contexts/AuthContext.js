@@ -44,7 +44,7 @@ export function AuthProvider({ children }) {
       });
   };
 
-  // // Check if user is logged in
+  // Check if user is logged in
   const checkUserLoggedIn = async () => {
     axiosInstance
       .get(`${XDSbackendHost}/api/auth/validate`)
@@ -56,14 +56,6 @@ export function AuthProvider({ children }) {
         logout();
       });
   };
-  
-  //const loginDetails = useMemo(() => ({ user, error, register, login, logout }),[]);  
-  
-  // return (    
-  //   <AuthContext.Provider value={loginDetails}>      
-  //     {children}    
-  //   </AuthContext.Provider>  
-  // );
   
   return (
     <AuthContext.Provider value={{ user, error, register, login, logout, checkUserLoggedIn }}>

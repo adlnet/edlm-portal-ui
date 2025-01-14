@@ -11,9 +11,9 @@ export default function Spotlight({ course }) {
               <Image src={image} height={100} alt='' className='rounded-lg m-5'/>
             </div>
             <div className="p-5">
-                <a href="#">
+                <Link passHref="#">
                     <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">{course?.name}</h5>
-                </a>
+                </Link>
                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400 truncate">
                   {course.lastViewed ? course.lastViewed : <p className="mb-3 font-normal text-gray-700 dark:text-gray-400 truncate"> Viewed 1 day ago</p>}
                 </p>
