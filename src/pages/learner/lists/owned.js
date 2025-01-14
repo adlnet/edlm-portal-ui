@@ -2,8 +2,8 @@
 
 import { useAuth } from '@/contexts/AuthContext';
 import { useDeleteMyCollection } from '@/hooks/useDeleteMyCollection';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
 import { useUpdateUserList } from '@/hooks/useUpdateUserList';
 import { useUserOwnedLists } from '@/hooks/useUserOwnedLists';
 import CheckMessageCard from '@/components/cards/CheckMessageCard';
@@ -12,7 +12,6 @@ import CollectionsLayout from '@/components/layouts/CollectionsLayout';
 import DeleteIcon from '@/public/icons/deleteIcon.svg';
 import EditIcon from '@/public/icons/editIcon.svg';
 import Image from 'next/image';
-import React, { useEffect } from 'react';
 import ShareIcon from '@/public/icons/shareIcon.svg';
 
 export default function Owned() {

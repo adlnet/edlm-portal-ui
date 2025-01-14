@@ -1,6 +1,5 @@
 import { axiosInstance } from '@/config/axiosConfig';
 import { candidateList } from '@/config/endpoints';
-import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/router';
 import Button from '@/components/Button';
 import Card from '@/components/Card';

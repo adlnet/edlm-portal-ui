@@ -1,7 +1,6 @@
 'use strict'
 
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const useSortableTable = (data) => { 
 

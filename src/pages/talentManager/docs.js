@@ -1,7 +1,5 @@
-import Accordion from '@/components/Accordion';
 import Card from '@/components/Card';
 import DefaultLayout from '@/components/layouts/DefaultLayout';
-import cardImage from '@/public/image.png';
 import cardImage1 from '@/public/docs1.png';
 import cardImage2 from '@/public/docs4.png';
 import cardImage3 from '@/public/docs2.png';
