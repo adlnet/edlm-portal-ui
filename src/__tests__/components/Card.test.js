@@ -9,9 +9,10 @@ const renderer = () => {
             title='Card Title'
             description='Card Description'
             buttonLabel='Button Label'
-            children='test'
             image='N/A'
-            route='#' />
+            route='#'>
+            Test
+        </Card>
       </QueryClientWrapper>
     );
 };
@@ -23,9 +24,8 @@ const rendererNoDesc = () => {
             title='Card Title'
             description={null}
             buttonLabel='Button Label'
-            children='test'
             image='N/A'
-            route='#' />
+            route='#'>Test</Card>
       </QueryClientWrapper>
     );
 };

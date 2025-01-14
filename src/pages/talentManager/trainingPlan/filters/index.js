@@ -5,6 +5,7 @@ import { HomeIcon } from "@heroicons/react/24/solid";
 import { useRouter } from 'next/router';
 import Button from "@/components/Button";
 import DefaultLayout from "@/components/layouts/DefaultLayout";
+import Link from "next/link";
 
 export default function TalentFinderFilters() {
     const router = useRouter();
@@ -19,13 +20,13 @@ export default function TalentFinderFilters() {
         <DefaultLayout>
             <h2 className="flex w-5/6 text-4xl font-bold mt-8">Training Plan</h2>
             <div className="my-4 flex flex-row">
-                <a href={"/"}>
+                <Link href={"/"} passHref>
                     <HomeIcon className="w-5 mx-2"/>  
-                </a>
+                </Link>
                 &gt;
-                <a href='/talentManager/trainingPlan' className="px-2 hover:mouse hover:underline hover:font-bold">
+                <Link href='/talentManager/trainingPlan' passHref className="px-2 hover:mouse hover:underline hover:font-bold">
                     Training Plan
-                </a>
+                </Link>
                 &gt; 
                 <p className="font-bold pl-2"> Filters </p>
             </div>

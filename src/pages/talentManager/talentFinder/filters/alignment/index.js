@@ -9,6 +9,7 @@ import { vacancies } from '@/config/endpoints';
 import { workRole } from '@/components/tables/WorkRoleTable';
 import Button from "@/components/Button";
 import DefaultLayout from "@/components/layouts/DefaultLayout";
+import Link from "next/link";
 
 
 export default function TalentFinderAlignment() {
@@ -30,17 +31,17 @@ export default function TalentFinderAlignment() {
         <DefaultLayout>
             <h2 className="flex w-5/6 text-4xl font-bold mt-8">Talent Finder</h2>
             <div className="my-3 flex flex-row">
-                <a href={"/"} >
+                <Link href={"/"} passHref>
                     <HomeIcon className="w-5 mx-2"/>  
-                </a>
+                </Link>
                 &gt; 
-                <a href='/talentManager/talentFinder' className="px-2 hover:mouse hover:underline hover:font-bold">
+                <Link href='/talentManager/talentFinder' passHref className="px-2 hover:mouse hover:underline hover:font-bold">
                     Talent Finder
-                </a>
+                </Link>
                 &gt; 
-                <a href='/talentManager/talentFinder/filters' className="px-2 hover:mouse hover:underline hover:font-bold">
+                <Link href='/talentManager/talentFinder/filters' passHref className="px-2 hover:mouse hover:underline hover:font-bold">
                     Filters
-                </a>
+                </Link>
                 &gt;
                 <p className="font-bold pl-2"> Alignment Results</p>
             </div>
@@ -55,15 +56,14 @@ export default function TalentFinderAlignment() {
               <WorkforceAlignmentTable />
 
               <div className="flex justify-end mt-8">
-                    <Button children={
+                    <Button onClick={()=>router.push("/talentManager/talentFinder/filters/alignment/compare")}>
                         <div className="flex flex-row gap-2">  
-                        <p className="pt-0.5"> Compare </p>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
-                        </svg>
+                            <p className="pt-0.5"> Compare </p>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+                            </svg>
                         </div>
-                        
-                    } onClick={()=>router.push("/talentManager/talentFinder/filters/alignment/compare")}/>
+                    </Button>
                 </div>
             </div>
         </DefaultLayout>
