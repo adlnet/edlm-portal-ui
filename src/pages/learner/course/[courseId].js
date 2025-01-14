@@ -47,7 +47,8 @@ function getComps(subjects){
 
   const comps = subjects?.split(',');
   
-  for (let i = 1; i < comps?.length; i++){
+  let i = 1;
+  while ( i < comps?.length){
     //Trimming whitespace 
     comps[i] = comps[i]?.trim();
 
@@ -57,6 +58,8 @@ function getComps(subjects){
       comps.splice(i, i+1);
       i--;
     }
+    
+    i++
   }
   return comps
 }
