@@ -11,7 +11,7 @@ import { useRouter } from 'next/router';
 import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement';
 
 export default function CourseSpotlight({ course }) {
-  const { Course, meta, Technical_Information, Course_Instance } = {
+  const { Course, meta } = {
     ...course,
   };
   const config = useConfig();

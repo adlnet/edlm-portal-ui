@@ -18,7 +18,7 @@ export default function CompetencySearchResult({ result }) {
                         </p>
                         <ul className="mb-2 ml-4 text-sm list-disc">
                             {result[1].map((child)=>(
-                                <li className="ml-3 mb-2"> 
+                                <li key={child.name} className="ml-3 mb-2"> 
                                     <span className="font-bold mr-1">
                                         {child.name}: 
                                     </span> 
