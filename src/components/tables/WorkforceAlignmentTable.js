@@ -1,9 +1,7 @@
 "use client";
 
 import { Checkbox, Label, Progress } from "flowbite-react";
-import { axiosxapiInstance } from "@/config/axiosConfig";
-import { useEffect, useState } from "react";
-import { xapiUsers } from "@/config/endpoints";
+import { useState } from "react";
 
 export var users = [];
 
@@ -26,26 +24,7 @@ export function WorkforceAlignmentTable() {
         {overallAlignment: '15%', lastName: "John", firstName: "Lee", trainingNeeded: "15 courses", trainingTime: "30 weeks", service: "Homeland Security", location: "Virginia", currentPosition: "Technical Support", careerState: "Mid-Career", IDPAlignment:15 },
     ];
 
-    // useEffect(() => {
-    //     axiosxapiInstance
-    //     .get(xapiUsers)
-    //     .then((res) => {
-    //         setTalentData(res.data);
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // }, []);
-    
-
-    // function updateUsers(event) {
-    //     var index = users.indexOf(event.target.name)
-    //     if (index >= 0){
-    //         users.splice(index,1);
-    //     }else{
-    //         users.push(event.target.name);
-    //     }
-    // }
+    setTalentData(data)
 
   return (
     <>
@@ -152,7 +131,6 @@ export function WorkforceAlignmentTable() {
                             return (
                                 <tr className="border-b dark:border-gray-700" key={data.lastName}>
                                     <div className="flex items-center gap-2 ml-6 mt-5">
-                                        {/* <Checkbox id={data.workRole} onChange={updateUsers} name={talentData?.statements[index]?.actor.name} /> */}
                                         <Checkbox id={data.workRole} onChange={null} name={talentData?.statements[index]?.actor.name} />
                                         <Label htmlFor={data.workRole}>{data.overallAlignment}</Label>
                                     </div>
@@ -181,9 +159,6 @@ export function WorkforceAlignmentTable() {
                                                 'black-custom': 'bg-black-custom',
                                             },
                                             }}/>
-                                        {/* <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                                            <div className="bg-purple h-2.5 rounded-full" width={`${data.IDPAlignment}%`}></div>
-                                        </div> */}
                                     </td>
                                 </tr>
                             )

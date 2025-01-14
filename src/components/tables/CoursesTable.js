@@ -112,48 +112,37 @@ export function CoursesTable() {
                             <th scope="col" className="px-4 py-3">Competencies Alligned to </th>
                             <th scope="col" className="px-4 py-3">Competency Alignment</th>
                             <th scope="col" className="px-4 py-3">Aligment Percent</th>
-                            {/* <th scope="col" class="px-4 py-3">Instance</th> */}
                             <th scope="col" className="px-4 py-3">Start/End</th>
                             <th scope="col" className="px-4 py-3">Available Seats</th>
                             <th scope="col" className="px-4 py-3 w-8">Location</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {/* {data?.hits.map((data) => { */}
                         {tempData.map((data) => {
                             return (
                                 <tr key={data.id} className=" border-b dark:border-gray-700">
                                     <div className="flex h-full items-center align-center justify-center gap-2 ml-6 py-3 h-64 ">
-                                        {/* <Checkbox id={data.Course.CourseTitle} />
-                                        <Label htmlFor={data.Course.CourseTitle}></Label> */}
                                         <Checkbox id={data.courseName} />
                                         <Label htmlFor={data.courseName}></Label>
                                     </div>
                                     <td className="px-4 py-3">
-                                        {/* <Link href={`https://dev-xds.deloitteopenlxp.com/course/${data.meta.id}`}> */}
                                         <Link href={`https://dev-xds.deloitteopenlxp.com/course/#`}>
-                                            {/* {data.Course.CourseTitle} */}
                                             {data.courseName}
                                         </Link>
                                     </td>
                                     <td className="px-4 py-3">
                                         {data.competenciesAllignedTo?.map((comp) =>{
                                             return(
-                                                <div className="flex flex-row">
+                                                <div key={comp.id} className="flex flex-row">
                                                     {comp}
                                                 </div>
                                             )
                                         })}
-                                        {/* {data.Course.CourseSpecialNotes} */}
                                     </td>
-                                    {/* <td class="px-4 py-3">{data.Course.CourseSubjectMatter}</td>  */}
                                     <td className="px-4 py-3">{data.competencyAlignment}</td> 
                                     <td className="px-4 py-3">95%</td>
-                                    {/* <td class="px-4 py-3">{data.instance}</td> */}
-                                    {/* <td class="px-4 py-3">{data.Course_Instance.StartDate.split('T')[0]} - {data.Course_Instance.EndDate.split('T')[0]}</td> */}
                                     <td className="px-4 py-3">{data.startEnd}</td>
                                     <td className="px-4 py-3">50</td>
-                                    {/* <td class="pl-4 py-3 w-8">{data.Technical_Information.Location}</td> */}
                                     <td className="pl-4 py-3 w-8">{data.location}</td>
                                 </tr>
                             )

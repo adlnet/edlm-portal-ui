@@ -4,7 +4,6 @@ export var workRole = [];
 
 // NOTE** DOT&E commented out some of the code to improve code coverage on tests
 
-//export function WorkRoleTable(data) {
 export function WorkRoleTable() {
 
     const data = [
@@ -15,15 +14,6 @@ export function WorkRoleTable() {
         {vacancies: '3', startDate: "Jan 2, 2024", workRole: "COMSEC Manager", service: "Air Force", NISTID: "OV-MG-002", workforceElement: "Cybersecurity", functionalCommunity: "Cyber"},
         {vacancies: '3', startDate: "Jan 2, 2024", workRole: "COMSEC Manager", service: "Air Force", NISTID: "OV-MG-002", workforceElement: "Cybersecurity", functionalCommunity: "Cyber"},
     ];
-
-    // function updateWorkRole(e) {
-    //     var index = workRole.indexOf(e.target.name);
-    //     if (index >= 0){
-    //         workRole.splice(index,1);
-    //     }else{
-    //         workRole.push(e.target.name);
-    //     }
-    // }
 
   return (
     <>
@@ -128,14 +118,11 @@ export function WorkRoleTable() {
                     <tbody>
                         {data?.map((data) => {
                             return (
-                                <tr className="border-b dark:border-gray-700">
+                                <tr key={data.id} className="border-b dark:border-gray-700">
                                     <div className="flex items-center gap-2 ml-6 align-middle h-20">
-                                        {/* <Checkbox id={data.workRole} onChange={updateWorkRole} name={data.vacancy_key}/> */}
                                         <Checkbox id={data.workRole} onChange={null} name={data.vacancy_key}/>
                                         <Label htmlFor={data.workRole}></Label>
                                     </div>
-                                    {/* <td class="px-4 py-3">{data.vacancies}</td> */}
-                                    {/* <td class="px-4 py-3">{data.PositionStartDate.split('T')[0]}</td> */}
                                     <td className="px-4 py-3">{data.PositionStartDate}</td>
                                     <th scope="row" className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{data.JobTitle}</th>
                                     <td className="px-4 py-3">Air Force</td>

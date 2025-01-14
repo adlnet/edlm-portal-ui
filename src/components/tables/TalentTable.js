@@ -1,6 +1,6 @@
 import { Checkbox, Label } from "flowbite-react";
 
-export function TalentTable(talentData) {
+export function TalentTable(tableData) {
 
     const data = [
         {overallAlignment: '95%', lastName: "Jenson", firstName: "Adam", trainingNeeded: "1 course", trainingTime: "3 weeks", service: "Air Force", location: "Virginia", currentPosition: "Master Sergeant (MSgt) (E7)", careerState: "Mid-Career", IDPAlignment:95, relocate: "Yes" },
@@ -13,8 +13,8 @@ export function TalentTable(talentData) {
         {overallAlignment: '32%', lastName: "Lewis", firstName: "Sophia", trainingNeeded: "10 courses", trainingTime: "21 weeks", service: "Navy", location: "Virginia", currentPosition: "Marine", careerState: "Mid-Career", IDPAlignment:32, relocate: "Yes" },
         {overallAlignment: '27%', lastName: "Davis", firstName: "Elmer", trainingNeeded: "12 courses", trainingTime: "25 weeks", service: "Air Force", location: "Virginia", currentPosition: "Staff Sergeant (SSgt) (E5)", careerState: "Mid-Career", IDPAlignment:27, relocate: "Yes" },
         {overallAlignment: '15%', lastName: "John", firstName: "Lee", trainingNeeded: "15 courses", trainingTime: "30 weeks", service: "Homeland Security", location: "Virginia", currentPosition: "Technical Support", careerState: "Mid-Career", IDPAlignment:15, relocate:"No" },
-    ];
-        
+    ];    
+    
   return (
     <>
     <div className="mx-auto max-w-screen-xl">
@@ -111,17 +111,14 @@ export function TalentTable(talentData) {
                         </tr>
                     </thead>
                     <tbody>
-                        {data.map((data, index) => {
+                        {data.map((data) => {
                             return (
-                                <tr className="border-b dark:border-gray-700">
+                                <tr key={data.id} className="border-b dark:border-gray-700">
                                     <div className="flex items-center gap-2 ml-6 px-2 py-3">
                                         <Checkbox id={data.firstName} />
                                         <Label htmlFor={data.firstName}></Label>
                                     </div>
-                                    {/* <td class="px-4 py-3">{data.vacancies}</td> */}
                                     <td className="px-4 py-3">{data.lastName}</td>
-                                    {/* <td class="px-4 py-3">{talentData.talentData?.statements[index]?.actor.name.split(' ').pop()}</td>
-                                    <td class="px-4 py-3">{talentData.talentData?.statements[index]?.actor.name.split(' ')[0]}</td> */}
                                     <td className="px-4 py-3">{data.firstName}</td>
                                     <td className="px-4 py-3">{data.service}</td>
                                     <td className="px-4 py-3">{data.location}</td>
