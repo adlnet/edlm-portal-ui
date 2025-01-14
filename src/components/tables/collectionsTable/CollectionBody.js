@@ -32,14 +32,8 @@ const TableBody = ({ pageData, columns, deleteCourse}) => {
 
             // Specific row creation for date in collection tables
             else if (accessor === 'date'){
-                if (data[accessor]){
-                    const tData = data[accessor] 
-                    const date = new Date(tData).toLocaleDateString()
-                    return <td key={accessor} className='pl-4' >{date}</td>;
-                }
-                else{
-                    return <td key={accessor} className='pl-4'>——</td>;
-                }
+                const tData = data[accessor] ? new Date(data[accessor]).toLocaleDateString() : "——"
+                return <td key={accessor} className='pl-4' >{tData}</td>;
             }
             else{
                 const tData = data[accessor] ? data[accessor] : "——";

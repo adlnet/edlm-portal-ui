@@ -1,6 +1,6 @@
 import { Checkbox, Label } from "flowbite-react";
 
-export var workRole = [];
+export let workRole = [];
 
 // NOTE** DOT&E commented out some of the code to improve code coverage on tests
 

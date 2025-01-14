@@ -11,17 +11,6 @@ import InputField from '@/components/inputs/InputField';
 import PlusIcon from '@/public/cart-plus.svg';
 import useField from '@/hooks/useField';
 
-/**
- * TODO: to be removed before merging back to dev
- * Current status: in the process of trying to get the updated isSuccess ( useCreateUserList hook) value
- * to be used to determine whether or not xAPISendStatement should be executed.
- * Even with the useCallback, it seems like isSuccess (useCreateUserList hook) is still one step behind.
- *
- * The reason for using this approach instead of calling the xAPISendStatement in the onSuccess is
- * because testing that onSuccess is difficult especially when the mutation is being mocked.
- *
- */
-
 export default function SaveModal({ courseId, title }) {
   // authentication
   const { user } = useAuth();

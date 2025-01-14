@@ -18,7 +18,8 @@ function getComps(subjects){
 
   const comps = subjects?.split(',');
   
-  for (let i = 1; i < comps?.length; i++){
+  let i = 1
+  while (i < comps?.length){
     //Trimming whitespace 
     comps[i] = comps[i]?.trim() || '';
 
@@ -35,6 +36,8 @@ function getComps(subjects){
     comps[i] = comps[i].replace(/[0-9]/g, '')
     comps[i] = comps[i].replace('Competency #','')
     comps[i] = comps[i].trim()
+
+    i++
   }
 
   //There is probably a way to make this one statement but I don't know how lol

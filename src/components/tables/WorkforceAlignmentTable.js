@@ -3,7 +3,7 @@
 import { Checkbox, Label, Progress } from "flowbite-react";
 import { useEffect, useState  } from "react";
 
-export var users = [];
+export let users = [];
 
 // NOTE** DOT&E commented out parts of this code to increase code coverage of tests
 
