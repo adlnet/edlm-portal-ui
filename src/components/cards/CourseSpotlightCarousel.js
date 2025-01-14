@@ -1,7 +1,6 @@
 // 'use strict';
 
 import {Button, Card} from 'flowbite-react';
-import { backendHost } from '@/config/endpoints';
 import { getDeeplyNestedData } from '@/utils/getDeeplyNestedData';
 import { removeHTML } from '@/utils/cleaning';
 import { useAuth } from '@/contexts/AuthContext';
