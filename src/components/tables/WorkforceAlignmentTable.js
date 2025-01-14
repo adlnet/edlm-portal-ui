@@ -1,7 +1,7 @@
 "use client";
 
 import { Checkbox, Label, Progress } from "flowbite-react";
-import { useState } from "react";
+import { useEffect, useState  } from "react";
 
 export var users = [];
 
@@ -24,7 +24,9 @@ export function WorkforceAlignmentTable() {
         {overallAlignment: '15%', lastName: "John", firstName: "Lee", trainingNeeded: "15 courses", trainingTime: "30 weeks", service: "Homeland Security", location: "Virginia", currentPosition: "Technical Support", careerState: "Mid-Career", IDPAlignment:15 },
     ];
 
-    setTalentData(data)
+    useEffect(() => {
+        setTalentData(null)
+    },[])
 
   return (
     <>
