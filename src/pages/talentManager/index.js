@@ -45,13 +45,13 @@ export default function Home() {
               <div className='pt-2 text-lg font-bold'>Talent Management Dashboard </div>
               <div className='pt-2 text-gray-600'>The hub for searching for talent and planning for their development. </div>
               <div className='pt-12'>
-                <Button onClick={()=>{router.push("/talentManager/talentFinder")}} children={
+                <Button onClick={()=>{router.push("/talentManager/talentFinder")}}>
                   <div className='flex flex-row gap-2 w-full'> <p className='pt-0.5'>Learn More</p>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
                     </svg>
                   </div>
-                }/>
+                </Button>
               </div>
             </div>
             <div className='max-h-36'>

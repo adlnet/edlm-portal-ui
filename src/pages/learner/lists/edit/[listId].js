@@ -13,6 +13,7 @@ import { useUpdateUserList } from '@/hooks/useUpdateUserList';
 import CollectionTable from '@/components/tables/collectionsTable/CollectionTable';
 import DefaultLayout from '@/components/layouts/DefaultLayout';
 import Image from 'next/image';
+import Link from 'next/link';
 import LockClose from '@/public/icons/lockClose.svg';
 import lockOpen from '@/public/icons/lockOpen.svg';
 import prepareListDataToSend from '@/utils/prepListDataToSend';
@@ -181,10 +182,10 @@ export default function EditList({ listId }) {
         <div className='mt-10 pb-4 py-4'>
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-2">
-              <a 
-                href='/learner/lists/owned' className="text-[#3892f3] text-sm font-medium  leading-[21px]  hover:underline">
+              <Link 
+                href='/learner/lists/owned' passHref className="text-[#3892f3] text-sm font-medium  leading-[21px]  hover:underline">
                 My Collections
-              </a>
+              </Link>
               <ChevronRightIcon className="w-3 h-3 relative" />
               <div className="justify-center items-center flex">
                 <span className="text-gray-500 text-sm font-medium  leading-[21px]">{initialList?.data?.name}</ span>              
