@@ -1,6 +1,6 @@
 'use strict';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
@@ -46,6 +46,10 @@ export default function CompetencyChart({ data, colors }) {
       show: false
     },
   });
+  
+  useEffect(() => {
+    setChartOptions(chartOptions);
+  }, []);
 
   const series = data.map(item => item.courses);
 
