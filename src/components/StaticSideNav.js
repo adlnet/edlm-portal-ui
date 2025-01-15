@@ -18,6 +18,7 @@ export default function StaticSideNav() {
     const [showCollections, setShowCollections] = useState(false);
     const [activeBtn, setActiveBtn] = useState(null);
 
+    // Check if it is active path
     const isActivePath = path => router.pathname === path;
 
     const handleSidebarClick = (btn, path) => {
