@@ -33,7 +33,7 @@ describe('xAPI', () => {
 
       expect(spy).toHaveBeenCalled();
       expect(actor.account.name).toBe('John Doe');
-      expect(actor.account.homePage).toBe('https://ecc.gov');
+      expect(actor.account.homePage).toBe('https://portal-dote.gov');
       expect(actor.objectType).toBe('Agent');
 
       expect(verb.id).toBe('http://example.com/verbs/searched');
