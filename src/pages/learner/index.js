@@ -216,7 +216,7 @@ export default function Home() {
                 <CollectionTable data={mockInProgressCourses} edit={false} columns={columns} rowsPerPage={5}/>
               </div>
               <div className="flex justify-end -mt-4">
-                <Button className="m-4 bg-white-900 text-blue-800 text-sm hover:bg-blue-600" onClick={() => router.push('/learner/learningSummary')}>
+                <Button className="m-4 bg-white-900 text-blue-800 text-sm hover:bg-blue-600" onClick={() => window.location.href = 'https://moodle-dote.deloitteopenlxp.com/my/courses.php'}>
                     View more
                 </Button>
               </div>
