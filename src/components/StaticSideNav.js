@@ -69,7 +69,9 @@ export default function StaticSideNav() {
                                     <div className='text-nowrap'>
                                         {renderDropdownBtn('myLearningSummary', '/learner/learningSummary', 'My Learning Summary')}
                                     </div>
-                                    {renderDropdownBtn('reportC', null, 'Report C', true)}
+                                    <div className='text-nowrap' onClick={() => window.location.href = 'https://moodle-dote.deloitteopenlxp.com/local/edwiserreports/index.php'} onKeyDown={e => e.key === 'Enter' && handleSidebarClick(btn, path)} role="button" tabIndex={0}>
+                                        {renderDropdownBtn('leadersReport', null, "Leader's Report")}
+                                    </div>
                                 </>
                             )}
                         </div>

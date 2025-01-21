@@ -41,7 +41,7 @@ export default function Header() {
                 <Image src={logo} alt={'home'} height={'60'} width={'60'} priority={true}/>
               </button>
             </Link>
-            DOT&E Portal
+            DOT&E Learning Portal
           </div>
           {!user ? (
             <div className='space-x-4'>

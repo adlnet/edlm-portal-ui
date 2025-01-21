@@ -83,7 +83,7 @@ export default function Search() {
           display: 'searched',
         },
         object: {
-          definitionName: 'ECC Search Capability',
+          definitionName: 'DOT&E Search Capability',
         },
         resultExtName: 'https://w3id.org/xapi/ecc/result/extensions/searchTerm',
         resultExtValue: modified.keyword,

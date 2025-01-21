@@ -6,10 +6,12 @@ import { useRouter } from 'next/router';
 import { useSubscribeToList } from '@/hooks/useSubscribeToList';
 import { useSubscribedLists } from '@/hooks/useSubscribedLists';
 import { useUnsubscribeFromList } from '@/hooks/useUnsubscribeFromList';
+import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement';
 import DefaultLayout from '@/components/layouts/DefaultLayout';
 import React, { useEffect, useMemo, useState } from 'react';
 import SearchBar from '@/components/inputs/SearchBar';
 import SearchListPagination from '@/components/buttons/SearchListPagination';
+
 
 // chunk the lists into pages of a given size
 function chunkArray (array, chunkSize) {
@@ -43,6 +45,30 @@ export default function SearchLists() {
   };
   const resetSearch = () => {
     setSearch('');
+  };
+
+
+  const handleSubscribe = (list) => {
+
+    const context = {
+            actor: {
+              first_name: user?.user?.first_name,
+              last_name: user?.user?.last_name,
+            },
+            verb: {
+              id: 'https://w3id.org/xapi/acrossx/verbs/curated',
+              display: 'curated',
+            },
+            object: {
+              definitionName: 'DOT&E Subscribe Capability',
+            },
+            resultExtName: 'https://w3id.org/xapi/ecc/result/extensions/CuratedListId',
+            resultExtValue: list?.name,
+          };
+
+    xAPISendStatement(context);
+    
+    subscribe({ id: list.id })
   };
 
   const goToList = (id) => {
@@ -138,7 +164,7 @@ export default function SearchLists() {
                     </button>
                   ) : (
                     <button
-                      onClick={() => subscribe({ id: list.id })}
+                      onClick={()=> handleSubscribe(list)}
                       className='bg-green-100 border border-green-500 text-green-500 px-2 py-1.5 my-2 rounded hover:bg-green-500 hover:text-white w-32'
                     >
                       Subscribe
