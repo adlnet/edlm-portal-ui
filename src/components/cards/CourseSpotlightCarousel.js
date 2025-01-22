@@ -61,7 +61,7 @@ export default function CourseSpotlight({ course }) {
         object: {
           id: `${window.origin}/learner/course/${meta.id}`,
           definitionName: title || Course?.CourseTitle,
-          description: removeHTML(getDeeplyNestedData(config.data?.course_information?.course_description, course)) || Course.CourseShortDescription,
+          description: removeHTML(getDeeplyNestedData(config.data?.course_information?.course_description, course)) || Course?.CourseShortDescription,
         },
         resultExtName: 'https://w3id.org/xapi/ecc/result/extensions/CourseId',
         resultExtValue: meta.metadata_key_hash || meta.id,
@@ -78,7 +78,7 @@ export default function CourseSpotlight({ course }) {
                 <Card className="w-80 h-fit rounded-xl" >
                   {/* <Image src={armyImage}  alt='' className=' object-fill h-50 w-150'/> */}
                   <div className=''>
-                    <h5 className="text-2xl font-bold justify-left tracking-tight text-gray-900 dark:text-white">
+                    <h5 className="text-xl font-bold justify-left tracking-tight text-gray-900 dark:text-white">
                       {title || Course?.CourseTitle}
                     </h5>
                   </div>
