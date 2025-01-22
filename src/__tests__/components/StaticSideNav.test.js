@@ -36,7 +36,7 @@ describe('StaticSideNav', () => {
 
     fireEvent.click(getByText('Learning Summary'));
     expect(getByText('My Learning Summary')).toBeInTheDocument();
-    expect(getByText('Report C')).toBeInTheDocument();
+    expect(getByText('Leader\'s Report')).toBeInTheDocument();
 
     fireEvent.click(getByText('Collections'));
     expect(getByText('My Collections')).toBeInTheDocument();
