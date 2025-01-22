@@ -88,7 +88,10 @@ export default function Owned() {
               totalTime={cardItem.totalTime}
               description={cardItem.description}
               isPublic={cardItem.public}
-              cardDetailLink={`/learner/lists/${cardItem.id}`}
+              cardDetailLink={{
+                pathname: `/learner/lists/${cardItem.id}`,
+                query: { previousPage: 'My Collections' }
+              }}
               menuItems= {getMenuItems(cardItem.id)}
               showPrivateToggle={true}
               onTogglePrivatePublic={isPublic => handlePrivatePublicToggle(cardItem.id, isPublic)}

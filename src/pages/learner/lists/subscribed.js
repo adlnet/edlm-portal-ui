@@ -74,7 +74,10 @@ export default function Subscribed() {
                 totalTime={cardItem.totalTime}
                 description={cardItem.description}
                 isPublic={cardItem.public}
-                cardDetailLink={`/learner/lists/${cardItem.id}`}
+                cardDetailLink={{
+                  pathname: `/learner/lists/${cardItem.id}`,
+                  query: { previousPage: 'My Subscriptions' }
+                }}
                 menuItems= {getMenuItems(cardItem.id)}
               />
             ))}
