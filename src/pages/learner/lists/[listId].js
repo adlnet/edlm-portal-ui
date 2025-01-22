@@ -82,7 +82,7 @@ export default function ListsView({ listId }) {
 
   const isOwned = user?.user?.id === list?.data?.owner?.id;
 
-  const previousPage = router.query.previousPage;
+  const previousPage = router.query.previousPage || 'Home';
 
   return (
     <DefaultLayout>
