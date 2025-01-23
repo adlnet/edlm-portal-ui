@@ -41,8 +41,8 @@ export default function CourseSpotlight({ course }) {
         },
         object: {
           id: `${window.origin}/learner/course/${meta.id}`,
-          definitionName: title || Course.CourseTitle,
-          description: removeHTML(getDeeplyNestedData(config.data?.course_information?.course_description, course)) || Course.CourseShortDescription,
+          definitionName: title || Course?.CourseTitle,
+          description: removeHTML(getDeeplyNestedData(config.data?.course_information?.course_description, course)) || Course?.CourseShortDescription,
         },
         resultExtName: 'https://w3id.org/xapi/ecc/result/extensions/CourseId',
         resultExtValue: meta.metadata_key_hash || meta.id,
