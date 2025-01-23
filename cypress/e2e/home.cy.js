@@ -34,7 +34,7 @@ describe('homepage', () => {
 
   it ('Checks that a user can login', () => {
     // Login and Revisit the home page
-    login_t('admin@example.com', 'MyPassword0!')
+    login_t('admin@example.com', 'Secureme2024!')
     cy.visit(`${testUrl}/learner`)
     cy.contains('DOT&E Portal')
   });
@@ -53,7 +53,7 @@ describe('homepage', () => {
     const d = new Date();
     let day = weekday[d.getDay()];
 
-    login_t('admin@example.com', 'MyPassword0!')
+    login_t('admin@example.com', 'Secureme2024!')
 
     // encoded <!--#echo var="DATE_LOCAL" -->
     cy.visit(`${testUrl}/learner/search?keyword=<%21--%23echo%20var%3D"DATE_LOCAL"%20-->&p=1`);
@@ -80,7 +80,7 @@ describe('homepage', () => {
 
   // input validation https://sdelements.il2.dso.mil/bunits/platform1/ecc/open-lxp-xds-ui/tasks/phase/testing/387-T519/
   it('Check input validation', () => {
-    login_t('admin@example.com', 'MyPassword0!')
+    login_t('admin@example.com', 'Secureme2024!')
     
     cy.visit(`${testUrl}/learner/search`);
     cy.get('input').type('?');
@@ -157,7 +157,7 @@ describe('homepage', () => {
   });
 
   it ('Check that the search populates results', () => {
-    login_t('admin@example.com', 'MyPassword0!')
+    login_t('admin@example.com', 'Secureme2024!')
     
     cy.visit(`${testUrl}/learner/search`);
     cy.get('input').type('Software Literacy Fundamentals');
