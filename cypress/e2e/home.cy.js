@@ -1,6 +1,6 @@
 // <reference types="Cypress" />
 
-const testUrl = 'localhost:3000'
+const testUrl = ''
 
 describe('homepage', () => {
 
