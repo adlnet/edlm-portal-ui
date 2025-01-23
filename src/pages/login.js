@@ -82,14 +82,16 @@ export default function Login() {
             title='username'
             placeholder='Email'
             maxLength="200"
+            data-test='email'
             onKeyPress={(e)=>checkSpecialChar(e)}
-            className='shadow focus:shadow-md rounded-md p-2 w-full border border-gray-200 text-gray-700 focus:ring-2 ring-blue-400 outline-none  transition-all  duration-200'
+            className='shadow focus:shadow-md rounded-md p-2 w-full border border-gray-200 text-gray-700 focus:ring-2 ring-blue-400 outline-none  transition-all  duration-200' 
           />
           <input
             type='password'
             name='password'
             title='password'
             placeholder='Password'
+            data-test='password'
             className='shadow focus:shadow-md rounded-md p-2 w-full border border-gray-200 text-gray-700 focus:ring-2 ring-blue-400 outline-none  transition-all  duration-200'
           />
           <span>{errorMsg}</span>

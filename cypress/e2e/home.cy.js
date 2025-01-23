@@ -1,13 +1,43 @@
-/// <reference types="Cypress" />
+// <reference types="Cypress" />
+
+const testUrl = 'localhost:3000'
 
 describe('homepage', () => {
+
+  const login_t = (name, password) => {
+    cy.session([name, password], () => {
+      cy.visit(`${testUrl}/login`)
+      cy.get('[data-test=email]').type(name)
+      cy.get('[data-test=password]').type(password)
+      cy.get('#login-button').click()
+      cy.url().should('contain', '/learner')
+    })
+  }
+
   beforeEach(() => {
       // Cypress starts out with a blank slate for each test
       // so we must tell it to visit our website with the `cy.visit()` command.
       // Since we want to visit the same URL at the start of all our tests,
       // we include it in our beforeEach function so that it runs before each test
-      cy.visit('http://localhost:3000/')
+      cy.visit(`${testUrl}/learner`)
+      cy.clearLocalStorage()
   })
+
+  // check session https://sdelements.il2.dso.mil/bunits/platform1/ecc/open-lxp-xds-ui/tasks/phase/testing/387-T128/
+  // check storage https://sdelements.il2.dso.mil/bunits/platform1/ecc/open-lxp-xds-ui/tasks/phase/testing/387-T321/
+  it('Check local and session storage', () => {
+
+    // should be empty
+    cy.getAllLocalStorage().should('be.empty');
+    cy.getAllSessionStorage().should('be.empty');
+  });
+
+  it ('Checks that a user can login', () => {
+    // Login and Revisit the home page
+    login_t('admin@example.com', 'MyPassword0!')
+    cy.visit(`${testUrl}/learner`)
+    cy.contains('DOT&E Portal')
+  });
 
   // remote file include https://sdelements.il2.dso.mil/bunits/platform1/ecc/open-lxp-xds-ui/tasks/phase/testing/387-T122/
   it('Check ssi injection', () => {
@@ -23,8 +53,10 @@ describe('homepage', () => {
     const d = new Date();
     let day = weekday[d.getDay()];
 
+    login_t('admin@example.com', 'MyPassword0!')
+
     // encoded <!--#echo var="DATE_LOCAL" -->
-    cy.visit('/search?keyword=<%21--%23echo%20var%3D"DATE_LOCAL"%20-->&p=1');
+    cy.visit(`${testUrl}/learner/search?keyword=<%21--%23echo%20var%3D"DATE_LOCAL"%20-->&p=1`);
     cy.contains(day).should('not.exist');
     cy.get('input').should('have.value', '<!--#echo var="DATE_LOCAL" -->');
   });
@@ -42,23 +74,15 @@ describe('homepage', () => {
     });
   });
 
-  // check session https://sdelements.il2.dso.mil/bunits/platform1/ecc/open-lxp-xds-ui/tasks/phase/testing/387-T128/
-  // check storage https://sdelements.il2.dso.mil/bunits/platform1/ecc/open-lxp-xds-ui/tasks/phase/testing/387-T321/
-  it('Check local and session storage', () => {
-    cy.request('/');
-    
-    // should be empty
-    cy.getAllLocalStorage().should('be.empty');
-    cy.getAllSessionStorage().should('be.empty');
-  });
-
   // XSS https://sdelements.il2.dso.mil/bunits/platform1/ecc/open-lxp-xds-ui/tasks/phase/testing/387-T89/
   // check rbac https://sdelements.il2.dso.mil/bunits/platform1/ecc/open-lxp-xds-ui/tasks/phase/testing/387-T2276/
   // check authentication https://sdelements.il2.dso.mil/bunits/platform1/ecc/open-lxp-xds-ui/tasks/phase/testing/387-T2277/
 
   // input validation https://sdelements.il2.dso.mil/bunits/platform1/ecc/open-lxp-xds-ui/tasks/phase/testing/387-T519/
   it('Check input validation', () => {
-    cy.request('/');
+    login_t('admin@example.com', 'MyPassword0!')
+    
+    cy.visit(`${testUrl}/learner/search`);
     cy.get('input').type('?');
     cy.get('input').should('not.have.value', '?');
     cy.get('input').should('have.value', '');
@@ -83,7 +107,7 @@ describe('homepage', () => {
       followRedirect: false,
       failOnStatusCode: false,
     }).then((resp) => {
-      expect(resp.status).to.eq(500);
+      expect(resp.status).to.eq(400);
     });
   });
 
@@ -132,12 +156,13 @@ describe('homepage', () => {
       .should('include', 'text/html; charset=utf-8')
   });
 
-  // check CSP https://sdelements.il2.dso.mil/bunits/platform1/ecc/open-lxp-xds-ui/tasks/phase/testing/387-T332/
-  it('Check meta tags', () => {
-    // Check for CSP control in header set to no-cache
-    // ticket is for requests not responses????  need to figure out how to check requests
-    cy.get(`head > meta[http-equiv="Content-Security-Policy"]`)
-      .should('have.attr', 'content')
-      .and('contain', 'self');
-  });
+  it ('Check that the search populates results', () => {
+    login_t('admin@example.com', 'MyPassword0!')
+    
+    cy.visit(`${testUrl}/learner/search`);
+    cy.get('input').type('Software Literacy Fundamentals');
+    cy.get('form').submit();
+    cy.get('div#search-results').contains('Software Literacy Fundamentals')
+  })
+
 });

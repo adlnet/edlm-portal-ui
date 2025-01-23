@@ -11,6 +11,7 @@ export default function SearchBar({ parameters, onChange, onClick }) {
 
   return (
     <form
+      id='search-courses'
       onSubmit={(event) => {
         event.preventDefault();
         if (onClick) onClick(event);

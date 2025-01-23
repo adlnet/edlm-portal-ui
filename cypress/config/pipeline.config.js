@@ -7,7 +7,7 @@ module.exports = defineConfig({
   
         // modify config values
         config.defaultCommandTimeout = 10000
-        config.baseUrl = 'http://localhost:3000'
+        config.baseUrl = config.baseUrl
   
         // IMPORTANT return the updated config object
         return config
