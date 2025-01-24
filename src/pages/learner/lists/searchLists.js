@@ -107,75 +107,79 @@ export default function SearchLists() {
 
   return (
     <DefaultLayout>
-      <h1 className='mt-10 pb-4 border-b text-3xl font-semibold'>
-        Search List Catalogs
-      </h1>
-      <div className='flex justify-between items-baseline'>
-        <div className='w-[44rem] mt-10'>
-          <SearchBar
-            parameters={{ keyword: search }}
-            onChange={handleChange}
-            onReset={resetSearch}
-          />
+      <div className='bg-white shadow-md p-5 pb-5 py-0 w-full mb-5 rounded-xl m-4 -my-6 overflow-clip'>
+        <div className='mt-10 pb-4 py-4'>
+          <div className='text-2xl font-bold'>
+            Search Public Collections
+          </div>
         </div>
-        <SearchListPagination page={page} 
-          setPage={setPage} 
-          listToDisplayLength={listToDisplay?.length} 
-          pageLength={listToDisplay[page]?.length} 
-          interestListsLength={interestLists?.data?.length}/>        
+        <div className='flex justify-between items-baseline'>
+          <div className='flex-grow w-[22rem] xl:w-[44rem]'>
+            <SearchBar
+              parameters={{ keyword: search }}
+              onChange={handleChange}
+              onReset={resetSearch}
+            />
+          </div>
+          <SearchListPagination page={page} 
+            setPage={setPage} 
+            listToDisplayLength={listToDisplay?.length} 
+            pageLength={listToDisplay[page]?.length} 
+            interestListsLength={interestLists?.data?.length}/>        
+        </div>
+        <table className='bg-white w-full rounded-md shadow mt-6 border-'>
+          <thead className='font-normal border-b'>
+            <tr className=''>
+              <th className='text-left grid pl-2 py-2 gap-1.5 w-full'>
+                <span className='text-xl font-medium font-sans'>List Name</span>
+                <span className='font-normal'>List Description</span>
+              </th>
+              <th className='sr-only' />
+            </tr>
+          </thead>
+          <tbody className='font-normal'>
+            {interestLists.isSuccess &&
+              listToDisplay[page]?.map((list) => (
+                <tr key={list.id} className='odd:bg-gray-50'>
+                  <td className='w-full pl-2 '>
+                    <button
+                      className='text-left hover:text-blue-600 w-full group'
+                      onClick={() => {
+                        goToList(list.id);
+                      }}
+                    >
+                      <h4 className='font-medium group-hover:underline'>
+                        {list.name}
+                      </h4>
+                      <span className='text-sm text-gray-800 group-hover:text-blue-600'>
+                        {list.description}
+                      </span>
+                    </button>
+                  </td>
+                  <td className='px-2'>
+                    {subscribedLists.isSuccess &&
+                    subscribedLists.data.find((sub) => sub.id === list.id) ? (
+                      <button
+                        onClick={() => unsubscribe({ id: list.id })}
+                        className='bg-red-100 border border-red-500 text-red-500 px-2 py-1.5 my-2 rounded hover:bg-red-500 hover:text-white w-32'
+                      >
+                        Unsubscribe
+                      </button>
+                    ) : (
+                      <button
+                        onClick={()=> handleSubscribe(list)}
+                        className='bg-green-100 border border-green-500 text-green-500 px-2 py-1.5 my-2 rounded hover:bg-green-500 hover:text-white w-32'
+                      >
+                        Subscribe
+                      </button>
+                    )}
+                  </td>
+                  {/* look though the sub list and check if a user id matches the logged in user */}
+                </tr>
+              ))}
+          </tbody>
+        </table>
       </div>
-      <table className='bg-white w-full rounded-md shadow mt-6 border-'>
-        <thead className='font-normal border-b'>
-          <tr className=''>
-            <th className='text-left grid pl-2 py-2 gap-1.5 w-full'>
-              <span className='text-xl font-medium font-sans'>List Name</span>
-              <span className='font-normal'>List Description</span>
-            </th>
-            <th className='sr-only' />
-          </tr>
-        </thead>
-        <tbody className='font-normal'>
-          {interestLists.isSuccess &&
-            listToDisplay[page]?.map((list) => (
-              <tr key={list.id} className='odd:bg-gray-50'>
-                <td className='w-full pl-2 '>
-                  <button
-                    className='text-left hover:text-blue-600 w-full group'
-                    onClick={() => {
-                      goToList(list.id);
-                    }}
-                  >
-                    <h4 className='font-medium group-hover:underline'>
-                      {list.name}
-                    </h4>
-                    <span className='text-sm text-gray-800 group-hover:text-blue-600'>
-                      {list.description}
-                    </span>
-                  </button>
-                </td>
-                <td className='px-2'>
-                  {subscribedLists.isSuccess &&
-                  subscribedLists.data.find((sub) => sub.id === list.id) ? (
-                    <button
-                      onClick={() => unsubscribe({ id: list.id })}
-                      className='bg-red-100 border border-red-500 text-red-500 px-2 py-1.5 my-2 rounded hover:bg-red-500 hover:text-white w-32'
-                    >
-                      Unsubscribe
-                    </button>
-                  ) : (
-                    <button
-                      onClick={()=> handleSubscribe(list)}
-                      className='bg-green-100 border border-green-500 text-green-500 px-2 py-1.5 my-2 rounded hover:bg-green-500 hover:text-white w-32'
-                    >
-                      Subscribe
-                    </button>
-                  )}
-                </td>
-                {/* look though the sub list and check if a user id matches the logged in user */}
-              </tr>
-            ))}
-        </tbody>
-      </table>
     </DefaultLayout>
   );
 }

@@ -100,7 +100,10 @@ export default function LearningPlan() {
               itemsCount={cardItem.experiences.length}
               description={cardItem.description}
               isPublic={cardItem.public}
-              cardDetailLink={`/learner/lists/${cardItem.id}`}
+              cardDetailLink={{
+                pathname: `/learner/lists/${cardItem.id}`,
+                query: { previousPage: 'Onboarding Learning Plan' }
+              }}
               menuItems= {getMenuItems(cardItem.id)}
             />
           ))}

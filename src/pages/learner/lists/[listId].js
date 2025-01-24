@@ -82,15 +82,17 @@ export default function ListsView({ listId }) {
 
   const isOwned = user?.user?.id === list?.data?.owner?.id;
 
+  const previousPage = router.query.previousPage || 'Home';
+
   return (
     <DefaultLayout>
       <div className='bg-white shadow-md p-5 py-0 w-full mb-5 rounded-xl m-4 -my-6 overflow-clip'>
         <div className='mt-10 pb-4 py-4'>
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-2">
-              <Link href={isOwned ? '/learner/lists/owned' : '/learner/lists/subscribed'} passHref className="text-[#3892f3] text-sm font-medium  leading-[21px]  hover:underline">
-                {isOwned ? 'My Collections' : 'My Subscriptions'}
-              </Link>
+              <button onClick={() => router.back()} className="text-[#3892f3] text-sm font-medium  leading-[21px]  hover:underline">
+                {previousPage}
+              </button>
               <ChevronRightIcon className="w-3 h-3 relative" />
               <div className="justify-center items-center flex">
                 <span className="text-gray-500 text-sm font-medium  leading-[21px]">{list?.data?.name}</ span>
