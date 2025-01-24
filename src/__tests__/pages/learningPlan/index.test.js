@@ -1,10 +1,10 @@
-import { render, screen } from '@testing-library/react';
-import LearningPlan from '@/pages/learner/learningPlan/index';
 import { QueryClientWrapper } from '@/__mocks__/queryClientMock';
+import { render, screen } from '@testing-library/react';
 import {
   useAuthenticatedUser,
   useUnauthenticatedUser,
 } from '@/__mocks__/predefinedMocks';
+import LearningPlan from '@/pages/learner/learningPlan/index';
 import singletonRouter from 'next/router';
 
 jest.mock('@/components/Stepper', () => {

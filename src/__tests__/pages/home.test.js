@@ -1,14 +1,12 @@
-import { render, screen } from '@testing-library/react';
 import { MemoryRouterProvider } from "next-router-mock/dist/MemoryRouterProvider";
-import { AuthContext } from '@/__mocks__/authContextMock';
 import { QueryClientWrapper } from '@/__mocks__/queryClientMock';
-import { useAuthenticatedUser, useListMock, useMockInterestLists, useMockUserOwnedLists, useMockConfig } from '@/__mocks__/predefinedMocks';
-import Home from '@/pages/learner/index';
-import useSpotlightCourses from '@/hooks/useSpotlightCourses';
+import { render } from '@testing-library/react';
+import { useAuthenticatedUser, useMockConfig } from '@/__mocks__/predefinedMocks';
 import { useInterestLists } from '@/hooks/useInterestLists';
 import { useUserOwnedLists } from '@/hooks/useUserOwnedLists';
+import Home from '@/pages/learner/index';
 import MockRouter from "next-router-mock";
-import singletonRouter from "next/router";
+import useSpotlightCourses from '@/hooks/useSpotlightCourses';
 
 jest.mock('@/hooks/useSpotlightCourses');
 jest.mock('@/hooks/useInterestLists');

@@ -1,11 +1,11 @@
 import { MemoryRouterProvider } from 'next-router-mock/MemoryRouterProvider';
 import { QueryClientWrapper } from '@/__mocks__/queryClientMock';
+import { act, fireEvent, render} from '@testing-library/react';
 import {
   useAuthenticatedUser,
   useMockConfig,
   useMockDeleteSaveSearch,
 } from '@/__mocks__/predefinedMocks';
-import { fireEvent, render, act} from '@testing-library/react';
 import SavedSearchTable from '@/components/tables/collectionsTable/SavedSearchTable';
 import savedColumnsData from '@/__mocks__/data/savedColumns.data';
 import savedSearchData from '@/__mocks__/data/savedSearchData.data';

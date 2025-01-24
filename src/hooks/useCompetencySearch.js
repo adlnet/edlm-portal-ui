@@ -1,9 +1,9 @@
 'use strict';
 
-import { useEffect, useState, useMemo } from 'react';
-import axios from 'axios';
-import axiosRetry, { retryAfter } from 'axios-retry';
 import { axiosInstance } from '@/config/axiosConfig';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import axiosRetry from 'axios-retry';
 import backupData from '@/public/backup_competencies.json';
 
 const DOTE_UUID = '41b9bcc4-c455-4c80-a88d-a9511937011f';
@@ -93,6 +93,7 @@ function getCompData(compLinks){
  * Hook to get the competency results
  * @returns all competencies from the DOT&E Framework defined in the Dev-ECCR
  */
+
 export function useCompetencySearch() {
 
   // // Setting up form data for API call
@@ -132,7 +133,7 @@ export function useCompetencySearch() {
           let relateLinks = compData.relation;
           let compLinks = compData.competency;
 
-          const promiseResponse = getCompData(compLinks)
+          getCompData(compLinks)
             .then( res => {
               const allRelateData = getRelateLinks(relateLinks, res)
 

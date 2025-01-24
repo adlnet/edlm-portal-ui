@@ -1,8 +1,8 @@
 'use strict';
 
 import { axiosInstance } from '@/config/axiosConfig';
-import { useMutation, useQueryClient } from 'react-query';
 import { interestLists } from '@/config/endpoints';
+import { useMutation, useQueryClient } from 'react-query';
 
 const deleteSearch = (id) => {
   return axiosInstance

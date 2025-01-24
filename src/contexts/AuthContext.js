@@ -1,5 +1,5 @@
-import { axiosInstance } from '@/config/axiosConfig';
 import { XDSbackendHost } from '../config/endpoints';
+import { axiosInstance } from '@/config/axiosConfig';
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useLocalStorage } from '../hooks/useStorage';
 
@@ -44,7 +44,7 @@ export function AuthProvider({ children }) {
       });
   };
 
-  // // Check if user is logged in
+  // Check if user is logged in
   const checkUserLoggedIn = async () => {
     axiosInstance
       .get(`${XDSbackendHost}/api/auth/validate`)
@@ -56,7 +56,7 @@ export function AuthProvider({ children }) {
         logout();
       });
   };
-
+  
   return (
     <AuthContext.Provider value={{ user, error, register, login, logout, checkUserLoggedIn }}>
       {children}

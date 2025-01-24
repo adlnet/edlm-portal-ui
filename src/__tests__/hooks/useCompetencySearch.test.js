@@ -1,11 +1,11 @@
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { act, renderHook } from '@testing-library/react';
-import mockAxios from 'jest-mock-axios';
-import axios from 'axios';
-import {useState} from 'react';
 import { useCompetencySearch } from '@/hooks/useCompetencySearch';
+import {useState} from 'react';
+import React, { useEffect, useState as useStateMock} from 'react';
+import axios from 'axios';
 import competencyData from '@/__mocks__/data/competency.data';
-import React, { useState as useStateMock, useEffect} from 'react';
+import mockAxios from 'jest-mock-axios';
 
 // const queryClient = new QueryClient();
 // const wrapper = ({ children }) => (

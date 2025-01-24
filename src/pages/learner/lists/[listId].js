@@ -1,19 +1,19 @@
 'use strict';
 
-import { getDeeplyNestedData } from '@/utils/getDeeplyNestedData';
-import { useAuth } from '@/contexts/AuthContext';
-import { useCallback, useEffect, useMemo } from 'react';
-import { useList } from '@/hooks/useList';
-import { useConfig } from '@/hooks/useConfig';
-import { useRouter } from 'next/router';
-import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement';
-import { removeHTML } from '@/utils/cleaning';
-import DefaultLayout from '@/components/layouts/DefaultLayout';
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
+import { getDeeplyNestedData } from '@/utils/getDeeplyNestedData';
+import { removeHTML } from '@/utils/cleaning';
+import { useAuth } from '@/contexts/AuthContext';
+import { useConfig } from '@/hooks/useConfig';
+import { useEffect, useMemo } from 'react';
+import { useList } from '@/hooks/useList';
+import { useRouter } from 'next/router';
+import CollectionTable from '@/components/tables/collectionsTable/CollectionTable';
+import DefaultLayout from '@/components/layouts/DefaultLayout';
 import Image from 'next/image';
+import Link from 'next/link';
 import LockClose from '@/public/icons/lockClose.svg';
 import lockOpen from '@/public/icons/lockOpen.svg';
-import CollectionTable from '@/components/tables/collectionsTable/CollectionTable';
 
 export function getServerSideProps(context) {
   const { listId } = context.query;
@@ -80,29 +80,6 @@ export default function ListsView({ listId }) {
       return router.push('/403');
   }, []);
 
-  const visitCourse = useCallback((course) => {
-    if (!user) return;
-    const context = {
-      actor: {
-        first_name: user?.user?.first_name,
-        last_name: user?.user?.last_name,
-      },
-      verb: {
-        id: 'https://w3id.org/xapi/acrossx/verbs/explored',
-        display: 'explored',
-      },
-      object: {
-        id: `${window.origin}/learner/course/${course.meta.metadata_key_hash}`,
-        definitionName: course.Course.CourseTitle,
-        description: course.Course.CourseShortDescription,
-      },
-      resultExtName: 'https://w3id.org/xapi/ecc/result/extensions/CourseId',
-      resultExtValue: course.meta.metadata_key_hash,
-    };
-    xAPISendStatement(context);
-    router.push(`/learner/course/${course.meta.metadata_key_hash}`);
-  }, []);
-
   const isOwned = user?.user?.id === list?.data?.owner?.id;
 
   return (
@@ -111,9 +88,9 @@ export default function ListsView({ listId }) {
         <div className='mt-10 pb-4 py-4'>
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-2">
-              <a href={isOwned ? '/learner/lists/owned' : '/learner/lists/subscribed'}className="text-[#3892f3] text-sm font-medium  leading-[21px]  hover:underline">
-              {isOwned ? 'My Collections' : 'My Subscriptions'}
-              </a>
+              <Link href={isOwned ? '/learner/lists/owned' : '/learner/lists/subscribed'} passHref className="text-[#3892f3] text-sm font-medium  leading-[21px]  hover:underline">
+                {isOwned ? 'My Collections' : 'My Subscriptions'}
+              </Link>
               <ChevronRightIcon className="w-3 h-3 relative" />
               <div className="justify-center items-center flex">
                 <span className="text-gray-500 text-sm font-medium  leading-[21px]">{list?.data?.name}</ span>

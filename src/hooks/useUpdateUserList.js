@@ -1,8 +1,8 @@
 'use strict';
 
-import { useMutation, useQueryClient } from 'react-query';
-import { interestLists } from '@/config/endpoints';
 import { axiosInstance } from '@/config/axiosConfig';
+import { interestLists } from '@/config/endpoints';
+import { useMutation, useQueryClient } from 'react-query';
 
 const updateUserList = ({ id, listData }, token) => {
   return axiosInstance.patch(interestLists + id, listData, {

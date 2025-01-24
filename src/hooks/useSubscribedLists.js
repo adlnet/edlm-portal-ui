@@ -1,9 +1,9 @@
 'use strict';
 
 import { axiosInstance } from '@/config/axiosConfig';
+import { interestLists } from '@/config/endpoints';
 import { oneMinute } from '@/config/timeConstants';
 import { useQuery, useQueryClient } from 'react-query';
-import { interestLists } from '@/config/endpoints';
 
 export function useSubscribedLists() {
   const queryClient = useQueryClient();

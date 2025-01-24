@@ -1,7 +1,7 @@
 import { QueryClientWrapper } from '@/__mocks__/queryClientMock.js';
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import { useAuth } from '@/contexts/AuthContext';
-import { useUnauthenticatedUser, useAuthenticatedUser } from '@/__mocks__/predefinedMocks';
+import { useAuthenticatedUser, useUnauthenticatedUser } from '@/__mocks__/predefinedMocks';
 import Home from '@/pages/learner/index';
 import InitialPage from '@/pages/index';
 import mockRouter from 'next-router-mock';
@@ -16,14 +16,16 @@ jest.mock('@/contexts/AuthContext', () => ({
 }));
 
 jest.mock('@/pages/login', () => {
+  // eslint-disable-next-line react/display-name
   return () => <div data-testid='login-page'>Login</div>;
 });
 
 jest.mock('@/pages/learner/index', () => {
+  // eslint-disable-next-line react/display-name
   return () => <div data-testid='home-page'>Home</div>;
 });
 
-describe('IntialPage', () => {
+describe('InitialPage', () => {
   it('should render login page when user is not authenticated', () => {
     useUnauthenticatedUser();
     render(

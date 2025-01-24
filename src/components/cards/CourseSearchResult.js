@@ -1,16 +1,16 @@
 'use strict';
+import { getDeeplyNestedData } from '@/utils/getDeeplyNestedData';
 import { removeHTML } from '@/utils/cleaning';
 import { useAuth } from '@/contexts/AuthContext';
 import { useCallback, useMemo } from 'react';
+import { useConfig } from '@/hooks/useConfig';
 import { useRouter } from 'next/router';
 import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement';
-import SaveModal from '@/components/modals/SaveModal';
-import { useConfig } from '@/hooks/useConfig';
-import { getDeeplyNestedData } from '@/utils/getDeeplyNestedData';
-import ShareButton from '@/components/buttons/ShareBtn';
-import Image from 'next/image';
-import StoreIcon from '@/public/store.svg';
 import ClockIcon from '@/public/clock.svg';
+import Image from 'next/image';
+import SaveModal from '@/components/modals/SaveModal';
+import ShareButton from '@/components/buttons/ShareBtn';
+import StoreIcon from '@/public/store.svg';
 import WindowIcon from '@/public/window.svg';
 
 //Helper function to extract competencies
@@ -18,22 +18,26 @@ function getComps(subjects){
 
   const comps = subjects?.split(',');
   
-  for (let i = 1; i < comps?.length; i++){
+  let i = 1
+  while (i < comps?.length){
     //Trimming whitespace 
     comps[i] = comps[i]?.trim() || '';
+
     //Accounting for comp #4 with commas
     if (comps[i][0] !== 'C'){
       comps[i-1] = comps[i - 1] + ', ' + comps[i] + ',' + comps[i + 1];
-      let removed = comps.splice(i, i+1);
+      comps.splice(i, i+1);
       i--;
     }
     comps[i] = comps[i].replace('4A', '')
     comps[i] = comps[i].replace('4B', '')
     comps[i] = comps[i].replace('4C', '')
     comps[i] = comps[i].replace('4D', '')
-    comps[i] = comps[i].replace(/[0-9]/g, '')
+    comps[i] = comps[i].replace(/\d/g, '')
     comps[i] = comps[i].replace('Competency #','')
     comps[i] = comps[i].trim()
+
+    i++
   }
 
   //There is probably a way to make this one statement but I don't know how lol
@@ -43,14 +47,12 @@ function getComps(subjects){
     comps[0] = comps[0].replace('4C', '')
     comps[0] = comps[0].replace('4D', '')
     comps[0] = comps[0].replace('Competency #', '')
-    comps[0] = comps[0].replace(/[0-9]/g, '')
+    comps[0] = comps[0].replace(/\d/g, '')
     comps[0] = comps[0].trim()
   }
   
   return comps
 }
-
-// const  competencies = ['aaa', 'bbb', 'ccc', 'ddd', 'eee', 'fff', 'ggg', 'hhh', 'iii']
 
 export default function SearchResult({ result, handleCompetencyTag}) {
   const { user } = useAuth();
@@ -144,7 +146,7 @@ export default function SearchResult({ result, handleCompetencyTag}) {
           </div>
           { competencies.map((comp) =>{
             return (
-              <div className="w-auto h-7 px-[15px] py-1.5 bg-[#e5efff] rounded-xl justify-center items-center gap-2 flex">
+              <div key={comp} className="w-auto h-7 px-[15px] py-1.5 bg-[#e5efff] rounded-xl justify-center items-center gap-2 flex">
                 <div className="text-center text-[#3892f3] text-sm font-normal font-['Roboto'] leading-tight whitespace-nowrap">
                   <button
                     className=''

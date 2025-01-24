@@ -1,7 +1,6 @@
 'use strict'
 
-import { useState } from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export const useTablePagination = (setPage, tableData, rowsPerPage) => { 
 

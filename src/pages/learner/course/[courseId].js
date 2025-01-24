@@ -1,29 +1,28 @@
 'use strict';
 
-import { ClockIcon, 
-         UserIcon, 
-        BuildingStorefrontIcon, 
+import { AcademicCapIcon, 
+         BuildingStorefrontIcon, 
         CalendarIcon, 
+        ChevronRightIcon, 
+        ClockIcon, 
         ComputerDesktopIcon, 
-        AcademicCapIcon, 
-        InformationCircleIcon, 
         CurrencyDollarIcon, 
+        InformationCircleIcon, 
         Square3Stack3DIcon,
-        ChevronRightIcon } from '@heroicons/react/24/solid';
+        UserIcon } from '@heroicons/react/24/solid';
 import { getDeeplyNestedData } from '@/utils/getDeeplyNestedData';
 import { removeHTML } from '@/utils/cleaning';
 import { useAuth } from '@/contexts/AuthContext';
+import { useCallback, useMemo } from 'react';
 import { useConfig } from '@/hooks/useConfig';
 import { useCourse } from '@/hooks/useCourse';
-import { useMemo, useCallback } from 'react';
 import { useMoreCoursesLikeThis } from '@/hooks/useMoreCoursesLikeThis';
 import { useRouter } from 'next/router';
 import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement';
-import SaveModal from '@/components/modals/SaveModal';
 import CourseSpotlight from '@/components/cards/CourseSpotlight';
-import ShareButton from '@/components/buttons/ShareBtn';
 import DefaultLayout from '@/components/layouts/DefaultLayout';
-//import FlowbiteAccordion from '@/components/fAccordion';
+import SaveModal from '@/components/modals/SaveModal';
+import ShareButton from '@/components/buttons/ShareBtn';
 
 function RelatedCourses({ id }) {
   const moreLikeThis = useMoreCoursesLikeThis(id);
@@ -35,8 +34,8 @@ function RelatedCourses({ id }) {
       </div>
       <div className='flex justify-center w-full overflow-x-hidden my-4 max-w-7xl mx-auto'>
         <div className='inline-flex overflow-x-auto gap-2 px-1 custom-scroll mb-4'>
-          {moreLikeThis.data?.hits?.map((course, index) => (
-            <CourseSpotlight course={course} key={index} />
+          {moreLikeThis.data?.hits?.map((course) => (
+            <CourseSpotlight course={course} key={course.id} />
           ))}
         </div>
       </div>
@@ -48,15 +47,19 @@ function getComps(subjects){
 
   const comps = subjects?.split(',');
   
-  for (let i = 1; i < comps?.length; i++){
+  let i = 1;
+  while ( i < comps?.length){
     //Trimming whitespace 
     comps[i] = comps[i]?.trim();
+
     //Accounting for comp #4 with commas
     if (comps[i][0] !== 'C'){
       comps[i-1] = comps[i - 1] + ', ' + comps[i] + ',' + comps[i + 1];
-      let removed = comps.splice(i, i+1);
+      comps.splice(i, i+1);
       i--;
     }
+    
+    i++
   }
   return comps
 }
@@ -133,7 +136,6 @@ export default function Course() {
   }, [course.isSuccess, course.data, config.isSuccess, config.data]);
  
   const competencies = getComps(data?.subject)
-  console.log('Competencies: ', competencies)
 
   const handleClick = useCallback(() => {
     if (!user) return;
@@ -194,7 +196,7 @@ export default function Course() {
             <div className='flex flex-row w-1/4 mt-6 gap-4 '>
               {competencies?.map((comp) => {
                 return (
-                  <span className='flex flex-row'>
+                  <span key={comp.id} className='flex flex-row'>
                     <Square3Stack3DIcon className='h-20 pr-4 text-blue-800 opacity-85' />
                     <div className='text-sm'>
                       <b className='flex flex-row gap-8'>Competency </b>
@@ -280,10 +282,10 @@ export default function Course() {
         </div>
         {/* Extra Details */}
         <div className='pt-5 grid gap-4'>
-        {data?.details.map((detail, index) => {
+        {data?.details.map((detail) => {
           return (
             <div
-              key={detail.title + index}
+              key={detail.id}
               className='grid grid-cols-5 w-full max-w-7xl px-4 mt-5 mx-auto'
             >
               <h2 className='min-w-max col-span-1 font-semibold'>
@@ -294,28 +296,6 @@ export default function Course() {
           );
         })}
         </div>
-        {/* <div className='flex flex-col max-w-7xl mx-auto p-4 justify-between'>
-          <h1 className='font-bold text-2xl'>Associated Modules</h1>
-          <h2 className='font-semibold text-grey-900 opacity-50'>{mockData.length} total modules</h2>
-          <h3 className='mb-6'>To successfully complete this course, all course modules listed below must be reviewed in their entirety.</h3>
-          {mockData.map((data, index) => {
-            if (index > 3) {
-              return (
-                <div className='border rounded-md'>
-                  {(showCourseFlag) ? <FlowbiteAccordion acctitle={data.accTitle} accdescription={data.accDescription} /> : <></>}
-                </div>
-              );
-            }
-            return (
-              <div className='border rounded-md'>
-                <FlowbiteAccordion acctitle={data.accTitle} accdescription={data.accDescription} />
-              </div>
-            )
-          })}
-          <button onClick={()=>{setShowCourseFlag(!showCourseFlag)}} className='w-full h-10 border rounded-lg text-white bg-blue-900'>Show {showCourseFlag ? "Less" : "More"} Courses</button>
-
-        </div> */}
-
         {/* Related courses */}
         <RelatedCourses id={router.query?.courseId} />
       </div>

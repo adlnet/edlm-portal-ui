@@ -1,21 +1,20 @@
 'use strict';
 
 import { Pagination } from '@/components/buttons/Pagination';
-import { unstable_batchedUpdates } from 'react-dom';
-import { useConfig } from '@/hooks/useConfig';
-import { useRouter } from 'next/dist/client/router';
-import { useCourseSearch} from '@/hooks/useCourseSearch';
-import MoreLikeThis from '@/components/cards/MoreLikeThis';
-import SearchResult from '@/components/cards/CourseSearchResult';
-import { useEffect, useState } from 'react';
-import { useMoreCoursesLikeThis } from '@/hooks/useMoreCoursesLikeThis';
 import { axiosInstance } from '@/config/axiosConfig';
 import { candidateList } from '@/config/endpoints';
-import useSpotlightCourses from '@/hooks/useSpotlightCourses';
-import CourseSpotlight from '@/components/cards/CourseSpotlight';
-import ContentLoadingAnimate from '@/utils/ContentLoadingAnimate';
+import { unstable_batchedUpdates } from 'react-dom';
+import { useConfig } from '@/hooks/useConfig';
+import { useCourseSearch} from '@/hooks/useCourseSearch';
+import { useEffect } from 'react';
+import { useMoreCoursesLikeThis } from '@/hooks/useMoreCoursesLikeThis';
+import { useRouter } from 'next/dist/client/router';
 import Carousel from 'react-grid-carousel'
+import ContentLoadingAnimate from '@/utils/ContentLoadingAnimate';
 import CourseSpotlightCarouselCard from '@/components/cards/CourseSpotlightCarousel';
+import MoreLikeThis from '@/components/cards/MoreLikeThis';
+import SearchResult from '@/components/cards/CourseSearchResult';
+import useSpotlightCourses from '@/hooks/useSpotlightCourses';
 
 
 
@@ -74,7 +73,6 @@ export default function SearchCourses( { params, setParams, handleCompetencyTag 
             {data && data?.hits?.map((course) => (     
               <SearchResult result={course} key={course.meta.id} handleCompetencyTag={handleCompetencyTag}/>    
             ))}  
-            {/* {(!isLoading && !data) && <ContentLoadingAnimate />}     */}
           </div>
           
           <div className='col-span-1 md:col-span-12 flex flex-col justify-center w-full -mt-4 px-2 max-w-7xl mx-auto'>  
@@ -105,11 +103,11 @@ export default function SearchCourses( { params, setParams, handleCompetencyTag 
                           mobileBreakpoint={670}
                       >
                   {spotlight && spotlight.data?.map((course) => {
-                      //  return <CourseSpotlightCarousel course={course} key={course.meta.id} />;
                       return(
-                          <Carousel.Item>
+                          <Carousel.Item key={course.meta.id}>
                             <CourseSpotlightCarouselCard course={course} key={course.meta.id} />
-                          </Carousel.Item>)
+                          </Carousel.Item>
+                      )
                     })}
                     </Carousel>
                   </div>

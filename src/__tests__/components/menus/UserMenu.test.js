@@ -1,10 +1,10 @@
 // noinspection JSCheckFunctionSignatures
 
 import { act, fireEvent, render, screen } from '@testing-library/react';
+import { logoutFn } from '@/__mocks__/predefinedMocks';
 import { useAuth } from '@/contexts/AuthContext';
 import UserMenu from '@/components/menus/UserMenu';
 import singletonRouter from 'next/router';
-import { logoutFn } from '@/__mocks__/predefinedMocks';
 
 jest.mock('../../../contexts/AuthContext', () => ({
   useAuth: jest.fn(),
@@ -40,6 +40,7 @@ describe('User Menu', () => {
       await act (async() => {
         fireEvent.click(screen.getByText(/Logout/i));
       });
+
       // expect(singletonRouter).toMatchObject({
       //   asPath: '/login',
       // });

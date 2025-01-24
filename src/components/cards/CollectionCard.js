@@ -1,10 +1,8 @@
-import OutdentIcon from '@/public/icons/outdentIcon.svg';
-import Image from 'next/image';
 import CardDropdown from '@/components/menus/CardDropdown';
-import { ClockIcon } from '@heroicons/react/24/outline';
+import Image from 'next/image';
+import Link from 'next/link';
 import LockClose from '@/public/icons/lockClose.svg';
 import lockOpen from '@/public/icons/lockOpen.svg';
-import Link from 'next/link';
 
 export default function CollectionCard({ title, description, itemsCount, totalTime, isPublic, menuItems = [], cardDetailLink, showPrivateToggle = false, onTogglePrivatePublic }) {
     return (
@@ -19,7 +17,7 @@ export default function CollectionCard({ title, description, itemsCount, totalTi
           />)}
         </div>
         <div className="flex flex-col gap-2">
-          <Link href={cardDetailLink}>
+          <Link href={cardDetailLink} passHref>
             <div className="text-[#1b1128] text-2xl font-bold font-['Roboto'] leading-[30px]">{title}</div>
           </Link>
           <div className="text-gray-500 text-base font-normal leading-normal line-clamp-1">{description}</div>     
@@ -31,16 +29,12 @@ export default function CollectionCard({ title, description, itemsCount, totalTi
             <g id="outdent-outline">
             <g id="outdent">
             <path d="M11.6999 5.86664V10.1333L14.8999 7.99998L11.6999 5.86664Z" fill="#135F9B"/>
-            <path d="M14.8999 1.59998H2.0999M7.43324 5.86664H2.0999M7.43324 10.1333H2.0999M14.8999 14.4H2.0999M11.6999 5.86664V10.1333L14.8999 7.99998L11.6999 5.86664Z" stroke="#135F9B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M14.8999 1.59998H2.0999M7.43324 5.86664H2.0999M7.43324 10.1333H2.0999M14.8999 14.4H2.0999M11.6999 5.86664V10.1333L14.8999 7.99998L11.6999 5.86664Z" stroke="#135F9B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </g>
             </g>
           </svg>
             <span className='text-gray-500 text-nowrap'>{itemsCount} items</span>
           </div>
-          {/* <div className='flex items-center space-x-1'>
-            <ClockIcon alt='Clock Icon' className='w-5 h-5 text-[#135F9B]' />
-            <span className='text-gray-500 text-nowrap'>{totalTime > 1 ? `${totalTime} hours` : `${totalTime} hour`}</span>
-          </div> */}
           <div className='flex items-center space-x-1'>
             <Image src={isPublic ? lockOpen : LockClose} alt='Lock Icon' className='w-4 h-4' />
             <span className='text-gray-500 text-nowrap'>{isPublic ? 'Public' : 'Private'}</span>

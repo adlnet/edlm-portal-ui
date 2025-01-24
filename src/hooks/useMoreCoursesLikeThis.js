@@ -2,8 +2,8 @@
 
 import { axiosInstance } from '@/config/axiosConfig';
 import { moreLikeThisUrl } from '@/config/endpoints';
-import { useQuery, useQueryClient } from 'react-query';
 import { oneHour } from '@/config/timeConstants';
+import { useQuery, useQueryClient } from 'react-query';
 
 const getMoreCoursesLikeThis = (id) => {
   return () => axiosInstance.get(`${moreLikeThisUrl}${id}/`).then((res) => res.data);

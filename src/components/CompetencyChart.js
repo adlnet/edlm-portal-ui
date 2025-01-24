@@ -1,12 +1,11 @@
 'use strict';
 
-import { useState } from 'react';
 import dynamic from 'next/dynamic';
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 export default function CompetencyChart({ data, colors }) {
-  const [chartOptions, setChartOptions] = useState({
-    chart: {
+  const chartOptions = {
+   chart: {
       type: 'donut',
     },
     stroke: {
@@ -45,7 +44,7 @@ export default function CompetencyChart({ data, colors }) {
     legend: {
       show: false
     },
-  });
+  };
 
   const series = data.map(item => item.courses);
 

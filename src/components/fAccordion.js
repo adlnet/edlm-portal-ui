@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
-import { Accordion } from 'flowbite-react';
 import { AcademicCapIcon, ClockIcon, ListBulletIcon, WindowIcon } from '@heroicons/react/24/solid';
+import { Accordion } from 'flowbite-react';
 
 const FlowbiteAccordion = ({ acctitle, accdescription }) => {
 

@@ -1,20 +1,17 @@
 'use strict';
 
-import { BookOpenIcon, UsersIcon } from '@heroicons/react/24/solid';
 import { useAuth } from '@/contexts/AuthContext';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useSubscribedLists } from '@/hooks/useSubscribedLists';
 import { useUnsubscribeFromList } from '@/hooks/useUnsubscribeFromList';
-import DefaultLayout from '@/components/layouts/DefaultLayout';
-import Link from 'next/link';
-import Image from 'next/image';
-import React, { useEffect } from 'react';
-import CollectionsLayout from '@/components/layouts/CollectionsLayout';
-import ShareIcon from '@/public/icons/shareIcon.svg';
-import MinusIcon from '@/public/icons/minusIcon.svg';
-import CollectionCard from '@/components/cards/CollectionCard';
-import { useState } from 'react';
 import CheckMessageCard from '@/components/cards/CheckMessageCard';
+import CollectionCard from '@/components/cards/CollectionCard';
+import CollectionsLayout from '@/components/layouts/CollectionsLayout';
+import Image from 'next/image';
+import Link from 'next/link';
+import MinusIcon from '@/public/icons/minusIcon.svg';
+import ShareIcon from '@/public/icons/shareIcon.svg';
 
 export default function Subscribed() {
   const { user } = useAuth();
@@ -69,9 +66,9 @@ export default function Subscribed() {
     <CollectionsLayout title={'My Subscriptions'}>
       <div className='mt-7 pb-5'>
         <div className='grid grid-cols-3 gap-8'>
-          {isSuccess && subscribed?.map((cardItem, i) => (
+          {isSuccess && subscribed?.map((cardItem) => (
               <CollectionCard
-                key={i}
+                key={cardItem.id}
                 title={cardItem.name}
                 itemsCount={cardItem.experiences.length}
                 totalTime={cardItem.totalTime}

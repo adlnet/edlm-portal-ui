@@ -1,24 +1,20 @@
 'use strict';
 
-import { ArrowLeftEndOnRectangleIcon } from '@heroicons/react/24/outline';
 import { authLogin } from '@/config/endpoints';
 import { axiosInstance } from '@/config/axiosConfig';
 import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/router';
-import DefaultLayout from '@/components/layouts/DefaultLayout';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import logo from '@/public/doteLogo.png';
-import { useConfig } from '@/hooks/useConfig';
 
 export default function Login() {
   const router = useRouter();
   const { user, login } = useAuth();
-  const config = useConfig();
   const [credentials, setCredentials] = useState({
     username: '',
-    password: '',
+    password: null,
   });
 
   useEffect(() => {
@@ -36,8 +32,9 @@ export default function Login() {
 
   const handleLogin = (event) => {
     event.preventDefault();
-    if (credentials.username === '' || credentials.password === '') {
+    if (credentials.username === '' || credentials.password === null) {
       setErrorMsg('All fields required');
+      return;
     }
     axiosInstance
       .post(authLogin, credentials)
@@ -70,7 +67,7 @@ export default function Login() {
               Welcome back
             </p>
             <span>
-              Don't have an account yet? &nbsp;
+              Don&apos;t have an account yet? &nbsp;
               <Link href={'/register'} passHref>
                 <span
                   className='text-blue-400 hover:underline hover:text-blue-500 cursor-pointer transition-all duration-150 ease-in-out'
@@ -85,14 +82,16 @@ export default function Login() {
             title='username'
             placeholder='Email'
             maxLength="200"
+            data-test='email'
             onKeyPress={(e)=>checkSpecialChar(e)}
-            className='shadow focus:shadow-md rounded-md p-2 w-full border border-gray-200 text-gray-700 focus:ring-2 ring-blue-400 outline-none  transition-all  duration-200'
+            className='shadow focus:shadow-md rounded-md p-2 w-full border border-gray-200 text-gray-700 focus:ring-2 ring-blue-400 outline-none  transition-all  duration-200' 
           />
           <input
             type='password'
             name='password'
             title='password'
             placeholder='Password'
+            data-test='password'
             className='shadow focus:shadow-md rounded-md p-2 w-full border border-gray-200 text-gray-700 focus:ring-2 ring-blue-400 outline-none  transition-all  duration-200'
           />
           <span>{errorMsg}</span>
@@ -116,18 +115,6 @@ export default function Login() {
           >
             Log in with Single Sign On
           </button>
-          {/* {config.isSuccess &&
-            config.data.single_sign_on_options.map(({ name, path }) => {
-              return (
-                <a
-                  href={path}
-                  className='bg-blue-500 py-2 px-4 rounded inline-block text-white hover:opacity-90 hover:shadow transform transition-all duration-100 ease-in-out font-semibold max-w-max mx-auto'
-                  key={name}
-                >
-                  {name}
-                </a>
-              );
-            })} */}
         </form>
       </div>
   );

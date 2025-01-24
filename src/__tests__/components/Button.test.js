@@ -5,7 +5,7 @@ import Button from '@/components/Button';
 const renderer = () => {
     return render(
       <QueryClientWrapper>
-        <Button onClick={null} id='id1' children='test' />
+        <Button onClick={null} id='id1'>Test</Button>
       </QueryClientWrapper>
     );
 };
@@ -13,6 +13,6 @@ const renderer = () => {
 describe ('Button component test', () => {
     it ('show that a button can render', () =>{
         const screen = renderer();
-        expect(screen.getByText('test'))
+        expect(screen.getByText('Test'))
     })  
 })

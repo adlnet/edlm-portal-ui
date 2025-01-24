@@ -1,39 +1,39 @@
 'use strict';
 
-import DefaultLayout from "@/components/layouts/DefaultLayout";
-import { useEffect } from "react";
 import { useAuth } from '@/contexts/AuthContext';
+import { useEffect } from "react";
 import { useRouter } from 'next/router' ;
-import CompetencyChart from "@/components/CompetencyChart";
 import CollectionTable from "@/components/tables/collectionsTable/CollectionTable";
+import CompetencyChart from "@/components/CompetencyChart";
+import DefaultLayout from "@/components/layouts/DefaultLayout";
 import ProgressCard from "@/components/cards/ProgressCard";
 
 // Mock data for development
 const mockSummaryData = [
-  { name: 'Courses Completed', value: 43 },
-  { name: 'Upcoming Courses', value: 2 },
-  { name: 'Comptencies Worked On', value: 11 },
-  { name: 'In Progress Courses', value: 3 }
+  { name: 'Courses Completed', value: 43, id:0 },
+  { name: 'Upcoming Courses', value: 2, id:1 },
+  { name: 'Competencies Worked On', value: 11, id:2 },
+  { name: 'In Progress Courses', value: 3, id:3 }
 ]
 
-const mockComptencyData = [
-  { name: 'Operating & System Design', courses:4, hours: 4 },
-  { name: 'Acquisition & Requirements Process', courses: 2, hours: 3 },
-  { name: 'Policy Development & Implementation', courses: 3, hours: 5 },
-  { name: 'Test Planning, Execution & Reporting', courses: 2, hours: 2 },
-  { name: 'Data Management & Reporting', courses: 2, hours: 3 },
-  { name: 'TEMP/T&E Strategy & Development', courses: 2, hours: 3 },
-  { name: 'Modeling & Stimulation VV&A', courses: 2, hours: 3 },
-  { name: 'Software', courses: 2, hours: 3 },
-  { name: 'Full Spectrum Survivability & Lethality', courses: 2, hours: 3 },
-  { name: 'Artificial Intelligence', courses: 2, hours: 3 },
-  { name: 'Leadership', courses: 2, hours: 3 }
+const mockCompetencyData = [
+  { name: 'Operating & System Design', courses:4, hours: 4, id:0 },
+  { name: 'Acquisition & Requirements Process', courses: 2, hours: 3, id:1 },
+  { name: 'Policy Development & Implementation', courses: 3, hours: 5, id:2 },
+  { name: 'Test Planning, Execution & Reporting', courses: 2, hours: 2, id:3 },
+  { name: 'Data Management & Reporting', courses: 2, hours: 3, id:4 },
+  { name: 'TEMP/T&E Strategy & Development', courses: 2, hours: 3, id:5 },
+  { name: 'Modeling & Stimulation VV&A', courses: 2, hours: 3, id:6 },
+  { name: 'Software', courses: 2, hours: 3, id:7 },
+  { name: 'Full Spectrum Survivability & Lethality', courses: 2, hours: 3, id:8 },
+  { name: 'Artificial Intelligence', courses: 2, hours: 3, id:9 },
+  { name: 'Leadership', courses: 2, hours: 3, id:10 }
 ];
 
 const mockLearningPhases = [
-  { name: 'Phase I (30 Days)', progress: 100, title: 'Onboarding Learning Plan' },
-  { name: 'Phase II (60 Days)', progress: 100, title: 'Onboarding Learning Plan' },
-  { name: 'Phase III (90 Days)', progress: 70, title: 'Onboarding Learning Plan' }
+  { id: 0, name: 'Phase I (30 Days)', progress: 100, title: 'Onboarding Learning Plan' },
+  { id: 1, name: 'Phase II (60 Days)', progress: 100, title: 'Onboarding Learning Plan' },
+  { id: 2, name: 'Phase III (90 Days)', progress: 70, title: 'Onboarding Learning Plan' }
 ]
 
 const mockCompetencyColor = {
@@ -94,10 +94,10 @@ export default function LearningSummary() {
   const columns = [
     {label: 'COURSES', accessor: 'title'},
   ]
+
+  // Will need to add back 401 and 403 errors when we have data
   useEffect(() => {
     if (!user) router.push('/');
-    // if (isError && error.response.status === 403) router.push('/403');
-    // if (isError && error.response.status === 401) router.push('/401');
   }, []);
 
   return (
@@ -107,8 +107,8 @@ export default function LearningSummary() {
         {/* Summary Section */}
         <div className='bg-white rounded-lg shadow p-4 mb-4'>
           <div className='flex flex-col md:flex-row'>
-            {mockSummaryData.map((summary, i) => (
-              <div key={i} className='flex-1 flex flex-col items-center justify-center p-4 md:pl-8'>
+            {mockSummaryData.map((summary) => (
+              <div key={summary.id} className='flex-1 flex flex-col items-center justify-center p-4 md:pl-8'>
                 <span className='text-[#00509f] text-4xl font-bold'>{summary.value}</span>
                 <span className="text-gray-800 text-base font-normal  leading-normal text-nowrap">{summary.name}</span>
               </div>
@@ -119,16 +119,16 @@ export default function LearningSummary() {
         <div className='bg-white rounded-lg shadow p-4 mb-4 shadow'>
           <h2 className='text-gray-900 text-2xl font-bold leading-[30px]'>Competency Progress</h2>
           <p className='text-gray-500 text-base font-normal leading-normal mb-8'>
-            Track your competency progress by seeing what competency you're contributing to.
+            Track your competency progress by seeing what competency you&apos;re contributing to.
           </p>
           <div className='flex flex-row'>
             <div className='flex items-center justify-center mr-2 ml-6'>
               <CompetencyChart
-                data={mockComptencyData}
+                data={mockCompetencyData}
                 colors={mockCompetencyColor}
               />
             </div>
-            {/* Comptency Course Table */}
+            {/* Competency Course Table */}
             <div className='bg-white rounded-lg border overflow-hidden'>
               <div className='overflow-auto'>
                 <table className='rounded-lg'>
@@ -140,12 +140,11 @@ export default function LearningSummary() {
                     </tr>
                   </thead>
                   <tbody>
-                    {mockComptencyData.map((competency, i) => (
-                      <tr key={i} className='border-y hover:bg-gray-50'>
+                    {mockCompetencyData.map((competency) => (
+                      <tr key={competency.id} className='border-y hover:bg-gray-50'>
                         <td className='h-[38.82px] p-4 flex items-center gap-2 border-r text-nowrap'>
                           <span className='w-3 h-3 rounded-full' style={{ backgroundColor: mockCompetencyColor[competency.name]}}></span>
                           <span className='ml-4 text-sm font-medium leading-[21px]'>{competency.name}</span>
-                          
                         </td>
                         <td className='text-center text-gray-500 text-base font-normal leading-normal border-r '>{competency.courses}</td>
                         <td className='text-center text-gray-500 text-base font-normal leading-normal'>{competency.hours}</td>
@@ -154,10 +153,10 @@ export default function LearningSummary() {
                     <tr className='h-11'>
                       <td className='p-2 border-r '></td>
                       <td 
-                        className='p-2 text-gray-500 text-sm font-medium leading-[21px] text-nowrap border-r'>TOTAL NUMBER OF COURSES: {mockComptencyData.reduce((sum, item) => sum + item.courses, 0)}
+                        className='p-2 text-gray-500 text-sm font-medium leading-[21px] text-nowrap border-r'>TOTAL NUMBER OF COURSES: {mockCompetencyData.reduce((sum, item) => sum + item.courses, 0)}
                       </td>
                       <td
-                        className='p-2 text-gray-500 text-sm font-medium leading-[21px] text-nowrap'>TOTAL NUMBER OF HOURS: {mockComptencyData.reduce((sum, item) => sum + item.hours, 0)}
+                        className='p-2 text-gray-500 text-sm font-medium leading-[21px] text-nowrap'>TOTAL NUMBER OF HOURS: {mockCompetencyData.reduce((sum, item) => sum + item.hours, 0)}
                       </td>
                     </tr>
                   </tbody>

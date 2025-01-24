@@ -1,14 +1,15 @@
 // 'use strict';
 
 import { backendHost } from '@/config/endpoints';
+import { getDeeplyNestedData } from '@/utils/getDeeplyNestedData';
+import { removeHTML } from '@/utils/cleaning';
 import { useAuth } from '@/contexts/AuthContext';
 import { useCallback, useMemo } from 'react';
 import { useConfig } from '@/hooks/useConfig';
 import { useRouter } from 'next/router';
 import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement';
+import Image from 'next/image';
 import Link from 'next/link';
-import { getDeeplyNestedData } from '@/utils/getDeeplyNestedData';
-import { removeHTML } from '@/utils/cleaning';
 
 export default function CourseSpotlight({ course }) {
   const { Course, meta, Technical_Information, Course_Instance } = {
@@ -79,7 +80,7 @@ export default function CourseSpotlight({ course }) {
           {provider || Course?.CourseProviderName }
         </div>
         {thumbnail && (
-          <img
+          <Image 
             src={thumbnail}
             alt=''
             className='h-8 w-12 absolute bottom-0 right-0 m-2'

@@ -1,33 +1,27 @@
 "use client";
 
-
+import { Button, Card } from 'flowbite-react';
 import { useAuth } from '@/contexts/AuthContext';
+import { useInterestLists } from "@/hooks/useInterestLists";
 import { useRouter } from 'next/router';
+import { useUserOwnedLists } from "@/hooks/useUserOwnedLists";
+import Carousel from 'react-grid-carousel'
+import CollectionTable from '@/components/tables/collectionsTable/CollectionTable';
+import CompetencyChart from '@/components/CompetencyChart';
+import CourseSpotlightCarouselCard from '@/components/cards/CourseSpotlightCarousel';
+import DefaultLayout from '@/components/layouts/DefaultLayout';
 import Head from 'next/head'
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
-import headerImage from '@/public/welcomeHomePhoto.png';
 import armyImage from '@/public/learnImage.jpeg'
 import armyImage1 from '@/public/listsImage.png'
 import armyImage2 from '@/public/lunchLearn.png'
-//import Button from '@/components/Button';
-import DefaultLayout from '@/components/layouts/DefaultLayout';
-import {Card, Button} from 'flowbite-react';
-import Spotlight from '@/components/cards/SpotlightCard';
-import { axiosInstance } from '@/config/axiosConfig';
-import { candidateList } from '@/config/endpoints';
-import { useInterestLists } from "@/hooks/useInterestLists";
-import { useUserOwnedLists } from "@/hooks/useUserOwnedLists";
-import Carousel from 'react-grid-carousel'
+import headerImage from '@/public/welcomeHomePhoto.png';
 import useSpotlightCourses from '@/hooks/useSpotlightCourses';
-import CourseSpotlightCarouselCard from '@/components/cards/CourseSpotlightCarousel';
-import CompetencyChart from '@/components/CompetencyChart';
-import CollectionTable from '@/components/tables/collectionsTable/CollectionTable';
 
 export default function Home() {
   const router = useRouter();
   const { user } = useAuth();
-  const [spotlightData, setSpotlightData] = useState(null);
 
   const spotlight = useSpotlightCourses();
 
@@ -44,20 +38,6 @@ export default function Home() {
     setLunchNLearn(lunchNLearnList);
   }, [interestLists, ownedLists]);
 
-  // const {
-  //   user: {
-  //     user: { first_name },
-  //   },
-  // } = useAuth();
-  
-  // const spotlight = {
-  //   data: [{title: "Cybersecurity", lastViewed: "Viewed 1 hour ago"},
-  //     {title: "Systems Engineer", lastViewed: "Viewed 1 hour ago"},
-  //     {title: "Project Management", lastViewed: "Viewed 2 hour ago"},
-  //     {title: "Upcoming Vaccancies", lastViewed: "Viewed 1 hour ago"},
-  //   ]
-  //}
-
   // Mock data for development
   const mockInProgressCourses = [
     { id: 1, title: 'AI Ethics', status: 'In Progress' },
@@ -72,7 +52,7 @@ export default function Home() {
     {label: 'COURSES STATUS', accessor: 'status'},
   ]
 
-  const mockComptencyData = [
+  const mockCompetencyData = [
     { name: 'Operating & System Design', courses:4, hours: 4 },
     { name: 'Acquisition & Requirements Process', courses: 2, hours: 3 },
     { name: 'Policy Development & Implementation', courses: 3, hours: 5 },
@@ -100,18 +80,6 @@ export default function Home() {
     'Leadership': '#BADFDB'
   }
 
-  useEffect(() => {
-    axiosInstance
-      .get(candidateList)
-      .then((res) => {
-        setSpotlightData(res.data);
-      })
-      .catch((err) => {
-          console.log(err);
-      });
-
-  }, []);
-
   return (
     <DefaultLayout>
       <Head>
@@ -120,13 +88,12 @@ export default function Home() {
       </Head>
 
       <div className='flex flex-col p-6'>
-        {/* <div className='py-4 text-xl font-bold'>Welcome, Talent Manager, Andrea Wilson! </div> */}
         <div className='bg-white h-100 shadow-md rounded-lg '>
 
           <div className='flex flex-row justify-between'>
             <div className='w-1/2 m-5'> 
               <div className='pt-2 text-lg font-bold'>Welcome {user?.user?.first_name},</div>
-              <div className='pt-2 text-gray-500'>This portal is designed to support your unique educational journey as you grow your career within DOT&E. Here, you'll find an immersive environment that caters to your learning needs inclusive of organized lists to manage your learning materials and resources, planning tools to match learning to career growth, and reporting to monitor progress and track achievements.</div>
+              <div className='pt-2 text-gray-500'>This portal is designed to support your unique educational journey as you grow your career within DOT&E. Here, you&apos;ll find an immersive environment that caters to your learning needs inclusive of organized lists to manage your learning materials and resources, planning tools to match learning to career growth, and reporting to monitor progress and track achievements.</div>
               <div className='pt-12'>
               </div>
             </div>
@@ -162,7 +129,6 @@ export default function Home() {
           >
               <Carousel.Item>
                 <Card href="/learner/learningPlan" className="w-80 h-fit rounded-xl" renderImage={() => <Image width={500} height={500} src={armyImage} alt="image 1" />}>
-                  {/* <Image src={armyImage}  alt='' className=' object-fill h-50 w-150'/> */}
                   <h5 className="text-2xl font-bold justify-left tracking-tight text-gray-900 dark:text-white">
                     Learning Plan
                   </h5>
@@ -176,7 +142,6 @@ export default function Home() {
               </Carousel.Item>
               <Carousel.Item>
                 <Card href='/learner/lists/owned' className="w-80 h-full rounded-xl" renderImage={() => <Image width={500} height={500} src={armyImage1} alt="image 1" />}>
-                  {/* <Image src={armyImage1}  alt='' className=' object-fill h-50 w-150'/> */}
                   <h5 className="text-2xl font-bold text-left tracking-tight text-gray-900 dark:text-white">
                     My Collections
                   </h5>
@@ -190,7 +155,6 @@ export default function Home() {
               </Carousel.Item>
               <Carousel.Item>
                 <Card href={`/learner/lists/${lunchNLearn?.id}`} className="w-80 h-full rounded-xl" renderImage={() => <Image width={500} height={500} src={armyImage2} alt="image 1" />}>
-                  {/* <Image src={armyImage2}  alt='' className=' object-fill h-50 w-150'/> */}
                   <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                     Lunch & Learns
                   </h5>
@@ -202,13 +166,11 @@ export default function Home() {
                   </Button>
                 </Card>
               </Carousel.Item>
-              {/* ... */}
             </Carousel>
           </div>
         </div>
 
         <div className='flex flex-row mt-10 h-100'>
-
           <div className='flex flex-row w-full'>
             <div className='w-1/2 bg-white shadow-md rounded-lg justify-between mr-5'> 
               <div className='p-4 text-xl font-bold'>Pick Up Where you Left Off</div>
@@ -226,7 +188,7 @@ export default function Home() {
               <div className="flex flex-row items-center">
                 <div className='ml-2 mt-6'>
                   <CompetencyChart
-                    data={mockComptencyData}
+                    data={mockCompetencyData}
                     colors={mockCompetencyColor}
                   />
                 </div>
@@ -247,10 +209,8 @@ export default function Home() {
             </div>
           </div>
         </div>
-
+ 
         <div className='mt-10 pb-10 bg-white h-100 shadow-md rounded-lg '>
-
-
           <div className='flex flex-col'>
               <p className='text-xl font-semibold h-6 pt-4 pl-4'>Spotlight Courses</p>
               <p className='flex pt-3 mt-4 pl-4 font-sans line-clamp-6 text-gray-500'>
@@ -259,35 +219,33 @@ export default function Home() {
           </div>
 
           <div className='flex flex-col justify-center w-full mt-4 px-2 max-w-7xl mx-auto mb-12'>
-          <Carousel
-                      cols={3}
-                      rows={1}
-                      gap={1}
-                      responsiveLayout={[
-                          {
-                          breakpoint: 1200,
-                          cols: 3
-                          },
-                          {
-                          breakpoint: 990,
-                          cols: 2
-                          }
-                      ]}
-                      mobileBreakpoint={670}
-                  >
-              {spotlight && spotlight.data?.map((course) => {
-                  //  return <CourseSpotlightCarousel course={course} key={course.meta.id} />;
-                  return(
-                      <Carousel.Item>
-                        <CourseSpotlightCarouselCard course={course} key={course.meta.id} />
-                      </Carousel.Item>)
-                })}
-                </Carousel>
+            <Carousel
+              cols={3}
+              rows={1}
+              gap={1}
+              responsiveLayout={[
+                  {
+                  breakpoint: 1200,
+                  cols: 3
+                  },
+                  {
+                  breakpoint: 990,
+                  cols: 2
+                  }
+              ]}
+              mobileBreakpoint={670}
+            >
+              {spotlight?.data != [] && spotlight.data?.map((course) => {
+                return(
+                  <Carousel.Item key={course.id}>
+                    <CourseSpotlightCarouselCard course={course} key={course.meta.id} />
+                  </Carousel.Item>)
+              })}
+            </Carousel>
           </div>
         </div>
       </div>
       {/* <Footer /> */}
     </DefaultLayout>
   );
-  
 }

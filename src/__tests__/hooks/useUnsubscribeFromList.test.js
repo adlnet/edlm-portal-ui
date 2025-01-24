@@ -1,10 +1,10 @@
 // tests for useUnsubscribeFromList hook
 
 import { QueryClientWrapper } from '@/__mocks__/queryClientMock';
+import { act } from 'react';
 import { renderHook } from '@testing-library/react';
 import { useUnsubscribeFromList } from '@/hooks/useUnsubscribeFromList';
 import mockAxios from 'jest-mock-axios';
-import { act } from 'react';
 
 jest.unmock('@/hooks/useUnsubscribeFromList');
 const wrapper = ({ children }) => (

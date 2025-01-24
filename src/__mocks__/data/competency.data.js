@@ -1,4 +1,5 @@
-
+import CompetencyChart from "@/components/CompetencyChart"
+/* eslint-disable import/no-anonymous-default-export */
 export default {
     Name: 'test',
     Competencies:[    

@@ -1,11 +1,11 @@
 'use strict'
 
-import TableBody from "./CollectionBody";
-import TableHead from "./TableHead";
-import TableFooter from "./TableFooter";
-import { useState } from "react";
 import { useSortableTable } from "@/hooks/useSortableTable";
+import { useState } from "react";
 import { useTablePagination } from "@/hooks/useTablePagination";
+import TableBody from "./CollectionBody";
+import TableFooter from "./TableFooter";
+import TableHead from "./TableHead";
 
 const CollectionTable = ({data, columns, deleteCourse, rowsPerPage}) => {
 
@@ -19,7 +19,7 @@ const CollectionTable = ({data, columns, deleteCourse, rowsPerPage}) => {
 
  return (
   <>
-   <table className="table mt-7 pb-5 w-full rounded-t-lg overflow-hidden shadow border-1 px-2 font-sans">
+   <table className="table mt-7 pb-5 w-full rounded-t-lg overflow-hidden shadow border-1 px-2 font-sans suppressHydrationWarning">
     <TableHead columns={columns} handleSorting={handleSorting} />
     {rowsPerPage > 0 ? 
      <TableBody columns={columns} pageData={pageData} deleteCourse={deleteCourse} /> :

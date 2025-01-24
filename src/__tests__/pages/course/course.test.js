@@ -87,6 +87,7 @@ describe('Course Page', () => {
     const screen = renderer();
 
     expect(screen.queryByText('Save Course')).not.toBeInTheDocument();
+
     //expect(screen.queryByText('Save')).toBeDisabled();
   });
 

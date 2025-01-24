@@ -1,7 +1,7 @@
 'use strict'
 
-import Link from 'next/link';
 import { TrashIcon } from '@heroicons/react/24/outline';
+import Link from 'next/link';
 
 const TableBody = ({ pageData, columns, deleteCourse}) => {
     
@@ -9,6 +9,7 @@ const TableBody = ({ pageData, columns, deleteCourse}) => {
      <tbody className='w-full'>
       {pageData?.map((data, index) => {
        return (
+
         // Creating all rows for the data
         <tr key={data.id} 
             className={`${
@@ -28,16 +29,11 @@ const TableBody = ({ pageData, columns, deleteCourse}) => {
                     </td>
                 );
             }
+
             // Specific row creation for date in collection tables
             else if (accessor === 'date'){
-                if (data[accessor]){
-                    const tData = data[accessor] 
-                    const date = new Date(tData).toLocaleDateString()
-                    return <td key={accessor} className='pl-4' >{date}</td>;
-                }
-                else{
-                    return <td key={accessor} className='pl-4'>——</td>;
-                }
+                const tData = data[accessor] ? new Date(data[accessor]).toLocaleDateString() : "——"
+                return <td key={accessor} className='pl-4' >{tData}</td>;
             }
             else{
                 const tData = data[accessor] ? data[accessor] : "——";

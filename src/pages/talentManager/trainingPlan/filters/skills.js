@@ -1,36 +1,30 @@
 // "use client";
 
-import Image from "next/image";
-import image from  "@/public/Picture1.png"
-import { Checkbox, Label } from "flowbite-react";
-import { WorkRoleTable } from "@/components/tables/WorkRoleTable";
+import { CoursesTable } from "@/components/tables/CoursesTable";
+import { HomeIcon } from "@heroicons/react/24/solid";
 import { useRouter } from 'next/router';
 import Button from "@/components/Button";
-import { WorkforceAlignmentTable } from "@/components/tables/WorkforceAlignmentTable";
-import { CoursesTable } from "@/components/tables/CoursesTable";
 import DefaultLayout from "@/components/layouts/DefaultLayout";
-import { HomeIcon } from "@heroicons/react/24/solid";
-
+import Link from "next/link";
 
 export default function TrainingPlanSkills() {
     const router = useRouter();
-    // const config = useConfig();
 
     return (
         <DefaultLayout>
             <h2 className="flex w-5/6 text-4xl font-bold mt-8">Training Plan</h2>
             <div className="my-4 flex flex-row">
-                <a href={"/talentManager"}>
+                <Link href={"/talentManager"} passHref>
                     <HomeIcon className="w-5 mx-2"/>  
-                </a>
+                </Link>
                 &gt;
-                <a href='/talentManager/trainingPlan' className="px-2 hover:mouse hover:underline hover:font-bold">
+                <Link href='/talentManager/trainingPlan' passHref className="px-2 hover:mouse hover:underline hover:font-bold">
                     Training Plan
-                </a>
+                </Link>
                 &gt;
-                <a href='/talentManager/trainingPlan/filters' className="px-2 hover:mouse hover:underline hover:font-bold">
+                <Link href='/talentManager/trainingPlan/filters' passHref className="px-2 hover:mouse hover:underline hover:font-bold">
                     Filters
-                </a>
+                </Link>
                 &gt; 
                 <p className="font-bold pl-2"> Skills Results </p>
             </div>
@@ -49,15 +43,14 @@ export default function TrainingPlanSkills() {
               <CoursesTable />
 
               <div className="flex justify-end mt-8">
-                    <Button children={
+                    <Button onClick={()=>router.push("/")}>
                         <div className="flex flex-row gap-2">  
-                        <p className="pt-0.5"> Add to Plan </p>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
-                        </svg>
+                            <p className="pt-0.5"> Add to Plan </p>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+                            </svg>
                         </div>
-                        
-                    } onClick={()=>router.push("/")}/>
+                    </Button>
                 </div>
             </div>
         </DefaultLayout>

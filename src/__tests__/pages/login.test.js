@@ -1,7 +1,6 @@
 import { MemoryRouterProvider } from 'next-router-mock/MemoryRouterProvider';
 import { QueryClientWrapper } from '@/__mocks__/queryClientMock';
 import { act, fireEvent, render, screen } from '@testing-library/react';
-import { useAuth } from '@/contexts/AuthContext';
 import {
   useAuthenticatedUser,
   useMockConfig,
@@ -54,10 +53,9 @@ describe('Login Page', () => {
     const screen = renderer();
 
     const email = screen.getByPlaceholderText(/email/i);
-    const password = screen.getByPlaceholderText('Password');
     act(() => {
       fireEvent.change(email, { target: { value: 'email@test.com' } });
-      fireEvent.change(password, { target: { value: 'password' } });
+      fireEvent.change(screen.getByPlaceholderText('Password'), { target: { value: 'password' } });
     });
 
     const button = screen.getByText(/Login/i);
@@ -93,8 +91,9 @@ describe('Login Page', () => {
 
     it('should change values on input: Password', () => {
       const input = screen.getByPlaceholderText('Password');
+
       act(() => {
-        fireEvent.change(input, { target: { value: 'password' } });
+        fireEvent.change(screen.getByPlaceholderText('Password'), { target: { value: 'password' } });
       });
 
       expect(input.value).toBe('password');
@@ -119,10 +118,9 @@ describe('Login Page', () => {
 
       act(() => {
         const email = screen.getByPlaceholderText('Email');
-        const password = screen.getByPlaceholderText('Password');
 
         fireEvent.change(email, { target: { value: 'email@test.com' } });
-        fireEvent.change(password, { target: { value: 'password' } });
+        fireEvent.change(screen.getByPlaceholderText('Password'), { target: { value: 'password' } });
 
         const button = screen.getByText(/Login/i);
 
@@ -136,10 +134,9 @@ describe('Login Page', () => {
       );
 
       const email = screen.getByPlaceholderText('Email');
-      const password = screen.getByPlaceholderText('Password');
       act(() => {
         fireEvent.change(email, { target: { value: 'email@test.com' } });
-        fireEvent.change(password, { target: { value: 'password' } });
+        fireEvent.change(screen.getByPlaceholderText('Password'), { target: { value: 'password' } });
 
         const button = screen.getByText(/Login/i);
         fireEvent.click(button);

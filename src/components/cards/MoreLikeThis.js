@@ -1,25 +1,23 @@
 'use strict';
 
-import { removeHTML } from '@/utils/cleaning';
-import { useAuth } from '../../contexts/AuthContext';
-import { useMoreCoursesLikeThis } from '../../hooks/useMoreCoursesLikeThis';
-import { useMemo, useCallback } from 'react';
-import { useConfig } from '@/hooks/useConfig';
 import { getDeeplyNestedData } from '@/utils/getDeeplyNestedData';
-import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement';
-import Link from 'next/link';
-import ContentLoadingAnimate from '@/utils/ContentLoadingAnimate';
+import { useAuth } from '../../contexts/AuthContext';
+import { useCallback, useMemo } from 'react';
+import { useConfig } from '@/hooks/useConfig';
+import { useMoreCoursesLikeThis } from '../../hooks/useMoreCoursesLikeThis';
 import {useRouter} from 'next/router';
+import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement';
+import ContentLoadingAnimate from '@/utils/ContentLoadingAnimate';
+import Link from 'next/link';
 
 export default function MoreLikeThis({ course }) {
   const { data, isLoading } = useMoreCoursesLikeThis(course?.meta.id);
-  const { Course, meta, Technical_Information, Course_Instance } = {
+  const { Course, meta } = {
     ...course,
   };
 
   const router = useRouter();
 
-  
   const { user } = useAuth();
   const config = useConfig();
 
@@ -64,6 +62,7 @@ export default function MoreLikeThis({ course }) {
   if (isLoading) {
     return <ContentLoadingAnimate />;
   }
+
   // if error
   else if (data.hits.length < 1) {
     return null;

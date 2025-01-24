@@ -2,20 +2,21 @@
 
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
 import { Switch } from '@headlessui/react';
+import { getDeeplyNestedData } from '@/utils/getDeeplyNestedData';
+import { removeHTML } from '@/utils/cleaning';
 import { useAuth } from '@/contexts/AuthContext';
-import { useEffect, useState, useMemo } from 'react';
+import { useConfig } from '@/hooks/useConfig';
+import { useEffect, useMemo, useState } from 'react';
+import { useList } from '@/hooks/useList';
 import { useRouter } from 'next/router';
 import { useUpdateUserList } from '@/hooks/useUpdateUserList';
-import { useList } from '@/hooks/useList';
-import { useConfig } from '@/hooks/useConfig';
-import { removeHTML } from '@/utils/cleaning';
-import { getDeeplyNestedData } from '@/utils/getDeeplyNestedData';
+import CollectionTable from '@/components/tables/collectionsTable/CollectionTable';
 import DefaultLayout from '@/components/layouts/DefaultLayout';
-import prepareListDataToSend from '@/utils/prepListDataToSend';
 import Image from 'next/image';
+import Link from 'next/link';
 import LockClose from '@/public/icons/lockClose.svg';
 import lockOpen from '@/public/icons/lockOpen.svg';
-import CollectionTable from '@/components/tables/collectionsTable/CollectionTable';
+import prepareListDataToSend from '@/utils/prepListDataToSend';
 
 export function getServerSideProps({ query }) {
   return {
@@ -54,6 +55,7 @@ export default function EditList({ listId }) {
   useEffect(() => {
     // no user
     if (!user) router.push('/');
+
     // if there is a authorization error
     if (initialList?.isError) {
       if( initialList?.error?.response?.status === 401)
@@ -145,10 +147,8 @@ export default function EditList({ listId }) {
    };
 
   // prepare the experience data
-  console.log('curListInfo: ', currentListInfo)
   const data = useMemo(() => {
     const courses = []
-    console.log('In Use Memo: ', currentListInfo)
     for (let i = 0; i < currentListInfo?.experiences.length; i++){
       const course = {
           id: (currentListInfo?.experiences[i]?.meta?.metadata_key_hash),
@@ -182,10 +182,10 @@ export default function EditList({ listId }) {
         <div className='mt-10 pb-4 py-4'>
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-2">
-              <a 
-                href='/learner/lists/owned' className="text-[#3892f3] text-sm font-medium  leading-[21px]  hover:underline">
+              <Link 
+                href='/learner/lists/owned' passHref className="text-[#3892f3] text-sm font-medium  leading-[21px]  hover:underline">
                 My Collections
-              </a>
+              </Link>
               <ChevronRightIcon className="w-3 h-3 relative" />
               <div className="justify-center items-center flex">
                 <span className="text-gray-500 text-sm font-medium  leading-[21px]">{initialList?.data?.name}</ span>              

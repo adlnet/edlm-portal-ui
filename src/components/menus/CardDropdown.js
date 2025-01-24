@@ -1,5 +1,5 @@
-import { Menu, Switch } from '@headlessui/react';
 import { EllipsisVerticalIcon } from '@heroicons/react/24/outline';
+import { Menu, Switch } from '@headlessui/react';
 import { useEffect, useState } from 'react';
 
 export default function CardDropdown({ menuItems, isPublic, showPrivateToggle = false, onTogglePrivatePublic}) {
@@ -24,8 +24,8 @@ export default function CardDropdown({ menuItems, isPublic, showPrivateToggle = 
         <EllipsisVerticalIcon className='h-6 w-6 text-gray-500' />
       </Menu.Button>
       <Menu.Items className='absolute -right-12 pb-2 top-0 w-48 mt-2 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 z-30 focus:outline-none focus:ring-0'>
-        {menuItems.map((item, i) => (
-          <Menu.Item key={i}>
+        {menuItems.map((item) => (
+          <Menu.Item key={item.id}>
             {({ active }) => (
               <button
                 data-testid={`card-menu-item-${item.label}`}

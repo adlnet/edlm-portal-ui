@@ -5,8 +5,8 @@ import {
   useAuthenticatedUser,
   useUnauthenticatedUser,
 } from "@/__mocks__/predefinedMocks";
-import MockRouter from "next-router-mock";
 import LearningSummary from "@/pages/learner/learningSummary/index";
+import MockRouter from "next-router-mock";
 import singletonRouter from "next/router";
 
 jest.mock('next/dynamic', () => () => {
@@ -55,7 +55,7 @@ describe("Learning Summary Page", () => {
     const mockSummaryData = [
       { name: 'Courses Completed', value: 43 },
       { name: 'Upcoming Courses', value: 2 },
-      { name: 'Comptencies Worked On', value: 11 },
+      { name: 'Competencies Worked On', value: 11 },
       { name: 'In Progress Courses', value: 3 }
     ];
     

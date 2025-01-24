@@ -2,29 +2,15 @@
 
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useCallback, useState } from 'react';
-
 import { useAuth } from '@/contexts/AuthContext';
 import { useCreateUserList } from '@/hooks/useCreateUserList';
 import { useUpdateUserList } from '@/hooks/useUpdateUserList';
 import { useUserOwnedLists } from '@/hooks/useUserOwnedLists';
 import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement';
 import Image from 'next/image';
-
-import PlusIcon from '@/public/cart-plus.svg';
-
 import InputField from '@/components/inputs/InputField';
+import PlusIcon from '@/public/cart-plus.svg';
 import useField from '@/hooks/useField';
-
-/**
- * TODO: to be removed before merging back to dev
- * Current status: in the process of trying to get the updated isSuccess ( useCreateUserList hook) value
- * to be used to determine whether or not xAPISendStatement should be executed.
- * Even with the useCallback, it seems like isSuccess (useCreateUserList hook) is still one step behind.
- *
- * The reason for using this approach instead of calling the xAPISendStatement in the onSuccess is
- * because testing that onSuccess is difficult especially when the mutation is being mocked.
- *
- */
 
 export default function SaveModal({ courseId, title }) {
   // authentication
@@ -177,7 +163,7 @@ export default function SaveModal({ courseId, title }) {
                   as='h3'
                   className='text-lg font-medium leading-6 text-gray-900'
                 >
-                  Add "{title}" to collections
+                  Add &quot;{title}&quot; to collections
                 </Dialog.Title>
                 <div className='mt-2 w-full py-2 px-0.5 rounded-md overflow-y-auto h-56 custom-scroll border bg-gray-50 space-y-1'>
                   {isSuccess &&

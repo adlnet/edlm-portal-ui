@@ -1,8 +1,8 @@
 'use strict';
 
-import {useMutation, useQueryClient} from "react-query";
 import { axiosInstance } from '@/config/axiosConfig';
 import {interestLists} from "@/config/endpoints";
+import {useMutation, useQueryClient} from "react-query";
 
 export function useUnsubscribeFromList() {
   const queryClient = useQueryClient();

@@ -1,7 +1,6 @@
 'use strict';
 
 import { useAuth } from '@/contexts/AuthContext';
-import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Link from 'next/link';
 import UserMenu from '@/components/menus/UserMenu';
