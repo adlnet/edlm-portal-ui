@@ -66,7 +66,7 @@ describe('User Owned Lists', () => {
     act(() => {
       fireEvent.click(getByText('Test Title 1'));
     });
-    expect(singletonRouter).toMatchObject({ asPath: '/learner/lists/1' });
+    expect(singletonRouter).toMatchObject({ asPath: '/learner/lists/1?previousPage=My+Collections' });
   });
 
   it('should display the list', () => {

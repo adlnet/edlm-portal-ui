@@ -43,7 +43,7 @@ describe('List page', () => {
     useAuthenticatedUser();
     useListMock();
     const { getByText } = renderer();
-    expect(getByText('My Collections')).toBeInTheDocument();
+    expect(getByText('Test')).toBeInTheDocument();
   });
 
   it('should not render edit button when unauthenticated', () => {
