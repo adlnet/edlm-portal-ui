@@ -3,7 +3,6 @@
 import { authLogin } from '@/config/endpoints';
 import { axiosInstance } from '@/config/axiosConfig';
 import { useAuth } from '@/contexts/AuthContext';
-import { useConfig } from '@/hooks/useConfig';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -13,7 +12,6 @@ import logo from '@/public/doteLogo.png';
 export default function Login() {
   const router = useRouter();
   const { user, login } = useAuth();
-  const config = useConfig();
   const [credentials, setCredentials] = useState({
     username: '',
     password: null,
@@ -110,18 +108,13 @@ export default function Login() {
               or
             </span>
           </p>
-          {config.isSuccess &&
-            config.data.single_sign_on_options.map(({ name, path }) => {
-              return (
-                <a
-                  href={path}
-                  className='flex flex-row mx-auto w-full items-center inline-flex justify-center gap-2 text-blue-400 rounded-md hover:shadow-md bg-blue-50 hover:bg-blue-400 hover:text-white px-4 py-2 transform transition-all duration-75 ease-in-out border-blue-400 border-2 outline-none focus:ring-2 ring-blue-400'
-                  key={name}
-                >
-                  {name}
-                </a>
-              );
-            })}
+          <button
+            className='flex flex-row mx-auto w-full items-center inline-flex justify-center gap-2 text-blue-400 rounded-md hover:shadow-md bg-blue-50 hover:bg-blue-400 hover:text-white px-4 py-2 transform transition-all duration-75 ease-in-out border-blue-400 border-2 outline-none focus:ring-2 ring-blue-400'
+            type='submit'
+            id='login-button'
+          >
+            Log in with Single Sign On
+          </button>
         </form>
       </div>
   );

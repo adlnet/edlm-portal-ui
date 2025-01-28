@@ -144,5 +144,9 @@ describe('Login Page', () => {
       expect(MockAxios.post).toHaveBeenCalled();
     });
     
+    it('should have sso button display on the page', () => {
+      const button = screen.getByText(/Log in with Single Sign On/i);
+      expect(button).toBeInTheDocument();
+    });
   });
 });
