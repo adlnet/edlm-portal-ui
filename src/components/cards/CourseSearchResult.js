@@ -144,7 +144,7 @@ export default function SearchResult({ result, handleCompetencyTag}) {
               {getDeeplyNestedData(config.data?.course_information?.course_deliveryMode, result)}
             </div>
           </div>
-          { competencies.map((comp) =>{
+          { competencies?.map((comp) =>{
             return (
               <div key={comp} className="w-auto h-7 px-[15px] py-1.5 bg-[#e5efff] rounded-xl justify-center items-center gap-2 flex">
                 <div className="text-center text-[#3892f3] text-sm font-normal font-['Roboto'] leading-tight whitespace-nowrap">
