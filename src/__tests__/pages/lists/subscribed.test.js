@@ -93,7 +93,7 @@ describe('User Subscribed Lists', () => {
   //   act(() => {
   //     fireEvent.click(getByRole('button', { name: 'View' }));
   //   });
-  //   expect(singletonRouter).toMatchObject({ asPath: '/learner/lists/1' });
+  //   expect(singletonRouter).toMatchObject({ asPath: '/edlm-portal/learner/lists/1' });
   // });
 
   it('should render the collection card with dropdown menu', () => {
@@ -133,7 +133,7 @@ describe('User Subscribed Lists', () => {
       fireEvent.click(getByTestId('card-menu-item-Share'));
 
       expect(navigator.clipboard.writeText).toHaveBeenCalledWith(
-        'http://localhost/learner/lists/1'
+        'http://localhost/edlm-portal/learner/lists/1'
       );
     });
 

@@ -128,7 +128,7 @@ export default function Home() {
             mobileBreakpoint={670}
           >
               <Carousel.Item>
-                <Card href="/learner/learningPlan" className="w-80 h-fit rounded-xl" renderImage={() => <Image width={500} height={500} src={armyImage} alt="image 1" />}>
+                <Card href="/edlm-portal/learner/learningPlan" className="w-80 h-fit rounded-xl" renderImage={() => <Image width={500} height={500} src={armyImage} alt="image 1" />}>
                   <h5 className="text-2xl font-bold justify-left tracking-tight text-gray-900 dark:text-white">
                     Learning Plan
                   </h5>
@@ -141,7 +141,7 @@ export default function Home() {
                 </Card>
               </Carousel.Item>
               <Carousel.Item>
-                <Card href='/learner/lists/owned' className="w-80 h-full rounded-xl" renderImage={() => <Image width={500} height={500} src={armyImage1} alt="image 1" />}>
+                <Card href='/edlm-portal/learner/lists/owned' className="w-80 h-full rounded-xl" renderImage={() => <Image width={500} height={500} src={armyImage1} alt="image 1" />}>
                   <h5 className="text-2xl font-bold text-left tracking-tight text-gray-900 dark:text-white">
                     My Collections
                   </h5>
@@ -154,14 +154,14 @@ export default function Home() {
                 </Card>
               </Carousel.Item>
               <Carousel.Item>
-                <Card href={`/learner/lists/${lunchNLearn?.id}`} className="w-80 h-full rounded-xl" renderImage={() => <Image width={500} height={500} src={armyImage2} alt="image 1" />}>
+                <Card href={`/edlm-portal/learner/lists/${lunchNLearn?.id}`} className="w-80 h-full rounded-xl" renderImage={() => <Image width={500} height={500} src={armyImage2} alt="image 1" />}>
                   <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                     Lunch & Learns
                   </h5>
                   <p className="font-normal mb-8 text-sm text-gray-600 dark:text-gray-400">
                     Access saved recordings of DOT&E Lunch & Learns.
                   </p>
-                  <Button className="flex ml-32 justify-center bg-blue-900 hover:bg-blue-600" onClick={() => router.push(`/learner/lists/${lunchNLearn?.id}`)}>
+                  <Button className="flex ml-32 justify-center bg-blue-900 hover:bg-blue-600" onClick={() => router.push(`/edlm-portal/learner/lists/${lunchNLearn?.id}`)}>
                     View more
                   </Button>
                 </Card>
@@ -178,7 +178,7 @@ export default function Home() {
                 <CollectionTable data={mockInProgressCourses} edit={false} columns={columns} rowsPerPage={5}/>
               </div>
               <div className="flex justify-end -mt-4">
-                <Button className="m-4 bg-white-900 text-blue-800 text-sm hover:bg-blue-600" onClick={() => router.push('/learner/learningSummary')}>
+                <Button className="m-4 bg-white-900 text-blue-800 text-sm hover:bg-blue-600" onClick={() => router.push('/edlm-portal/learner/learningSummary')}>
                     View more
                 </Button>
               </div>
@@ -202,7 +202,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="flex justify-end">
-                <Button className="m-4 bg-white-900 text-blue-800 text-sm hover:bg-blue-600 mt-10" onClick={() => router.push('/learner/learningSummary')}>
+                <Button className="m-4 bg-white-900 text-blue-800 text-sm hover:bg-blue-600 mt-10" onClick={() => router.push('/edlm-portal/learner/learningSummary')}>
                     View more
                 </Button>
               </div>

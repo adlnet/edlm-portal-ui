@@ -9,15 +9,15 @@ import logo from '@/public/doteLogo.png';
 const menuItems = [
   {
     label: 'Home',
-    path: '/learner',
+    path: '/edlm-portal/learner',
   },
   {
     label: 'Search Lists',
-    path: '/learner/lists/searchLists',
+    path: '/edlm-portal/learner/lists/searchLists',
   },
   {
     label: 'Support',
-    path: '/learner/support',
+    path: '/edlm-portal/learner/support',
   },
 ];
 

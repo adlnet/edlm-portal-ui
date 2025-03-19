@@ -25,7 +25,7 @@ jest.mock('next/dynamic', () => () => {
 });
 
 const renderer = () => {
-  MockRouter.setCurrentUrl("/learner/learningSummary");
+  MockRouter.setCurrentUrl("/edlm-portal/learner/learningSummary");
   return render(
     <MemoryRouterProvider>
       <QueryClientWrapper>

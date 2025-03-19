@@ -56,7 +56,7 @@ describe('homepage', () => {
     login_t('admin@example.com', 'Secureme2024!')
 
     // encoded <!--#echo var="DATE_LOCAL" -->
-    cy.visit(`${testUrl}/learner/search?keyword=<%21--%23echo%20var%3D"DATE_LOCAL"%20-->&p=1`);
+    cy.visit(`${testUrl}/edlm-portal/learner/search?keyword=<%21--%23echo%20var%3D"DATE_LOCAL"%20-->&p=1`);
     cy.contains(day).should('not.exist');
     cy.get('input').should('have.value', '<!--#echo var="DATE_LOCAL" -->');
   });
@@ -82,7 +82,7 @@ describe('homepage', () => {
   it('Check input validation', () => {
     login_t('admin@example.com', 'Secureme2024!')
     
-    cy.visit(`${testUrl}/learner/search`);
+    cy.visit(`${testUrl}/edlm-portal/learner/search`);
     cy.get('input').type('?');
     cy.get('input').should('not.have.value', '?');
     cy.get('input').should('have.value', '');
@@ -159,7 +159,7 @@ describe('homepage', () => {
   it ('Check that the search populates results', () => {
     login_t('admin@example.com', 'Secureme2024!')
     
-    cy.visit(`${testUrl}/learner/search`);
+    cy.visit(`${testUrl}/edlm-portal/learner/search`);
     cy.get('input').type('Software Literacy Fundamentals');
     cy.get('form').submit();
     cy.get('div#search-results').contains('Software Literacy Fundamentals')

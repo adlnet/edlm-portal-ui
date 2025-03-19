@@ -219,7 +219,7 @@ describe('Search Lists', () => {
     });
 
     expect(singletonRouter).toMatchObject({
-      asPath: '/learner/lists/1',
+      asPath: '/edlm-portal/learner/lists/1',
     });
   });
 

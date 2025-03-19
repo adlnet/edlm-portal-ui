@@ -66,7 +66,7 @@ describe('User Owned Lists', () => {
     act(() => {
       fireEvent.click(getByText('Test Title 1'));
     });
-    expect(singletonRouter).toMatchObject({ asPath: '/learner/lists/1' });
+    expect(singletonRouter).toMatchObject({ asPath: '/edlm-portal/learner/lists/1' });
   });
 
   it('should display the list', () => {
@@ -104,7 +104,7 @@ describe('User Owned Lists', () => {
 
     fireEvent.click(getByTestId('card-menu-item-Edit'));
 
-    expect(singletonRouter).toMatchObject({ asPath: '/learner/lists/edit/1' });
+    expect(singletonRouter).toMatchObject({ asPath: '/edlm-portal/learner/lists/edit/1' });
   });
 
   it('should remove a list when "delete" is clicked', async () => {
@@ -140,7 +140,7 @@ describe('User Owned Lists', () => {
       fireEvent.click(getByTestId('card-menu-item-Share'));
 
       expect(navigator.clipboard.writeText).toHaveBeenCalledWith(
-        'http://localhost/learner/lists/1'
+        'http://localhost/edlm-portal/learner/lists/1'
       );
     });
 

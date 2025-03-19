@@ -80,7 +80,7 @@ describe('User Saved Searches', () => {
   //   useMockSavedSearchList();
   //   const { getByText } = renderer();
   //   fireEvent.click(getByText('query'));
-  //   expect(singletonRouter).toMatchObject({ asPath: '/learner/search?keyword=query' });
+  //   expect(singletonRouter).toMatchObject({ asPath: '/edlm-portal/learner/search?keyword=query' });
   // });
 
   // it('should call the delete api when the user clicks on delete', () => {

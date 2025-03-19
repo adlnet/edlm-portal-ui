@@ -42,7 +42,7 @@ export default function Login() {
       .post(authLogin, credentials)
       .then((res) => {
         login(res.data);
-        router.push('/learner');
+        router.push('/edlm-portal/learner');
       })
       .catch((error) => {
         setErrorMsg('Invalid credentials');

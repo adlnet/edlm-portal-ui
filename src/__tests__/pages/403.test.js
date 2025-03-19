@@ -44,7 +44,7 @@ describe('403 Page', () => {
         fireEvent.click(button);
       });
     expect(singletonRouter).toMatchObject({
-        asPath: '/learner',
+        asPath: '/edlm-portal/learner',
       });
   });
 
