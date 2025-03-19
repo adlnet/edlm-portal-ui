@@ -12,7 +12,7 @@ import {
   useUnauthenticatedUser,
 } from '@/__mocks__/predefinedMocks';
 import MockRouter from 'next-router-mock';
-import Owned from '@/pages/learner/lists/owned';
+import Owned from '@/pages/edlm-portal/learner/lists/owned';
 import singletonRouter from 'next/router';
 
 const renderer = () => {

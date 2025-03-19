@@ -2,7 +2,7 @@ import { MemoryRouterProvider } from 'next-router-mock/MemoryRouterProvider';
 import { QueryClientWrapper } from '@/__mocks__/queryClientMock';
 import { act, fireEvent, render } from '@testing-library/react';
 import MockRouter from 'next-router-mock';
-import SearchLists from '@/pages/learner/lists/searchLists';
+import SearchLists from '@/pages/edlm-portal/learner/lists/searchLists';
 import singletonRouter from 'next/router';
 
 import {

@@ -18,7 +18,7 @@ import {
   useUnauthenticatedUser,
 } from '@/__mocks__/predefinedMocks';
 import MockRouter from 'next-router-mock';
-import Search from '@/pages/learner/search';
+import Search from '@/pages/edlm-portal/learner/search';
 import singletonRouter from 'next/router';
 
 // mocking the jest fn

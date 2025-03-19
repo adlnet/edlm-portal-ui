@@ -15,7 +15,7 @@ import {
   useUnauthenticatedUser,
 } from '@/__mocks__/predefinedMocks';
 import MockRouter from 'next-router-mock';
-import Subscribed from '@/pages/learner/lists/subscribed';
+import Subscribed from '@/pages/edlm-portal/learner/lists/subscribed';
 import singletonRouter from 'next/router';
 
 jest.mock('next/dist/client/router', () => require('next-router-mock'));

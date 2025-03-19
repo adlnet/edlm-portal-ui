@@ -1,10 +1,10 @@
 'use strict';
 
 import { useAuth } from '@/contexts/AuthContext';
-import Home from './edlm-portal/learner/index';
-import Login from './login';
+import Home from '@/pages/edlm-portal/learner/index';
+import Login from '@/pages/login';
 
-export default function IntialPage() {
+export default function IntialHomePage() {
   const { user } = useAuth();
 
   return (

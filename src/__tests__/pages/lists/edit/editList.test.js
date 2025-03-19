@@ -12,7 +12,7 @@ import {
   useMockUserListWithDifferentUserId,
   useUnauthenticatedUser,
 } from '@/__mocks__/predefinedMocks';
-import EditList, { getServerSideProps } from '@/pages/learner/lists/edit/[listId]';
+import EditList, { getServerSideProps } from '@/pages/edlm-portal/learner/lists/edit/[listId]';
 import MockRouter from 'next-router-mock';
 import singletonRouter from 'next/router';
 

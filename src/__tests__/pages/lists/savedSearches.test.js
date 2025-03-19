@@ -12,7 +12,7 @@ import {
   useUnauthenticatedUser,
 } from '@/__mocks__/predefinedMocks';
 import { fireEvent, render } from '@testing-library/react';
-import SavedSearches from '@/pages/learner/lists/savedSearches';
+import SavedSearches from '@/pages/edlm-portal/learner/lists/savedSearches';
 import singletonRouter from 'next/router';
 
 // renderer

@@ -15,7 +15,7 @@ import {
   useMockUserOwnedLists,
   useUnauthenticatedUser,
 } from '@/__mocks__/predefinedMocks';
-import Course from '@/pages/learner/course/[courseId]';
+import Course from '@/pages/edlm-portal/learner/course/[courseId]';
 import MockRouter from 'next-router-mock';
 import singletonRouter from 'next/router';
 

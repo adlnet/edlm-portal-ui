@@ -2,7 +2,7 @@ import { QueryClientWrapper } from '@/__mocks__/queryClientMock.js';
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useAuthenticatedUser, useUnauthenticatedUser } from '@/__mocks__/predefinedMocks';
-import Home from '@/pages/learner/index';
+import Home from '@/pages/edlm-portal/learner/index';
 import InitialPage from '@/pages/index';
 import mockRouter from 'next-router-mock';
 import singletonRouter from 'next/router';
@@ -20,7 +20,7 @@ jest.mock('@/pages/login', () => {
   return () => <div data-testid='login-page'>Login</div>;
 });
 
-jest.mock('@/pages/learner/index', () => {
+jest.mock('@/pages/edlm-portal/learner/index', () => {
   // eslint-disable-next-line react/display-name
   return () => <div data-testid='home-page'>Home</div>;
 });
