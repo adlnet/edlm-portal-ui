@@ -12,7 +12,7 @@ import {
   useUnauthenticatedUser,
 } from '@/__mocks__/predefinedMocks';
 import { fireEvent, render } from '@testing-library/react';
-import SavedSearches from '@/pages/learner/lists/savedSearches';
+import SavedSearches from '@/pages/edlm-portal/learner/lists/savedSearches';
 import singletonRouter from 'next/router';
 
 // renderer
@@ -80,7 +80,7 @@ describe('User Saved Searches', () => {
   //   useMockSavedSearchList();
   //   const { getByText } = renderer();
   //   fireEvent.click(getByText('query'));
-  //   expect(singletonRouter).toMatchObject({ asPath: '/learner/search?keyword=query' });
+  //   expect(singletonRouter).toMatchObject({ asPath: '/edlm-portal/learner/search?keyword=query' });
   // });
 
   // it('should call the delete api when the user clicks on delete', () => {

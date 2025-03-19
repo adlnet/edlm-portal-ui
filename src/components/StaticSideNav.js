@@ -50,9 +50,9 @@ export default function StaticSideNav() {
             <div className="w-60 h-screen pt-px bg-white flex-col justify-start items-start gap-4 inline-flex">
                 <div className="self-stretch flex-col justify-start items-start gap-2 inline-flex">
                     <div className="self-stretch px-4 pt-2 pb-6 border-b border-gray-200 flex-col justify-center items-center gap-2 flex">
-                        {renderNavBtn('home', '/learner', HomeIcon, 'Home')}
-                        {renderNavBtn('search', '/learner/search', SearchIcon, 'Search')}
-                        {renderNavBtn('learningPlan', '/learner/learningPlan', ClipboardCheckIcon, 'Learning Plan')}
+                        {renderNavBtn('home', '/edlm-portal/learner', HomeIcon, 'Home')}
+                        {renderNavBtn('search', '/edlm-portal/learner/search', SearchIcon, 'Search')}
+                        {renderNavBtn('learningPlan', '/edlm-portal/learner/learningPlan', ClipboardCheckIcon, 'Learning Plan')}
 
                         <div className={`w-[221px] p-2 rounded-lg flex-col justify-start items-center cursor-pointer`}>
                             <div className="justify-start items-center flex" onClick={() => setShowLearningSummary(!showLearningSummary)} onKeyDown={e => e.key === 'Enter' && setShowLearningSummary(!showLearningSummary)} role="button" tabIndex={0}>
@@ -67,7 +67,7 @@ export default function StaticSideNav() {
                             {showLearningSummary && (
                                 <>
                                     <div className='text-nowrap'>
-                                        {renderDropdownBtn('myLearningSummary', '/learner/learningSummary', 'My Learning Summary')}
+                                        {renderDropdownBtn('myLearningSummary', '/edlm-portal/learner/learningSummary', 'My Learning Summary')}
                                     </div>
                                     <div className='text-nowrap' onClick={() => window.location.href = 'https://moodle-dote.deloitteopenlxp.com/local/edwiserreports/index.php'} onKeyDown={e => e.key === 'Enter' && handleSidebarClick(btn, path)} role="button" tabIndex={0}>
                                         {renderDropdownBtn('leadersReport', null, "Leader's Report")}
@@ -88,9 +88,9 @@ export default function StaticSideNav() {
                             </div>
                             {showCollections && (
                                 <>
-                                    {renderDropdownBtn('myCollections', '/learner/lists/owned', 'My Collections')}
-                                    {renderDropdownBtn('mySubscriptions', '/learner/lists/subscribed', 'My Subscriptions')}
-                                    {renderDropdownBtn('savedSearches', '/learner/lists/savedSearches', 'Saved Searches')}
+                                    {renderDropdownBtn('myCollections', '/edlm-portal/learner/lists/owned', 'My Collections')}
+                                    {renderDropdownBtn('mySubscriptions', '/edlm-portal/learner/lists/subscribed', 'My Subscriptions')}
+                                    {renderDropdownBtn('savedSearches', '/edlm-portal/learner/lists/savedSearches', 'Saved Searches')}
                                 </>
                             )}
                         </div>

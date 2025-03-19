@@ -28,7 +28,7 @@ export default function CourseSpotlight({ course }) {
   const handleClick = useCallback(
     (e) => {
       if (!user)
-        return router.push(`/learner/course/${meta.metadata_key_hash || meta.id}`);
+        return router.push(`/edlm-portal/learner/course/${meta.metadata_key_hash || meta.id}`);
 
       const context = {
         actor: {
@@ -40,15 +40,15 @@ export default function CourseSpotlight({ course }) {
           display: 'explored',
         },
         object: {
-          id: `${window.origin}/learner/course/${meta.id}`,
-          definitionName: title || Course?.CourseTitle,
-          description: removeHTML(getDeeplyNestedData(config.data?.course_information?.course_description, course)) || Course?.CourseShortDescription,
+          id: `${window.origin}/edlm-portal/learner/course/${meta.id}`,
+          definitionName: title || Course.CourseTitle,
+          description: removeHTML(getDeeplyNestedData(config.data?.course_information?.course_description, course)) || Course.CourseShortDescription,
         },
         resultExtName: 'https://w3id.org/xapi/ecc/result/extensions/CourseId',
         resultExtValue: meta.metadata_key_hash || meta.id,
       };
       xAPISendStatement(context);
-      router.push('/learner/course/' + (meta.metadata_key_hash || meta.id));
+      router.push('/edlm-portal/learner/course/' + (meta.metadata_key_hash || meta.id));
     },
     [Course, meta, user]
   );
