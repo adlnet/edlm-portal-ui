@@ -75,7 +75,7 @@ export default function Subscribed() {
                 description={cardItem.description}
                 isPublic={cardItem.public}
                 cardDetailLink={{
-                  pathname: `/learner/lists/${cardItem.id}`,
+                  pathname: `/edlm-portal/learner/lists/${cardItem.id}`,
                   query: { previousPage: 'My Subscriptions' }
                 }}
                 menuItems= {getMenuItems(cardItem.id)}
