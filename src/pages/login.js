@@ -56,7 +56,7 @@ export default function Login() {
   };
 
   return (
-      <div className={' bg-hero bg-cover pt-8 pb-80'}>
+      <div className='min-h-screen bg-hero bg-cover pt-8 pb-80'>
          <div className='mt-10 mx-52 flex flex-col items-center justify-between'>
             <Image src={logo} alt={'home'} height={'150'} width={'150'} priority={true}/>
           </div>
