@@ -76,17 +76,17 @@ export default function MoreLikeThis({ course }) {
         role='button'
         tabIndex='0'
         aria-hidden='true'
-        className="px-5 py-[19px] bg-gray-500 rounded-lg shadow flex-col justify-start items-start gap-2.5 inline-flex cursor-pointer transform transition-shadow duration-150 ease-in-out font-['Roboro'] text-white h-[228px] w-[387px] hover:shadow-lg"
+        className="px-5 py-[19px] bg-gray-500 rounded-lg shadow flex-col justify-start items-start gap-2.5 inline-flex cursor-pointer transform transition-shadow duration-150 ease-in-out text-white h-[228px] w-[387px] hover:shadow-lg"
       >
         <div className="w-[330px] relative">
           <div className="w-full flex flex-col">
-            <div className="text-white text-xl font-bold font-['Roboto'] leading-normal">
+            <div className="text-white text-xl font-bold leading-normal">
               {title || Course?.CourseTitle}
             </div>
           </div>
           <div>
-            <span className="text-white text-base font-medium font-['Roboto'] leading-normal">Provider: </span>
-            <span className="text-white text-base font-medium font-['Roboto'] leading-normal">
+            <span className="text-white text-base font-medium leading-normal">Provider: </span>
+            <span className="text-white text-base font-medium leading-normal">
               {provider || Course?.CourseProviderName}
             </span>
           </div>

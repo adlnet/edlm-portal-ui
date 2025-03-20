@@ -28,18 +28,18 @@ function RelatedCourses({ id }) {
   const moreLikeThis = useMoreCoursesLikeThis(id);
   if (moreLikeThis?.data?.hits < 1) return null;
   return (
-    <>
-      <div className='bg-white-200 mt-6 font-bold block font-sans p-4'>
-        <div className='w-full gap-10 max-w-7xl text-xl mx-auto'>Related Courses</div>
-      </div>
-      <div className='flex justify-center w-full overflow-x-hidden my-4 max-w-7xl mx-auto'>
-        <div className='inline-flex overflow-x-auto gap-2 px-1 custom-scroll mb-4'>
-          {moreLikeThis.data?.hits?.map((course) => (
-            <CourseSpotlight course={course} key={course.id} />
-          ))}
+    <div className='col-span-1 md:col-span-12 flex flex-col justify-center w-full -mt-14 px-2 max-w-7xl mx-auto'>
+      <div className="text-[#1b1128] text-2xl font-bold leading-normal mt-12">
+        Related Courses
+        <div className='flex justify-center w-full overflow-x-hidden my-4 max-w-7xl mx-auto'>
+          <div className='inline-flex overflow-x-auto gap-2 px-1 pb-4 custom-scroll mb-4'>
+            {moreLikeThis.data?.hits?.map((course) => (
+              <CourseSpotlight course={course} key={course.id} />
+            ))}
+          </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
@@ -177,7 +177,7 @@ export default function Course() {
               <h1 className='font-semibold text-2xl my-2'>
                 {data?.title || 'Not Available'}
               </h1>
-              <div className='flex gap-4 '>
+              <div className='flex gap-2'>
                 <ShareButton
                   id={router.query?.courseId}
                   courseTitle={data?.title}
