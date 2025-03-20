@@ -1,6 +1,7 @@
 'use strict';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useMemo } from 'react';
+import { getUniqueCleanCompetencies} from '@/utils/getUniqueCleanCompetencies';
 
 export default function SelectList({
   options,
@@ -14,9 +15,20 @@ export default function SelectList({
   const [isOpen, setIsOpen] = useState(false);
   const dropDownRef = useRef(null);
 
+  // The competency subject contains multiple competencies separated by commas
+  // Need to split them and display them as individual competencies
+    // if the keyName is not Competency, then just return the regular filter options
+  const selectListOptions = useMemo(() => {
+    if (keyName === 'Competency') {
+      return getUniqueCleanCompetencies(options);
+    }
+    return options?.buckets || [];
+  }, [options, keyName]);
+
   const handleCheckboxChange = (e, key) => {
     // Get the updated selection
     const updatedSelection = e.target.checked;
+    
     if (updatedSelection) {
       // Add the key to the selected state
       setSelected(Array.isArray(selected) ? [...selected, key] : [key]);
@@ -73,7 +85,7 @@ export default function SelectList({
       {isOpen && (
         <div className="p-4 bg-white rounded-lg shadow flex-col justify-start items-start inline-flex absolute left-0 top-10 z-50 w-56 max-h-80 overflow-auto">
           <div>
-            {options?.buckets?.map((group) => (
+            {selectListOptions.map((group) => (
               <div key={group.key} className="flex items-center mb-2 ">
 
                 <input
@@ -87,7 +99,7 @@ export default function SelectList({
                 />
                 <div className="grow shrink basis-0 flex-col justify-start items-start gap-0.5 inline-flex">
                   <label htmlFor={`${options.field_name}-${group.key}`} className="text-[#1b1128] text-sm font-medium  leading-[14px] cursor-pointer">
-                    {group.key}
+                  {keyName === 'Competency' && group.cleanedKey ? group.cleanedKey : group.key}
                   </label>
                 </div>
 
