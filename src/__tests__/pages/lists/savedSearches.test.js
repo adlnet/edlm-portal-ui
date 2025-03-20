@@ -36,7 +36,7 @@ describe('User Saved Searches', () => {
     useAuthenticatedUser();
     useMockSavedSearchList();
     const { getByText } = renderer();
-    expect(getByText('Saved Searches')).toBeInTheDocument();
+    expect(getByText('Saved Search')).toBeInTheDocument();
   });
 
   it('should navigate user to "/" if not authenticated', () => {

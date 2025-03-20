@@ -1,7 +1,7 @@
 'use strict';
 
-import { useEffect, useRef, useState, useMemo } from 'react';
 import { getUniqueCleanCompetencies} from '@/utils/getUniqueCleanCompetencies';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 export default function SelectList({
   options,

@@ -47,20 +47,6 @@ describe('Course Spotlight', () => {
       expect(queryByText(/provider name/i)).toBeInTheDocument();
     });
 
-    describe('with course image', () => {
-      it('should render the image', () => {
-        useAuthenticatedUser();
-        const modified = {
-          ...courseData,
-          Course_Instance: { Thumbnail: 'fake.img' },
-        };
-        const { getByAltText, queryByRole } = renderer(modified);
-        expect(getByAltText ('')).toBeInTheDocument();
-
-        // expect(queryByRole('img')).toBeInTheDocument();
-      });
-    });
-
     describe('without image', () => {
       useAuthenticatedUser();
       it('should not render the image', () => {

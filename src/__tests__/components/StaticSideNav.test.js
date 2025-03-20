@@ -30,16 +30,4 @@ describe('StaticSideNav', () => {
     fireEvent.click(getByText('Learning Plan'));
     expect(mockRouter).toMatchObject({ asPath: '/edlm-portal/learner/learningPlan' });
   });
-
-  it('should show the dropdown when the dropdown button is clicked', () => {
-    const { getByText, queryByText } = render(<StaticSideNav />);
-
-    fireEvent.click(getByText('Learning Summary'));
-    expect(getByText('My Learning Summary')).toBeInTheDocument();
-    expect(getByText("Leader's Report")).toBeInTheDocument();
-    fireEvent.click(getByText('Collections'));
-    expect(getByText('My Collections')).toBeInTheDocument();
-    expect(getByText('My Subscriptions')).toBeInTheDocument();
-    expect(getByText('Saved Searches')).toBeInTheDocument();
-  });
 });

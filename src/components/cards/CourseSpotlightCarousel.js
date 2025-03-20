@@ -66,7 +66,7 @@ export default function CourseSpotlight({ course }) {
         </div>
       </div>
       <div className="px-2 py-2 flex justify-end">
-        <div className="px-3 py-2 bg-white rounded-lg inline-flex justify-center items-center gap-2 hover:shadow cursor-pointer" onClick={handleClick}>
+        <div className="px-3 py-2 bg-white rounded-lg inline-flex justify-center items-center gap-2 hover:shadow cursor-pointer" onClick={handleClick} onKeyDown={(e) => e.key === 'Enter' && handleClick()} role="button" tabIndex={0}>
           <span className="text-[#00509F] text-sm font-medium">View more</span>
         </div>
       </div>

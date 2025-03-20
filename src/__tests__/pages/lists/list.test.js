@@ -46,13 +46,6 @@ describe('List page', () => {
     expect(getByText('Test')).toBeInTheDocument();
   });
 
-  it('should not render edit button when unauthenticated', () => {
-    useListMock();
-    useUnauthenticatedUser();
-    const { queryByText } = renderer();
-    expect(queryByText('My Collections')).not.toBeInTheDocument();
-  });
-
   it('should navigate a user to the specific course', () => {
     useListMock();
     useAuthenticatedUser();

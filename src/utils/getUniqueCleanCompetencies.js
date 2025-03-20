@@ -19,11 +19,13 @@ export const getUniqueCleanCompetencies = options => {
   // Iterate through the options and get the first clean competency label
   for (const group of options.buckets) {
     const cleanedLabel = getFirstCleanCompetencyLabel(group.key);
+
     // Add label to the set and the clean competencies array
     if (!uniqueLabels.has(cleanedLabel)) {
       uniqueLabels.add(cleanedLabel);
       cleanCompetencies.push({
         ...group,
+
         // Add a clean key
         cleanedKey: cleanedLabel
       });
