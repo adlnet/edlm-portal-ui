@@ -218,7 +218,7 @@ export default function Home() {
               </p>
           </div>
 
-          <div className='flex flex-col justify-center w-full mt-4 px-2 max-w-7xl mx-auto mb-12'>
+          <div className='flex flex-col justify-center w-full mt-4 px-2 max-w-7xl mx-auto '>
             <Carousel
               cols={3}
               rows={1}
@@ -238,7 +238,9 @@ export default function Home() {
               {spotlight?.data != [] && spotlight.data?.map((course) => {
                 return(
                   <Carousel.Item key={course.id}>
-                    <CourseSpotlightCarouselCard course={course} key={course.meta.id} />
+                    <div className='flex justify-center w-full overflow-x-hidden mr-4'>
+                      <CourseSpotlightCarouselCard course={course} key={course.meta.id} />
+                    </div>
                   </Carousel.Item>)
               })}
             </Carousel>

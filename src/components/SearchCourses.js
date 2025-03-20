@@ -107,7 +107,9 @@ export default function SearchCourses( { params, setParams, handleCompetencyTag 
                   {spotlight && spotlight.data?.map((course) => {
                       return(
                           <Carousel.Item key={course.meta.id}>
-                            <CourseSpotlightCarouselCard course={course} key={course.meta.id} />
+                            <div className='flex justify-center w-full overflow-x-hidden mr-4'>
+                              <CourseSpotlightCarouselCard course={course} key={course.meta.id} />
+                            </div>
                           </Carousel.Item>
                       )
                     })}

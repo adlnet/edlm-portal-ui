@@ -54,21 +54,22 @@ export default function CourseSpotlight({ course }) {
   );
 
   return (
-    <div>
-      <Card className="w-80 h-80 rounded-xl" >
-        <div className=''>
-          <h5 className="text-l font-bold justify-left tracking-tight text-gray-900 dark:text-white">
-            {title || Course?.CourseTitle}
-          </h5>
+    <div className="w-72 h-64 pb-2 my-2 relative bg-white rounded-lg shadow-md flex flex-col">
+      <div className="rounded-t-lg overflow-hidden">
+        <div className="px-4 py-3 bg-[#00509F] rounded-t-lg">
+          <div className="text-white text-xl font-semibold line-clamp-2">{title || Course?.CourseTitle}</div>
         </div>
-        <p className="font-normal text-sm text-gray-600 dark:text-gray-400">
-            {description?.length > 175 ?
-                `${description?.substring(0, 175)}...` : description}
-        </p>
-        <Button onClick={handleClick} className="flex ml-32 justify-center bg-blue-900 hover:bg-blue-600">
-            View more
-        </Button>
-      </Card>
+      </div>
+      <div className="flex-grow px-4 py-2 overflow-hidden">
+        <div className="text-black text-opacity-50 text-base font-normal leading-tight line-clamp-5">
+          {description || Course?.CourseShortDescription}
+        </div>
+      </div>
+      <div className="px-2 py-2 flex justify-end">
+        <div className="px-3 py-2 bg-white rounded-lg inline-flex justify-center items-center gap-2 hover:shadow cursor-pointer" onClick={handleClick}>
+          <span className="text-[#00509F] text-sm font-medium">View more</span>
+        </div>
+      </div>
     </div>
   )
 }
