@@ -1,7 +1,7 @@
 import { XDSbackendHost } from '../config/endpoints';
 import { axiosInstance } from '@/config/axiosConfig';
-import { createContext, useContext, useEffect, useMemo, useState } from 'react';
-import { useSessionStorage } from '../hooks/useStorage';
+import { createContext, useContext, useEffect, useState } from 'react';
+import { useLocalStorage } from '../hooks/useStorage';
 
 export const AuthContext = createContext({});
 
@@ -10,7 +10,7 @@ export function useAuth() {
 }
 export function AuthProvider({ children }) {
   const [error, setError] = useState(null);
-  const [user, setSession, removeSession] = useSessionStorage('user', null);
+  const [user, setLocal, removeLocal] = useLocalStorage('user', null);
 
   useEffect(() => {
     // Only run this on the client side
@@ -22,25 +22,25 @@ export function AuthProvider({ children }) {
   // Register user
   const register = (userData) => {
     setError(null);
-    setSession(userData);
+    setLocal(userData);
   };
 
   // Login user
   const login = (userData) => {
     setError(null);
-    setSession(userData);
+    setLocal(userData);
   };
 
   // Logout user
   const logout = async () => {
     axiosInstance
       .post(`${XDSbackendHost}/api/auth/logout`)
-      .then((res) => removeSession())
+      .then((res) => removeLocal())
       .catch((err) => {
         console.log(err);
       })
       .finally(() => {
-        removeSession();
+        removeLocal();
       });
   };
 
@@ -49,19 +49,17 @@ export function AuthProvider({ children }) {
     axiosInstance
       .get(`${XDSbackendHost}/api/auth/validate`)
       .then((res) => {
-        setSession(res.data);
+        setLocal(res.data);
       })
       .catch((err) => {
-        removeSession();
+        removeLocal();
         logout();
       });
   };
   
-  const logindetails = useMemo(() => ({ user, error, register, login, logout }),[]);
   return (
-    <AuthContext.Provider value={logindetails}>
+    <AuthContext.Provider value={{ user, error, register, login, logout, checkUserLoggedIn }}>
       {children}
     </AuthContext.Provider>
   );
-
 }
