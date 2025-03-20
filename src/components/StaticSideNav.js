@@ -14,8 +14,8 @@ export default function StaticSideNav() {
 
     const router = useRouter();
 
-    const [showLearningSummary, setShowLearningSummary] = useState(false);
-    const [showCollections, setShowCollections] = useState(false);
+    const [showLearningSummary, setShowLearningSummary] = useState(true);
+    const [showCollections, setShowCollections] = useState(true);
     const [activeBtn, setActiveBtn] = useState(null);
 
     // Check if it is active path
