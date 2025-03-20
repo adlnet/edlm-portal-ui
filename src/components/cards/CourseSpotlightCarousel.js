@@ -56,7 +56,7 @@ export default function CourseSpotlight({ course }) {
   return (
     <div className="w-72 h-64 pb-2 my-2 relative bg-white rounded-lg shadow-md flex flex-col">
       <div className="rounded-t-lg overflow-hidden">
-        <div className="px-4 py-3 bg-[#00509F] rounded-t-lg">
+        <div className="px-4 py-3 bg-[#00509F] rounded-t-lg h-20 flex items-center">
           <div className="text-white text-xl font-semibold line-clamp-2">{title || Course?.CourseTitle}</div>
         </div>
       </div>
