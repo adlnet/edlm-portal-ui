@@ -221,7 +221,7 @@ import {
     }, [credentials.first_name]);
   
     return (
-      <div>
+      <div className='min-h-screen bg-hero bg-cover pt-8 pb-80'>
         <div className='flex flex-col text-center mt-10 items-center '>
           <Image src={logo} alt='logo' width={100} height={100} />
         </div>
