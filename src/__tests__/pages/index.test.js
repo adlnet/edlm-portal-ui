@@ -3,7 +3,7 @@ import { act, fireEvent, render, screen } from '@testing-library/react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useAuthenticatedUser, useUnauthenticatedUser } from '@/__mocks__/predefinedMocks';
 import Home from '@/pages/edlm-portal/learner/index';
-import InitialPage from '@/pages/index';
+import InitialPage from '@/pages/edlm-portal/index';
 import mockRouter from 'next-router-mock';
 import singletonRouter from 'next/router';
 import xAPIMapper from "@/utils/xapi/xAPIMapper";
@@ -15,7 +15,7 @@ jest.mock('@/contexts/AuthContext', () => ({
   useAuth: jest.fn(),
 }));
 
-jest.mock('@/pages/login', () => {
+jest.mock('@/pages/edlm-portal/login', () => {
   // eslint-disable-next-line react/display-name
   return () => <div data-testid='login-page'>Login</div>;
 });
