@@ -6,15 +6,7 @@ const nextConfig = {
         ignoreDuringBuilds: false,
     },
     swcMinify: true,
-    basePath: '/edlm-portal',
-    async rewrites() {
-        return [
-          {
-            source: '/_next/static/:path*',
-            destination: '/edlm-portal/_next/static/:path*',
-          },
-        ];
-    },
+    basePath: '/',
     // Adding policies:
     // async headers() {
     //     return [
