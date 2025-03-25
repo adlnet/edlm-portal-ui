@@ -235,7 +235,7 @@ export default function Home() {
               ]}
               mobileBreakpoint={670}
             >
-              {spotlight?.data != [] && spotlight.data?.map((course) => {
+              {spotlight && spotlight.data?.map((course) => {
                 return(
                   <Carousel.Item key={course.id}>
                     <CourseSpotlightCarouselCard course={course} key={course.meta.id} />
