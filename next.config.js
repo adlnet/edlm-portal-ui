@@ -7,8 +7,14 @@ const nextConfig = {
     },
     swcMinify: true,
     basePath: '/edlm-portal',
-    assetPrefix: './edlm-portal',
-    
+    async rewrites() {
+        return [
+          {
+            source: '/_next/static/:path*',
+            destination: '/edlm-portal/_next/static/:path*',
+          },
+        ];
+    },
     // Adding policies:
     // async headers() {
     //     return [
