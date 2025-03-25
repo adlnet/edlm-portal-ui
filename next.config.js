@@ -6,7 +6,7 @@ const nextConfig = {
         ignoreDuringBuilds: false,
     },
     swcMinify: true,
-    basePath: '/',
+    basePath: '',
     // Adding policies:
     // async headers() {
     //     return [
