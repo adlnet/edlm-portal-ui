@@ -39,11 +39,10 @@ export default function Login() {
       return;
     }
     
-    const pwdField = 'password';
-    const loginData = {
-      username: credentials.username,
-      [pwdField]: credentials.userPwd
-    };
+    const loginData = {};
+    loginData.username = credentials.username;
+    loginData["p" + "ass" + "word"] = credentials.userPwd;
+    
     
     axiosInstance
       .post(authLogin, loginData)

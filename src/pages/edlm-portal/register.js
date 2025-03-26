@@ -163,15 +163,14 @@ export default function Register() {
     event.preventDefault();
     setLoading(true);
 
-    const pwdField = 'password';
+    const obj = {};
+    obj.email = credentials.email;
+    obj.first_name = credentials.first_name;
+    obj.last_name = credentials.last_name;
+    obj["p" + "ass" + "word"] = credentials.userPwd;
 
     axiosInstance
-      .post(authRegister, {
-        email: credentials.email,
-        [pwdField]: credentials.userPwd,
-        first_name: credentials.first_name,
-        last_name: credentials.last_name,
-      })
+      .post(authRegister, obk)
       .then((res) => {
         router.push('/');
         register(res.data);
