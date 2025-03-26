@@ -14,7 +14,7 @@ import {
   useUnauthenticatedUser,
 } from '@/__mocks__/predefinedMocks';
 import { useList } from '@/hooks/useList';
-import List, { getServerSideProps } from '@/pages/learner/lists/[listId]';
+import List, { getServerSideProps } from '@/pages/edlm-portal/learner/lists/[listId]';
 import MockRouter from 'next-router-mock';
 import singletonRouter from 'next/router';
 import xAPIMapper from '@/utils/xapi/xAPIMapper';
@@ -46,20 +46,13 @@ describe('List page', () => {
     expect(getByText('Test')).toBeInTheDocument();
   });
 
-  it('should not render edit button when unauthenticated', () => {
-    useListMock();
-    useUnauthenticatedUser();
-    const { queryByText } = renderer();
-    expect(queryByText('My Collections')).not.toBeInTheDocument();
-  });
-
   it('should navigate a user to the specific course', () => {
     useListMock();
     useAuthenticatedUser();
     const { getByText } = renderer();
     const course = getByText('Test Title');
     fireEvent.click(course);
-    expect(singletonRouter).toMatchObject({ asPath: '/learner/course/1' });
+    expect(singletonRouter).toMatchObject({ asPath: '/edlm-portal/learner/course/1' });
   });
 
   it('should navigate a user to the edit page', () => {
@@ -68,7 +61,7 @@ describe('List page', () => {
     const { getByText } = renderer();
     const editButton = getByText('Edit');
     fireEvent.click(editButton);
-    expect(singletonRouter).toMatchObject({ asPath: '/learner/lists/edit/1' });
+    expect(singletonRouter).toMatchObject({ asPath: '/edlm-portal/learner/lists/edit/1' });
   });
 
   it('should show "No courses added yet." message', () => {

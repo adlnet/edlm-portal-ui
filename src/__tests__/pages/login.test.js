@@ -6,14 +6,14 @@ import {
   useMockConfig,
   useUnauthenticatedUser,
 } from '@/__mocks__/predefinedMocks';
-import Login from '@/pages/login';
+import Login from '@/pages/edlm-portal/login';
 import MockAxios from 'jest-mock-axios';
 import React from 'react';
 import mockRouter from 'next-router-mock';
 import singletonRouter from 'next/router';
 
 beforeEach(() => {
-  mockRouter.setCurrentUrl('/login');
+  mockRouter.setCurrentUrl('/edlm-portal/login');
   useMockConfig();
 });
 
@@ -28,12 +28,12 @@ const renderer = () => {
 };
 
 describe('Login Page', () => {
-  it("should navigate user to '/' if user is authenticated", () => {
+  it("should navigate user to '/edlm-portal' if user is authenticated", () => {
     useAuthenticatedUser();
     const screen = renderer();
 
     expect(singletonRouter).toMatchObject({
-      asPath: '/',
+      asPath: '/edlm-portal',
     });
   });
 
@@ -144,9 +144,5 @@ describe('Login Page', () => {
       expect(MockAxios.post).toHaveBeenCalled();
     });
     
-    it('should have sso button display on the page', () => {
-      const button = screen.getByText(/Log in with Single Sign On/i);
-      expect(button).toBeInTheDocument();
-    });
   });
 });

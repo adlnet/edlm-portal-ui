@@ -28,7 +28,7 @@ export default function CourseSpotlight({ course }) {
   const handleClick = useCallback(
     (e) => {
       if (!user)
-        return router.push(`/learner/course/${meta.metadata_key_hash || meta.id}`);
+        return router.push(`/edlm-portal/learner/course/${meta.metadata_key_hash || meta.id}`);
 
       const context = {
         actor: {
@@ -40,7 +40,7 @@ export default function CourseSpotlight({ course }) {
           display: 'explored',
         },
         object: {
-          id: `${window.origin}/learner/course/${meta.id}`,
+          id: `${window.origin}/edlm-portal/learner/course/${meta.id}`,
           definitionName: title || Course?.CourseTitle,
           description: removeHTML(getDeeplyNestedData(config.data?.course_information?.course_description, course)) || Course?.CourseShortDescription,
         },
@@ -48,27 +48,28 @@ export default function CourseSpotlight({ course }) {
         resultExtValue: meta.metadata_key_hash || meta.id,
       };
       xAPISendStatement(context);
-      router.push('/learner/course/' + (meta.metadata_key_hash || meta.id));
+      router.push('/edlm-portal/learner/course/' + (meta.metadata_key_hash || meta.id));
     },
     [Course, meta, user]
   );
 
   return (
-    <div>
-      <Card className="w-80 h-80 rounded-xl" >
-        <div className=''>
-          <h5 className="text-l font-bold justify-left tracking-tight text-gray-900 dark:text-white">
-            {title || Course?.CourseTitle}
-          </h5>
+    <div className="w-72 h-64 pb-2 my-2 relative bg-white rounded-lg shadow-md flex flex-col">
+      <div className="rounded-t-lg overflow-hidden">
+        <div className="px-4 py-3 bg-[#00509F] rounded-t-lg h-20 flex items-center">
+          <div className="text-white text-xl font-semibold line-clamp-2">{title || Course?.CourseTitle}</div>
         </div>
-        <p className="font-normal text-sm text-gray-600 dark:text-gray-400">
-            {description?.length > 175 ?
-                `${description?.substring(0, 175)}...` : description}
-        </p>
-        <Button onClick={handleClick} className="flex ml-32 justify-center bg-blue-900 hover:bg-blue-600">
-            View more
-        </Button>
-      </Card>
+      </div>
+      <div className="flex-grow px-4 py-2 overflow-hidden">
+        <div className="text-black text-opacity-50 text-base font-normal leading-tight line-clamp-5">
+          {description || Course?.CourseShortDescription}
+        </div>
+      </div>
+      <div className="px-2 py-2 flex justify-end">
+        <div className="px-3 py-2 bg-white rounded-lg inline-flex justify-center items-center gap-2 hover:shadow cursor-pointer" onClick={handleClick} onKeyDown={(e) => e.key === 'Enter' && handleClick()} role="button" tabIndex={0}>
+          <span className="text-[#00509F] text-sm font-medium">View more</span>
+        </div>
+      </div>
     </div>
   )
 }

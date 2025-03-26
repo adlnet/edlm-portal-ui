@@ -1,7 +1,7 @@
 import { act, fireEvent, render } from '@testing-library/react';
 
 import { MemoryRouterProvider } from 'next-router-mock/MemoryRouterProvider';
-import Forbidden from '../../pages/learner/403';
+import Forbidden from '../../pages/edlm-portal/learner/403';
 import singletonRouter from 'next/router';
 
 // mocks
@@ -44,7 +44,7 @@ describe('403 Page', () => {
         fireEvent.click(button);
       });
     expect(singletonRouter).toMatchObject({
-        asPath: '/learner',
+        asPath: '/edlm-portal/learner',
       });
   });
 

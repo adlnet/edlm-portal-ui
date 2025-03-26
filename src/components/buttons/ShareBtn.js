@@ -11,7 +11,7 @@ export default function ShareButton({ id, courseTitle, courseDescription }) {
 
   // handle the copy to clipboard action
   const handleCopy = () => {
-    navigator.clipboard.writeText(`${window.origin}/learner/course/${id}`);
+    navigator.clipboard.writeText(`${window.origin}/edlm-portal/learner/course/${id}`);
   };
 
   const handleClick = useCallback(() => {
@@ -30,7 +30,7 @@ export default function ShareButton({ id, courseTitle, courseDescription }) {
       object: {
         definitionName: courseTitle,
         description: courseDescription,
-        id: `${window.origin}/learner/course/${id}`,
+        id: `${window.origin}/edlm-portal/learner/course/${id}`,
       },
       resultExtName: 'https://w3id.org/xapi/ecc/result/extensions/CourseId',
       resultExtValue: id,
@@ -48,7 +48,7 @@ export default function ShareButton({ id, courseTitle, courseDescription }) {
   
   let url = '';
   if (typeof window !== "undefined"){
-    url = `${window.origin}/learner/course/${id}`;
+    url = `${window.origin}/edlm-portal/learner/course/${id}`;
   }
 
   return (

@@ -156,7 +156,7 @@ import {
     const [loading, setLoading] = useState(false);
   
     useEffect(() => {
-      if (user) router.push('/');
+      if (user) router.push('/edlm-portal');
     }, []);
   
     const handleSubmit = (event) => {
@@ -221,7 +221,7 @@ import {
     }, [credentials.first_name]);
   
     return (
-      <div>
+      <div className='min-h-screen bg-hero bg-cover pt-8 pb-80'>
         <div className='flex flex-col text-center mt-10 items-center '>
           <Image src={logo} alt='logo' width={100} height={100} />
         </div>
@@ -234,7 +234,7 @@ import {
             <h1 className='font-bold text-xl pt-2'>Create your account</h1>
             <p className='text-sm'>
               Already have an account?&nbsp;
-              <Link href={'/login'} passHref>
+              <Link href={'/edlm-portal/login'} passHref>
                 <span className='text-blue-400 hover:text-blue-600 hover:text-shadow'>
                   Sign in 
                 </span>

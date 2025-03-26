@@ -4,7 +4,7 @@ import {
   useAuthenticatedUser,
   useUnauthenticatedUser,
 } from '@/__mocks__/predefinedMocks';
-import LearningPlan from '@/pages/learner/learningPlan/index';
+import LearningPlan from '@/pages/edlm-portal/learner/learningPlan/index';
 import singletonRouter from 'next/router';
 
 jest.mock('@/components/Stepper', () => {

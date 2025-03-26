@@ -3,6 +3,7 @@
 import { authLogin } from '@/config/endpoints';
 import { axiosInstance } from '@/config/axiosConfig';
 import { useAuth } from '@/contexts/AuthContext';
+import { useConfig } from '@/hooks/useConfig';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -12,13 +13,14 @@ import logo from '@/public/doteLogo.png';
 export default function Login() {
   const router = useRouter();
   const { user, login } = useAuth();
+  const config = useConfig();
   const [credentials, setCredentials] = useState({
     username: '',
     password: null,
   });
 
   useEffect(() => {
-    if (user) router.push('/');
+    if (user) router.push('/edlm-portal');
   }, []);
 
   const handleChange = (event) => {
@@ -40,7 +42,7 @@ export default function Login() {
       .post(authLogin, credentials)
       .then((res) => {
         login(res.data);
-        router.push('/learner');
+        router.push('/edlm-portal');
       })
       .catch((error) => {
         setErrorMsg('Invalid credentials');
@@ -54,7 +56,7 @@ export default function Login() {
   };
 
   return (
-      <div className={' bg-hero bg-cover pt-8 pb-80'}>
+      <div className='min-h-screen bg-hero bg-cover pt-8 pb-80'>
          <div className='mt-10 mx-52 flex flex-col items-center justify-between'>
             <Image src={logo} alt={'home'} height={'150'} width={'150'} priority={true}/>
           </div>
@@ -68,7 +70,7 @@ export default function Login() {
             </p>
             <span>
               Don&apos;t have an account yet? &nbsp;
-              <Link href={'/register'} passHref>
+              <Link href={'/edlm-portal/register'} passHref>
                 <span
                   className='text-blue-400 hover:underline hover:text-blue-500 cursor-pointer transition-all duration-150 ease-in-out'
                 >
@@ -108,13 +110,18 @@ export default function Login() {
               or
             </span>
           </p>
-          <button
-            className='flex flex-row mx-auto w-full items-center inline-flex justify-center gap-2 text-blue-400 rounded-md hover:shadow-md bg-blue-50 hover:bg-blue-400 hover:text-white px-4 py-2 transform transition-all duration-75 ease-in-out border-blue-400 border-2 outline-none focus:ring-2 ring-blue-400'
-            type='submit'
-            id='login-button'
-          >
-            Log in with Single Sign On
-          </button>
+          {config.isSuccess &&
+            config.data.single_sign_on_options.map(({ name, path }) => {
+              return (
+                <a
+                  href={path}
+                  className='flex flex-row mx-auto w-full items-center inline-flex justify-center gap-2 text-blue-400 rounded-md hover:shadow-md bg-blue-50 hover:bg-blue-400 hover:text-white px-4 py-2 transform transition-all duration-75 ease-in-out border-blue-400 border-2 outline-none focus:ring-2 ring-blue-400'
+                  key={name}
+                >
+                  {name}
+                </a>
+              );
+            })}
         </form>
       </div>
   );

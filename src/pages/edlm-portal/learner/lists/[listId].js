@@ -103,7 +103,7 @@ export default function ListsView({ listId }) {
                 <button
                   className='h-8 px-3 py-2 bg-white rounded-lg border  border-gray-200 justify-center items-center gap-2 inline-flex hover:bg-blue-50 text-[#1f3764] text-xs font-normal leading-none'
                   onClick={() => {
-                    router.push('/learner/lists/edit/' + listId);
+                    router.push('/edlm-portal/learner/lists/edit/' + listId);
                   }}
                 >
                   Edit

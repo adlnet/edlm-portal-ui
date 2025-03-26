@@ -33,7 +33,7 @@ export default function MoreLikeThis({ course }) {
   const handleClick = useCallback(
     (e) => {
       if (!user)
-        return router.push(`/learner/course/${meta.metadata_key_hash || meta.id}`);
+        return router.push(`/edlm-portal/learner/course/${meta.metadata_key_hash || meta.id}`);
 
       const context = {
         actor: {
@@ -45,7 +45,7 @@ export default function MoreLikeThis({ course }) {
           display: 'explored',
         },
         object: {
-          id: `${window.origin}/learner/course/${meta.id}`,
+          id: `${window.origin}/edlm-portal/learner/course/${meta.id}`,
           definitionName: Course.CourseTitle,
           description: Course.CourseShortDescription,
         },
@@ -53,7 +53,7 @@ export default function MoreLikeThis({ course }) {
         resultExtValue: meta.metadata_key_hash || meta.id,
       };
       xAPISendStatement(context);
-      router.push('/learner/course/' + (meta.metadata_key_hash || meta.id));
+      router.push('/edlm-portal/learner/course/' + (meta.metadata_key_hash || meta.id));
     },
     [Course, meta, user]
   );
@@ -70,23 +70,23 @@ export default function MoreLikeThis({ course }) {
 
   // show suggested card
   return (
-    <Link href={`/learner/course/${meta.metadata_key_hash || meta.id}`} passHref>
+    <Link href={`/edlm-portal/learner/course/${meta.metadata_key_hash || meta.id}`} passHref>
       <div
         onClick={handleClick}
         role='button'
         tabIndex='0'
         aria-hidden='true'
-        className="px-5 py-[19px] bg-gray-500 rounded-lg shadow flex-col justify-start items-start gap-2.5 inline-flex cursor-pointer transform transition-shadow duration-150 ease-in-out font-['Roboro'] text-white h-[228px] w-[387px] hover:shadow-lg"
+        className="px-5 py-[19px] bg-gray-500 rounded-lg shadow flex-col justify-start items-start gap-2.5 inline-flex cursor-pointer transform transition-shadow duration-150 ease-in-out text-white h-[228px] w-[387px] hover:shadow-lg"
       >
         <div className="w-[330px] relative">
           <div className="w-full flex flex-col">
-            <div className="text-white text-xl font-bold font-['Roboto'] leading-normal">
+            <div className="text-white text-xl font-bold leading-normal">
               {title || Course?.CourseTitle}
             </div>
           </div>
           <div>
-            <span className="text-white text-base font-medium font-['Roboto'] leading-normal">Provider: </span>
-            <span className="text-white text-base font-medium font-['Roboto'] leading-normal">
+            <span className="text-white text-base font-medium leading-normal">Provider: </span>
+            <span className="text-white text-base font-medium leading-normal">
               {provider || Course?.CourseProviderName}
             </span>
           </div>

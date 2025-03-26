@@ -1,7 +1,7 @@
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { render } from '@testing-library/react';
 import { useAuthenticatedUser, useMockConfig } from '@/__mocks__/predefinedMocks';
-import Help from '../../pages/learner/help';
+import Help from '../../pages/edlm-portal/learner/help';
 
 const queryClient = new QueryClient();
 const renderer = () => {

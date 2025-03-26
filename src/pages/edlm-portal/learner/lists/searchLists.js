@@ -72,7 +72,7 @@ export default function SearchLists() {
   };
 
   const goToList = (id) => {
-    router.push(`/learner/lists/${id}`);
+    router.push(`/edlm-portal/learner/lists/${id}`);
   };
 
   // returns a list of lists that match the search query and are chunked into

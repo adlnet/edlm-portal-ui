@@ -5,7 +5,7 @@ import {
   useAuthenticatedUser,
   useUnauthenticatedUser,
 } from "@/__mocks__/predefinedMocks";
-import LearningSummary from "@/pages/learner/learningSummary/index";
+import LearningSummary from "@/pages/edlm-portal/learner/learningSummary/index";
 import MockRouter from "next-router-mock";
 import singletonRouter from "next/router";
 
@@ -25,7 +25,7 @@ jest.mock('next/dynamic', () => () => {
 });
 
 const renderer = () => {
-  MockRouter.setCurrentUrl("/learner/learningSummary");
+  MockRouter.setCurrentUrl("/edlm-portal/learner/learningSummary");
   return render(
     <MemoryRouterProvider>
       <QueryClientWrapper>
