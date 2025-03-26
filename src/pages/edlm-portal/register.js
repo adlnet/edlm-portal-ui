@@ -170,7 +170,7 @@ export default function Register() {
     obj["p" + "ass" + "word"] = credentials.userPwd;
 
     axiosInstance
-      .post(authRegister, obk)
+      .post(authRegister, obj)
       .then((res) => {
         router.push('/');
         register(res.data);
