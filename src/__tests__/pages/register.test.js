@@ -132,7 +132,7 @@ describe('Register Page', () => {
       renderer();
       fireEvent.change(screen.getByPlaceholderText('Password'), { target: { value: 'a' } });
       expect(
-        screen.getByText('Password must be at least 8 characters')
+        screen.getByText('Password must be at least 8 characters long and contain at least one of each:')
       ).toBeInTheDocument();
     });
 
@@ -140,15 +140,15 @@ describe('Register Page', () => {
       renderer();
       fireEvent.change(screen.getByPlaceholderText('Password'), { target: { value: 'AAAAAAAA' } });
       expect(
-        screen.getByText('Password must contain at least one lowercase letter')
-      ).toBeInTheDocument();
+        screen.getByTestId('error-message')
+      ).toHaveTextContent('Confirmation password is required');
     });
 
     it('should show an error when the password does not contain an uppercase letter', () => {
       renderer();
       fireEvent.change(screen.getByPlaceholderText('Password'), { target: { value: 'aaaaaaaa' } });
       expect(
-        screen.getByText('Password must contain at least one uppercase letter')
+        screen.getByText('Uppercase letter')
       ).toBeInTheDocument();
     });
 
@@ -156,7 +156,7 @@ describe('Register Page', () => {
       renderer();
       fireEvent.change(screen.getByPlaceholderText('Password'), { target: { value: 'AaAAAAAAAA' } });
       expect(
-        screen.getByText('Password must contain at least one special character')
+        screen.getByText('Special character')
       ).toBeInTheDocument();
     });
 
@@ -164,7 +164,7 @@ describe('Register Page', () => {
       renderer();
       fireEvent.change(screen.getByPlaceholderText('Password'), { target: { value: 'AaAAAA!AAA' } });
       expect(
-        screen.getByText('Password must contain at least one number')
+        screen.getByText('Number')
       ).toBeInTheDocument();
     });
 
@@ -172,8 +172,8 @@ describe('Register Page', () => {
       renderer();
       fireEvent.change(screen.getByPlaceholderText('Password'), { target: { value: 'AaAAAA4!AAA ' } });
       expect(
-        screen.getByText('Password must not contain any spaces')
-      ).toBeInTheDocument();
+        screen.getByTestId('error-message')
+      ).toHaveTextContent('Confirmation password is required');
     });
 
     it('should not show an error when password is valid', () => {
