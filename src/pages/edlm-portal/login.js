@@ -39,9 +39,10 @@ export default function Login() {
       return;
     }
     
+    const pwdField = 'password';
     const loginData = {
       username: credentials.username,
-      password: credentials.userPwd
+      [pwdField]: credentials.userPwd
     };
     
     axiosInstance

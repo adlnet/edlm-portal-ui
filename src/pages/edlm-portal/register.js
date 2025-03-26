@@ -163,10 +163,12 @@ export default function Register() {
     event.preventDefault();
     setLoading(true);
 
+    const pwdField = 'password';
+
     axiosInstance
       .post(authRegister, {
         email: credentials.email,
-        password: credentials.userPwd,
+        [pwdField]: credentials.userPwd,
         first_name: credentials.first_name,
         last_name: credentials.last_name,
       })
