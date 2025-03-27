@@ -170,6 +170,7 @@ export default function Search() {
                   parameters={params}
                   onChange={handleChange}
                   onClick={handleSearch}
+                  placeholder='Search for Learning Content'
                 />
               </div>
           </Popover>

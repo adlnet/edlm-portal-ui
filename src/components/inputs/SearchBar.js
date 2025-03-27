@@ -2,7 +2,7 @@
 
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
 
-export default function SearchBar({ parameters, onChange, onClick }) {
+export default function SearchBar({ parameters, onChange, onClick, placeholder }) {
   const checkSpecialChar = (e) => {
     if(/[<>/?+={};#$%&*()`~\\]/.test(e.key)){
      e.preventDefault();
@@ -29,7 +29,7 @@ export default function SearchBar({ parameters, onChange, onClick }) {
         className="flex-1 pl-10 text-gray-500 text-sm font-normal outline-none bg-transparent border-none"
         onChange={onChange}
         autoComplete='off'
-        placeholder='Search for Learning Content'
+        placeholder={placeholder}
         maxLength="128"
         onKeyPress={(e)=>checkSpecialChar(e)}
       />

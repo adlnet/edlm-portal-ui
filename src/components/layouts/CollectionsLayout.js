@@ -7,6 +7,7 @@ export default function CollectionsLayout({ children, title }) {
     { name: 'My Collections', href: '/edlm-portal/learner/lists/owned' },
     { name: 'My Subscriptions', href: '/edlm-portal/learner/lists/subscribed' },
     { name: 'Saved Searches', href: '/edlm-portal/learner/lists/savedSearches' },
+    { name: 'Search Collections', href: '/edlm-portal/learner/lists/searchLists' },
   ]
 
   return (
