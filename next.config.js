@@ -6,8 +6,8 @@ const nextConfig = {
         ignoreDuringBuilds: false,
     },
     swcMinify: true,
-    basePath: '/edlm-portal',
-    assetPrefix: '/edlm-portal',
+    // basePath: '/edlm-portal',
+    // assetPrefix: '/edlm-portal/',
     trailingSlash: true,
     // distDir: 'edlm-portal',
     // Adding policies:
