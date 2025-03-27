@@ -81,7 +81,7 @@ export default function SearchResult({ result, handleCompetencyTag}) {
         display: 'explored',
       },
       object: {
-        id: `${window.origin}/edlm-portal/learner/course/${result.meta.id}`,
+        id: `${window.origin}/learner/course/${result.meta.id}`,
         definitionName: title,
         description: removeHTML(getDeeplyNestedData(config.data?.course_information?.course_description, result)),
       },
@@ -90,7 +90,7 @@ export default function SearchResult({ result, handleCompetencyTag}) {
     };
 
     xAPISendStatement(context);
-    router.push(`/edlm-portal/learner/course/${result.meta.id}`);
+    router.push(`/learner/course/${result.meta.id}`);
   }, [result, user, router]);
 
   return (

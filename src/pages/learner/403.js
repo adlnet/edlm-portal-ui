@@ -19,7 +19,7 @@ export default function Forbidden({ errorMessage }) {
 
     useEffect(() => {
         if (count < 1) {
-            router.push("/edlm-portal/learner")
+            router.push("/learner")
         }
     }, [count]);
 
@@ -35,7 +35,7 @@ export default function Forbidden({ errorMessage }) {
                 <h2 className='text-2xl flex-col'>Redirecting in</h2>
                 <div className='text-2xl' id="counter">{count}</div>
             </div>
-            <Link href={'/edlm-portal/learner'} passHref>
+            <Link href={'/learner'} passHref>
                 <button
                     id={'create-account-button'}
                     className='flex justify-center items-center gap-2 text-blue-400 rounded-md hover:shadow-md bg-blue-50 hover:bg-blue-400 hover:text-white pl-2 pr-4 py-2 transform transition-all duration-150 ease-in-out border-blue-300 border-2 outline-none focus:ring-2 ring-blue-300`'

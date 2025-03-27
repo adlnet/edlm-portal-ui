@@ -58,7 +58,7 @@ export default function LearningPlan() {
   ];
 
   const handleShare = id => {
-    navigator.clipboard.writeText(`${window.origin}/edlm-portal/learner/lists/${id}`)
+    navigator.clipboard.writeText(`${window.origin}/learner/lists/${id}`)
     .then(() => {
       setCopy('Copied Successfully!');
       setTimeout(() => {
@@ -100,7 +100,7 @@ export default function LearningPlan() {
               itemsCount={cardItem.experiences.length}
               description={cardItem.description}
               isPublic={cardItem.public}
-              cardDetailLink={`/edlm-portal/learner/lists/${cardItem.id}`}
+              cardDetailLink={`/learner/lists/${cardItem.id}`}
               menuItems= {getMenuItems(cardItem.id)}
             />
           ))}

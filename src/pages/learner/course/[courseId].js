@@ -153,7 +153,7 @@ export default function Course() {
       object: {
         definitionName: data?.title,
         description: data?.description,
-        id: `${window.origin}/edlm-portal/learner/course/${router.query?.courseId}`,
+        id: `${window.origin}/learner/course/${router.query?.courseId}`,
       },
       resultExtName: 'https://w3id.org/xapi/ecc/result/extensions/CourseId',
       resultExtValue: router.query?.courseId,

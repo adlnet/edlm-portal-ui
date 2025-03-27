@@ -25,10 +25,10 @@ describe('StaticSideNav', () => {
     const { getByText } = render(<StaticSideNav />);
 
     fireEvent.click(getByText('Search'));
-    expect(mockRouter).toMatchObject({ asPath: '/edlm-portal/learner/search' });
+    expect(mockRouter).toMatchObject({ asPath: '/learner/search' });
 
     fireEvent.click(getByText('Learning Plan'));
-    expect(mockRouter).toMatchObject({ asPath: '/edlm-portal/learner/learningPlan' });
+    expect(mockRouter).toMatchObject({ asPath: '/learner/learningPlan' });
   });
 
   it('should show the dropdown when the dropdown button is clicked', () => {

@@ -15,7 +15,7 @@ import {
   useUnauthenticatedUser,
 } from '@/__mocks__/predefinedMocks';
 import MockRouter from 'next-router-mock';
-import Subscribed from '@/pages/edlm-portal/learner/lists/subscribed';
+import Subscribed from '@/pages/learner/lists/subscribed';
 import singletonRouter from 'next/router';
 
 jest.mock('next/dist/client/router', () => require('next-router-mock'));
@@ -93,7 +93,7 @@ describe('User Subscribed Lists', () => {
   //   act(() => {
   //     fireEvent.click(getByRole('button', { name: 'View' }));
   //   });
-  //   expect(singletonRouter).toMatchObject({ asPath: '/edlm-portal/learner/lists/1' });
+  //   expect(singletonRouter).toMatchObject({ asPath: '/learner/lists/1' });
   // });
 
   it('should render the collection card with dropdown menu', () => {
@@ -133,7 +133,7 @@ describe('User Subscribed Lists', () => {
       fireEvent.click(getByTestId('card-menu-item-Share'));
 
       expect(navigator.clipboard.writeText).toHaveBeenCalledWith(
-        'http://localhost/edlm-portal/learner/lists/1'
+        'http://localhost/learner/lists/1'
       );
     });
 

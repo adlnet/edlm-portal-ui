@@ -20,7 +20,7 @@ export default function Login() {
   });
 
   useEffect(() => {
-    if (user) router.push('/edlm-portal');
+    if (user) router.push('/');
   }, []);
 
   const handleChange = (event) => {
@@ -48,7 +48,7 @@ export default function Login() {
       .post(authLogin, loginData)
       .then((res) => {
         login(res.data);
-        router.push('/edlm-portal');
+        router.push('/');
       })
       .catch((error) => {
         setErrorMsg('Invalid credentials');
@@ -76,7 +76,7 @@ export default function Login() {
             </p>
             <span>
               Don&apos;t have an account yet? &nbsp;
-              <Link href={'/edlm-portal/register'} passHref>
+              <Link href={'/register'} passHref>
                 <span
                   className='text-blue-400 hover:underline hover:text-blue-500 cursor-pointer transition-all duration-150 ease-in-out'
                 >

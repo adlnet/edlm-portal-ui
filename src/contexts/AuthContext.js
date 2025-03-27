@@ -1,7 +1,7 @@
-import { XDSbackendHost } from '../config/endpoints';
+import { XDSbackendHost } from '@/config/endpoints';
 import { axiosInstance } from '@/config/axiosConfig';
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
-import { useSessionStorage } from '../hooks/useStorage';
+import { useSessionStorage } from '@/hooks/useStorage';
 
 export const AuthContext = createContext({});
 

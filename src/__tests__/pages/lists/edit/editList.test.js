@@ -12,7 +12,7 @@ import {
   useMockUserListWithDifferentUserId,
   useUnauthenticatedUser,
 } from '@/__mocks__/predefinedMocks';
-import EditList, { getServerSideProps } from '@/pages/edlm-portal/learner/lists/edit/[listId]';
+import EditList, { getServerSideProps } from '@/pages/learner/lists/edit/[listId]';
 import MockRouter from 'next-router-mock';
 import singletonRouter from 'next/router';
 
@@ -20,7 +20,7 @@ beforeEach(() => {
   useMockConfig();
 });
 const renderer = () => {
-  MockRouter.setCurrentUrl('/edlm-portal/learner/lists/edit/1');
+  MockRouter.setCurrentUrl('/learner/lists/edit/1');
   return render(
     <MemoryRouterProvider>
       <QueryClientWrapper>
@@ -52,7 +52,7 @@ describe('Edit List', () => {
     useMockUserListWithDifferentUserId();
     useMockUpdateUserList();
     renderer();
-    expect(singletonRouter).toMatchObject({ asPath: '/edlm-portal/learner/lists/edit/1' });
+    expect(singletonRouter).toMatchObject({ asPath: '/learner/lists/edit/1' });
   });
 
   it.skip('should navigate the user to "/401" if the user is not the owner of the list', () => {
@@ -60,7 +60,7 @@ describe('Edit List', () => {
     useMockUserListWith401();
     useMockUpdateUserList();
     renderer();
-    expect(singletonRouter).toMatchObject({ asPath: '/edlm-portal/learner/401' });
+    expect(singletonRouter).toMatchObject({ asPath: '/learner/401' });
   });
 
   it.skip('should navigate the user to "/403" if the user is not the owner of the list', () => {
@@ -68,7 +68,7 @@ describe('Edit List', () => {
     useMockUserListWith403();
     useMockUpdateUserList();
     renderer();
-    expect(singletonRouter).toMatchObject({ asPath: '/edlm-portal/learner/403' });
+    expect(singletonRouter).toMatchObject({ asPath: '/learner/403' });
   });
 
   // it('should navigate user to the public view of the list on click', () => {
@@ -79,7 +79,7 @@ describe('Edit List', () => {
   //   act(() => {
   //     fireEvent.click(screen.getByText('View public list'));
   //   });
-  //   expect(singletonRouter).toMatchObject({ asPath: '/edlm-portal/learner/lists/1' });
+  //   expect(singletonRouter).toMatchObject({ asPath: '/learner/lists/1' });
   // });
 
   it.skip('should load the list data', () => {
