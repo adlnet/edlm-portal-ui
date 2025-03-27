@@ -2,7 +2,7 @@
 
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
 
-export default function SearchBar({ parameters, onChange, onClick, placeholder }) {
+export default function SearchBar({ parameters, onChange, onClick, placeholder = 'Search for Learning Content' }) {
   const checkSpecialChar = (e) => {
     if(/[<>/?+={};#$%&*()`~\\]/.test(e.key)){
      e.preventDefault();

@@ -42,7 +42,7 @@ describe('User Owned Lists', () => {
     useUnauthenticatedUser();
     useMockUserOwnedLists();
     renderer();
-    expect(singletonRouter).toMatchObject({ asPath: '/' });
+    expect(singletonRouter).toMatchObject({ asPath: '/edlm-portal' });
   });
 
   it('should navigate the user to "/401" if the user is not the owner of the list', () => {
@@ -81,7 +81,7 @@ describe('User Owned Lists', () => {
     useMockUserOwnedListsWithoutData();
     const { getByText, queryByText } = renderer();
     expect(
-      getByText('You are not subscribed to any lists.')
+      getByText('You dont have any collections yet.')
     ).toBeInTheDocument();
     expect(queryByText('Test Title 1')).not.toBeInTheDocument();
   });
