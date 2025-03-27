@@ -59,4 +59,93 @@ describe('Search Lists', () => {
     });
   });
   
+  it('should render the list of interest lists', () => {
+    useAuthenticatedUser();
+    useMockInterestLists();
+    useMockSubscribedListsEmpty();
+    useMockSubscribeToList();
+    useMockUnsubscribeFromList();
+    const { getByText, queryAllByText } = renderer();
+    expect(getByText('Test List 1')).toBeInTheDocument();
+  });
+
+
+  it('should render the next and previous buttons', () => {
+    useAuthenticatedUser();
+    useMockInterestLists();
+    useMockSubscribedListsEmpty();
+    useMockSubscribeToList();
+    useMockUnsubscribeFromList();
+    const { getByText } = renderer();
+    expect(getByText('Next')).toBeInTheDocument();
+    expect(getByText('Previous')).toBeInTheDocument();
+    expect(getByText('Previous')).toBeDisabled();
+  });
+
+  it('should navigate to next page', () => {
+    useAuthenticatedUser();
+    useMockInterestLists();
+    useMockSubscribedListsEmpty();
+    useMockSubscribeToList();
+    useMockUnsubscribeFromList();
+    const { getByText } = renderer();
+    act(() => {
+      fireEvent.click(getByText('Next'));
+    });
+
+    expect(getByText('Previous')).toBeInTheDocument();
+    expect(getByText('Previous')).toBeEnabled();
+    expect(getByText('Next')).toBeInTheDocument();
+    expect(getByText('Next')).toBeDisabled();
+  });
+
+  it('should navigate to previous page', () => {
+    useAuthenticatedUser();
+    useMockInterestLists();
+    useMockSubscribedListsEmpty();
+    useMockSubscribeToList();
+    useMockUnsubscribeFromList();
+    const { getByText } = renderer();
+    act(() => {
+      fireEvent.click(getByText('Next'));
+    });
+    expect(getByText('Previous')).toBeInTheDocument();
+    expect(getByText('Previous')).toBeEnabled();
+    act(() => {
+      fireEvent.click(getByText('Previous'));
+    });
+    expect(getByText('Previous')).toBeInTheDocument();
+    expect(getByText('Previous')).toBeDisabled();
+  });
+
+  it('should only show results that contain the search term', () => {
+    useAuthenticatedUser();
+    useMockInterestLists();
+    useMockSubscribedListsEmpty();
+    useMockSubscribeToList();
+    useMockUnsubscribeFromList();
+    const { getByPlaceholderText, queryAllByText } = renderer();
+    act(() => {
+      fireEvent.change(getByPlaceholderText('Search Public Collections'), {
+        target: { value: '11' },
+      });
+    });
+    expect(queryAllByText(/Test List/i)).toHaveLength(9);
+  });
+
+  it('should navigate user to list when clicked', () => {
+    useAuthenticatedUser();
+    useMockInterestLists();
+    useMockSubscribedListsEmpty();
+    useMockSubscribeToList();
+    useMockUnsubscribeFromList();
+    const { getByText } = renderer();
+    act(() => {
+      fireEvent.click(getByText('Test List 1'));
+    });
+
+    expect(singletonRouter).toMatchObject({
+      asPath: '/edlm-portal/learner/lists/1?previousPage=Search+Collections',
+    });
+  });
 });
