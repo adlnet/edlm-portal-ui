@@ -57,7 +57,7 @@ describe('Register Page', () => {
       screen.getByRole('link', { name: /Sign in/i })
     );
     expect(singletonRouter).toMatchObject({
-      asPath: '/login',
+      asPath: '/edlm-portal/login',
     });
   });
 
