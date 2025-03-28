@@ -15,6 +15,14 @@ app.prepare().then(() => {
       const newPath = pathname.replace('/edlm-portal/_next/', '/_next/');
       parsedUrl.pathname = newPath;
     }
+
+    if (pathname === '/_next/image') {
+      const imageUrl = parsedUrl.query.url;
+      if (imageUrl && imageUrl.startsWith('/edlm-portal/')) {
+        parsedUrl.query.url = imageUrl.replace('/edlm-portal/', '/');
+      }
+    }
+    
     handle(req, res, parsedUrl);
   }).listen(3000, (err) => {
     if (err) throw err;

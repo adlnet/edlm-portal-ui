@@ -8,6 +8,11 @@ const nextConfig = {
     swcMinify: true,
     assetPrefix: '/edlm-portal',
     trailingSlash: true,
+    images: {
+        path: '/_next/image',
+    },
+    
+1
     // distDir: 'edlm-portal',
     // Adding policies:
     // async headers() {
