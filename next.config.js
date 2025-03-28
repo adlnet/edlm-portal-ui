@@ -9,6 +9,15 @@ const nextConfig = {
     basePath: '/edlm-portal',
     assetPrefix: '/edlm-portal',
     trailingSlash: true,
+
+    async rewrites() {
+        return [
+            {
+                source: '/edlm-portal/_next/:path*',
+                destination: '/_next/:path*',
+            }
+        ]
+    },
     // distDir: 'edlm-portal',
     // Adding policies:
     // async headers() {
