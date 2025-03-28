@@ -11,8 +11,7 @@ const nextConfig = {
     images: {
         path: '/_next/image',
     },
-    
-1
+
     // distDir: 'edlm-portal',
     // Adding policies:
     // async headers() {
