@@ -76,7 +76,7 @@ export default function Login() {
             </p>
             <span>
               Don&apos;t have an account yet? &nbsp;
-              <Link href={'/register'} passHref>
+              <Link href={'/edlm-portal/register'} passHref>
                 <span
                   className='text-blue-400 hover:underline hover:text-blue-500 cursor-pointer transition-all duration-150 ease-in-out'
                 >
