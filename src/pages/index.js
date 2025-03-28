@@ -8,5 +8,5 @@ export default function RootRedirect() {
     router.replace('/edlm-portal');
   }, [router]);
   
-  return <div>Redirecting...</div>;
+  return <div>Redirecting to EDLM Portal</div>;
 }
