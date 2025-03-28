@@ -2,7 +2,7 @@ import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { useRouter } from 'next/router';
 import Head from 'next/head'
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState} from 'react';
 
 // contexts
 import { AuthProvider } from '@/contexts/AuthContext';
