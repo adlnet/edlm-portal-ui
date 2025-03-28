@@ -10,7 +10,6 @@ const nextConfig = {
     trailingSlash: true,
 
     images: {
-        domains: ['dote.staging.dso.mil'],
         unoptimized: true,
     },
 
