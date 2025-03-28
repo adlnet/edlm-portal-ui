@@ -3,9 +3,11 @@ USER root
 
 WORKDIR /app
 
-COPY . .
-COPY node_modules ./node_modules
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile
 
+COPY . .
+# COPY node_modules ./node_modules
 RUN yarn build
 USER node
 
