@@ -17,9 +17,20 @@ app.prepare().then(() => {
     }
 
     if (pathname.startsWith('/_next/image')) {
+      console.log('req url:', req.url);
       const imageUrl = parsedUrl.query.url;
-      if (imageUrl && imageUrl.startsWith('/edlm-portal/')) {
-        parsedUrl.query.url = imageUrl.replace('/edlm-portal/', '/');
+      // I'm trying to see if I can replace the image URL with the one
+      if (imageUrl) {
+        if (imageUrl.startsWith('/edlm-portal/_next/')) {
+          parsedUrl.query.url = imageUrl.replace('/edlm-portal/_next/', '/_next/');
+        } 
+        else if (imageUrl.startsWith('/edlm-portal/')) {
+          parsedUrl.query.url = imageUrl.replace('/edlm-portal/', '/');
+        }
+        else if (imageUrl.includes('/edlm-portal/')) {
+          parsedUrl.query.url = imageUrl.replace('/edlm-portal/', '/');
+        }
+
       }
     }
     
