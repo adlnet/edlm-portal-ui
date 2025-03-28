@@ -6,7 +6,7 @@ import {
   useMockConfig,
   useUnauthenticatedUser,
 } from '@/__mocks__/predefinedMocks';
-import Login from '@/pages/login';
+import Login from '@/pages/edlm-portal/login';
 import MockAxios from 'jest-mock-axios';
 import React from 'react';
 import mockRouter from 'next-router-mock';
@@ -33,7 +33,7 @@ describe('Login Page', () => {
     const screen = renderer();
 
     expect(singletonRouter).toMatchObject({
-      asPath: '/',
+      asPath: '/edlm-portal',
     });
   });
 

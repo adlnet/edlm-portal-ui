@@ -20,7 +20,7 @@ export default function Login() {
   });
 
   useEffect(() => {
-    if (user) router.push('/');
+    if (user) router.push('/edlm-portal');
   }, []);
 
   const handleChange = (event) => {
@@ -48,7 +48,7 @@ export default function Login() {
       .post(authLogin, loginData)
       .then((res) => {
         login(res.data);
-        router.push('/');
+        router.push('/edlm-portal');
       })
       .catch((error) => {
         setErrorMsg('Invalid credentials');

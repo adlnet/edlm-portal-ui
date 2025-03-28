@@ -53,7 +53,7 @@ export default function Search() {
         setUrl(modified);
         setParams(modified);
       });
-      router.push({ pathname: '/learner/search', query: modified });
+      router.push({ pathname: '/edlm-portal/learner/search', query: modified });
     }
   }
 
@@ -83,7 +83,7 @@ export default function Search() {
           display: 'searched',
         },
         object: {
-          definitionName: 'ECC Search Capability',
+          definitionName: 'DOT&E Search Capability',
         },
         resultExtName: 'https://w3id.org/xapi/ecc/result/extensions/searchTerm',
         resultExtValue: modified.keyword,
@@ -91,7 +91,7 @@ export default function Search() {
 
       xAPISendStatement(context);
 
-      router.push({ pathname: '/learner/search', query: modified });
+      router.push({ pathname: '/edlm-portal/learner/search', query: modified });
     },
     [params, user]
   );
@@ -106,7 +106,7 @@ export default function Search() {
     const modified = { ...params, keyword: comp };
     modified.p = 1;
 
-    router.push({ pathname: '/learner/search', query: modified });
+    router.push({ pathname: '/edlm-portal/learner/search', query: modified });
   }
 
   function createLists() {
@@ -170,6 +170,7 @@ export default function Search() {
                   parameters={params}
                   onChange={handleChange}
                   onClick={handleSearch}
+                  placeholder='Search for Learning Content'
                 />
               </div>
           </Popover>
@@ -182,7 +183,7 @@ export default function Search() {
                   title='Clear Search'
                   onClick= {() => 
                     setParams((prev) => ({ ...prev, keyword: '' }),
-                    router.push({ pathname: '/learner/search' })
+                    router.push({ pathname: '/edlm-portal/learner/search' })
                   )}
                   className="italic text-sm font-sans text-[#3892f3] underline whitespace-nowrap"
                 >     

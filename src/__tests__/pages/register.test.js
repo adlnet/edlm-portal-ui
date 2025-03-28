@@ -9,7 +9,7 @@ import {
 } from '@/__mocks__/predefinedMocks';
 import MockAxios from 'jest-mock-axios';
 import React, { useContext } from 'react';
-import Register from '@/pages/register';
+import Register from '@/pages/edlm-portal/register';
 import mockRouter from 'next-router-mock';
 import singletonRouter from 'next/router';
 
@@ -47,7 +47,7 @@ describe('Register Page', () => {
     useAuthenticatedUser();
     renderer();
     expect(singletonRouter).toMatchObject({
-      asPath: '/',
+      asPath: '/edlm-portal',
     });
   });
 

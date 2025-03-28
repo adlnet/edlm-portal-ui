@@ -141,7 +141,7 @@ export default function Home() {
                 </Card>
               </Carousel.Item>
               <Carousel.Item>
-                <Card href='/learner/lists/owned' className="w-80 h-full rounded-xl" renderImage={() => <Image width={500} height={500} src={armyImage1} alt="image 1" />}>
+                <Card href='/edlm-portal/learner/lists/owned' className="w-80 h-full rounded-xl" renderImage={() => <Image width={500} height={500} src={armyImage1} alt="image 1" />}>
                   <h5 className="text-2xl font-bold text-left tracking-tight text-gray-900 dark:text-white">
                     My Collections
                   </h5>
@@ -178,7 +178,7 @@ export default function Home() {
                 <CollectionTable data={mockInProgressCourses} edit={false} columns={columns} rowsPerPage={5}/>
               </div>
               <div className="flex justify-end -mt-4">
-                <Button className="m-4 bg-white-900 text-blue-800 text-sm hover:bg-blue-600" onClick={() => router.push('/learner/learningSummary')}>
+                <Button className="m-4 bg-white-900 text-blue-800 text-sm hover:bg-blue-600" onClick={() => router.push('/edlm-portal/learner/learningSummary')}>
                     View more
                 </Button>
               </div>
@@ -202,7 +202,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="flex justify-end">
-                <Button className="m-4 bg-white-900 text-blue-800 text-sm hover:bg-blue-600 mt-10" onClick={() => router.push('/learner/learningSummary')}>
+                <Button className="m-4 bg-white-900 text-blue-800 text-sm hover:bg-blue-600 mt-10" onClick={() => router.push('/edlm-portal/learner/learningSummary')}>
                     View more
                 </Button>
               </div>

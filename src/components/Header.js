@@ -13,11 +13,11 @@ const menuItems = [
   },
   {
     label: 'Search Lists',
-    path: '/learner/lists/searchLists',
+    path: '/edlm-portal/learner/lists/searchLists',
   },
   {
     label: 'Support',
-    path: '/learner/support',
+    path: '/edlm-portal/learner/support',
   },
 ];
 
@@ -31,7 +31,7 @@ export default function Header() {
       >
         <div className='w-full py-4 inline-flex items-center justify-between z-50'>
           <div className={'flex items-center justify-start text-white text-4xl font-semibold gap-4'}>
-            <Link href={'/'} passHref>
+            <Link href={'/edlm-portal'} passHref>
               {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
               <button
                 title='home'

@@ -740,7 +740,7 @@ export function useMockSavedSearchList() {
       {
         id: 'searchId',
         name: 'Saved Search 1',
-        query: '/learner/search?keyword=query',
+        query: '/edlm-portal/learner/search?keyword=query',
         createdAt: '2020-01-01',
       },
     ],

@@ -156,7 +156,7 @@ export default function Register() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (user) router.push('/');
+    if (user) router.push('/edlm-portal');
   }, []);
 
   const handleSubmit = (event) => {
@@ -172,7 +172,7 @@ export default function Register() {
     axiosInstance
       .post(authRegister, obj)
       .then((res) => {
-        router.push('/');
+        router.push('/edlm-portal');
         register(res.data);
       })
       .catch((err) => {

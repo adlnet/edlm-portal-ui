@@ -58,7 +58,7 @@ export default function LearningPlan() {
   ];
 
   const handleShare = id => {
-    navigator.clipboard.writeText(`${window.origin}/learner/lists/${id}`)
+    navigator.clipboard.writeText(`${window.origin}/edlm-portal/learner/lists/${id}`)
     .then(() => {
       setCopy('Copied Successfully!');
       setTimeout(() => {
@@ -75,7 +75,7 @@ export default function LearningPlan() {
 
   // Add back 401 and 403 error when we have live data
   useEffect(() => {
-    if (!user) router.push('/');
+    if (!user) router.push('/edlm-portal');
   }, []);
 
   return (
@@ -100,7 +100,7 @@ export default function LearningPlan() {
               itemsCount={cardItem.experiences.length}
               description={cardItem.description}
               isPublic={cardItem.public}
-              cardDetailLink={`/learner/lists/${cardItem.id}`}
+              cardDetailLink={`/edlm-portal/learner/lists/${cardItem.id}`}
               menuItems= {getMenuItems(cardItem.id)}
             />
           ))}

@@ -54,7 +54,7 @@ export default function EditList({ listId }) {
 
   useEffect(() => {
     // no user
-    if (!user) router.push('/');
+    if (!user) router.push('/edlm-portal');
 
     // if there is a authorization error
     if (initialList?.isError) {
@@ -67,7 +67,7 @@ export default function EditList({ listId }) {
     // if the owner of the list is not the current user, redirect to homepage
     if (initialList?.isSuccess && user?.user?.id){
       if (initialList?.data?.owner?.id !== user?.user?.id){
-        return router.push(`/learner/lists/${listId}`);
+        return router.push(`/edlm-portal/learner/lists/${listId}`);
       } 
     }
 
@@ -183,7 +183,7 @@ export default function EditList({ listId }) {
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-2">
               <Link 
-                href='/learner/lists/owned' passHref className="text-[#3892f3] text-sm font-medium  leading-[21px]  hover:underline">
+                href='/edlm-portal/learner/lists/owned' passHref className="text-[#3892f3] text-sm font-medium  leading-[21px]  hover:underline">
                 My Collections
               </Link>
               <ChevronRightIcon className="w-3 h-3 relative" />
@@ -291,7 +291,7 @@ export default function EditList({ listId }) {
               <button
                 className='w-[92px] h-[37px] px-3 py-2 bg-blue-900 rounded-lg justify-center items-center gap-2 inline-flex text-white text-sm font-medium leading-[21px] focus:ring-2 ring-blue-400'
                 type='submit'
-                onClick={() => router.push(`/learner/lists/${listId}`)}
+                onClick={() => router.push(`/edlm-portal/learner/lists/${listId}`)}
               >
                 Save
               </button>

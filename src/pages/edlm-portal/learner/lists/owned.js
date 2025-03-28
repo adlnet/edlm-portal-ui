@@ -28,7 +28,7 @@ export default function Owned() {
     {
       icon: <Image src={EditIcon} alt='Edit' />,
       label: 'Edit',
-      onClick: () => router.push(`/learner/lists/edit/${id}`),
+      onClick: () => router.push(`/edlm-portal/learner/lists/edit/${id}`),
     },
     {
       icon: <Image src={ShareIcon} alt='Share' />,
@@ -43,7 +43,7 @@ export default function Owned() {
   ];
 
   const handleShare = id => {
-    navigator.clipboard.writeText(`${window.origin}/learner/lists/${id}`)
+    navigator.clipboard.writeText(`${window.origin}/edlm-portal/learner/lists/${id}`)
     .then(() => {
       setCopy('Copied Successfully!');
       setTimeout(() => {
@@ -88,7 +88,7 @@ export default function Owned() {
               totalTime={cardItem.totalTime}
               description={cardItem.description}
               isPublic={cardItem.public}
-              cardDetailLink={`/learner/lists/${cardItem.id}`}
+              cardDetailLink={`/edlm-portal/learner/lists/${cardItem.id}`}
               menuItems= {getMenuItems(cardItem.id)}
               showPrivateToggle={true}
               onTogglePrivatePublic={isPublic => handlePrivatePublicToggle(cardItem.id, isPublic)}
