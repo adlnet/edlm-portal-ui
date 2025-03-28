@@ -8,7 +8,6 @@ const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
   createServer((req, res) => {
-    console.log('req:', req.method, req.url);
     const parsedUrl = parse(req.url, true);
     const { pathname } = parsedUrl;
     

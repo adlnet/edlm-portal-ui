@@ -9,6 +9,11 @@ const nextConfig = {
     assetPrefix: '/edlm-portal',
     trailingSlash: true,
 
+    images: {
+        domains: ['dote.staging.dso.mil'],
+        unoptimized: true,
+    },
+
     // distDir: 'edlm-portal',
     // Adding policies:
     // async headers() {
