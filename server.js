@@ -16,7 +16,7 @@ app.prepare().then(() => {
       parsedUrl.pathname = newPath;
     }
 
-    if (pathname === '/_next/image') {
+    if (pathname.startsWith('/_next/image')) {
       const imageUrl = parsedUrl.query.url;
       if (imageUrl && imageUrl.startsWith('/edlm-portal/')) {
         parsedUrl.query.url = imageUrl.replace('/edlm-portal/', '/');
