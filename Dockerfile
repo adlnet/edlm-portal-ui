@@ -37,4 +37,5 @@ EXPOSE 3000
 
 ENV NEXT_TELEMETRY_DISABLED=1
 
+RUN echo "<html><body>Test Test</body></html>" > /app/public/test.html
 CMD ["yarn", "start"]
