@@ -27,9 +27,9 @@ COPY --from=builder /app/server.js ./server.js
 RUN mkdir /app/.next/cache/images
 RUN chmod 777 /app/.next/cache/images
 RUN chown -R node:node /app/.next/cache/images
-# RUN sed -i 's/image?url=%2Fedlm-portal/image?url=/g' /app/.next/server/pages/**/*.html
-# RUN sed -i 's/image?url=%2Fedlm-portal/image?url=/g' /app/.next/server/pages/*.html
-# RUN sed -i 's+encodeURIComponent(n)+encodeURIComponent(n.replace("/edlm-portal", ""))+g' /app/.next/static/**/*.js
+RUN sed -i 's/image?url=%2Fedlm-portal/image?url=/g' /app/.next/server/pages/**/*.html
+RUN sed -i 's/image?url=%2Fedlm-portal/image?url=/g' /app/.next/server/pages/*.html
+RUN sed -i 's+encodeURIComponent(n)+encodeURIComponent(n.replace("/edlm-portal", ""))+g' /app/.next/static/**/*.js
 
 
 USER node
