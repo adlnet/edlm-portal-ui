@@ -14,8 +14,8 @@ export default function StaticSideNav() {
 
     const router = useRouter();
 
-    const [showLearningSummary, setShowLearningSummary] = useState(false);
-    const [showCollections, setShowCollections] = useState(false);
+    const [showLearningSummary, setShowLearningSummary] = useState(true);
+    const [showCollections, setShowCollections] = useState(true);
     const [activeBtn, setActiveBtn] = useState(null);
 
     // Check if it is active path
@@ -69,7 +69,9 @@ export default function StaticSideNav() {
                                     <div className='text-nowrap'>
                                         {renderDropdownBtn('myLearningSummary', '/edlm-portal/learner/learningSummary', 'My Learning Summary')}
                                     </div>
-                                    {renderDropdownBtn('reportC', null, 'Report C', true)}
+                                    <div className='text-nowrap' onClick={() => window.location.href = 'https://moodle-dote.deloitteopenlxp.com/local/edwiserreports/index.php'} onKeyDown={e => e.key === 'Enter' && handleSidebarClick(btn, path)} role="button" tabIndex={0}>
+                                        {renderDropdownBtn('leadersReport', null, "Leader's Report")}
+                                    </div>
                                 </>
                             )}
                         </div>

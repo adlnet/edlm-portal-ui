@@ -1,5 +1,6 @@
 'use strict';
 
+import { Pagination } from '@/components/buttons/Pagination';
 import { useAuth } from '@/contexts/AuthContext';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
@@ -25,6 +26,10 @@ export default function Subscribed() {
   const router = useRouter();
 
   const [copy, setCopy] = useState('');
+
+  // current page
+  const CARD_PER_PAGE = 9;
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     if (!user) router.push('/');
@@ -61,12 +66,20 @@ export default function Subscribed() {
       }, 2000);
     });
   }
+
+  const handleSpecificPage = page => {
+    setCurrentPage(page);
+  }
+
+  // Calculate for the pagination
+  const currentCards = subscribed ? subscribed.slice((currentPage - 1) * CARD_PER_PAGE, currentPage * CARD_PER_PAGE) : []; // Get the current cards to display
+  const totalPages = subscribed ? Math.ceil(subscribed.length / CARD_PER_PAGE) : 0;
   
   return (
     <CollectionsLayout title={'My Subscriptions'}>
       <div className='mt-7 pb-5'>
-        <div className='grid grid-cols-3 gap-8'>
-          {isSuccess && subscribed?.map((cardItem) => (
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+          {isSuccess && currentCards.map((cardItem) => (
               <CollectionCard
                 key={cardItem.id}
                 title={cardItem.name}
@@ -74,7 +87,10 @@ export default function Subscribed() {
                 totalTime={cardItem.totalTime}
                 description={cardItem.description}
                 isPublic={cardItem.public}
-                cardDetailLink={`/edlm-portal/learner/lists/${cardItem.id}`}
+                cardDetailLink={{
+                  pathname: `/edlm-portal/learner/lists/${cardItem.id}`,
+                  query: { previousPage: 'My Subscriptions' }
+                }}
                 menuItems= {getMenuItems(cardItem.id)}
               />
             ))}
@@ -94,6 +110,15 @@ export default function Subscribed() {
               </div>
             </div>
           )}
+      {isSuccess && subscribed?.length > CARD_PER_PAGE && (
+        <div className='pt-8'>
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            handleSpecificPage={handleSpecificPage}
+          />
+        </div>
+      )}
       <CheckMessageCard message={copy} />
     </CollectionsLayout>
   );

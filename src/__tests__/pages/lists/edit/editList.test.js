@@ -36,7 +36,7 @@ describe('Edit List', () => {
     useMockUserList();
     useMockUpdateUserList();
     renderer();
-    screen.getByText('My Collections');
+    screen.getAllByText('My Collections');
   });
 
   it('should navigate the user to "/" if not authenticated', () => {
@@ -110,7 +110,7 @@ describe('Edit List', () => {
     useMockUpdateUserList();
     renderer();
     act(() => {
-      fireEvent.click(screen.getByRole('button', { name: /save/i }));
+      fireEvent.click(screen.getByText('Save'));
     });
     expect(updateListMockFn).toHaveBeenCalled();
   });

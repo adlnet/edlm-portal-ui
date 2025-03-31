@@ -13,7 +13,7 @@ import mockRouter from 'next-router-mock';
 import singletonRouter from 'next/router';
 
 beforeEach(() => {
-  mockRouter.setCurrentUrl('/login');
+  mockRouter.setCurrentUrl('/edlm-portal/login');
   useMockConfig();
 });
 
@@ -28,7 +28,7 @@ const renderer = () => {
 };
 
 describe('Login Page', () => {
-  it("should navigate user to '/' if user is authenticated", () => {
+  it("should navigate user to '/edlm-portal' if user is authenticated", () => {
     useAuthenticatedUser();
     const screen = renderer();
 

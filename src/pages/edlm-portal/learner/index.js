@@ -178,7 +178,7 @@ export default function Home() {
                 <CollectionTable data={mockInProgressCourses} edit={false} columns={columns} rowsPerPage={5}/>
               </div>
               <div className="flex justify-end -mt-4">
-                <Button className="m-4 bg-white-900 text-blue-800 text-sm hover:bg-blue-600" onClick={() => router.push('/edlm-portal/learner/learningSummary')}>
+                <Button className="m-4 bg-white-900 text-blue-800 text-sm hover:bg-blue-600" onClick={() => window.location.href = 'https://moodle-dote.deloitteopenlxp.com/my/courses.php'}>
                     View more
                 </Button>
               </div>
@@ -218,7 +218,7 @@ export default function Home() {
               </p>
           </div>
 
-          <div className='flex flex-col justify-center w-full mt-4 px-2 max-w-7xl mx-auto mb-12'>
+          <div className='flex flex-col justify-center w-full mt-4 px-2 max-w-7xl mx-auto '>
             <Carousel
               cols={3}
               rows={1}
@@ -238,7 +238,9 @@ export default function Home() {
               {spotlight && spotlight.data?.map((course) => {
                 return(
                   <Carousel.Item key={course.id}>
-                    <CourseSpotlightCarouselCard course={course} key={course.meta.id} />
+                    <div className='flex justify-center w-full overflow-x-hidden mr-4'>
+                      <CourseSpotlightCarouselCard course={course} key={course.meta.id} />
+                    </div>
                   </Carousel.Item>)
               })}
             </Carousel>

@@ -79,8 +79,10 @@ export default function SearchCourses( { params, setParams, handleCompetencyTag 
               {moreLikeThis.data?.hits.length !== 0 ?
                 <div className="text-[#1b1128] text-2xl font-bold leading-normal mt-12">
                   Similar Courses
-                  <div className='inline-flex overflow-x-auto gap-2 pb-4 py-2 custom-scroll'>    
-                    {moreLikeThis.data?.hits?.map((course) => <MoreLikeThis course={course} key={course.meta.id} />)}  
+                  <div className='flex justify-center w-full overflow-x-hidden my-4'>
+                    <div className='inline-flex overflow-x-auto gap-2 px-1 custom-scroll mb-4 pb-4'>    
+                      {moreLikeThis.data?.hits?.map((course) => <MoreLikeThis course={course} key={course.meta.id} />)}  
+                    </div>
                   </div>  
                 </div> :
                 <div className="text-[#1b1128] text-2xl font-bold leading-normal mt-6">
@@ -105,7 +107,9 @@ export default function SearchCourses( { params, setParams, handleCompetencyTag 
                   {spotlight && spotlight.data?.map((course) => {
                       return(
                           <Carousel.Item key={course.meta.id}>
-                            <CourseSpotlightCarouselCard course={course} key={course.meta.id} />
+                            <div className='flex justify-center w-full overflow-x-hidden mr-4'>
+                              <CourseSpotlightCarouselCard course={course} key={course.meta.id} />
+                            </div>
                           </Carousel.Item>
                       )
                     })}
