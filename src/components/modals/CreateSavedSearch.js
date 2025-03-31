@@ -41,7 +41,7 @@ export default function CreateSavedSearchModal({ path }) {
         display: 'prioritized',
       },
       object: {
-        definitionName: 'ECC Search Term Saving',
+        definitionName: 'DOT&E Search Term Saving',
       },
       resultExtName: 'https://w3id.org/xapi/ecc/result/extensions/searchTerm',
       resultExtValue: fields.name,

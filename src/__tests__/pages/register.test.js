@@ -25,7 +25,7 @@ const renderer = () => {
 };
 
 beforeEach(() => {
-  mockRouter.setCurrentUrl('/register');
+  mockRouter.setCurrentUrl('/edlm-portal/register');
   useUnauthenticatedUser();
   useMockConfig();
 });

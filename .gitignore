@@ -39,5 +39,7 @@ yarn-error.log*
 
 
 # Yarn specific
+./yarn.lock
+yarn.lock
 .yarn
 /.yarn

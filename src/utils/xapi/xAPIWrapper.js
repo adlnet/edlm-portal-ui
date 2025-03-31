@@ -15,9 +15,12 @@ import xAPIMapper from "./xAPIMapper";
 export const sendStatement = (actor, verb, obj, resultExtName, resultExtValue) => {
 
   const statement = {
+    context: {
+      platform: "DOT&E dev env"
+    },
     actor: {
       account: {
-        homePage: "https://ecc.gov",
+        homePage: "https://portal-dote.gov",
         name: `${actor.first_name} ${actor.last_name}`,
       },
       objectType: "Agent"
@@ -42,7 +45,7 @@ export const sendStatement = (actor, verb, obj, resultExtName, resultExtValue) =
         [resultExtName]: resultExtValue
       }
     },
-    timestamp: new Date().toUTCString()
+    timestamp: new Date().toISOString()
   }
 
   obj.description && (statement['object']['definition']['description'] = {

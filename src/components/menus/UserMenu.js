@@ -14,17 +14,12 @@ import { useRouter } from 'next/router';
 export default function UserMenu() {
   const router = useRouter();
 
-  const {
-    user: {
-      user: { first_name },
-    },
-    logout,
-  } = useAuth();
+  const { user, logout } = useAuth();
 
   const handleLogout = async (e)=>{
     e.preventDefault();
     await logout();
-    router.push("/login")
+    router.push("/edlm-portal/login")
 }
 
   return (
@@ -41,7 +36,7 @@ export default function UserMenu() {
             >
               <UserIcon className='h-6 text-blue-500 text-shadow' />
             </div>
-            <div className='line-clamp-1'>{first_name}</div>
+            <div className='line-clamp-1'>{user?.user?.first_name}</div>
 
             <ChevronUpIcon
               className={`${

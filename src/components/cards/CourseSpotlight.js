@@ -12,22 +12,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export default function CourseSpotlight({ course }) {
-  const { Course, meta, Technical_Information, Course_Instance } = {
+  const { Course, meta } = {
     ...course,
   };
   const config = useConfig();
   const router = useRouter();
   const { user } = useAuth();
-
-  const thumbnail = useMemo(() => {
-    return (
-      Course_Instance?.Thumbnail ||
-      Technical_Information?.Thumbnail ||
-      (config?.data?.course_img_fallback &&
-        `${backendHost}${config?.data.course_img_fallback}`) ||
-      null
-    );
-  }, [Course_Instance, Technical_Information, config]);
 
   const title = useMemo(() => {
     return (getDeeplyNestedData(config.data?.course_information?.course_title, course));
@@ -72,20 +62,21 @@ export default function CourseSpotlight({ course }) {
         role='button'
         tabIndex='0'
         aria-hidden='true'
-        className='bg-gradient-to-b from-black-70 to-black-10 z-0 overflow-hidden relative rounded-md shadow-stone-200 hover:shadow-lg bg-stone-200 cursor-pointer flex-shrink-0 transform transition-shadow duration-150 ease-in-out font-sans text-gray-50 text-shadow-md p-2 h-[176px] w-[296px]'
+        className="px-5 py-[19px] bg-gray-500 rounded-lg shadow flex-col justify-start items-start gap-2.5 inline-flex cursor-pointer transform transition-shadow duration-150 ease-in-out text-white h-[228px] w-[387px] hover:shadow-lg"
       >
-        <h2 className='font-bold'>{title || Course?.CourseTitle}</h2>
-        <div className='mt-2'>
-          <span className='font-semibold'>Provider:&nbsp;</span>
-          {provider || Course?.CourseProviderName }
+        <div className="w-[330px] relative">
+          <div className="w-full flex flex-col">
+            <div className="text-white text-xl font-bold leading-normal">
+              {title || Course?.CourseTitle}
+            </div>
+          </div>
+          <div>
+            <span className="text-white text-base font-medium leading-normal">Provider: </span>
+            <span className="text-white text-base font-medium leading-normal">
+              {provider || Course?.CourseProviderName}
+            </span>
+          </div>
         </div>
-        {thumbnail && (
-          <Image 
-            src={thumbnail}
-            alt=''
-            className='h-8 w-12 absolute bottom-0 right-0 m-2'
-          />
-        )}
       </div>
     </Link>
   );
