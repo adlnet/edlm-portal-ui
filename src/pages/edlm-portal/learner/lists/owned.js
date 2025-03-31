@@ -112,7 +112,7 @@ export default function Owned() {
           ))}
         </div>
       </div>
-      {isSuccess && data?.length === 0 && (
+      {isSuccess && currentCards.length === 0 && (
           <div className='text-center w-full col-span-3'>
             <h2 className='text-lg font-medium px-2 pt-2'>
               You dont have any collections yet.
