@@ -68,10 +68,6 @@ export default function SearchLists() {
     subscribe({ id: list.id })
   };
 
-  const goToList = (id) => {
-    router.push(`/edlm-portal/learner/lists/${id}`);
-  };
-
   // returns a list of lists that match the search query and are chunked into
   const filteredLists = useMemo(() => {
     if (interestLists.isError || !interestLists.data) return [];

@@ -93,7 +93,7 @@ export default function Owned() {
     <CollectionsLayout title={'My Collections'}>
     <div className='mt-7 pb-5'>
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-          {isSuccess && data?.map((cardItem) => (
+          {isSuccess && currentCards.map((cardItem) => (
             <CollectionCard
               key={cardItem.id}
               title={cardItem.name}
