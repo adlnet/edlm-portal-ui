@@ -12,7 +12,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export default function CourseSpotlight({ course }) {
-  const { Course, meta, Technical_Information, Course_Instance } = {
+  const { Course, meta } = {
     ...course,
   };
   const config = useConfig();
