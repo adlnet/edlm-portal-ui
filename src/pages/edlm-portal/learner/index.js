@@ -128,7 +128,7 @@ export default function Home() {
             mobileBreakpoint={670}
           >
               <Carousel.Item>
-                <Card href="/learner/learningPlan" className="w-80 h-fit rounded-xl" renderImage={() => <Image width={500} height={500} src={armyImage} alt="image 1" />}>
+                <Card href="/edlm-portal/learner/learningPlan" className="w-80 h-fit rounded-xl" renderImage={() => <Image width={500} height={500} src={armyImage} alt="image 1" />}>
                   <h5 className="text-2xl font-bold justify-left tracking-tight text-gray-900 dark:text-white">
                     Learning Plan
                   </h5>
@@ -154,7 +154,7 @@ export default function Home() {
                 </Card>
               </Carousel.Item>
               <Carousel.Item>
-                <Card href={`/learner/lists/${lunchNLearn?.id}`} className="w-80 h-full rounded-xl" renderImage={() => <Image width={500} height={500} src={armyImage2} alt="image 1" />}>
+                <Card href={`/edlm-portal/learner/lists/${lunchNLearn?.id}`} className="w-80 h-full rounded-xl" renderImage={() => <Image width={500} height={500} src={armyImage2} alt="image 1" />}>
                   <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                     Lunch & Learns
                   </h5>

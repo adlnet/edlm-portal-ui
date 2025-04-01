@@ -24,9 +24,17 @@ COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/server.js ./server.js
+
+RUN find /app/.next/server -type f -name "*.html" -exec sed -i 's|"/_next/|"/edlm-portal/_next/|g' {} \;
+RUN find /app/.next/server -type f -name "*.js" -exec sed -i 's|"/_next/|"/edlm-portal/_next/|g' {} \;
+RUN find /app/.next/server -type f -name "*.css" -exec sed -i 's|"/_next/|"/edlm-portal/_next/|g' {} \;
+
+RUN find /app/.next/static -type f -name "*.js" -exec sed -i 's|"/_next/|"/edlm-portal/_next/|g' {} \;
+RUN find /app/.next/static -type f -name "*.css" -exec sed -i 's|"/_next/|"/edlm-portal/_next/|g' {} \;
+
 RUN mkdir /app/.next/cache/images
 RUN chmod 777 /app/.next/cache/images
-RUN chown -R node:node /app/.next/cache/images
+RUN chown -R node:node /app/.next/cache/imagess
 # RUN sed -i 's/image?url=%2Fedlm-portal/image?url=/g' /app/.next/server/pages/**/*.html
 # RUN sed -i 's/image?url=%2Fedlm-portal/image?url=/g' /app/.next/server/pages/*.html
 # RUN sed -i 's+encodeURIComponent(n)+encodeURIComponent(n.replace("/edlm-portal", ""))+g' /app/.next/static/**/*.js
