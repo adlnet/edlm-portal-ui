@@ -1,5 +1,6 @@
 'use strict';
 
+import { Pagination } from '@/components/buttons/Pagination';
 import { useAuth } from '@/contexts/AuthContext';
 import { useInterestLists } from '@/hooks/useInterestLists';
 import { useRouter } from 'next/router';
@@ -7,20 +8,10 @@ import { useSubscribeToList } from '@/hooks/useSubscribeToList';
 import { useSubscribedLists } from '@/hooks/useSubscribedLists';
 import { useUnsubscribeFromList } from '@/hooks/useUnsubscribeFromList';
 import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement';
-import DefaultLayout from '@/components/layouts/DefaultLayout';
+import CollectionCard from '@/components/cards/CollectionCard';
+import CollectionsLayout from '@/components/layouts/CollectionsLayout';
 import React, { useEffect, useMemo, useState } from 'react';
 import SearchBar from '@/components/inputs/SearchBar';
-import SearchListPagination from '@/components/buttons/SearchListPagination';
-
-
-// chunk the lists into pages of a given size
-function chunkArray (array, chunkSize) {
-  let results = [];
-  while (array.length) {
-    results.push(array.splice(0, chunkSize));
-  }
-  return results;
-};
 
 export default function SearchLists() {
   const router = useRouter();
@@ -33,20 +24,26 @@ export default function SearchLists() {
   const subscribedLists = useSubscribedLists();
   const { mutate: subscribe } = useSubscribeToList();
   const { mutate: unsubscribe } = useUnsubscribeFromList();
+  
+  // Get search input value when user types
+  const [searchInput, setSearchInput] = useState('');
 
-  // search query
+  // The actual search query
   const [search, setSearch] = useState('');
-
+  
   // current page
-  const [page, setPage] = useState(0);
+  const CARD_PER_PAGE = 9;
+  const [currentPage, setCurrentPage] = useState(1);
 
   const handleChange = (e) => {
-    setSearch(e.target.value);
-  };
-  const resetSearch = () => {
-    setSearch('');
+    setSearchInput(e.target.value);
   };
 
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setSearch(searchInput);
+    setCurrentPage(1);
+  };
 
   const handleSubscribe = (list) => {
 
@@ -76,29 +73,48 @@ export default function SearchLists() {
   };
 
   // returns a list of lists that match the search query and are chunked into
-  // pages of 10
-  const listToDisplay = useMemo(() => {
-    if (interestLists.isError) return [];
+  const filteredLists = useMemo(() => {
+    if (interestLists.isError || !interestLists.data) return [];
 
     // filter the list by the search query
-    const filteredLists = interestLists.data?.filter((list) => {
+    return interestLists.data?.filter((list) => {
       const { id, name } = list;
       return `${name.toLowerCase()}#${id}`.includes(search.toLowerCase());
     });
+  }, [interestLists?.data, search]);
 
-    // chunk the list into pages of 10
-    if (filteredLists?.length > 0) {
-      setPage(0);
-      return chunkArray(filteredLists, 10);
-    }
+  // Calculate for the pagination
+  const currentCards = filteredLists ? filteredLists.slice((currentPage - 1) * CARD_PER_PAGE, currentPage * CARD_PER_PAGE) : [];
+  const totalPages = filteredLists ? Math.ceil(filteredLists.length / CARD_PER_PAGE) : 0;
 
-    // default to empty list
-    return [];
-  }, [interestLists?.isLoading, search]);
+  const handleSpecificPage = page => {
+    setCurrentPage(page);
+  }
+
+  const getMenuItems = (list) => {
+    // Check if user is already subscribed to this list
+    const isSubscribed = subscribedLists.isSuccess && 
+                      subscribedLists.data.find((sub) => sub.id === list.id);
+    
+    return [
+      {
+        // Mock icons
+        icon: isSubscribed ? '🔕' : '🔔',
+        label: isSubscribed ? 'Unsubscribe' : 'Subscribe',
+        onClick: () => {
+          if (isSubscribed) {
+            unsubscribe({ id: list.id });
+          } else {
+            handleSubscribe(list);
+          }
+        },
+      }
+    ];
+  };
 
   useEffect(() => {
     // if the user is not logged in, redirect to the home page
-    if (!user) router.push('/');
+    if (!user) router.push('/edlm-portal');
     if (interestLists.isError && interestLists.error.response.status === 401)
       return router.push('/401');
     if(interestLists.isError && interestLists.error.response.status === 403)
@@ -106,80 +122,58 @@ export default function SearchLists() {
   }, []);
 
   return (
-    <DefaultLayout>
-      <div className='bg-white shadow-md p-5 pb-5 py-0 w-full mb-5 rounded-xl m-4 -my-6 overflow-clip'>
-        <div className='mt-10 pb-4 py-4'>
-          <div className='text-2xl font-bold'>
-            Search Public Collections
-          </div>
-        </div>
-        <div className='flex justify-between items-baseline'>
+    <CollectionsLayout title={'Search Collections'}>
+      <div className='mt-7 pb-5'>
+        <div className='flex justify-between items-baseline -mt-2'>
           <div className='flex-grow w-[22rem] xl:w-[44rem]'>
             <SearchBar
-              parameters={{ keyword: search }}
+              parameters={{ keyword: searchInput }}
               onChange={handleChange}
-              onReset={resetSearch}
+              onClick={handleSearch}
+              placeholder='Search Public Collections'
             />
           </div>
-          <SearchListPagination page={page} 
-            setPage={setPage} 
-            listToDisplayLength={listToDisplay?.length} 
-            pageLength={listToDisplay[page]?.length} 
-            interestListsLength={interestLists?.data?.length}/>        
         </div>
-        <table className='bg-white w-full rounded-md shadow mt-6 border-'>
-          <thead className='font-normal border-b'>
-            <tr className=''>
-              <th className='text-left grid pl-2 py-2 gap-1.5 w-full'>
-                <span className='text-xl font-medium font-sans'>List Name</span>
-                <span className='font-normal'>List Description</span>
-              </th>
-              <th className='sr-only' />
-            </tr>
-          </thead>
-          <tbody className='font-normal'>
-            {interestLists.isSuccess &&
-              listToDisplay[page]?.map((list) => (
-                <tr key={list.id} className='odd:bg-gray-50'>
-                  <td className='w-full pl-2 '>
-                    <button
-                      className='text-left hover:text-blue-600 w-full group'
-                      onClick={() => {
-                        goToList(list.id);
-                      }}
-                    >
-                      <h4 className='font-medium group-hover:underline'>
-                        {list.name}
-                      </h4>
-                      <span className='text-sm text-gray-800 group-hover:text-blue-600'>
-                        {list.description}
-                      </span>
-                    </button>
-                  </td>
-                  <td className='px-2'>
-                    {subscribedLists.isSuccess &&
-                    subscribedLists.data.find((sub) => sub.id === list.id) ? (
-                      <button
-                        onClick={() => unsubscribe({ id: list.id })}
-                        className='bg-red-100 border border-red-500 text-red-500 px-2 py-1.5 my-2 rounded hover:bg-red-500 hover:text-white w-32'
-                      >
-                        Unsubscribe
-                      </button>
-                    ) : (
-                      <button
-                        onClick={()=> handleSubscribe(list)}
-                        className='bg-green-100 border border-green-500 text-green-500 px-2 py-1.5 my-2 rounded hover:bg-green-500 hover:text-white w-32'
-                      >
-                        Subscribe
-                      </button>
-                    )}
-                  </td>
-                  {/* look though the sub list and check if a user id matches the logged in user */}
-                </tr>
-              ))}
-          </tbody>
-        </table>
       </div>
-    </DefaultLayout>
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+        {interestLists.isSuccess &&
+          currentCards.map((cardItem) => (
+            <CollectionCard
+              key={cardItem.id}
+              title={cardItem.name}
+              description={cardItem.description}
+              itemsCount={cardItem.experiences?.length || 0}
+              totalTime={cardItem.totalTime || 0}
+              isPublic={cardItem.public}
+              cardDetailLink={{
+                pathname: `/edlm-portal/learner/lists/${cardItem.id}`,
+                query: { previousPage: 'Search Collections' }
+              }}
+              menuItems={getMenuItems(cardItem)}
+            />
+          ))}
+      </div>
+      {interestLists.isSuccess && filteredLists?.length > CARD_PER_PAGE && (
+        <div className='pt-8'>
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            handleSpecificPage={handleSpecificPage}
+          />
+        </div>
+      )}
+
+      {interestLists.isSuccess && filteredLists?.length === 0 && (
+          <div className='text-center w-full col-span-3'>
+            <h2 className='text-lg font-medium px-2 pt-2'>
+              Search Public Collections
+            </h2>
+            <p className='inline-flex pt-8'>
+              To search a collection, please enter a keyword in the search bar above.
+            </p>
+          </div>
+        )}
+
+    </CollectionsLayout>
   );
 }

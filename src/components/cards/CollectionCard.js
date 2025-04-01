@@ -6,7 +6,7 @@ import lockOpen from '@/public/icons/lockOpen.svg';
 
 export default function CollectionCard({ title, description, itemsCount, totalTime, isPublic, menuItems = [], cardDetailLink, showPrivateToggle = false, onTogglePrivatePublic }) {
     return (
-      <div className='relative max-w-sm pt-7 pl-3 pb-3 pr-3 bg-white border border-gray-200 rounded-lg shadow hover:shadow-lg transition shadow'>
+      <div className='relative max-w-sm pt-7 pl-3 pb-3 pr-3 bg-white border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition'>
         <div className='absolute top-2 right-2'>
         {menuItems.length > 0 && (
           <CardDropdown 

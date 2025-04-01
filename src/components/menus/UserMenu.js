@@ -19,7 +19,7 @@ export default function UserMenu() {
   const handleLogout = async (e)=>{
     e.preventDefault();
     await logout();
-    router.push("/login")
+    router.push("/edlm-portal/login")
 }
 
   return (

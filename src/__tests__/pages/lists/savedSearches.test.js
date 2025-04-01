@@ -43,7 +43,7 @@ describe('User Saved Searches', () => {
     useUnauthenticatedUser();
     useMockSavedSearchList();
     renderer();
-    expect(singletonRouter).toMatchObject({ asPath: '/' });
+    expect(singletonRouter).toMatchObject({ asPath: '/edlm-portal' });
   });
 
   it('should navigate user to "/401" if the user is not the owner of the list', () => {
@@ -64,7 +64,7 @@ describe('User Saved Searches', () => {
     useAuthenticatedUser();
     useMockSavedSearchWithoutData();
     const { getByText } = renderer();
-    expect(getByText('You have no saved searches')).toBeInTheDocument();
+    expect(getByText('You dont have any saved searches yet.')).toBeInTheDocument();
   });
 
   it('should render a list of saved searches', () => {
