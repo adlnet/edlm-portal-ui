@@ -13,8 +13,9 @@ app.prepare().then(() => {
 
     // For [LISTID] realted
     if (pathname.startsWith('/_next/') && !req.url.includes('/edlm-portal/')) {
-      res.writeHead(302, { 
-        'Location': `/edlm-portal${pathname}${parsedUrl.search || ''}` 
+      res.writeHead(307, { 
+        'Location': `/edlm-portal${pathname}${parsedUrl.search || ''}`,
+        'Cache-Control': 'no-store, no-cache',
       });
       res.end();
       return;
