@@ -9,7 +9,7 @@ module.exports = {
     extend: {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'hero': "url('/loginDefault.jpeg')",
+        'hero': "url('/edlm-portal/loginDefault.jpeg')",
       },
       colors: {
         'dark-blue': '#010E42',
