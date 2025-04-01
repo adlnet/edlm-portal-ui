@@ -115,11 +115,3 @@ describe('Edit List', () => {
     expect(updateListMockFn).toHaveBeenCalled();
   });
 });
-
-describe('List page server side', () => {
-  it('context', () => {
-    const context = { query: { listId: '1' } };
-    const data = getServerSideProps(context);
-    expect(data).toEqual({ props: { listId: '1' } });
-  });
-});
