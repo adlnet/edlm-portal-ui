@@ -10,12 +10,8 @@ app.prepare().then(() => {
   createServer((req, res) => {
     const parsedUrl = parse(req.url, true);
     const { pathname } = parsedUrl;
-
-    if (pathname.includes('/edlm-portal/edlm-portal/')) {
-      const newPath = pathname.replace('/edlm-portal/edlm-portal/', '/edlm-portal/');
-      parsedUrl.pathname = newPath;
-
-    } else if (pathname.startsWith('/edlm-portal/_next/')) {
+    
+    if (pathname.startsWith('/edlm-portal/_next/')) {
       const newPath = pathname.replace('/edlm-portal/_next/', '/_next/');
       parsedUrl.pathname = newPath;
     }
