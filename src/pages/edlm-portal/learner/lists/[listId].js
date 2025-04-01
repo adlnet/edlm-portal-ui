@@ -15,24 +15,18 @@ import Link from 'next/link';
 import LockClose from '@/public/icons/lockClose.svg';
 import lockOpen from '@/public/icons/lockOpen.svg';
 
-export function getServerSideProps(context) {
-  const { listId } = context.query;
-  return {
-    props: {
-      listId,
-    },
-  };
-}
-
-export default function ListsView({ listId }) {
+export default function ListsView() {
   const router = useRouter();
 
   // user data
   const { user } = useAuth();
 
-  const list = useList(parseInt(listId));
   const config = useConfig();
-  
+
+  const listId = router.isReady ? router.query.listId : null;
+
+  const list = useList(parseInt(listId));
+
   const columns = [
     {label: 'TITLE', accessor: 'title'},
     {label: 'INSTRUCTOR', accessor: 'instructor'},
