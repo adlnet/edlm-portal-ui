@@ -1,5 +1,5 @@
 import { act, renderHook } from '@testing-library/react';
-import useTimeout from '../../hooks/useTimeout';
+import useTimeout from '@/hooks/useTimeout';
 
 jest.useFakeTimers();
 jest.spyOn(global, 'setTimeout');

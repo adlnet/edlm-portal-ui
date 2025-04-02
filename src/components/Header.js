@@ -6,21 +6,6 @@ import Link from 'next/link';
 import UserMenu from '@/components/menus/UserMenu';
 import logo from '@/public/doteLogo.png';
 
-const menuItems = [
-  {
-    label: 'Home',
-    path: '/edlm-portal/learner',
-  },
-  {
-    label: 'Search Lists',
-    path: '/edlm-portal/learner/lists/searchLists',
-  },
-  {
-    label: 'Support',
-    path: '/edlm-portal/learner/support',
-  },
-];
-
 export default function Header() {
   const { user } = useAuth();
   return (

@@ -44,7 +44,7 @@ describe('Edit List', () => {
     useMockUserList();
     useMockUpdateUserList();
     renderer();
-    expect(singletonRouter).toMatchObject({ asPath: '/' });
+    expect(singletonRouter).toMatchObject({ asPath: '/edlm-portal' });
   });
 
   it('should navigate the user to "/" if the user id does not match the list owner id', () => {
@@ -113,13 +113,5 @@ describe('Edit List', () => {
       fireEvent.click(screen.getByText('Save'));
     });
     expect(updateListMockFn).toHaveBeenCalled();
-  });
-});
-
-describe('List page server side', () => {
-  it('context', () => {
-    const context = { query: { listId: '1' } };
-    const data = getServerSideProps(context);
-    expect(data).toEqual({ props: { listId: '1' } });
   });
 });

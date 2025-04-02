@@ -1,15 +1,12 @@
-'use strict';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
-import { useAuth } from '@/contexts/AuthContext';
-import Home from '@/pages/edlm-portal/learner/index';
-import Login from '@/pages/edlm-portal/login';
-
-export default function IntialPage() {
-  const { user } = useAuth();
-
-  return (
-    <>
-     {user ? <Home /> : <Login />}
-    </>
-  );
+export default function RootRedirect() {
+  const router = useRouter();
+  
+  useEffect(() => {
+    router.replace('/edlm-portal');
+  }, [router]);
+  
+  return <div>Redirecting to EDLM Portal</div>;
 }

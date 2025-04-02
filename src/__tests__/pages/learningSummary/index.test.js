@@ -25,7 +25,7 @@ jest.mock('next/dynamic', () => () => {
 });
 
 const renderer = () => {
-  MockRouter.setCurrentUrl("/edlm-portal/learner/learningSummary");
+  MockRouter.setCurrentUrl("/learner/learningSummary");
   return render(
     <MemoryRouterProvider>
       <QueryClientWrapper>
@@ -46,7 +46,7 @@ describe("Learning Summary Page", () => {
   it("should navigate the user to '/' if not authenticated", () => {
     useUnauthenticatedUser();
     renderer();
-    expect(singletonRouter).toMatchObject({ asPath: "/" });
+    expect(singletonRouter).toMatchObject({ asPath: "/edlm-portal" });
   });
 
   it('should show summary stats', () => {

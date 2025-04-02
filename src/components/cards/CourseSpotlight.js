@@ -12,22 +12,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export default function CourseSpotlight({ course }) {
-  const { Course, meta, Technical_Information, Course_Instance } = {
+  const { Course, meta } = {
     ...course,
   };
   const config = useConfig();
   const router = useRouter();
   const { user } = useAuth();
-
-  const thumbnail = useMemo(() => {
-    return (
-      Course_Instance?.Thumbnail ||
-      Technical_Information?.Thumbnail ||
-      (config?.data?.course_img_fallback &&
-        `${backendHost}${config?.data.course_img_fallback}`) ||
-      null
-    );
-  }, [Course_Instance, Technical_Information, config]);
 
   const title = useMemo(() => {
     return (getDeeplyNestedData(config.data?.course_information?.course_title, course));

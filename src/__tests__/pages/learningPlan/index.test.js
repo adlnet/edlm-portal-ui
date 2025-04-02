@@ -31,7 +31,7 @@ describe('learningPlan', () => {
   it('should navigate the user to "/" if not authenticated', () => {
     useUnauthenticatedUser();
     renderLearningPlan();
-    expect(singletonRouter).toMatchObject({ asPath: '/' });
+    expect(singletonRouter).toMatchObject({ asPath: '/edlm-portal' });
   });
 
   it('should render the stepper with correct prop', () => {

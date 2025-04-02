@@ -15,24 +15,18 @@ import Link from 'next/link';
 import LockClose from '@/public/icons/lockClose.svg';
 import lockOpen from '@/public/icons/lockOpen.svg';
 
-export function getServerSideProps(context) {
-  const { listId } = context.query;
-  return {
-    props: {
-      listId,
-    },
-  };
-}
-
-export default function ListsView({ listId }) {
+export default function ListsView() {
   const router = useRouter();
 
   // user data
   const { user } = useAuth();
 
-  const list = useList(parseInt(listId));
   const config = useConfig();
-  
+
+  const listId = router.isReady ? router.query.listId : null;
+
+  const list = useList(parseInt(listId));
+
   const columns = [
     {label: 'TITLE', accessor: 'title'},
     {label: 'INSTRUCTOR', accessor: 'instructor'},
@@ -73,7 +67,7 @@ export default function ListsView({ listId }) {
   // verify a user is logged in otherwise redirect to home page
   useEffect(() => {
     // if the user is not logged in, redirect to the home page
-    if (!user) router.push('/');
+    if (!user) router.push('/edlm-portal');
     if (list.isError && list.error.response.status === 401)
       return router.push('/401');
     if (list.isError && list.error.response.status === 403)

@@ -68,10 +68,6 @@ export default function SearchLists() {
     subscribe({ id: list.id })
   };
 
-  const goToList = (id) => {
-    router.push(`/edlm-portal/learner/lists/${id}`);
-  };
-
   // returns a list of lists that match the search query and are chunked into
   const filteredLists = useMemo(() => {
     if (interestLists.isError || !interestLists.data) return [];
@@ -116,9 +112,9 @@ export default function SearchLists() {
     // if the user is not logged in, redirect to the home page
     if (!user) router.push('/edlm-portal');
     if (interestLists.isError && interestLists.error.response.status === 401)
-      return router.push('/401');
+      return router.push('/edlm-portal/401');
     if(interestLists.isError && interestLists.error.response.status === 403)
-      return router.push('/403');
+      return router.push('/edlm-portal/403');
   }, []);
 
   return (

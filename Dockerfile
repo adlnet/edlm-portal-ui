@@ -29,8 +29,13 @@ COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
+COPY --from=builder /app/server.js ./server.js
 
-USER nextjs
+RUN mkdir /app/.next/cache/images
+RUN chmod 777 /app/.next/cache/images
+RUN chown -R node:node /app/.next/cache/images
+
+USER node
 
 EXPOSE 3000
 

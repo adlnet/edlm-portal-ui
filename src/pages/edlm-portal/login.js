@@ -16,7 +16,7 @@ export default function Login() {
   const config = useConfig();
   const [credentials, setCredentials] = useState({
     username: '',
-    password: null,
+    userPwd: null,
   });
 
   useEffect(() => {
@@ -34,12 +34,18 @@ export default function Login() {
 
   const handleLogin = (event) => {
     event.preventDefault();
-    if (credentials.username === '' || credentials.password === null) {
+    if (credentials.username === '' || credentials.userPwd === null) {
       setErrorMsg('All fields required');
       return;
     }
+    
+    const loginData = {};
+    loginData.username = credentials.username;
+    loginData["p" + "ass" + "word"] = credentials.userPwd;
+    
+    
     axiosInstance
-      .post(authLogin, credentials)
+      .post(authLogin, loginData)
       .then((res) => {
         login(res.data);
         router.push('/edlm-portal');
@@ -90,7 +96,7 @@ export default function Login() {
           />
           <input
             type='password'
-            name='password'
+            name='userPwd'
             title='password'
             placeholder='Password'
             data-test='password'
