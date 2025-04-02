@@ -1,6 +1,7 @@
 'use strict';
 
 import { getDeeplyNestedData } from '@/utils/getDeeplyNestedData';
+import { removeHTML } from '@/utils/cleaning';
 import { useAuth } from '@/contexts/AuthContext';
 import { useCallback, useMemo } from 'react';
 import { useConfig } from '@/hooks/useConfig';
@@ -22,7 +23,7 @@ export default function MoreLikeThis({ course }) {
   const config = useConfig();
 
   const title = useMemo(() => {
-    return getDeeplyNestedData(config.data?.course_information?.course_title, course);
+    return removeHTML(getDeeplyNestedData(config.data?.course_information?.course_title, course));
     
   }, [config.isSuccess, config.data]);
 
@@ -46,7 +47,7 @@ export default function MoreLikeThis({ course }) {
         },
         object: {
           id: `${window.origin}/edlm-portal/learner/course/${meta.id}`,
-          definitionName: Course.CourseTitle,
+          definitionName: title || Course.CourseTitle,
           description: Course.CourseShortDescription,
         },
         resultExtName: 'https://w3id.org/xapi/ecc/result/extensions/CourseId',
