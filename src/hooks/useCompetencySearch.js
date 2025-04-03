@@ -6,9 +6,11 @@ import axios from 'axios';
 import axiosRetry from 'axios-retry';
 import backupData from '@/public/backup_competencies.json';
 
-const DOTE_UUID = '41b9bcc4-c455-4c80-a88d-a9511937011f';
+const DOTE_UUID = 'a1bcb9dd-c455-417c-bcbe-3073a9593113';
+// const DOTE_UUID = '41b9bcc4-c455-4c80-a88d-a9511937011f';
 const type = 'schema.cassproject.org.0.4.Framework'
-const compSearchUrl = `https://dev-eccr.deloitteopenlxp.com/api/data/${type}/${DOTE_UUID}`
+// const compSearchUrl = `https://dev-eccr.deloitteopenlxp.com/api/data/${type}/${DOTE_UUID}`
+const compSearchUrl = `https://cass.staging.dso.mil/api/data/${type}/${DOTE_UUID}`
 
 // Competency Object created to hold all necessary competency variables 
 function Competency(name, desc, id, parent, children){
@@ -107,7 +109,7 @@ export function useCompetencySearch() {
     url: compSearchUrl,
     headers: {},
     data: data,
-    timeout: 510,
+    //timeout: 510,
     retryAfter: 500
   };
 
