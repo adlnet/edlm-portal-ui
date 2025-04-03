@@ -46,6 +46,7 @@ function getComps(subjects){
     comps[0] = comps[0].replace('4B', '')
     comps[0] = comps[0].replace('4C', '')
     comps[0] = comps[0].replace('4D', '')
+    comps[0] = comps[0].replace(':', '')
     comps[0] = comps[0].replace('Competency #', '')
     comps[0] = comps[0].replace(/\d/g, '')
     comps[0] = comps[0].trim()
