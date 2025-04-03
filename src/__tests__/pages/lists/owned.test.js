@@ -49,14 +49,14 @@ describe('User Owned Lists', () => {
     useAuthenticatedUser();
     useMockUserOwnedListsWith401();
     renderer();
-    expect(singletonRouter).toMatchObject({ asPath: '/401' });
+    expect(singletonRouter).toMatchObject({ asPath: '/edlm-portal/401' });
   });
 
   it('should navigate the user to "/403" if the user is not the owner of the list', () => {
     useAuthenticatedUser();
     useMockUserOwnedListsWith403();
     renderer();
-    expect(singletonRouter).toMatchObject({ asPath: '/403' });
+    expect(singletonRouter).toMatchObject({ asPath: '/edlm-portal/403' });
   });
 
   it('should navigate the user to "/lists/1" when the user clicks Test Title 1', () => {

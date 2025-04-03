@@ -54,9 +54,9 @@ export default function EditList() {
     // if there is a authorization error
     if (initialList?.isError) {
       if( initialList?.error?.response?.status === 401)
-       return router.push('/401');
+       return router.push('/edlm-portal/401');
       if (initialList?.error?.response?.status === 403)
-        return router.push('/403');
+        return router.push('/edlm-portal/403');
     }
     
     // if the owner of the list is not the current user, redirect to homepage
