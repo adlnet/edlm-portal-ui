@@ -107,7 +107,7 @@ export function useCompetencySearch() {
     url: compSearchUrl,
     headers: {},
     data: data,
-    //timeout: 510,
+    timeout: 510,
     retryAfter: 500
   };
 
