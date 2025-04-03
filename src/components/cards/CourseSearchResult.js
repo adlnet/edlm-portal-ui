@@ -154,7 +154,7 @@ export default function SearchResult({ result, handleCompetencyTag}) {
                     id='competencyTag'
                     onClick={()=> handleCompetencyTag(comp)}
                   >
-                    {comp}
+                    {removeHTML(comp)}
                   </button>
                 </div>
               </div>
