@@ -15,13 +15,14 @@ export default function NotAuthorized({ errorMessage }) {
         if(count<1){
             clearInterval(timer);
         }
-    },[]);
+        return () => clearInterval(timer);
+    },[count]);
 
     useEffect(() => {
         if(count<1){
             router.push("/edlm-portal")
         }
-    }, [count]);
+    }, [count, router]);
 
     return (
         <div className='flex flex-col items-center justify-center min-h-screen gap-8'>
@@ -38,9 +39,10 @@ export default function NotAuthorized({ errorMessage }) {
         <Link href={'/edlm-portal'} passHref>
         <button
                 id={'create-account-button'}
-                className='flex justify-center items-center gap-2 text-blue-400 rounded-md hover:shadow-md bg-blue-50 hover:bg-blue-400 hover:text-white pl-2 pr-4 py-2 transform transition-all duration-150 ease-in-out border-blue-300 border-2 outline-none focus:ring-2 ring-blue-300`'
+                className='flex justify-center items-center gap-2 text-blue-400 rounded-md hover:shadow-md bg-blue-50 hover:bg-blue-400 hover:text-white pl-2 pr-4 py-2 transform transition-all duration-150 ease-in-out border-blue-300 border-2 outline-none focus:ring-2 ring-blue-300'
               > Click Here to be Redirected</button>
               </Link>
         </div>
     )
 }
+
