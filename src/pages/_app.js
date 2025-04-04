@@ -29,7 +29,7 @@ export default function MyApp({ Component, pageProps }) {
         <Hydrate state={pageProps['dehydratedState']}>
           <Head>
             <title>EDLM Portal</title>
-            <link rel="icon" href="/logo.png" />
+            <link rel="icon" href="/doteLogo.ico" />
           </Head>
           <Component {...pageProps} />
           <ReactQueryDevtools />
