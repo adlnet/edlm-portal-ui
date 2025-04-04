@@ -14,8 +14,8 @@ import ContentLoadingAnimate from '@/utils/ContentLoadingAnimate';
 import CourseSpotlightCarouselCard from '@/components/cards/CourseSpotlightCarousel';
 import MoreLikeThis from '@/components/cards/MoreLikeThis';
 import SearchResult from '@/components/cards/CourseSearchResult';
-import useSpotlightCourses from '@/hooks/useSpotlightCourses';
 import XMarkMessageToast from '@/components/cards/XMarkMessageToast';
+import useSpotlightCourses from '@/hooks/useSpotlightCourses';
 
 export default function SearchCourses( { params, setParams, handleCompetencyTag }) {
 

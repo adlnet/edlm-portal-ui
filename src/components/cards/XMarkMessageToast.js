@@ -1,5 +1,5 @@
-import { Toast, ToastToggle } from "flowbite-react";
 import { HiX } from "react-icons/hi";
+import { Toast, ToastToggle } from "flowbite-react";
 
 export default function XMarkMessageToast({ message }) {
   return (
