@@ -4,6 +4,7 @@ import { unstable_batchedUpdates } from 'react-dom';
 import { useRouter } from 'next/dist/client/router';
 import CompetencySearchResult from './cards/CompetencySearchResults';
 import React, { useEffect, useMemo } from 'react';
+import XMarkMessageToast from '@/components/cards/XMarkMessageToast';
 
 // Helper function that returns all parent competencies
 function findParents({Competencies}){
@@ -110,6 +111,11 @@ export default function SearchCompetencies({Competencies, params, setParams}){
                 {compsToDisplay.map((comp) => (
                     <CompetencySearchResult key={comp.id} result={comp} />
                 ))}
+                {compsToDisplay.length === 0 && (
+                    <div className='flex justify-center'>
+                        <XMarkMessageToast message='No search results found' />
+                    </div>
+                )}
             </div>
         </>
     )

@@ -15,8 +15,7 @@ import CourseSpotlightCarouselCard from '@/components/cards/CourseSpotlightCarou
 import MoreLikeThis from '@/components/cards/MoreLikeThis';
 import SearchResult from '@/components/cards/CourseSearchResult';
 import useSpotlightCourses from '@/hooks/useSpotlightCourses';
-
-
+import XMarkMessageToast from '@/components/cards/XMarkMessageToast';
 
 export default function SearchCourses( { params, setParams, handleCompetencyTag }) {
 
@@ -72,7 +71,12 @@ export default function SearchCourses( { params, setParams, handleCompetencyTag 
           <div id='search-results' className='col-span-12 grid gap-4 relative'>
             {data && data?.hits?.map((course) => (     
               <SearchResult result={course} key={course.meta.id} handleCompetencyTag={handleCompetencyTag}/>    
-            ))}  
+            ))}
+            {data && data?.hits?.length === 0 && (
+              <div className='flex justify-center'>
+                <XMarkMessageToast message='No search results found' />
+              </div>
+            )}
           </div>
           
           <div className='col-span-1 md:col-span-12 flex flex-col justify-center w-full -mt-4 px-2 max-w-7xl mx-auto'>  
