@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
+import loginBackground from '@/public/loginDefault.jpeg';
 import logo from '@/public/doteLogo.png';
 
 export default function Login() {
@@ -62,73 +63,84 @@ export default function Login() {
   };
 
   return (
-      <div className='min-h-screen bg-hero bg-cover pt-8 pb-80'>
-         <div className='mt-10 mx-52 flex flex-col items-center justify-between'>
-            <Image src={logo} alt={'home'} height={'150'} width={'150'} priority={true}/>
-          </div>
-        <form
-          onSubmit={handleLogin}
-          onChange={(event) => handleChange(event)}
-          className='w-1/3 mx-auto bg-white p-8 rounded shadow grid gap-4 mt-10'
-        >
-            <p className={'mt-2 text-2xl font-extrabold '}>
-              Welcome back
-            </p>
-            <span>
-              Don&apos;t have an account yet? &nbsp;
-              <Link href={'/edlm-portal/register'} passHref>
-                <span
-                  className='text-blue-400 hover:underline hover:text-blue-500 cursor-pointer transition-all duration-150 ease-in-out'
-                >
-                  Sign Up
-                </span>
-              </Link>
-            </span>
-          <input
-            type='text'
-            name='username'
-            title='username'
-            placeholder='Email'
-            maxLength="200"
-            data-test='email'
-            onKeyPress={(e)=>checkSpecialChar(e)}
-            className='shadow focus:shadow-md rounded-md p-2 w-full border border-gray-200 text-gray-700 focus:ring-2 ring-blue-400 outline-none  transition-all  duration-200' 
+      <div className='min-h-screen relative'>
+        <div className='absolute inset-0 z-0'>
+          <Image 
+            src={loginBackground}
+            alt="Login Background"
+            fill
+            priority
+            sizes="100vw"
           />
-          <input
-            type='password'
-            name='userPwd'
-            title='password'
-            placeholder='Password'
-            data-test='password'
-            className='shadow focus:shadow-md rounded-md p-2 w-full border border-gray-200 text-gray-700 focus:ring-2 ring-blue-400 outline-none  transition-all  duration-200'
-          />
-          <span>{errorMsg}</span>
-          <button
-            className='flex flex-row mt-4 mx-auto w-full inline-flex justify-center items-center gap-2 text-white rounded-md hover:shadow-md bg-blue-900 hover:bg-blue-400 hover:text-white px-4 py-2 transform transition-all duration-75 ease-in-out outline-none'
-            type='submit'
-            id='login-button'
+        </div>
+        <div className='relative z-10 pt-8 pb-80'>
+          <div className='mt-10 mx-52 flex flex-col items-center justify-between'>
+              <Image src={logo} alt={'home'} height={'150'} width={'150'} priority={true}/>
+            </div>
+          <form
+            onSubmit={handleLogin}
+            onChange={(event) => handleChange(event)}
+            className='w-1/3 mx-auto bg-white p-8 rounded shadow grid gap-4 mt-10'
           >
-            Login
-          </button>
+              <p className={'mt-2 text-2xl font-extrabold '}>
+                Welcome back
+              </p>
+              <span>
+                Don&apos;t have an account yet? &nbsp;
+                <Link href={'/edlm-portal/register'} passHref>
+                  <span
+                    className='text-blue-400 hover:underline hover:text-blue-500 cursor-pointer transition-all duration-150 ease-in-out'
+                  >
+                    Sign Up
+                  </span>
+                </Link>
+              </span>
+            <input
+              type='text'
+              name='username'
+              title='username'
+              placeholder='Email'
+              maxLength="200"
+              data-test='email'
+              onKeyPress={(e)=>checkSpecialChar(e)}
+              className='shadow focus:shadow-md rounded-md p-2 w-full border border-gray-200 text-gray-700 focus:ring-2 ring-blue-400 outline-none  transition-all  duration-200' 
+            />
+            <input
+              type='password'
+              name='userPwd'
+              title='password'
+              placeholder='Password'
+              data-test='password'
+              className='shadow focus:shadow-md rounded-md p-2 w-full border border-gray-200 text-gray-700 focus:ring-2 ring-blue-400 outline-none  transition-all  duration-200'
+            />
+            <span>{errorMsg}</span>
+            <button
+              className='flex flex-row mt-4 mx-auto w-full inline-flex justify-center items-center gap-2 text-white rounded-md hover:shadow-md bg-blue-900 hover:bg-blue-400 hover:text-white px-4 py-2 transform transition-all duration-75 ease-in-out outline-none'
+              type='submit'
+              id='login-button'
+            >
+              Login
+            </button>
 
-          <p className={'my-6 relative border-b-2 w-full'}>
-            <span className='absolute top-1/2 left-1/2 transform text-center -translate-x-1/2 -translate-y-1/2 bg-white px-2 w-max'>
-              or
-            </span>
-          </p>
-          {config.isSuccess &&
-            config.data.single_sign_on_options.map(({ name, path }) => {
-              return (
-                <a
-                  href={path}
-                  className='flex flex-row mx-auto w-full items-center inline-flex justify-center gap-2 text-blue-400 rounded-md hover:shadow-md bg-blue-50 hover:bg-blue-400 hover:text-white px-4 py-2 transform transition-all duration-75 ease-in-out border-blue-400 border-2 outline-none focus:ring-2 ring-blue-400'
-                  key={name}
-                >
-                  {name}
-                </a>
-              );
-            })}
-        </form>
+            <p className={'my-6 relative border-b-2 w-full'}>
+              <span className='absolute top-1/2 left-1/2 transform text-center -translate-x-1/2 -translate-y-1/2 bg-white px-2 w-max'>
+                or
+              </span>
+            </p>
+            {config.isSuccess &&
+              config.data.single_sign_on_options.map(({ name, path }) => {
+                return (
+                  <a
+                    href={path}
+                    className='flex flex-row mx-auto w-full items-center inline-flex justify-center gap-2 text-blue-400 rounded-md hover:shadow-md bg-blue-50 hover:bg-blue-400 hover:text-white px-4 py-2 transform transition-all duration-75 ease-in-out border-blue-400 border-2 outline-none focus:ring-2 ring-blue-400'
+                    key={name}
+                  >
+                    {name}
+                  </a>
+                );
+              })}
+          </form>
+        </div>
       </div>
   );
 }
