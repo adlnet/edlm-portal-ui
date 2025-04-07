@@ -75,7 +75,7 @@ export default function LearningPlan() {
 
   // Add back 401 and 403 error when we have live data
   useEffect(() => {
-    if (!user) router.push('/');
+    if (!user) router.push('/edlm-portal');
   }, []);
 
   return (

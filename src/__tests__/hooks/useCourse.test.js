@@ -1,7 +1,7 @@
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { act, renderHook } from '@testing-library/react';
-import { useCourse } from '../../hooks/useCourse.js';
-import courseData from '../../__mocks__/data/course.data';
+import { useCourse } from '@/hooks/useCourse.js';
+import courseData from '@/__mocks__/data/course.data';
 import mockAxios from 'jest-mock-axios';
 
 jest.unmock('@/hooks/useCourse');

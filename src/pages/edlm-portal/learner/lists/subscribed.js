@@ -33,8 +33,8 @@ export default function Subscribed() {
 
   useEffect(() => {
     if (!user) router.push('/');
-    if (isError && error.response.status === 401) router.push('/401');
-    if (isError && error.response.status === 403) router.push('/403');
+    if (isError && error.response.status === 401) router.push('/edlm-portal/401');
+    if (isError && error.response.status === 403) router.push('/edlm-portal/403');
   }, []);
 
   // card dropdown menu options for subscribed lists

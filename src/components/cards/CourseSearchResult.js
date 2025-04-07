@@ -60,11 +60,11 @@ export default function SearchResult({ result, handleCompetencyTag}) {
   const config = useConfig();
 
   const title = useMemo(() => {
-    return (getDeeplyNestedData(config.data?.course_information?.course_title, result));
+    return removeHTML(getDeeplyNestedData(config.data?.course_information?.course_title, result));
   }, [config.isSuccess, config.data]);
 
   const subject = useMemo(() => {
-    return (getDeeplyNestedData(config.data?.course_information?.course_subject, result));
+    return removeHTML(getDeeplyNestedData(config.data?.course_information?.course_subject, result));
   }, [config.isSuccess, config.data]);
 
   const competencies = getComps(subject)

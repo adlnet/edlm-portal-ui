@@ -1,7 +1,7 @@
 import { act, fireEvent, render } from '@testing-library/react';
 
 import { MemoryRouterProvider } from 'next-router-mock/MemoryRouterProvider';
-import Unathorized from '../../pages/edlm-portal/learner/401';
+import Unathorized from '@/pages/edlm-portal/401';
 import singletonRouter from 'next/router';
 
 // mocks
@@ -43,8 +43,8 @@ describe('401 Page', () => {
         const button = getByText(/Click Here to be Redirected/i);
         fireEvent.click(button);
       });
-    expect(singletonRouter).toMatchObject({
-        asPath: '/edlm-portal/learner',
+      expect(singletonRouter).toMatchObject({
+        asPath: '/edlm-portal',
       });
   });
 

@@ -68,14 +68,14 @@ describe('User Subscribed Lists', () => {
     useAuthenticatedUser();
     useMockSubscribedListsWith401();
     renderer();
-    expect(singletonRouter).toMatchObject({ asPath: '/401' });
+    expect(singletonRouter).toMatchObject({ asPath: '/edlm-portal/401' });
   });
 
   it('should navigate the user to "/403" if the user is not the owner of the list', () => {
     useAuthenticatedUser();
     useMockSubscribedListsWith403();
     renderer();
-    expect(singletonRouter).toMatchObject({ asPath: '/403' });
+    expect(singletonRouter).toMatchObject({ asPath: '/edlm-portal/403' });
   });
 
   // it('should call the api to unsubscribe from the list', () => {

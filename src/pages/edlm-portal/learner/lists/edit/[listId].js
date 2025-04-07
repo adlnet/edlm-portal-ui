@@ -18,15 +18,7 @@ import LockClose from '@/public/icons/lockClose.svg';
 import lockOpen from '@/public/icons/lockOpen.svg';
 import prepareListDataToSend from '@/utils/prepListDataToSend';
 
-export function getServerSideProps({ query }) {
-  return {
-    props: {
-      listId: query.listId,
-    },
-  };
-}
-
-export default function EditList({ listId }) {
+export default function EditList() {
   const router = useRouter();
   const { user } = useAuth();
   const config = useConfig();
@@ -50,18 +42,21 @@ export default function EditList({ listId }) {
     experiences: [],
   });
 
+  const listId = router.isReady ? router.query.listId : null;
+
   const initialList = useList(parseInt(listId), setCurrentListInfo);
+
 
   useEffect(() => {
     // no user
-    if (!user) router.push('/');
+    if (!user) router.push('/edlm-portal');
 
     // if there is a authorization error
     if (initialList?.isError) {
       if( initialList?.error?.response?.status === 401)
-       return router.push('/401');
+       return router.push('/edlm-portal/401');
       if (initialList?.error?.response?.status === 403)
-        return router.push('/403');
+        return router.push('/edlm-portal/403');
     }
     
     // if the owner of the list is not the current user, redirect to homepage

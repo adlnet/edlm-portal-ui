@@ -43,7 +43,7 @@ export default function TrainingPlanSkills() {
               <CoursesTable />
 
               <div className="flex justify-end mt-8">
-                    <Button onClick={()=>router.push("/")}>
+                    <Button onClick={()=>router.push('/edlm-portal')}>
                         <div className="flex flex-row gap-2">  
                             <p className="pt-0.5"> Add to Plan </p>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">

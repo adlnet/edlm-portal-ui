@@ -1,7 +1,7 @@
 
-import Footer from '../Footer';
-import Header from '../Header';
-import StaticSideNav from '../StaticSideNav';
+import Footer from '@/components/Footer';
+import Header from '@/components/Header';
+import StaticSideNav from '@/components/StaticSideNav';
 
 export default function DefaultLayout({ children, footerLocation }) {
 

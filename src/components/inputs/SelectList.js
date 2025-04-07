@@ -1,6 +1,7 @@
 'use strict';
 
 import { getUniqueCleanCompetencies} from '@/utils/getUniqueCleanCompetencies';
+import { removeHTML } from '@/utils/cleaning';
 import { useEffect, useMemo, useRef, useState } from 'react';
 
 export default function SelectList({
@@ -99,7 +100,9 @@ export default function SelectList({
                 />
                 <div className="grow shrink basis-0 flex-col justify-start items-start gap-0.5 inline-flex">
                   <label htmlFor={`${options.field_name}-${group.key}`} className="text-[#1b1128] text-sm font-medium  leading-[14px] cursor-pointer">
-                  {keyName === 'Competency' && group.cleanedKey ? group.cleanedKey : group.key}
+                  {keyName === 'Competency' && group.cleanedKey 
+                      ? removeHTML(group.cleanedKey) 
+                      : removeHTML(group.key)}
                   </label>
                 </div>
 

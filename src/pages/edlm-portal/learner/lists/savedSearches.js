@@ -19,8 +19,8 @@ export default function SavedSearches() {
 
   useEffect(() => {
     if (!user) router.push('/edlm-portal');
-    if (isError && error?.response.status === 401) router.push('/401');
-    if (isError && error?.response.status === 403) router.push('/403');
+    if (isError && error?.response.status === 401) router.push('/edlm-portal/401');
+    if (isError && error?.response.status === 403) router.push('/edlm-portal/403');
   }, [isError]);
 
   return (

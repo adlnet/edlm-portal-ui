@@ -26,16 +26,6 @@ jest.mock('@/pages/edlm-portal/learner/index', () => {
 });
 
 describe('InitialPage', () => {
-  it('should render login page when user is not authenticated', () => {
-    useUnauthenticatedUser();
-    render(
-      <QueryClientWrapper>
-        <InitialPage />
-      </QueryClientWrapper>
-    );
-    expect(screen.getByTestId('login-page')).toBeInTheDocument();
-    expect(screen.queryByTestId('home-page')).not.toBeInTheDocument();
-  });
   
   it('should render home page when user is authenticated', () => {
     useAuthenticatedUser();

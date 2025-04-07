@@ -5,11 +5,11 @@ import mockRouter from 'next-router-mock';
 
 //mocks
 jest.mock('next/dist/client/router', () => require('next-router-mock'));
-jest.mock('../../contexts/AuthContext', () => ({
+jest.mock('@/contexts/AuthContext', () => ({
   useAuth: jest.fn(),
 }));
 beforeEach(() => {
-  mockRouter.setCurrentUrl('/');
+  mockRouter.setCurrentUrl('/edlm-portal');
 });
 
 // This is all you need:

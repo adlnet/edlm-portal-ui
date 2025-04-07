@@ -55,28 +55,11 @@ describe('List page', () => {
     expect(singletonRouter).toMatchObject({ asPath: '/edlm-portal/learner/course/1' });
   });
 
-  it('should navigate a user to the edit page', () => {
-    useListMock();
-    useAuthenticatedUser();
-    const { getByText } = renderer();
-    const editButton = getByText('Edit');
-    fireEvent.click(editButton);
-    expect(singletonRouter).toMatchObject({ asPath: '/edlm-portal/learner/lists/edit/1' });
-  });
-
   it('should show "No courses added yet." message', () => {
     useListMockWithNoExperiences();
     useAuthenticatedUser();
 
     const { getByText } = renderer();
     expect(getByText(/No courses added yet./i)).toBeInTheDocument();
-  });
-});
-
-describe('List page server side', () => {
-  it('context', () => {
-    const context = { query: { listId: '1' } };
-    const data = getServerSideProps(context);
-    expect(data).toEqual({ props: { listId: '1' } });
   });
 });

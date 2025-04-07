@@ -1,5 +1,5 @@
 import { act, renderHook } from '@testing-library/react';
-import useField from '../../hooks/useField';
+import useField from '@/hooks/useField';
 
 describe('useField', () => {
   it('loads the initial value', () => {
