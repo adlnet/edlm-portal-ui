@@ -46,8 +46,3 @@ export default function NotAuthorized({ errorMessage }) {
     )
 }
 
-export async function getStaticProps() {
-    return {
-      props: {}
-    };
-  }

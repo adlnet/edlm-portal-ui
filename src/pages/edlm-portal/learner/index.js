@@ -161,7 +161,7 @@ export default function Home() {
                   <p className="font-normal mb-8 text-sm text-gray-600 dark:text-gray-400">
                     Access saved recordings of DOT&E Lunch & Learns.
                   </p>
-                  <Button className="flex ml-32 justify-center bg-blue-900 hover:bg-blue-600" onClick={() => router.push(`/learner/lists/${lunchNLearn?.id}`)}>
+                  <Button className="flex ml-32 justify-center bg-blue-900 hover:bg-blue-600" onClick={() => router.push(`/edlm-portal/learner/lists/${lunchNLearn?.id}`)}>
                     View more
                   </Button>
                 </Card>

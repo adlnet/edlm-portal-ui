@@ -1,6 +1,5 @@
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import { useRouter } from 'next/router';
 import Head from 'next/head'
 import React, { useEffect, useState} from 'react';
 
@@ -24,23 +23,13 @@ export default function MyApp({ Component, pageProps }) {
       })
   );
 
-  const router = useRouter();
-  
-  useEffect(() => {
-    console.log('pathname:', router.pathname);
-    console.log('asPath:', router.asPath);
-    console.log('basePath:', router.basePath);
-    console.log('query:', router.query);
-    console.log('url:', window.location.href);
-  }, [router.asPath]);
-
   return (
     <AuthProvider>
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps['dehydratedState']}>
           <Head>
             <title>EDLM Portal</title>
-            <link rel="icon" href="/logo.png" />
+            <link rel="icon" href="/doteLogo.ico" />
           </Head>
           <Component {...pageProps} />
           <ReactQueryDevtools />
