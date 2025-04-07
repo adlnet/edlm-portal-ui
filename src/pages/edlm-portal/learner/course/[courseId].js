@@ -67,6 +67,7 @@ function getComps(subjects){
 export default function Course() {
   const router = useRouter();
   const { user } = useAuth();
+  const routeflag = true;
 
   // state of the fetching
   const course = useCourse(router.query?.courseId);
@@ -161,6 +162,14 @@ export default function Course() {
 
     xAPISendStatement(context);
   }, [router.query?.courseId, data?.title, data?.description, user]);
+
+  const handleRoute = useCallback(() => {
+    if(!routeflag){
+      router.back();
+      return;l
+    }
+    router.push("/edlm-portal/learner/search"); 
+  });
   
   return (
     <DefaultLayout>
@@ -169,7 +178,7 @@ export default function Course() {
         <div className='flex max-w-7xl px-4 mx-auto gap-8 mt-4'>
           <div className='w-full'>
             <div className='flex flex-row items-center gap-2 mt-4 mb-2 text-sm'>
-              <button className='text-blue-600' onClick={() => router.back()}>Search </button> 
+              <button className='text-blue-600' onClick={handleRoute}>Search </button> 
               <ChevronRightIcon className='h-3 w-3'/>
               {data?.title}
             </div>
@@ -225,7 +234,7 @@ export default function Course() {
         <div id='details-divider' className='bg-gray-200 mt-4'>
           <div className='flex max-w-100 mx-0 py-4 px-2 justify-around'>
             <div className='flex items-center min-w-max gap-8'>
-              <div className='flex justify-center items-center gap-1'>
+              <div className='flex justify-center items-center gap-1 pl-8'>
                 <BuildingStorefrontIcon className='h-10 text-blue-900' />
                 <span>
                   <div className='text-xs font-semibold'>Provider</div>
@@ -252,16 +261,16 @@ export default function Course() {
                   </div>
                 </span>
               </div>
-              <div className='flex justify-center items-center gap-1'>
+              <div className='flex justify-center items-center w-1/4 gap-1'>
                 <UserIcon className='h-10 text-blue-900' />
                 <span>
-                  <div className='text-xs font-semibold'>Instructor</div>
+                  <div className='break-all text-xs font-semibold'>Instructor</div>
                   <div className='text-xs'>
                     {data?.instructor || 'Not Available'}
                   </div>
                 </span>
               </div>
-              <div className='flex justify-center items-center gap-1'>
+              <div className='flex justify-center items-center w-1/8 gap-1'>
                 <AcademicCapIcon className='h-10 text-blue-900' />
                 <span>
                   <div className='text-xs font-semibold'>Course Proficiency</div>
@@ -270,7 +279,7 @@ export default function Course() {
                   </div>
                 </span>
               </div>
-              <div className='flex justify-center items-center gap-1'>
+              <div className='flex justify-center items-center w-1/2 gap-1'>
                 <CalendarIcon className='h-10 text-blue-900' />
                 <span>
                   <div className='text-xs font-semibold'>Start Date: <text className='text-sm font-normal'>{data?.date?.start || '09/24/2024'}</text></div>
