@@ -29,12 +29,6 @@ export default function MyApp({ Component, pageProps }) {
         <Hydrate state={pageProps['dehydratedState']}>
           <Head>
             <title>EDLM Portal</title>
-            <link rel="icon" href="/edlm-portal/doteLogo.ico" />
-            <link rel="icon" href="/doteLogo.ico" />
-            <link rel="icon" href="/edlm-portal/public/doteLogo.ico" />
-            <link rel="icon" href="/public/doteLogo.ico" />
-            
-            <link rel="icon" type="image/png" href="/edlm-portal/doteLogo.png" />
             <link rel="icon" type="image/png" href="/doteLogo.png" />
           </Head>
           <Component {...pageProps} />
