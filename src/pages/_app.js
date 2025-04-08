@@ -28,8 +28,8 @@ export default function MyApp({ Component, pageProps }) {
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps['dehydratedState']}>
           <Head>
-            <title>EDLM Portal</title>
-            <link rel="icon" type="image/png" href="/doteLogo.png" />
+            <title>EDLM Portal</title> 
+            <link rel="icon" type="image/png" href="/edlm-portal/doteLogo.png" />
           </Head>
           <Component {...pageProps} />
           <ReactQueryDevtools />
