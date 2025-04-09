@@ -166,7 +166,7 @@ export default function Course() {
   const handleRoute = useCallback(() => {
     if(!routeflag){
       router.back();
-      return;l
+      return;
     }
     router.push("/edlm-portal/learner/search"); 
   });
