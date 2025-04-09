@@ -6,9 +6,9 @@ import axios from 'axios';
 import axiosRetry from 'axios-retry';
 import backupData from '@/public/backup_competencies.json';
 
-const DOTE_UUID = 'a1bcb9dd-c455-417c-bcbe-3073a9593113';
-const type = 'schema.cassproject.org.0.4.Framework'
-const compSearchUrl = `http://cass.cass.svc.cluster.local/api/data/${type}/${DOTE_UUID}`
+const apiPath = process.env.NODE_ENV === 'production' 
+  ? '/edlm-portal/api/cass'
+  : '/api/cass';
 
 // Competency Object created to hold all necessary competency variables 
 function Competency(name, desc, id, parent, children){
@@ -96,35 +96,15 @@ function getCompData(compLinks){
 
 export function useCompetencySearch() {
 
-  // // Setting up form data for API call
-  const FormData = require('form-data');
-  let data = new FormData();
-  data.append('signatureSheet', '[]');
-  
-  let config = {
-    method: 'post',
-    maxBodyLength: Infinity,
-    url: compSearchUrl,
-    headers: {},
-    data: data,
-    timeout: 510,
-    retryAfter: 500
-  };
-
   // Setting up return data
   const [Data, setData]=useState({
     Name:'',
     Competencies:[]
   })
 
-  axiosRetry(axiosInstance, { 
-    retries: 5, 
-    shouldResetTimeout: true
-  });
-
   useEffect(() => {
     // Making API request
-      axios.request(config)
+      axios.get(apiPath)
         .then(response=>{
 
           // Setting competency from response
