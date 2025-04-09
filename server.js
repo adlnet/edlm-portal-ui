@@ -15,19 +15,6 @@ app.prepare().then(() => {
       const newPath = pathname.replace('/edlm-portal/_next/', '/_next/');
       parsedUrl.pathname = newPath;
     }
-
-    if (pathname.startsWith('/edlm-portal/api/')) {
-      const newPath = pathname.replace('/edlm-portal/api/', '/api/');
-      parsedUrl.pathname = newPath;
-    }
-    
-    if (pathname.startsWith('/edlm-portal/') && 
-        !pathname.startsWith('/edlm-portal/_next/') && 
-        !pathname.startsWith('/edlm-portal/api/')) {
-      
-      const route = pathname.replace('/edlm-portal', '');
-      parsedUrl.pathname = route || '/';
-    }
     
     handle(req, res, parsedUrl);
   }).listen(3000, (err) => {
