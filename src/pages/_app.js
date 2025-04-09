@@ -9,6 +9,8 @@ import { AuthProvider } from '@/contexts/AuthContext';
 // styles
 import '@/styles/globals.css';
 
+import faviconIcon from '@/public/favicon.ico';
+
 export default function MyApp({ Component, pageProps }) {
   // to avoid sharing results from other users.
   const [queryClient] = useState(
@@ -29,7 +31,7 @@ export default function MyApp({ Component, pageProps }) {
         <Hydrate state={pageProps['dehydratedState']}>
           <Head>
             <title>EDLM Portal</title>
-            <link rel="icon" href="/doteLogo.ico" />
+            <link rel="icon" href={faviconIcon.src} />
           </Head>
           <Component {...pageProps} />
           <ReactQueryDevtools />
