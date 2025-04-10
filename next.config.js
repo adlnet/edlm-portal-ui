@@ -13,6 +13,19 @@ const nextConfig = {
         unoptimized: true,
     },
 
+    async rewrites() {
+        return [
+            {
+                source: '/api/data/:type/:uuid',
+                destination: 'http://cass.cass:80/api/data/:type/:uuid',
+            },
+            {
+                source: '/api/data/:path',
+                destination: 'http://cass.cass:80/api/data/:path',
+            }
+        ]
+    }
+
     // distDir: 'edlm-portal',
     // Adding policies:
     // async headers() {
