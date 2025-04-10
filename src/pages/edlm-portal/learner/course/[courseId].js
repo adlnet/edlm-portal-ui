@@ -252,7 +252,7 @@ export default function Course() {
                   </div>
                 </span>
               </div>
-              <div className='flex justify-center items-center gap-1'>
+              <div className='flex justify-center items-center w-1/2 gap-1'>
                 <ComputerDesktopIcon className='h-10 text-blue-900' />
                 <span>
                   <div className='text-xs font-semibold'>Modality</div>
