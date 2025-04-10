@@ -231,10 +231,10 @@ export default function Course() {
         </div>
 
         {/* Details divider */}
-        <div id='details-divider' className='bg-gray-200 mt-4'>
-          <div className='flex max-w-100 mx-0 py-4 px-2 justify-around'>
-            <div className='flex items-center min-w-max gap-8'>
-              <div className='flex justify-center items-center gap-1 pl-8'>
+        <div id='details-divider' className='flex max-w-screen bg-gray-200 mt-4'>
+          <div className='inline-flex overflow-x-scroll mx-0 px-2 py-4 justify-around custom-scroll'>
+            <div className='flex items-center min-w-dvh gap-6'>
+              <div className='flex justify-center items-center gap-1 w-1/8 pl-20'>
                 <BuildingStorefrontIcon className='h-10 text-blue-900' />
                 <span>
                   <div className='text-xs font-semibold'>Provider</div>
@@ -261,16 +261,16 @@ export default function Course() {
                   </div>
                 </span>
               </div>
-              <div className='flex justify-center items-center w-1/4 gap-1'>
+              <div className='flex justify-center items-center w-1/3 gap-1'>
                 <UserIcon className='h-10 text-blue-900' />
                 <span>
-                  <div className='break-all text-xs font-semibold'>Instructor</div>
+                  <div className='text-xs font-semibold'>Instructor</div>
                   <div className='text-xs'>
                     {data?.instructor || 'Not Available'}
                   </div>
                 </span>
               </div>
-              <div className='flex justify-center items-center w-1/8 gap-1'>
+              <div className='flex justify-center items-center w-1/4 gap-1'>
                 <AcademicCapIcon className='h-10 text-blue-900' />
                 <span>
                   <div className='text-xs font-semibold'>Course Proficiency</div>
