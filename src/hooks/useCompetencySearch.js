@@ -8,7 +8,7 @@ import backupData from '@/public/backup_competencies.json';
 
 const DOTE_UUID = 'a1bcb9dd-c455-417c-bcbe-3073a9593113';
 const type = 'schema.cassproject.org.0.4.Framework'
-const compSearchUrl = `http://cass.cass.svc.cluster.local/api/data/${type}/${DOTE_UUID}`
+const compSearchUrl = `https://cass.staging.dso.mil/api/data/${type}/${DOTE_UUID}`
 
 // Competency Object created to hold all necessary competency variables 
 function Competency(name, desc, id, parent, children){
