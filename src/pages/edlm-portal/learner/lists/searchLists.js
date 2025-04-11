@@ -36,8 +36,6 @@ export default function SearchLists() {
   const CARD_PER_PAGE = 9;
   const [currentPage, setCurrentPage] = useState(1);
 
-  const [showToast, setShowToast] = useState(false);
-
   const handleChange = (e) => {
     setSearchInput(e.target.value);
   };
