@@ -116,10 +116,10 @@ export default function Course() {
         config.data?.course_information?.course_deliveryMode,
         course.data
       ),
-      subject: getDeeplyNestedData(
+      subject: removeHTML(getDeeplyNestedData(
         config.data?.course_information.course_subject,
         course.data
-      ),
+      )),
       duration: getDeeplyNestedData(
         config.data?.course_information?.course_time,
         course.data
