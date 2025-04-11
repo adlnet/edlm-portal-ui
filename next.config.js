@@ -6,7 +6,8 @@ const nextConfig = {
         ignoreDuringBuilds: false,
     },
     swcMinify: true,
-    assetPrefix: process.env.NODE_ENV === 'production' ? '/edlm-portal' : '',
+    basePath: '/edlm-portal',
+    assetPrefix: '/edlm-portal',
     trailingSlash: true,
 
     images: {
@@ -15,6 +16,10 @@ const nextConfig = {
 
     async rewrites() {
         return [
+            {
+                source: '/edlm-portal/_next/:path*',
+                destination: '/_next/:path*',
+            },
             {
                 source: '/edlm-portal/api/data/:type/:uuid',
                 destination: 'http://cass.cass:80/api/data/:type/:uuid',

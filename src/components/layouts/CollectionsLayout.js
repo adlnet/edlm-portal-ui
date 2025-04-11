@@ -4,10 +4,10 @@ import DefaultLayout from "@/components/layouts/DefaultLayout";
 
 export default function CollectionsLayout({ children, title }) {
   const tabs = [
-    { name: 'My Collections', href: '/edlm-portal/learner/lists/owned' },
-    { name: 'My Subscriptions', href: '/edlm-portal/learner/lists/subscribed' },
-    { name: 'Saved Searches', href: '/edlm-portal/learner/lists/savedSearches' },
-    { name: 'Search Collections', href: '/edlm-portal/learner/lists/searchLists' },
+    { name: 'My Collections', href: '/learner/lists/owned' },
+    { name: 'My Subscriptions', href: '/learner/lists/subscribed' },
+    { name: 'Saved Searches', href: '/learner/lists/savedSearches' },
+    { name: 'Search Collections', href: '/learner/lists/searchLists' },
   ]
 
   return (

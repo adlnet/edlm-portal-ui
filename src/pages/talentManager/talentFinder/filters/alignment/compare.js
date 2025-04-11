@@ -52,7 +52,7 @@ export default function TalentFinderAlignment() {
             .catch((err) => {
                 console.log(err);
             })
-        router.push('/edlm-portal')
+        router.push('/')
     }
 
     return (
