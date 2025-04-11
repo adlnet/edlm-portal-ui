@@ -15,7 +15,7 @@ import {
   useMockUserOwnedLists,
   useUnauthenticatedUser,
 } from '@/__mocks__/predefinedMocks';
-import Course from '@/pages/learner/course/[courseId]';
+import Course from '@/pages/edlm-portal/learner/course/[courseId]';
 import MockRouter from 'next-router-mock';
 import singletonRouter from 'next/router';
 
@@ -169,7 +169,7 @@ describe('Course Page', () => {
     act(() => {
       fireEvent.click(relatedCourseLink);
     });
-    expect(singletonRouter).toMatchObject({ asPath: '/learner/course/more_like_this' });
+    expect(singletonRouter).toMatchObject({ asPath: '/edlm-portal/learner/course/more_like_this' });
   });
 
   it ('should be able to click enroll when authenticated and have xApi execute', ()=>{
