@@ -41,7 +41,7 @@ const TableBody = ({ tableData, columns}) => {
                 if (tData === "——")
                     return <td key={accessor} className='pl-4'>——</td>
                 else
-                    return <td key={accessor} className='pl-4' >{new URLSearchParams(tData).get('/edlm-portal/learner/search?keyword')}</td>;
+                    return <td key={accessor} className='pl-4' >{new URLSearchParams(tData).get('/learner/search?keyword')}</td>;
             }
          })}
 

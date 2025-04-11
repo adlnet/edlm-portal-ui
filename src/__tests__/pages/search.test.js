@@ -18,7 +18,7 @@ import {
   useUnauthenticatedUser,
 } from '@/__mocks__/predefinedMocks';
 import MockRouter from 'next-router-mock';
-import Search from '@/pages/edlm-portal/learner/search';
+import Search from '@/pages/learner/search';
 import singletonRouter from 'next/router';
 
 // mocking the jest fn
@@ -128,7 +128,7 @@ describe('Search Page', () => {
     });
 
     expect(singletonRouter).toMatchObject({
-      asPath: '/edlm-portal/learner/course/1',
+      asPath: '/learner/course/1',
     });
   });
 
@@ -169,7 +169,7 @@ describe('Search Page', () => {
   });
 
   it('should render the initial value of the search input when the user first visits', () => {
-    MockRouter.setCurrentUrl('/edlm-portal/learner/search?keyword=initial');
+    MockRouter.setCurrentUrl('/learner/search?keyword=initial');
     useMockSearch();
     useUnauthenticatedUser();
     useMockMoreLikeThis();
@@ -180,7 +180,7 @@ describe('Search Page', () => {
   });
 
   it('should change the value on the search input when the user navigates to the search page', () => {
-    MockRouter.setCurrentUrl('/edlm-portal/learner/search?keyword=initial');
+    MockRouter.setCurrentUrl('/learner/search?keyword=initial');
     useMockSearchWithoutData();
     useUnauthenticatedUser();
     useMockMoreLikeThis();
@@ -200,12 +200,12 @@ describe('Search Page', () => {
     });
 
     expect(singletonRouter).toMatchObject({
-      asPath: '/edlm-portal/learner/search?keyword=updated&p=1',
+      asPath: '/learner/search?keyword=updated&p=1',
     });
   });
 
   it('should reset the form when "reset" is clicked', () => {
-    MockRouter.setCurrentUrl('/edlm-portal/learner/search?keyword=');
+    MockRouter.setCurrentUrl('/learner/search?keyword=');
     useMockSearch();
     useUnauthenticatedUser();
     useMockMoreLikeThis();
@@ -259,12 +259,12 @@ describe('Search Page', () => {
     }); 
 
     expect(singletonRouter).toMatchObject({
-      asPath: '/edlm-portal/learner/search?keyword=test&p=1',
+      asPath: '/learner/search?keyword=test&p=1',
     });
   });
 
   it('should clear all selection and search when clicked', () => {
-    MockRouter.setCurrentUrl('/edlm-portal/learner/search?keyword=initial&Course.CourseType=test%20bucket%201&p=1');
+    MockRouter.setCurrentUrl('/learner/search?keyword=initial&Course.CourseType=test%20bucket%201&p=1');
 
     useMockSearch();
     useUnauthenticatedUser();
@@ -291,7 +291,7 @@ describe('Search Page', () => {
       fireEvent.click(getByText('Clear Search'));
     });
     expect(singletonRouter).toMatchObject({
-      asPath: '/edlm-portal/learner/search',
+      asPath: '/learner/search',
     });
   });
 
@@ -307,7 +307,7 @@ describe('Search Page', () => {
   });
 
   it('should show previous when there are more pages', () => {
-    MockRouter.setCurrentUrl('/edlm-portal/learner/search?keyword=initial&p=2');
+    MockRouter.setCurrentUrl('/learner/search?keyword=initial&p=2');
     useUnauthenticatedUser();
     useMockSearchWithMultipleResults();
     useMockMoreLikeThisWithoutData();
@@ -322,7 +322,7 @@ describe('Search Page', () => {
   });
 
   it('should navigate user to next page when next is clicked', () => {
-    MockRouter.setCurrentUrl('/edlm-portal/learner/search?keyword=initial&p=1');
+    MockRouter.setCurrentUrl('/learner/search?keyword=initial&p=1');
     useUnauthenticatedUser();
     useMockSearchWithMultipleResults();
     useMockMoreLikeThisWithoutData();
@@ -334,7 +334,7 @@ describe('Search Page', () => {
     });
 
     expect(singletonRouter).toMatchObject({
-      asPath: '/edlm-portal/learner/search?keyword=initial&p=2',
+      asPath: '/learner/search?keyword=initial&p=2',
     });
   });
 
@@ -369,7 +369,7 @@ describe('Search Page', () => {
 
   it('should not show the filters when no search input is entered', () => {
     
-    MockRouter.setCurrentUrl('/edlm-portal/learner/search');
+    MockRouter.setCurrentUrl('/learner/search');
     useMockSearchWithoutData();
     useUnauthenticatedUser();
     useMockMoreLikeThis();

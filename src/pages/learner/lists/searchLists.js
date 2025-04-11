@@ -111,11 +111,11 @@ export default function SearchLists() {
 
   useEffect(() => {
     // if the user is not logged in, redirect to the home page
-    if (!user) router.push('/edlm-portal');
+    if (!user) router.push('/');
     if (interestLists.isError && interestLists.error.response.status === 401)
-      return router.push('/edlm-portal/401');
+      return router.push('/401');
     if(interestLists.isError && interestLists.error.response.status === 403)
-      return router.push('/edlm-portal/403');
+      return router.push('/403');
   }, []);
 
   return (
@@ -156,7 +156,7 @@ export default function SearchLists() {
               totalTime={cardItem.totalTime || 0}
               isPublic={cardItem.public}
               cardDetailLink={{
-                pathname: `/edlm-portal/learner/lists/${cardItem.id}`,
+                pathname: `/learner/lists/${cardItem.id}`,
                 query: { previousPage: 'Search Collections' }
               }}
               menuItems={getMenuItems(cardItem)}
