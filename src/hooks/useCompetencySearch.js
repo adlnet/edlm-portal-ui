@@ -24,7 +24,7 @@ function proxyUrl(url) {
   const urlObj = new URL(url);
   const path = urlObj.pathname;
 
-  return `/edlm-portal/api${path}`;
+  return `/edlm-portal/${path}`;
 }
 
 
