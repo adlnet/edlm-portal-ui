@@ -19,6 +19,15 @@ function Competency(name, desc, id, parent, children){
   this.children = children;
 }
 
+// To go through nextjs.proxy
+function proxyUrl(url) {
+  const urlObj = new URL(url);
+  const path = urlObj.pathname;
+
+  return `/edlm-portal/api${path}`;
+}
+
+
 // // Helper function to assign parent and children values 
 // //  based on the relationship links
 function getRelateLinks(relateLinks, competencies){
@@ -29,7 +38,7 @@ function getRelateLinks(relateLinks, competencies){
   // Looping through every Relation Link to assign parent and children
   //  values to the competencies
   for (const key in relateLinks) {
-      axios.get(relateLinks[key])
+      axios.get(proxyUrl(relateLinks[key]))
         .then(res =>{
           
           // Response information
@@ -61,7 +70,7 @@ function getCompData(compLinks){
   //  all axios requests have completed
   const fetchData = async() => {
     for (const key in compLinks) {
-      await axios.get(compLinks[key])
+      await axios.get(proxyUrl(compLinks[key]))
           .then(res=>{
 
               let compInfo = res.data;
