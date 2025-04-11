@@ -30,11 +30,21 @@ export default function Header() {
           </div>
           {!user ? (
             <div className='space-x-4'>
-              <Link href={'/edlm-portal/login'} passHref>
-                <button className='disabled:hidden bg-blue-500 py-2 px-4 rounded inline-block text-white hover:opacity-90 hover:shadow transform transition-all duration-100 ease-in-out font-semibold'>
+              {/* Doing this for p1 login refresh */}
+              {process.env.NODE_ENV === 'production' ? (
+                <button 
+                  onClick={() => window.location.reload()}
+                  className='disabled:hidden bg-blue-500 py-2 px-4 rounded inline-block text-white hover:opacity-90 hover:shadow transform transition-all duration-100 ease-in-out font-semibold'
+                >
                   Sign in
                 </button>
-              </Link>
+              ) : (
+                <Link href={'/edlm-portal/login'} passHref>
+                  <button className='disabled:hidden bg-blue-500 py-2 px-4 rounded inline-block text-white hover:opacity-90 hover:shadow transform transition-all duration-100 ease-in-out font-semibold'>
+                    Sign in
+                  </button>
+                </Link>
+              )}
               <Link href={'/edlm-portal/register'} passHref>
                 <button className='disabled:hidden bg-blue-300 py-2 px-4 rounded inline-block text-white hover:opacity-90 hover:shadow transform transition-all duration-100 ease-in-out font-semibold'>
                   Sign up
