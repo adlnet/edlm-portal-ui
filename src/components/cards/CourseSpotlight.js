@@ -20,11 +20,11 @@ export default function CourseSpotlight({ course }) {
   const { user } = useAuth();
 
   const title = useMemo(() => {
-    return (getDeeplyNestedData(config.data?.course_information?.course_title, course));
+    return removeHTML(getDeeplyNestedData(config.data?.course_information?.course_title, course));
   }, [config.isSuccess, config.data]);
 
   const provider = useMemo(() => {
-    return (getDeeplyNestedData(config.data?.course_information?.course_provider, course));
+    return removeHTML(getDeeplyNestedData(config.data?.course_information?.course_provider, course));
   }, [config.isSuccess, config.data]);
 
   const handleClick = useCallback(

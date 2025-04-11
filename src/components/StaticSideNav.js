@@ -1,3 +1,4 @@
+import { Tooltip } from 'flowbite-react';
 import { useRouter } from 'next/router';
 import { useState } from "react";
 import BookIcon from '@/public/icons/bookIcon.svg';
@@ -28,16 +29,26 @@ export default function StaticSideNav() {
         }
     };
 
-    const renderNavBtn = (btn, path, icon, label) => (
-        <div className={`w-[221px] h-10 py-1.5 rounded-lg justify-start items-center inline-flex cursor-pointer hover:bg-gray-100 ${activeBtn === btn || isActivePath(path) ? 'bg-[#f4f3f6]' : ''}`} onClick={() => handleSidebarClick(btn, path)} onKeyDown={e => e.key === 'Enter' && handleSidebarClick(btn, path)} role="button" tabIndex={0}>
-            <div className="grow shrink basis-0 h-10 px-2 py-1.5 rounded-lg justify-start items-center flex">
-                <div className="grow shrink basis-0 h-6 justify-start items-center gap-3 flex">
-                    <Image src={icon} alt={label} />
-                    <div className="text-[#111928] text-base font-medium leading-normal">{label}</div>
+    const renderNavBtn = (btn, path, icon, label, toolTip=false) => {
+        const navBtn = (
+            <div className={`w-[221px] h-10 py-1.5 rounded-lg justify-start items-center inline-flex cursor-pointer hover:bg-gray-100 ${activeBtn === btn || isActivePath(path) ? 'bg-[#f4f3f6]' : ''}`} onClick={() => handleSidebarClick(btn, path)} onKeyDown={e => e.key === 'Enter' && handleSidebarClick(btn, path)} role="button" tabIndex={0}>
+                <div className="grow shrink basis-0 h-10 px-2 py-1.5 rounded-lg justify-start items-center flex">
+                    <div className="grow shrink basis-0 h-6 justify-start items-center gap-3 flex">
+                        <Image src={icon} alt={label} />
+                        <div className="text-[#111928] text-base font-medium leading-normal">{label}</div>
+                    </div>
                 </div>
             </div>
-        </div>
-    );
+        );
+        if (toolTip) {
+            return (
+                <Tooltip content="This functionality is not yet developed." placement="top" animation="duration-300" style="light">
+                    {navBtn}
+                </Tooltip>
+            );
+        }
+        return navBtn;
+    }
 
     const renderDropdownBtn = (btn, path, label, disable=false) => (
         <div className={`w-[210px] h-10 flex-col justify-center rounded-lg items-center gap-2.5 inline-flex hover:bg-gray-100 ${activeBtn === btn || isActivePath(path) ? 'bg-[#f4f3f6]' : ''}`} onClick={() => !disable && handleSidebarClick(btn, path)} onKeyDown={e => e.key === 'Enter' && !disable && handleSidebarClick(btn, path)} role="button" tabIndex={0}>
@@ -98,8 +109,8 @@ export default function StaticSideNav() {
                 </div>
 
                 <div className="self-stretch h-20 px-3 flex-col justify-start items-start gap-2 inline-flex cursor-pointer">
-                    {renderNavBtn('additional', null, BookIcon, 'Additional Resources')}
-                    {renderNavBtn('help', null, LifeBuoyIcon, 'Help')}
+                    {renderNavBtn('additional', null, BookIcon, 'Additional Resources', true)}
+                    {renderNavBtn('help', null, LifeBuoyIcon, 'Help', true)}
                 </div>
             </div>
         </div>
