@@ -4,7 +4,7 @@ import {
   useAuthenticatedUser,
   useUnauthenticatedUser,
 } from '@/__mocks__/predefinedMocks';
-import LearningPlan from '@/pages/edlm-portal/learner/learningPlan/index';
+import LearningPlan from '@/pages/learner/learningPlan/index';
 import singletonRouter from 'next/router';
 
 jest.mock('@/components/Stepper', () => {
@@ -31,7 +31,7 @@ describe('learningPlan', () => {
   it('should navigate the user to "/" if not authenticated', () => {
     useUnauthenticatedUser();
     renderLearningPlan();
-    expect(singletonRouter).toMatchObject({ asPath: '/edlm-portal' });
+    expect(singletonRouter).toMatchObject({ asPath: '/' });
   });
 
   it('should render the stepper with correct prop', () => {

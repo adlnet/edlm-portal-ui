@@ -32,7 +32,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "NODE_ENV=production node server.js",
+    "start": "next start",
     "lint": "next lint",
     "test:unit": "jest --coverage --maxWorkers=1",
     "coverage": "jest --watchAll --coverage --verbose --noStackTrace --silent --maxWorkers=50%",

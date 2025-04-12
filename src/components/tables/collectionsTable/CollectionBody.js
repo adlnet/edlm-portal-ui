@@ -23,7 +23,7 @@ const TableBody = ({ pageData, columns, deleteCourse}) => {
 
                 return (
                     <td key={accessor} className='pl-4 hover:text-[#3892F3] hover:underline'>
-                        <Link href={`/edlm-portal/learner/course/${data.id}`} passHref className=''>
+                        <Link href={`/learner/course/${data.id}`} passHref className=''>
                             {tData}
                         </Link>
                     </td>
