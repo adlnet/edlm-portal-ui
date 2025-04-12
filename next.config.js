@@ -7,7 +7,6 @@ const nextConfig = {
     },
     swcMinify: true,
     basePath: '/edlm-portal',
-    assetPrefix: '/',
     trailingSlash: true,
 
     images: {
@@ -17,11 +16,11 @@ const nextConfig = {
     async rewrites() {
         return [
             {
-                source: '/api/data/:type/:uuid',
+                source: '/edlm-portal/api/data/:type/:uuid',
                 destination: 'http://cass.cass:80/api/data/:type/:uuid',
             },
             {
-                source: '/api/data/:path',
+                source: '/edlm-portal/api/data/:path',
                 destination: 'http://cass.cass:80/api/data/:path',
             }
         ]
