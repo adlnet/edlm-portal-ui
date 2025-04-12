@@ -1,4 +1,4 @@
-FROM registry1.dso.mil/ironbank/opensource/nodejs/nodejs22:22.13 AS builder
+FROM registry1.dso.mil/ironbank/opensource/nodejs/nodejs18:18.20 AS builder
 USER root
 
 WORKDIR /app
@@ -10,7 +10,7 @@ RUN yarn build
 USER node
 
 # Production image, copy all the files and run next
-FROM registry1.dso.mil/ironbank/opensource/nodejs/nodejs22:22.13 AS runner
+FROM registry1.dso.mil/ironbank/opensource/nodejs/nodejs18:18.20 AS runner
 USER root
 
 WORKDIR /app
