@@ -25,9 +25,9 @@ describe('StaticSideNav', () => {
     const { getByText } = render(<StaticSideNav />);
 
     fireEvent.click(getByText('Search'));
-    expect(mockRouter).toMatchObject({ asPath: '/learner/search' });
+    expect(mockRouter).toMatchObject({ asPath: '/edlm-portal/learner/search' });
 
     fireEvent.click(getByText('Learning Plan'));
-    expect(mockRouter).toMatchObject({ asPath: '/learner/learningPlan' });
+    expect(mockRouter).toMatchObject({ asPath: '/edlm-portal/learner/learningPlan' });
   });
 });

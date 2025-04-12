@@ -9,7 +9,7 @@ jest.mock('@/contexts/AuthContext', () => ({
   useAuth: jest.fn(),
 }));
 beforeEach(() => {
-  mockRouter.setCurrentUrl('/');
+  mockRouter.setCurrentUrl('/edlm-portal');
 });
 
 // This is all you need:

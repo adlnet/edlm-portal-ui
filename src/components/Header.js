@@ -16,7 +16,7 @@ export default function Header() {
       >
         <div className='w-full py-4 inline-flex items-center justify-between z-50'>
           <div className={'flex items-center justify-start text-white text-4xl font-semibold gap-4'}>
-            <Link href={'/'} passHref>
+            <Link href={'/edlm-portal'} passHref>
               {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
               <button
                 title='home'
@@ -30,12 +30,12 @@ export default function Header() {
           </div>
           {!user ? (
             <div className='space-x-4'>
-              <Link href={'/login'} passHref>
+              <Link href={'/edlm-portal/login'} passHref>
                 <button className='disabled:hidden bg-blue-500 py-2 px-4 rounded inline-block text-white hover:opacity-90 hover:shadow transform transition-all duration-100 ease-in-out font-semibold'>
                   Sign in
                 </button>
               </Link>
-              <Link href={'/register'} passHref>
+              <Link href={'/edlm-portal/register'} passHref>
                 <button className='disabled:hidden bg-blue-300 py-2 px-4 rounded inline-block text-white hover:opacity-90 hover:shadow transform transition-all duration-100 ease-in-out font-semibold'>
                   Sign up
                 </button>
