@@ -15,7 +15,7 @@ import {
   useUnauthenticatedUser,
 } from '@/__mocks__/predefinedMocks';
 import MockRouter from 'next-router-mock';
-import Subscribed from '@/pages/edlm-portal/learner/lists/subscribed';
+import Subscribed from '@/pages/learner/lists/subscribed';
 import singletonRouter from 'next/router';
 
 jest.mock('next/dist/client/router', () => require('next-router-mock'));
@@ -68,14 +68,14 @@ describe('User Subscribed Lists', () => {
     useAuthenticatedUser();
     useMockSubscribedListsWith401();
     renderer();
-    expect(singletonRouter).toMatchObject({ asPath: '/edlm-portal/401' });
+    expect(singletonRouter).toMatchObject({ asPath: '/401' });
   });
 
   it('should navigate the user to "/403" if the user is not the owner of the list', () => {
     useAuthenticatedUser();
     useMockSubscribedListsWith403();
     renderer();
-    expect(singletonRouter).toMatchObject({ asPath: '/edlm-portal/403' });
+    expect(singletonRouter).toMatchObject({ asPath: '/403' });
   });
 
   // it('should call the api to unsubscribe from the list', () => {
@@ -93,7 +93,7 @@ describe('User Subscribed Lists', () => {
   //   act(() => {
   //     fireEvent.click(getByRole('button', { name: 'View' }));
   //   });
-  //   expect(singletonRouter).toMatchObject({ asPath: '/edlm-portal/learner/lists/1' });
+  //   expect(singletonRouter).toMatchObject({ asPath: '/learner/lists/1' });
   // });
 
   it('should render the collection card with dropdown menu', () => {
@@ -133,7 +133,7 @@ describe('User Subscribed Lists', () => {
       fireEvent.click(getByTestId('card-menu-item-Share'));
 
       expect(navigator.clipboard.writeText).toHaveBeenCalledWith(
-        'http://localhost/edlm-portal/learner/lists/1'
+        'http://localhost/learner/lists/1'
       );
     });
 

@@ -4,7 +4,7 @@ import { render } from '@testing-library/react';
 import { useAuthenticatedUser, useMockConfig } from '@/__mocks__/predefinedMocks';
 import { useInterestLists } from '@/hooks/useInterestLists';
 import { useUserOwnedLists } from '@/hooks/useUserOwnedLists';
-import Home from '@/pages/edlm-portal/learner/index';
+import Home from '@/pages/learner/index';
 import MockRouter from "next-router-mock";
 import useSpotlightCourses from '@/hooks/useSpotlightCourses';
 

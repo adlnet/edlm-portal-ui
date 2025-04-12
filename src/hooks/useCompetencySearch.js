@@ -8,7 +8,7 @@ import backupData from '@/public/backup_competencies.json';
 
 const DOTE_UUID = 'a1bcb9dd-c455-417c-bcbe-3073a9593113';
 const type = 'schema.cassproject.org.0.4.Framework'
-const compSearchUrl = `/edlm-portal/api/data/${type}/${DOTE_UUID}`
+const compSearchUrl = `/api/data/${type}/${DOTE_UUID}`
 
 // Competency Object created to hold all necessary competency variables 
 function Competency(name, desc, id, parent, children){
@@ -24,7 +24,7 @@ function proxyUrl(url) {
   const urlObj = new URL(url);
   const path = urlObj.pathname;
 
-  return `/edlm-portal/${path}`;
+  return `/${path}`;
 }
 
 
