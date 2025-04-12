@@ -11,7 +11,7 @@ app.prepare().then(() => {
     const parsedUrl = parse(req.url, true);
     const { pathname } = parsedUrl;
     
-    if (!pathname.startsWith('/edlm-portal')) {
+    if (pathname.startsWith('/_next')) {
       parsedUrl.pathname = '/edlm-portal' + pathname;
     }
     
