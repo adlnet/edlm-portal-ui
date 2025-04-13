@@ -57,7 +57,7 @@ describe('CourseSearchResult', () => {
       fireEvent.click(screen.getByText('Test Course Title'));
     });
     expect(singletonRouter).toMatchObject({
-      asPath: '/edlm-portal/learner/course/123456',
+      asPath: '/learner/course/123456',
     });
   });
 

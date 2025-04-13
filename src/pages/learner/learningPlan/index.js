@@ -58,7 +58,7 @@ export default function LearningPlan() {
   ];
 
   const handleShare = id => {
-    navigator.clipboard.writeText(`${window.origin}/edlm-portal/learner/lists/${id}`)
+    navigator.clipboard.writeText(`${window.origin}/learner/lists/${id}`)
     .then(() => {
       setCopy('Copied Successfully!');
       setTimeout(() => {
@@ -75,7 +75,7 @@ export default function LearningPlan() {
 
   // Add back 401 and 403 error when we have live data
   useEffect(() => {
-    if (!user) router.push('/edlm-portal');
+    if (!user) router.push('/');
   }, []);
 
   return (
@@ -101,7 +101,7 @@ export default function LearningPlan() {
               description={cardItem.description}
               isPublic={cardItem.public}
               cardDetailLink={{
-                pathname: `/edlm-portal/learner/lists/${cardItem.id}`,
+                pathname: `/learner/lists/${cardItem.id}`,
                 query: { previousPage: 'Onboarding Learning Plan' }
               }}
               menuItems= {getMenuItems(cardItem.id)}

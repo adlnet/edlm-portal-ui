@@ -77,7 +77,7 @@ describe('MoreLikeThis Card', () => {
     const cards = screen.getAllByRole('button', { hidden: true });
     const card = cards[0];
     fireEvent.click(card);
-    expect(mockPush).toHaveBeenCalledWith(`/edlm-portal/learner/course/${mockCourse.meta.metadata_key_hash}`);
+    expect(mockPush).toHaveBeenCalledWith(`/learner/course/${mockCourse.meta.metadata_key_hash}`);
   });
   
 });

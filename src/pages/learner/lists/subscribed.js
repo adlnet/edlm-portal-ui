@@ -33,8 +33,8 @@ export default function Subscribed() {
 
   useEffect(() => {
     if (!user) router.push('/');
-    if (isError && error.response.status === 401) router.push('/edlm-portal/401');
-    if (isError && error.response.status === 403) router.push('/edlm-portal/403');
+    if (isError && error.response.status === 401) router.push('/401');
+    if (isError && error.response.status === 403) router.push('/403');
   }, []);
 
   // card dropdown menu options for subscribed lists
@@ -52,7 +52,7 @@ export default function Subscribed() {
   ];
 
   const handleShare = id => {
-    navigator.clipboard.writeText(`${window.origin}/edlm-portal/learner/lists/${id}`)
+    navigator.clipboard.writeText(`${window.origin}/learner/lists/${id}`)
     .then(() => {
       setCopy('Copied Successfully!');
       setTimeout(() => {
@@ -88,7 +88,7 @@ export default function Subscribed() {
                 description={cardItem.description}
                 isPublic={cardItem.public}
                 cardDetailLink={{
-                  pathname: `/edlm-portal/learner/lists/${cardItem.id}`,
+                  pathname: `/learner/lists/${cardItem.id}`,
                   query: { previousPage: 'My Subscriptions' }
                 }}
                 menuItems= {getMenuItems(cardItem.id)}
@@ -102,7 +102,7 @@ export default function Subscribed() {
                 You are not subscribed to any lists.
               </h2>
               <div className='pt-8'>
-                <Link href='/edlm-portal/learner/lists/searchLists' passHref>
+                <Link href='/learner/lists/searchLists' passHref>
                   <button className='max-w-max items-center inline-flex gap-2 text-blue-400 rounded-md hover:shadow-md bg-blue-50 hover:bg-blue-400 hover:text-white px-4 py-2 transform transition-all duration-150 ease-in-out border-blue-400 border-2 outline-none focus:ring-2 ring-blue-400'>
                     <div>Click Here to Search for a list.</div>
                   </button>

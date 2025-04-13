@@ -34,7 +34,7 @@ export default function MoreLikeThis({ course }) {
   const handleClick = useCallback(
     (e) => {
       if (!user)
-        return router.push(`/edlm-portal/learner/course/${meta.metadata_key_hash || meta.id}`);
+        return router.push(`/learner/course/${meta.metadata_key_hash || meta.id}`);
 
       const context = {
         actor: {
@@ -46,7 +46,7 @@ export default function MoreLikeThis({ course }) {
           display: 'explored',
         },
         object: {
-          id: `${window.origin}/edlm-portal/learner/course/${meta.id}`,
+          id: `${window.origin}/learner/course/${meta.id}`,
           definitionName: title || Course.CourseTitle,
           description: Course.CourseShortDescription,
         },
@@ -54,7 +54,7 @@ export default function MoreLikeThis({ course }) {
         resultExtValue: meta.metadata_key_hash || meta.id,
       };
       xAPISendStatement(context);
-      router.push('/edlm-portal/learner/course/' + (meta.metadata_key_hash || meta.id));
+      router.push('/learner/course/' + (meta.metadata_key_hash || meta.id));
     },
     [Course, meta, user]
   );
@@ -71,7 +71,7 @@ export default function MoreLikeThis({ course }) {
 
   // show suggested card
   return (
-    <Link href={`/edlm-portal/learner/course/${meta.metadata_key_hash || meta.id}`} passHref>
+    <Link href={`/learner/course/${meta.metadata_key_hash || meta.id}`} passHref>
       <div
         onClick={handleClick}
         role='button'
