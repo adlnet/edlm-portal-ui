@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 export function middleware(request) {
   const pathname = request.nextUrl.pathname;
   
-  if (!pathname.startsWith('/edlm-portal')) {
+  if (pathname.startsWith('/_next')) {
 
     const url = request.nextUrl.clone();
     url.pathname = `/edlm-portal${pathname}`;
@@ -13,6 +13,6 @@ export function middleware(request) {
   return NextResponse.next();
 }
 
-// export const config = {
-//   matcher: '/_next/:path*',
-// };
+export const config = {
+  matcher: '/_next/:path*',
+};
