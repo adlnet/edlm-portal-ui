@@ -67,11 +67,11 @@ export default function ListsView() {
   // verify a user is logged in otherwise redirect to home page
   useEffect(() => {
     // if the user is not logged in, redirect to the home page
-    if (!user) router.push('/');
+    if (!user) router.push('/edlm-portal');
     if (list.isError && list.error.response.status === 401)
-      return router.push('/401');
+      return router.push('/edlm-portal/401');
     if (list.isError && list.error.response.status === 403)
-      return router.push('/403');
+      return router.push('/edlm-portal/403');
   }, []);
 
   const isOwned = user?.user?.id === list?.data?.owner?.id;
@@ -97,7 +97,7 @@ export default function ListsView() {
                 <button
                   className='h-8 px-3 py-2 bg-white rounded-lg border  border-gray-200 justify-center items-center gap-2 inline-flex hover:bg-blue-50 text-[#1f3764] text-xs font-normal leading-none'
                   onClick={() => {
-                    router.push('/learner/lists/edit/' + listId);
+                    router.push('/edlm-portal/learner/lists/edit/' + listId);
                   }}
                 >
                   Edit

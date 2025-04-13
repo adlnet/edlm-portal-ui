@@ -1,13 +1,12 @@
-'use strict';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
-import Home from '@/pages/learner/index';
-
-export default function IntialPage() {
-
-  return (
-    <>
-     {/* Dont redirect to login page on P1 */}
-     <Home />
-    </>
-  );
+export default function RootRedirect() {
+  const router = useRouter();
+  
+  useEffect(() => {
+    router.replace('/edlm-portal');
+  }, [router]);
+  
+  return <div>Redirecting to EDLM Portal</div>;
 }

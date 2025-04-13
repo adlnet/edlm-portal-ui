@@ -97,7 +97,7 @@ export default function LearningSummary() {
 
   // Will need to add back 401 and 403 errors when we have data
   useEffect(() => {
-    if (!user) router.push('/');
+    if (!user) router.push('/edlm-portal');
   }, []);
 
   return (
