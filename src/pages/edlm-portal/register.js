@@ -157,7 +157,7 @@ export default function Register() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (user) router.push('/');
+    if (user) router.push('/edlm-portal');
   }, []);
 
   const handleSubmit = (event) => {
@@ -173,7 +173,7 @@ export default function Register() {
     axiosInstance
       .post(authRegister, obj)
       .then((res) => {
-        router.push('/');
+        router.push('/edlm-portal');
         register(res.data);
       })
       .catch((err) => {
@@ -246,7 +246,7 @@ export default function Register() {
             <h1 className='font-bold text-xl pt-2'>Create your account</h1>
             <p className='text-sm'>
               Already have an account?&nbsp;
-              <Link href={'/login'} passHref>
+              <Link href={'/edlm-portal/login'} passHref>
                 <span className='text-blue-400 hover:text-blue-600 hover:text-shadow'>
                   Sign in 
                 </span>

@@ -55,7 +55,7 @@ export default function SearchCourses( { params, setParams, handleCompetencyTag 
         setParams(modified);
         setUrl(modified);
       });
-      router.push({ pathname: '/learner/search', query: modified }, undefined, {
+      router.push({ pathname: '/edlm-portal/learner/search', query: modified }, undefined, {
         scroll: true,
       });
     } 

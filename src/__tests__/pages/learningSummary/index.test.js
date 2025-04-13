@@ -5,7 +5,7 @@ import {
   useAuthenticatedUser,
   useUnauthenticatedUser,
 } from "@/__mocks__/predefinedMocks";
-import LearningSummary from "@/pages/learner/learningSummary/index";
+import LearningSummary from "@/pages/edlm-portal/learner/learningSummary/index";
 import MockRouter from "next-router-mock";
 import singletonRouter from "next/router";
 
@@ -46,7 +46,7 @@ describe("Learning Summary Page", () => {
   it("should navigate the user to '/' if not authenticated", () => {
     useUnauthenticatedUser();
     renderer();
-    expect(singletonRouter).toMatchObject({ asPath: "/" });
+    expect(singletonRouter).toMatchObject({ asPath: "/edlm-portal" });
   });
 
   it('should show summary stats', () => {

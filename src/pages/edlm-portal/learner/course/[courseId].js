@@ -154,7 +154,7 @@ export default function Course() {
       object: {
         definitionName: data?.title,
         description: data?.description,
-        id: `${window.origin}/learner/course/${router.query?.courseId}`,
+        id: `${window.origin}/edlm-portal/learner/course/${router.query?.courseId}`,
       },
       resultExtName: 'https://w3id.org/xapi/ecc/result/extensions/CourseId',
       resultExtValue: router.query?.courseId,
@@ -168,7 +168,7 @@ export default function Course() {
       router.back();
       return;
     }
-    router.push("/learner/search"); 
+    router.push("/edlm-portal/learner/search"); 
   });
   
   return (
