@@ -3,7 +3,6 @@
 import { axiosInstance } from '@/config/axiosConfig';
 import { compSearchUrl } from '@/config/endpoints';
 import { oneHour } from '@/config/timeConstants';
-import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import axios from 'axios';
 import axiosRetry from 'axios-retry';
@@ -85,8 +84,7 @@ async function getCompData(compLinks){
                   desc = compInfo.description;
               }
 
-              const compObj = Competency(name, desc, compLinks[key], '', [])
-      
+              return Competency(name, desc, compLinks[key], '', []);
           })
           .catch(error=>{
               console.log('Comp Link Error: ', error);
