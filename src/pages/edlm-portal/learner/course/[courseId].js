@@ -64,7 +64,7 @@ function getComps(subjects){
   return comps
 }
 
-export default function Course( { params }) {
+export default function Course() {
   const router = useRouter();
   const { user } = useAuth();
   const routeflag = true;
