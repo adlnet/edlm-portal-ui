@@ -3,6 +3,8 @@ USER root
 
 WORKDIR /app
 
+ENV ENABLE_ASSET_PREFIX=true
+
 COPY . .
 COPY node_modules ./node_modules
 
@@ -16,7 +18,6 @@ USER root
 WORKDIR /app
 
 ENV NODE_ENV=production
-ENV ENABLE_ASSET_PREFIX=true
 
 # RUN addgroup -g 1001 -S nodejs
 
