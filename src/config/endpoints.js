@@ -3,7 +3,7 @@ export const backendHost = process.env.NEXT_PUBLIC_XDS_BACKEND;
 export const XDSbackendHost = process.env.NEXT_PUBLIC_XDS_BACKEND;
 export const LRSbackendHost = process.env.NEXT_PUBLIC_LRS_API;
 export const ECCRHost = process.env.NEXT_PUBLIC_ECCR_API;
-const DOTE_UUID = process.env.NEXT_PUBLIC_DOTE_UUID;
+const ECCR_DOTE_UUID = process.env.NEXT_PUBLIC_DOTE_UUID;
 const ECCR_TYPE = process.env.NEXT_PUBLIC_ECCR_TYPE;
 const api = '/api/';
 const elasticApi = '/es-api/';
@@ -52,6 +52,6 @@ export const saveSearchUrl = `${XDSbackendHost}${api}saved-filters`;
 export const saveSearchOwnedUrl = `${XDSbackendHost}${api}saved-filters/owned`;
 
 // Competency Search
-export const compSearchUrl = `/edlm-portal/api/data/${ECCR_TYPE}/${DOTE_UUID}`
+export const compSearchUrl = `/edlm-portal/api/data/${ECCR_TYPE}/${ECCR_DOTE_UUID}`
 
 
