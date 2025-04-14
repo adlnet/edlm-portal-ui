@@ -7,6 +7,7 @@ import { useCompetencySearch} from '@/hooks/useCompetencySearch';
 import { useCourseSearch} from '@/hooks/useCourseSearch';
 import { useRouter } from 'next/dist/client/router';
 import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement'; 
+import Course from '@/pages/edlm-portal/learner/course/[courseId]';
 import CreateSavedSearchModal from '@/components/modals/CreateSavedSearch';
 import DefaultLayout from '@/components/layouts/DefaultLayout';
 import SearchBar from '@/components/inputs/SearchBar';
@@ -14,7 +15,6 @@ import SearchCompetencies from '@/components/SearchCompetencies';
 import SearchCourses from '@/components/SearchCourses';
 import SelectList from '@/components/inputs/SelectList';
 import TabBar from '@/components/buttons/TabBar';
-import Course from '@/pages/edlm-portal/learner/course/[courseId]';
 
 
 export default function Search() {
