@@ -1,14 +1,11 @@
 'use strict';
 
 import { axiosInstance } from '@/config/axiosConfig';
+import { compSearchUrl } from '@/config/endpoints';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import axiosRetry from 'axios-retry';
 import backupData from '@/public/backup_competencies.json';
-
-const DOTE_UUID = '41b9bcc4-c455-4c80-a88d-a9511937011f';
-const type = 'schema.cassproject.org.0.4.Framework'
-const compSearchUrl = `https://dev-eccr.deloitteopenlxp.com/api/data/${type}/${DOTE_UUID}`
 
 // Competency Object created to hold all necessary competency variables 
 function Competency(name, desc, id, parent, children){
@@ -17,6 +14,14 @@ function Competency(name, desc, id, parent, children){
   this.id = id;
   this.parent = parent;
   this.children = children;
+}
+
+// To go through nextjs.proxy
+function proxyUrl(url) {
+  const urlObj = new URL(url);
+  const path = urlObj.pathname;
+
+  return `/edlm-portal/${path}`;
 }
 
 // // Helper function to assign parent and children values 
@@ -29,7 +34,7 @@ function getRelateLinks(relateLinks, competencies){
   // Looping through every Relation Link to assign parent and children
   //  values to the competencies
   for (const key in relateLinks) {
-      axios.get(relateLinks[key])
+      axios.get(proxyUrl(relateLinks[key]))
         .then(res =>{
           
           // Response information
@@ -61,7 +66,7 @@ function getCompData(compLinks){
   //  all axios requests have completed
   const fetchData = async() => {
     for (const key in compLinks) {
-      await axios.get(compLinks[key])
+      await axios.get(proxyUrl(compLinks[key]))
           .then(res=>{
 
               let compInfo = res.data;

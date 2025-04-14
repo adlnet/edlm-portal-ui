@@ -125,7 +125,7 @@ export default function SearchCourses( { params, setParams, handleCompetencyTag 
         </div>
         
         <div className='pt-4 sticky bottom-0 -mb-8'>     
-            {!isLoading && data && (     
+            {!isLoading && data && data.total > 0 && (     
               <Pagination     
                 totalPages={Math.ceil(data?.total / config?.data?.search_results_per_page)}    
                 handleSpecificPage={handleSpecificPage}    

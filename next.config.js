@@ -6,12 +6,25 @@ const nextConfig = {
         ignoreDuringBuilds: false,
     },
     swcMinify: true,
-    assetPrefix: process.env.NODE_ENV === 'production' ? '/edlm-portal' : '',
+    assetPrefix: process.env.ENABLE_ASSET_PREFIX === 'true' ? '/edlm-portal' : '',
     trailingSlash: true,
 
     images: {
         unoptimized: true,
     },
+
+    async rewrites() {
+        return [
+            {
+                source: '/edlm-portal/api/data/:type/:uuid',
+                destination: `${process.env.NEXT_PUBLIC_ECCR_API}/api/data/:type/:uuid`,
+            },
+            {
+                source: '/edlm-portal/api/data/:path',
+                destination: `${process.env.NEXT_PUBLIC_ECCR_API}/api/data/:path`,
+            }
+        ]
+    }
 
     // distDir: 'edlm-portal',
     // Adding policies:

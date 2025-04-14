@@ -12,6 +12,7 @@ import CollectionCard from '@/components/cards/CollectionCard';
 import CollectionsLayout from '@/components/layouts/CollectionsLayout';
 import React, { useEffect, useMemo, useState } from 'react';
 import SearchBar from '@/components/inputs/SearchBar';
+import XMarkMessageToast from '@/components/cards/XMarkMessageToast';
 
 export default function SearchLists() {
   const router = useRouter();
@@ -122,12 +123,25 @@ export default function SearchLists() {
       <div className='mt-7 pb-5'>
         <div className='flex justify-between items-baseline -mt-2'>
           <div className='flex-grow w-[22rem] xl:w-[44rem]'>
-            <SearchBar
-              parameters={{ keyword: searchInput }}
-              onChange={handleChange}
-              onClick={handleSearch}
-              placeholder='Search Public Collections'
-            />
+            <div className="flex gap-4">
+              <SearchBar
+                parameters={{ keyword: searchInput }}
+                onChange={handleChange}
+                onClick={handleSearch}
+                placeholder='Search Public Collections'
+              />
+              <button 
+                title='Clear Search'
+                onClick= {() => {
+                  setSearchInput('');
+                  setSearch('');
+                  setCurrentPage(1);
+                }}
+                className="italic text-sm font-sans text-[#3892f3] underline whitespace-nowrap"
+              >     
+                Clear Search
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -160,15 +174,10 @@ export default function SearchLists() {
       )}
 
       {interestLists.isSuccess && filteredLists?.length === 0 && (
-          <div className='text-center w-full col-span-3'>
-            <h2 className='text-lg font-medium px-2 pt-2'>
-              Search Public Collections
-            </h2>
-            <p className='inline-flex pt-8'>
-              To search a collection, please enter a keyword in the search bar above.
-            </p>
-          </div>
-        )}
+        <div className='flex justify-center'>
+          <XMarkMessageToast message='No search results found' />
+        </div>
+      )}
 
     </CollectionsLayout>
   );

@@ -116,10 +116,10 @@ export default function Course() {
         config.data?.course_information?.course_deliveryMode,
         course.data
       ),
-      subject: getDeeplyNestedData(
+      subject: removeHTML(getDeeplyNestedData(
         config.data?.course_information.course_subject,
         course.data
-      ),
+      )),
       duration: getDeeplyNestedData(
         config.data?.course_information?.course_time,
         course.data
@@ -168,7 +168,7 @@ export default function Course() {
       router.back();
       return;
     }
-    router.push("/edlm-portal/learner/search"); 
+    router?.query?.keyword ? router.push(`/edlm-portal/learner/search/?keyword=${router?.query?.keyword}&p=${router?.query?.p}`) : router.push('/edlm-portal/learner/search'); 
   });
   
   return (
@@ -231,7 +231,7 @@ export default function Course() {
         </div>
 
         {/* Details divider */}
-        <div id='details-divider' className='flex max-w-screen bg-gray-200 mt-4'>
+        <div id='details-divider' className='flex max-w-screen bg-gray-200 mt-4 text-nowrap'>
           <div className='inline-flex overflow-x-scroll mx-0 px-2 py-4 justify-around custom-scroll'>
             <div className='flex items-center min-w-dvh gap-6'>
               <div className='flex justify-center items-center gap-1 w-1/8 pl-20'>
@@ -252,7 +252,7 @@ export default function Course() {
                   </div>
                 </span>
               </div>
-              <div className='flex justify-center items-center gap-1'>
+              <div className='flex justify-center items-center w-1/2 gap-1'>
                 <ComputerDesktopIcon className='h-10 text-blue-900' />
                 <span>
                   <div className='text-xs font-semibold'>Modality</div>

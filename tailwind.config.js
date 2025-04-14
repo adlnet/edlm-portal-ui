@@ -8,8 +8,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'hero': "url('/loginDefault.jpeg')",
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))'
       },
       colors: {
         'dark-blue': '#010E42',
