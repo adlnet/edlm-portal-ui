@@ -84,8 +84,7 @@ async function getCompData(compLinks){
                   desc = compInfo.description;
               }
 
-              const compObj = Competency(name, desc, compLinks[key], '', [])
-      
+              return Competency(name, desc, compLinks[key], '', []);
           })
           .catch(error=>{
               console.log('Comp Link Error: ', error);
