@@ -144,54 +144,54 @@ export default function Search() {
               loaded={Competencies.length === 0}
             />
           </div>
-          <div className='flex flex-col md:flex-row -mb-1 max-w-min sticky top-0 z-10 bg-white'>
-          <Popover
-              trigger='hover'
-              initialOpen='true'
-              content={
-                <div className="w-64 text-sm text-gray-500 rounded-lg dark:text-gray-400">
-                  <div className="border-b border-gray-200 bg-blue-700 px-3 py-2 dark:border-gray-600 dark:bg-gray-700">
-                    <h3 id="default-popover" className="font-semibold bg-blue-700 text-white dark:text-white">Search for Courses Here</h3>
+          <div className='flex flex-col md:flex-row -mb-1 max-w-min sticky top-0 z-10 bg-white pb-2'>
+            <Popover
+                trigger='hover'
+                initialOpen='true'
+                content={
+                  <div className="w-64 text-sm text-gray-500 rounded-lg dark:text-gray-400">
+                    <div className="border-b border-gray-200 bg-blue-700 px-3 py-2 dark:border-gray-600 dark:bg-gray-700">
+                      <h3 id="default-popover" className="font-semibold bg-blue-700 text-white dark:text-white">Search for Courses Here</h3>
+                    </div>
+                    <div className="px-3 py-2">
+                      <p>Search by key topics such as: </p>
+                      <ul className="list-disc list-inside"> 
+                        <li> Testing </li>
+                        <li> Acquisition </li>
+                        <li> Artificial Intelligence </li>
+                      </ul>
+                    </div>
                   </div>
-                  <div className="px-3 py-2">
-                    <p>Search by key topics such as: </p>
-                    <ul className="list-disc list-inside"> 
-                      <li> Testing </li>
-                      <li> Acquisition </li>
-                      <li> Artificial Intelligence </li>
-                    </ul>
-                  </div>
+                }
+                placement="right"       
+              >
+                <div className='flex-grow w-[22rem] xl:w-[44rem]'>
+                  <SearchBar
+                    parameters={params}
+                    onChange={handleChange}
+                    onClick={handleSearch}
+                    placeholder='Search for Learning Content'
+                  />
                 </div>
-              }
-              placement="right"       
-            >
-              <div className='flex-grow w-[22rem] xl:w-[44rem]'>
-                <SearchBar
-                  parameters={params}
-                  onChange={handleChange}
-                  onClick={handleSearch}
-                  placeholder='Search for Learning Content'
-                />
-              </div>
-          </Popover>
-              {data && !isLoading && selectedTab === 'Courses' && (
-                <div className='flex flex-row my-3 -mx-2 md:my-0 md:mx-0 xl:flex-row gap-2 pl-2'>{data && createLists()}</div>
-              )}
-              <div className='self-start flex -mt-0  md:mt-2.5 ml-2 -my-2'>
-                {selectedTab === 'Courses' && user && <CreateSavedSearchModal path={router.asPath} />}
-                <button 
-                  title='Clear Search'
-                  onClick= {() => 
-                    setParams((prev) => ({ ...prev, keyword: '' }),
-                    router.push({ pathname: '/edlm-portal/learner/search' })
-                  )}
-                  className="italic text-sm font-sans text-[#3892f3] underline whitespace-nowrap"
+            </Popover>
+            {data && !isLoading && selectedTab === 'Courses' && (
+              <div className='flex flex-row my-3 -mx-2 md:my-0 md:mx-0 xl:flex-row gap-2 pl-2'>{data && createLists()}</div>
+            )}
+            <div className='self-start flex -mt-0  md:mt-2.5 ml-2 -my-2'>
+              {selectedTab === 'Courses' && user && <CreateSavedSearchModal path={router.asPath} />}
+              <button 
+                title='Clear Search'
+                onClick= {() => 
+                  setParams((prev) => ({ ...prev, keyword: '' }),
+                  router.push({ pathname: '/edlm-portal/learner/search' })
+                )}
+                className="italic text-sm font-sans text-[#3892f3] underline whitespace-nowrap"
                 >     
-                  Clear Search
-                </button>
-              </div>
+                Clear Search
+              </button>
+            </div>
         </div>
-        <div className='py-4'>
+        <div className='py-2'>
           {selectedTab === tabs[0] ?
             <SearchCourses 
               params={params}
