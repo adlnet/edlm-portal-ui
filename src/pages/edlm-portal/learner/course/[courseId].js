@@ -64,7 +64,7 @@ function getComps(subjects){
   return comps
 }
 
-export default function Course() {
+export default function Course( { params }) {
   const router = useRouter();
   const { user } = useAuth();
   const routeflag = true;
@@ -168,7 +168,7 @@ export default function Course() {
       router.back();
       return;
     }
-    router.push("/edlm-portal/learner/search"); 
+    router?.query?.keyword ? router.push(`/edlm-portal/learner/search/?keyword=${router?.query?.keyword}&p=${router?.query?.p}`) : router.push('/edlm-portal/learner/search'); 
   });
   
   return (
@@ -231,7 +231,7 @@ export default function Course() {
         </div>
 
         {/* Details divider */}
-        <div id='details-divider' className='flex max-w-screen bg-gray-200 mt-4'>
+        <div id='details-divider' className='flex max-w-screen bg-gray-200 mt-4 text-nowrap'>
           <div className='inline-flex overflow-x-scroll mx-0 px-2 py-4 justify-around custom-scroll'>
             <div className='flex items-center min-w-dvh gap-6'>
               <div className='flex justify-center items-center gap-1 w-1/8 pl-20'>

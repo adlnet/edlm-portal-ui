@@ -14,6 +14,7 @@ import SearchCompetencies from '@/components/SearchCompetencies';
 import SearchCourses from '@/components/SearchCourses';
 import SelectList from '@/components/inputs/SelectList';
 import TabBar from '@/components/buttons/TabBar';
+import Course from '@/pages/edlm-portal/learner/course/[courseId]';
 
 
 export default function Search() {
@@ -207,7 +208,6 @@ export default function Search() {
         </div>
       </div>
       </div>
-
     </DefaultLayout>
   );
 }

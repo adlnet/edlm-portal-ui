@@ -91,7 +91,10 @@ export default function SearchResult({ result, handleCompetencyTag}) {
     };
 
     xAPISendStatement(context);
-    router.push(`/edlm-portal/learner/course/${result.meta.id}`);
+    router.push({
+      pathname: `/edlm-portal/learner/course/${result.meta.id}`,
+      query: router.query
+    });
   }, [result, user, router]);
 
   return (
