@@ -65,14 +65,13 @@ async function getRelateLinks(relateLinks, competencies){
 //  Returns 
 async function getCompData(compLinks){
 
-  const result = []
   const fetchPromises = [];
 
   // Function to fetch data from all the competency links and return once 
   //  all axios requests have completed
   const fetchData = async() => {
     for (const key in compLinks) {
-      const promise = axios.get(proxyUrl(compLinks[key]))
+        axios.get(proxyUrl(compLinks[key]))
           .then(res=>{
 
               const compInfo = res.data;
@@ -87,7 +86,6 @@ async function getCompData(compLinks){
               }
 
               const compObj = Competency(name, desc, compLinks[key], '', [])
-              result.push(compObj)
       
           })
           .catch(error=>{
@@ -149,8 +147,9 @@ async function getCompetencySearch() {
  * Hook to get the competency results
  * @returns all competencies from the DOT&E Framework defined in the ECCR
  */
+
 export function useCompetencySearch() {
-  const { data, isLoading, error } = useQuery('competencies', getCompetencySearch, {
+  const { data } = useQuery('competencies', getCompetencySearch, {
     staleTime: oneHour,
     cacheTime: oneHour,
   });
