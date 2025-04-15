@@ -9,6 +9,7 @@ export default function IntialPage() {
 
   return (
     <>
+    {/* Dont redirect to login page on P1 */}
      {user ? <Home /> : <Login />}
     </>
   );

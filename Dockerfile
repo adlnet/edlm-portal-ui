@@ -9,6 +9,8 @@ RUN yarn install --production
 FROM node:18.20-alpine AS builder
 WORKDIR /app
 
+ENV ENABLE_ASSET_PREFIX=true
+
 COPY . .
 COPY --from=deps /app/node_modules ./node_modules
 
