@@ -12,6 +12,7 @@ import {
   useUnauthenticatedUser,
 } from '@/__mocks__/predefinedMocks';
 import { fireEvent, render } from '@testing-library/react';
+import RouteProtection from '@/utils/RouteProtection';
 import SavedSearches from '@/pages/edlm-portal/learner/lists/savedSearches';
 import singletonRouter from 'next/router';
 
@@ -20,7 +21,9 @@ const renderer = () => {
   return render(
     <MemoryRouterProvider>
       <QueryClientWrapper>
-        <SavedSearches />
+        <RouteProtection>
+          <SavedSearches />
+        </RouteProtection>
       </QueryClientWrapper>
     </MemoryRouterProvider>
   );
@@ -39,11 +42,11 @@ describe('User Saved Searches', () => {
     expect(getByText('Saved Search')).toBeInTheDocument();
   });
 
-  it('should navigate user to "/" if not authenticated', () => {
+  it('should navigate user to "/401" if not authenticated', () => {
     useUnauthenticatedUser();
     useMockSavedSearchList();
     renderer();
-    expect(singletonRouter).toMatchObject({ asPath: '/edlm-portal' });
+    expect(singletonRouter).toMatchObject({ asPath: '/edlm-portal/401' });
   });
 
   it('should navigate user to "/401" if the user is not the owner of the list', () => {

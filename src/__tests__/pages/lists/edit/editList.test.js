@@ -14,6 +14,7 @@ import {
 } from '@/__mocks__/predefinedMocks';
 import EditList, { getServerSideProps } from '@/pages/edlm-portal/learner/lists/edit/[listId]';
 import MockRouter from 'next-router-mock';
+import RouteProtection from '@/utils/RouteProtection';
 import singletonRouter from 'next/router';
 
 beforeEach(() => {
@@ -24,7 +25,9 @@ const renderer = () => {
   return render(
     <MemoryRouterProvider>
       <QueryClientWrapper>
-        <EditList listId={1} />
+        <RouteProtection>
+          <EditList listId={1} />
+        </RouteProtection>
       </QueryClientWrapper>
     </MemoryRouterProvider>
   );
@@ -39,12 +42,12 @@ describe('Edit List', () => {
     screen.getAllByText('My Collections');
   });
 
-  it('should navigate the user to "/" if not authenticated', () => {
+  it('should navigate the user to "/401" if not authenticated', () => {
     useUnauthenticatedUser();
     useMockUserList();
     useMockUpdateUserList();
     renderer();
-    expect(singletonRouter).toMatchObject({ asPath: '/edlm-portal' });
+    expect(singletonRouter).toMatchObject({ asPath: '/edlm-portal/401' });
   });
 
   it('should navigate the user to "/" if the user id does not match the list owner id', () => {

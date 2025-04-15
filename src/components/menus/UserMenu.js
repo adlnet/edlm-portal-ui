@@ -19,8 +19,8 @@ export default function UserMenu() {
   const handleLogout = async (e)=>{
     e.preventDefault();
     await logout();
-    router.push("/edlm-portal/login")
-}
+    window.location.href = '/edlm-portal';
+  }
 
   return (
     <Menu
