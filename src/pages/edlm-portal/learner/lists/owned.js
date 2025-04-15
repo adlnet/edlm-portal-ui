@@ -84,7 +84,6 @@ export default function Owned() {
   const totalPages = data ? Math.ceil(data.length / CARD_PER_PAGE) : 0;
 
   useEffect(() => {
-    if (!user) router.push('/edlm-portal');
     if (isError && error.response.status === 403) router.push('/edlm-portal/403');
     if (isError && error.response.status === 401) router.push('/edlm-portal/401');
   }, []);

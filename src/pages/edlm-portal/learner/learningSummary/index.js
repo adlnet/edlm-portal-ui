@@ -95,11 +95,6 @@ export default function LearningSummary() {
     {label: 'COURSES', accessor: 'title'},
   ]
 
-  // Will need to add back 401 and 403 errors when we have data
-  useEffect(() => {
-    if (!user) router.push('/edlm-portal');
-  }, []);
-
   return (
     <DefaultLayout>
       <div className='p-6'>

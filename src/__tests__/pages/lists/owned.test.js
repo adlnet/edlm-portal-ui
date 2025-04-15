@@ -13,6 +13,7 @@ import {
 } from '@/__mocks__/predefinedMocks';
 import MockRouter from 'next-router-mock';
 import Owned from '@/pages/edlm-portal/learner/lists/owned';
+import RouteProtection from '@/utils/RouteProtection';
 import singletonRouter from 'next/router';
 
 const renderer = () => {
@@ -20,7 +21,9 @@ const renderer = () => {
   return render(
     <MemoryRouterProvider>
       <QueryClientWrapper>
-        <Owned />
+        <RouteProtection>
+          <Owned />
+        </RouteProtection>
       </QueryClientWrapper>
     </MemoryRouterProvider>
   );
@@ -38,11 +41,11 @@ describe('User Owned Lists', () => {
     expect(getAllByText('My Collections').length).toBeGreaterThan(0);
   });
 
-  it('should navigate the user to "/" if not authenticated', () => {
+  it('should navigate the user to "/401" if not authenticated', () => {
     useUnauthenticatedUser();
     useMockUserOwnedLists();
     renderer();
-    expect(singletonRouter).toMatchObject({ asPath: '/edlm-portal' });
+    expect(singletonRouter).toMatchObject({ asPath: '/edlm-portal/401' });
   });
 
   it('should navigate the user to "/401" if the user is not the owner of the list', () => {

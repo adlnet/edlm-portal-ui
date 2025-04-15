@@ -73,11 +73,6 @@ export default function LearningPlan() {
     });
   };
 
-  // Add back 401 and 403 error when we have live data
-  useEffect(() => {
-    if (!user) router.push('/edlm-portal');
-  }, []);
-
   return (
     <DefaultLayout>
       <div className='bg-white shadow-md p-5 py-0 w-full mb-5 rounded-xl m-4 -my-6 overflow-clip'>
