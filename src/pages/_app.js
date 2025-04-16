@@ -31,13 +31,13 @@ export default function MyApp({ Component, pageProps }) {
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps['dehydratedState']}>
           <RouteProtection>
-            <Head>
-              <title>EDLM Portal</title>
-              <link rel="icon" href={faviconIcon.src} />
-            </Head>
             <Component {...pageProps} />
             <ReactQueryDevtools />
           </RouteProtection>
+          <Head>
+            <title>EDLM Portal</title>
+            <link rel="icon" href={faviconIcon.src} />
+          </Head>
         </Hydrate>
       </QueryClientProvider>
     </AuthProvider>
