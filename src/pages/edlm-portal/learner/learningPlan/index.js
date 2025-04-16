@@ -14,9 +14,6 @@ import Stepper from "@/components/Stepper";
 
 export default function LearningPlan() {
 
-  const router = useRouter();
-  const { user } = useAuth();
-
   const interestLists = useInterestLists();
   const ownedLists = useUserOwnedLists();
 

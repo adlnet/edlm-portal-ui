@@ -8,7 +8,6 @@ import CollectionsLayout from '@/components/layouts/CollectionsLayout';
 import SavedSearchTable from '@/components/tables/collectionsTable/SavedSearchTable';
 
 export default function SavedSearches() {
-  const { user } = useAuth();
   const { data, isSuccess, isLoading, isError, error } = useSaveSearchList();
   const router = useRouter();
 
