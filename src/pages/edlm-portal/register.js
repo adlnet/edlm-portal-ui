@@ -22,6 +22,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Link from 'next/link';
+import loginBackground from '@/public/loginDefault.jpeg';
 import logo from '@/public/doteLogo.png';
 
 function validateEmail (email, setEmailError, setError) {
@@ -222,161 +223,172 @@ export default function Register() {
   }, [credentials.first_name]);
 
   return (
-    <div>
-      <div className='flex flex-col text-center mt-10 items-center '>
-        <Image src={logo} alt='logo' width={100} height={100} />
+    <div className='min-h-screen relative'>
+      <div className='absolute inset-0 z-0'>
+        <Image 
+          src={loginBackground}
+          alt="Login Background"
+          fill
+          priority
+          sizes="100vw"
+        />
       </div>
-      <form
-        onSubmit={handleSubmit}
-        onChange={handleUpdateCredentials}
-        className='mt-8 w-[34rem] mx-auto bg-white px-10 py-6 shadow-md rounded-md flex flex-col justify-center items-center'
-      >
-         <div className='flex flex-col justify-start mt-2 '>
-          <h1 className='font-bold text-xl pt-2'>Create your account</h1>
-          <p className='text-sm'>
-            Already have an account?&nbsp;
-            <Link href={'/edlm-portal/login'} passHref>
-              <span className='text-blue-400 hover:text-blue-600 hover:text-shadow'>
-                Sign in 
-              </span>
-            </Link>
-          </p>
+      <div className='relative z-10 pt-8 pb-80'>
+        <div className='flex flex-col text-center mt-10 items-center '>
+          <Image src={logo} alt='logo' width={100} height={100} />
         </div>
-        <div className='w-full flex gap-4'>
-          <input
-            type='text'
-            name='first_name'
-            placeholder='First Name'
-            className='w-1/2 rounded p-2 mt-4 shadow'
-            required
-          />
-          <input
-            type='text'
-            name='last_name'
-            placeholder='Last Name'
-            className='w-1/2 rounded p-2 mt-4 shadow'
-            required
-          />
-        </div>
-        <input
-          type='email'
-          name='email'
-          placeholder='Email'
-          className='w-full rounded p-2 mt-4 shadow'
-          required
-        />
-        <input
-          type='password'
-          name='userPwd'
-          placeholder='Password'
-          className='w-full rounded p-2 mt-4 shadow'
-          required
-        />
-        <input
-          type='password'
-          name='confirmPwd'
-          placeholder='Confirm Password'
-          className='w-full rounded p-2 mt-4 shadow'
-          required
-        />
-        <div className='text-gray-500 mt-2'>
-          <h4 className='text-center font-semibold'>
-            New Account Requirements
-          </h4>
-          <div className='text-xs'>
-            <p
-              className={`${
-                firstNameError || lastNameError
-                  ? 'text-red-400'
-                  : 'text-green-600'
-              } flex`}
-            >
-              {firstNameError || lastNameError ? (
-                <XCircleIcon className='inline-block h-4 w-4 mr-2' />
-              ) : (
-                <CheckCircleIcon className='inline-block h-4 w-4 mr-2' />
-              )}
-              First & Last names must be at least 2 characters long
-            </p>
-            {emailError ? 
-              <p className= 'text-red-400'>
-                <XCircleIcon className='inline-block h-4 w-4 mr-2'/>
-                Email must be valid </p> : 
-              <p className= 'text-green-600'>
-                <CheckCircleIcon className='inline-block h-4 w-4 mr-2'/>
-                Email must be valid</p>
-            }
-            <p
-              className={`${passwordError ? 'text-red-400' : 'text-green-600'}`}
-            >
-              {passwordError ? (
-                <XCircleIcon className='inline-block h-4 w-4 mr-2' />
-              ) : (
-                <CheckCircleIcon className='inline-block h-4 w-4 mr-2' />
-              )}
-              Password must be at least 8 characters long and contain at least
-              one of each:
-            </p>
-            <ul
-              className={`pl-6 list-disc list-inside ${
-                passwordError ? 'text-red-400' : 'text-green-600'
-              }`}
-            >
-              <li>Uppercase letter</li>
-              <li>Lowercase letter</li>
-              <li>Special character</li>
-              <li>Number</li>
-            </ul>
-            <p
-              className={`${
-                confPasswordError ? 'text-red-400' : 'text-green-600'
-              }`}
-            >
-              {confPasswordError ? (
-                <XCircleIcon className='inline-block h-4 w-4 mr-2' />
-              ) : (
-                <CheckCircleIcon className='inline-block h-4 w-4 mr-2' />
-              )}
-              Confirmation: Passwords must match
+        <form
+          onSubmit={handleSubmit}
+          onChange={handleUpdateCredentials}
+          className='mt-8 w-[34rem] mx-auto bg-white px-10 py-6 shadow-md rounded-md flex flex-col justify-center items-center'
+        >
+          <div className='flex flex-col justify-start mt-2 '>
+            <h1 className='font-bold text-xl pt-2'>Create your account</h1>
+            <p className='text-sm'>
+              Already have an account?&nbsp;
+              <Link href={'/edlm-portal/login'} passHref>
+                <span className='text-blue-400 hover:text-blue-600 hover:text-shadow'>
+                  Sign in 
+                </span>
+              </Link>
             </p>
           </div>
-        </div>
-        <p
-          data-testid='error-message'
-          className='text-red-500 text-sm block h-2 mt-2'
-        >
-          {error}
-        </p>
-        <button
-          disabled={isError()}
-          type='submit'
-          className='disabled:opacity-50 disabled:saturate-50 disabled:cursor-not-allowed mt-6 items-center inline-flex gap-2 text-blue-400 rounded-md hover:shadow-md bg-blue-50 hover:bg-blue-400 hover:text-white px-4 py-2 transition-all duration-75 ease-in-out border-blue-400 border-2 outline-none focus:ring-2 ring-blue-400 max-w-max'
-        >
-          {loading ? (<RefreshIcon className='inline-block h-4 w-4 mr-2 animate-spin' />) 
-          : ( <UserAddIcon className='inline-block h-4 w-4 mr-2' />)}
-          Create Account
-        </button>
-        {config.isSuccess &&
-        <p className={'my-8 relative border-b-2 w-full'}>
-          <span className='absolute top-1/2 left-1/2 transform text-center -translate-x-1/2 -translate-y-1/2 bg-white px-2 w-max'>
-            or continue with
-          </span>
-        </p>}
-        <div className='flex flex-col gap-4'>
-        {config.isSuccess &&
-          config.data.single_sign_on_options.map(({ name, path }) => {
-            return (
-              <a
-                href={path}
-                className='bg-blue-500 py-2 px-4 rounded inline-block text-white hover:opacity-90 hover:shadow transform transition-all duration-100 ease-in-out font-semibold max-w-max mx-auto'
-                key={name}
+          <div className='w-full flex gap-4'>
+            <input
+              type='text'
+              name='first_name'
+              placeholder='First Name'
+              className='w-1/2 rounded p-2 mt-4 shadow'
+              required
+            />
+            <input
+              type='text'
+              name='last_name'
+              placeholder='Last Name'
+              className='w-1/2 rounded p-2 mt-4 shadow'
+              required
+            />
+          </div>
+          <input
+            type='email'
+            name='email'
+            placeholder='Email'
+            className='w-full rounded p-2 mt-4 shadow'
+            required
+          />
+          <input
+            type='password'
+            name='userPwd'
+            placeholder='Password'
+            className='w-full rounded p-2 mt-4 shadow'
+            required
+          />
+          <input
+            type='password'
+            name='confirmPwd'
+            placeholder='Confirm Password'
+            className='w-full rounded p-2 mt-4 shadow'
+            required
+          />
+          <div className='text-gray-500 mt-2'>
+            <h4 className='text-center font-semibold'>
+              New Account Requirements
+            </h4>
+            <div className='text-xs'>
+              <p
+                className={`${
+                  firstNameError || lastNameError
+                    ? 'text-red-400'
+                    : 'text-green-600'
+                } flex`}
               >
-                {name}
-              </a>
-            );
-          })}
-        </div>
-      </form>
+                {firstNameError || lastNameError ? (
+                  <XCircleIcon className='inline-block h-4 w-4 mr-2' />
+                ) : (
+                  <CheckCircleIcon className='inline-block h-4 w-4 mr-2' />
+                )}
+                First & Last names must be at least 2 characters long
+              </p>
+              {emailError ? 
+                <p className= 'text-red-400'>
+                  <XCircleIcon className='inline-block h-4 w-4 mr-2'/>
+                  Email must be valid </p> : 
+                <p className= 'text-green-600'>
+                  <CheckCircleIcon className='inline-block h-4 w-4 mr-2'/>
+                  Email must be valid</p>
+              }
+              <p
+                className={`${passwordError ? 'text-red-400' : 'text-green-600'}`}
+              >
+                {passwordError ? (
+                  <XCircleIcon className='inline-block h-4 w-4 mr-2' />
+                ) : (
+                  <CheckCircleIcon className='inline-block h-4 w-4 mr-2' />
+                )}
+                Password must be at least 8 characters long and contain at least
+                one of each:
+              </p>
+              <ul
+                className={`pl-6 list-disc list-inside ${
+                  passwordError ? 'text-red-400' : 'text-green-600'
+                }`}
+              >
+                <li>Uppercase letter</li>
+                <li>Lowercase letter</li>
+                <li>Special character</li>
+                <li>Number</li>
+              </ul>
+              <p
+                className={`${
+                  confPasswordError ? 'text-red-400' : 'text-green-600'
+                }`}
+              >
+                {confPasswordError ? (
+                  <XCircleIcon className='inline-block h-4 w-4 mr-2' />
+                ) : (
+                  <CheckCircleIcon className='inline-block h-4 w-4 mr-2' />
+                )}
+                Confirmation: Passwords must match
+              </p>
+            </div>
+          </div>
+          <p
+            data-testid='error-message'
+            className='text-red-500 text-sm block h-2 mt-2'
+          >
+            {error}
+          </p>
+          <button
+            disabled={isError()}
+            type='submit'
+            className='disabled:opacity-50 disabled:saturate-50 disabled:cursor-not-allowed mt-6 items-center inline-flex gap-2 text-blue-400 rounded-md hover:shadow-md bg-blue-50 hover:bg-blue-400 hover:text-white px-4 py-2 transition-all duration-75 ease-in-out border-blue-400 border-2 outline-none focus:ring-2 ring-blue-400 max-w-max'
+          >
+            {loading ? (<RefreshIcon className='inline-block h-4 w-4 mr-2 animate-spin' />) 
+            : ( <UserAddIcon className='inline-block h-4 w-4 mr-2' />)}
+            Create Account
+          </button>
+          {config.isSuccess &&
+          <p className={'my-8 relative border-b-2 w-full'}>
+            <span className='absolute top-1/2 left-1/2 transform text-center -translate-x-1/2 -translate-y-1/2 bg-white px-2 w-max'>
+              or continue with
+            </span>
+          </p>}
+          <div className='flex flex-col gap-4'>
+          {config.isSuccess &&
+            config.data.single_sign_on_options.map(({ name, path }) => {
+              return (
+                <a
+                  href={path}
+                  className='bg-blue-500 py-2 px-4 rounded inline-block text-white hover:opacity-90 hover:shadow transform transition-all duration-100 ease-in-out font-semibold max-w-max mx-auto'
+                  key={name}
+                >
+                  {name}
+                </a>
+              );
+            })}
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

@@ -46,6 +46,7 @@ function getComps(subjects){
     comps[0] = comps[0].replace('4B', '')
     comps[0] = comps[0].replace('4C', '')
     comps[0] = comps[0].replace('4D', '')
+    comps[0] = comps[0].replace(':', '')
     comps[0] = comps[0].replace('Competency #', '')
     comps[0] = comps[0].replace(/\d/g, '')
     comps[0] = comps[0].trim()
@@ -90,7 +91,10 @@ export default function SearchResult({ result, handleCompetencyTag}) {
     };
 
     xAPISendStatement(context);
-    router.push(`/edlm-portal/learner/course/${result.meta.id}`);
+    router.push({
+      pathname: `/edlm-portal/learner/course/${result.meta.id}`,
+      query: router.query
+    });
   }, [result, user, router]);
 
   return (

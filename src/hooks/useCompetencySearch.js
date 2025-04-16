@@ -1,35 +1,42 @@
 'use strict';
 
 import { axiosInstance } from '@/config/axiosConfig';
-import { useEffect, useState } from 'react';
+import { compSearchUrl } from '@/config/endpoints';
+import { oneHour } from '@/config/timeConstants';
+import { useQuery } from 'react-query';
 import axios from 'axios';
 import axiosRetry from 'axios-retry';
 import backupData from '@/public/backup_competencies.json';
 
-const DOTE_UUID = '41b9bcc4-c455-4c80-a88d-a9511937011f';
-const type = 'schema.cassproject.org.0.4.Framework'
-const compSearchUrl = `https://dev-eccr.deloitteopenlxp.com/api/data/${type}/${DOTE_UUID}`
-
 // Competency Object created to hold all necessary competency variables 
-function Competency(name, desc, id, parent, children){
-  this.name = name;
-  this.desc = desc;
-  this.id = id;
-  this.parent = parent;
-  this.children = children;
+const Competency = (name, desc, id, parent, children) => ({
+  name,
+  desc,
+  id,
+  parent,
+  children
+});
+
+// To go through nextjs.proxy
+function proxyUrl(url) {
+  const urlObj = new URL(url);
+  const path = urlObj.pathname;
+
+  return `/edlm-portal/${path}`;
 }
 
 // // Helper function to assign parent and children values 
 // //  based on the relationship links
-function getRelateLinks(relateLinks, competencies){
+async function getRelateLinks(relateLinks, competencies){
 
   // Creating the result to return with a starting value of the current competencies
-  const result = competencies;
+  const result = [...competencies];
+  const relationPromises = [];
 
   // Looping through every Relation Link to assign parent and children
   //  values to the competencies
   for (const key in relateLinks) {
-      axios.get(relateLinks[key])
+    const promise = axios.get(proxyUrl(relateLinks[key]))
         .then(res =>{
           
           // Response information
@@ -45,26 +52,28 @@ function getRelateLinks(relateLinks, competencies){
         .catch(error=>{
           console.log('Relate Error: ', error)
         })
+        relationPromises.push(promise);
   }
 
+  await Promise.all(relationPromises);
   return result
 }
 
 // Helper function that gets all the competency objects from the ECCR and 
 //  then sends them to getRelateLinks for proper parent and children assignments.
 //  Returns 
-function getCompData(compLinks){
+async function getCompData(compLinks){
 
-  const result = []
+  const fetchPromises = [];
 
   // Function to fetch data from all the competency links and return once 
   //  all axios requests have completed
   const fetchData = async() => {
     for (const key in compLinks) {
-      await axios.get(compLinks[key])
+        axios.get(proxyUrl(compLinks[key]))
           .then(res=>{
 
-              let compInfo = res.data;
+              const compInfo = res.data;
 
               let name = compInfo.name["@value"];
               if (name === undefined){
@@ -75,33 +84,27 @@ function getCompData(compLinks){
                   desc = compInfo.description;
               }
 
-              let compObj = new Competency(name, desc, compLinks[key], '', [])
-              result.push(compObj)
-      
+              return Competency(name, desc, compLinks[key], '', []);
           })
           .catch(error=>{
               console.log('Comp Link Error: ', error);
           }) 
     } 
-    return result
+    fetchPromises.push(promise);
   };
-
+  await Promise.all(fetchPromises);
   return fetchData();
 }
 
-/** 
- * Hook to get the competency results
- * @returns all competencies from the DOT&E Framework defined in the Dev-ECCR
- */
+// Hekper function to fetch competency data
+async function getCompetencySearch() {
 
-export function useCompetencySearch() {
-
-  // // Setting up form data for API call
+  // Setting up form data for API call
   const FormData = require('form-data');
-  let data = new FormData();
+  const data = new FormData();
   data.append('signatureSheet', '[]');
   
-  let config = {
+  const config = {
     method: 'post',
     maxBodyLength: Infinity,
     url: compSearchUrl,
@@ -111,46 +114,43 @@ export function useCompetencySearch() {
     retryAfter: 500
   };
 
-  // Setting up return data
-  const [Data, setData]=useState({
-    Name:'',
-    Competencies:[]
-  })
-
   axiosRetry(axiosInstance, { 
     retries: 5, 
     shouldResetTimeout: true
   });
 
-  useEffect(() => {
-    // Making API request
-      axios.request(config)
-        .then(response=>{
+   try {
+    const response = await axios.request(config);
+    const compData = response.data;
+    
+    const relateLinks = compData.relation;
+    const compLinks = compData.competency;
+    
+    const competencyObjects = await getCompData(compLinks);
+    const competenciesWithRelations = await getRelateLinks(relateLinks, competencyObjects);
+    
+    return {
+      Name: compData.name?.["@value"] || "",
+      Competencies: competenciesWithRelations
+    };
+  } catch (error) {
+      console.log('Error on initial API request - using backup data: ', error)
+      return {
+        Competencies: backupData
+    }
+  };
+};
 
-          // Setting competency from response
-          let compData = response.data;
-          
-          let relateLinks = compData.relation;
-          let compLinks = compData.competency;
+/** 
+ * Hook to get the competency results
+ * @returns all competencies from the DOT&E Framework defined in the ECCR
+ */
 
-          getCompData(compLinks)
-            .then( res => {
-              const allRelateData = getRelateLinks(relateLinks, res)
-
-              setData({
-                Name:compData.name["@value"],
-                Competencies: allRelateData
-              }) 
-            })
-
-        })
-        .catch(error=>{
-          console.log('Error on initial API request - using backup data: ', error)
-          setData({
-            Competencies: backupData
-          })
-        })
-  },[])
-
-  return Data.Competencies
+export function useCompetencySearch() {
+  const { data } = useQuery('competencies', getCompetencySearch, {
+    staleTime: oneHour,
+    cacheTime: oneHour,
+  });
+  
+  return data?.Competencies || [];
 }

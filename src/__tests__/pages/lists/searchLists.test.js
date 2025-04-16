@@ -44,7 +44,7 @@ describe('Search Lists', () => {
     useMockSubscribeToList();
     useMockUnsubscribeFromList();
     const { getByText } = renderer();
-    expect(getByText(/Search Public Collections/i)).toBeInTheDocument();
+    expect(getByText(/No search results found/i)).toBeInTheDocument();
   });
 
   it('should navigate user to "/" when not authenticated', () => {

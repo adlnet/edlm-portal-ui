@@ -1,6 +1,6 @@
 import { XDSbackendHost } from '@/config/endpoints';
 import { axiosInstance } from '@/config/axiosConfig';
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { useLocalStorage } from '../hooks/useStorage';
 
 export const AuthContext = createContext({});
@@ -57,8 +57,12 @@ export function AuthProvider({ children }) {
       });
   };
   
+  const logindetails = useMemo(() => ({ 
+    user, error, register, login, logout 
+  }), [user, error, register, login, logout]);
+  
   return (
-    <AuthContext.Provider value={{ user, error, register, login, logout, checkUserLoggedIn }}>
+    <AuthContext.Provider value={ logindetails }>
       {children}
     </AuthContext.Provider>
   );
