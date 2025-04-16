@@ -10,9 +10,7 @@ import { AuthProvider, useAuth } from '@/contexts/AuthContext';
 // styles
 import '@/styles/globals.css';
 
-import faviconIcon from '@/public/favicon.ico';
-
-const prefix = process.env.NODE_ENV === 'production' ? '/edlm-portal' : '';
+import icon from '@/public/icon.ico';
 
 export default function MyApp({ Component, pageProps }) {
   // to avoid sharing results from other users.
@@ -32,7 +30,7 @@ export default function MyApp({ Component, pageProps }) {
     <>
       <Head>
         <title>EDLM Portal</title>
-        <link rel="icon" href={`${prefix}/favicon.ico`} />
+        <link rel="icon" href= {icon.src} />
       </Head>
       <AuthProvider>
         <QueryClientProvider client={queryClient}>
