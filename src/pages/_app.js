@@ -12,6 +12,8 @@ import '@/styles/globals.css';
 
 import faviconIcon from '@/public/favicon.ico';
 
+const prefix = process.env.NODE_ENV === 'production' ? '/edlm-portal' : '';
+
 export default function MyApp({ Component, pageProps }) {
   // to avoid sharing results from other users.
   const [queryClient] = useState(
@@ -36,7 +38,7 @@ export default function MyApp({ Component, pageProps }) {
           </RouteProtection>
           <Head>
             <title>EDLM Portal</title>
-            <link rel="icon" href={faviconIcon.src} />
+            <link rel="icon" href= {`${prefix}/${faviconIcon.src}`} />
           </Head>
         </Hydrate>
       </QueryClientProvider>
