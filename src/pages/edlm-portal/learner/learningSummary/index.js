@@ -88,9 +88,6 @@ const mockCompletedCourses = [
 
 export default function LearningSummary() {
 
-  const router = useRouter();
-  const { user } = useAuth();
-
   const columns = [
     {label: 'COURSES', accessor: 'title'},
   ]

@@ -17,7 +17,6 @@ import ShareIcon from '@/public/icons/shareIcon.svg';
 
 export default function Owned() {
   const router = useRouter();
-  const { user } = useAuth();
   const { data, isSuccess, isError, error } = useUserOwnedLists();
   const { mutate: deleteCollection } = useDeleteMyCollection();
   const { mutate: updateList } = useUpdateUserList();
