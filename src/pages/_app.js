@@ -33,7 +33,7 @@ export default function MyApp({ Component, pageProps }) {
           <RouteProtection>
             <Head>
               <title>EDLM Portal</title>
-              <link rel="icon" href={`/edlm-portal/${faviconIcon.src}`} />
+              <link rel="icon" href={faviconIcon.src} />
             </Head>
             <Component {...pageProps} />
             <ReactQueryDevtools />
