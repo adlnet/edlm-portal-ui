@@ -18,7 +18,7 @@ export default function UserMenu() {
   const handleLogout = async (e)=>{
     e.preventDefault();
     await logout();
-    window.location.href = '/edlm-portal';
+    window.location.href = '/edlm-portal/';
   }
 
   return (
