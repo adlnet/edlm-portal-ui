@@ -29,19 +29,21 @@ export default function MyApp({ Component, pageProps }) {
   );
 
   return (
-    <AuthProvider>
-      <QueryClientProvider client={queryClient}>
-        <Hydrate state={pageProps['dehydratedState']}>
-          <RouteProtection>
-            <Component {...pageProps} />
-            <ReactQueryDevtools />
-          </RouteProtection>
-          <Head>
-            <title>EDLM Portal</title>
-            <link rel="icon" href= {`${prefix}/${faviconIcon.src}`} />
-          </Head>
-        </Hydrate>
-      </QueryClientProvider>
-    </AuthProvider>
+    <>
+      <Head>
+        <title>EDLM Portal</title>
+        <link rel="icon" href={`${prefix}/favicon.ico`} />
+      </Head>
+      <AuthProvider>
+        <QueryClientProvider client={queryClient}>
+          <Hydrate state={pageProps['dehydratedState']}>
+            <RouteProtection>
+              <Component {...pageProps} />
+              <ReactQueryDevtools />
+            </RouteProtection>
+          </Hydrate>
+        </QueryClientProvider>
+      </AuthProvider>
+    </>
   );
 }
