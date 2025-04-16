@@ -6,7 +6,7 @@ const nextConfig = {
         ignoreDuringBuilds: false,
     },
     swcMinify: true,
-    assetPrefix: process.env.NODE_ENV === 'production' ? '/edlm-portal' : '',
+    assetPrefix: process.env.ENABLE_ASSET_PREFIX === 'true' ? '/edlm-portal' : '',
     trailingSlash: true,
 
     images: {
