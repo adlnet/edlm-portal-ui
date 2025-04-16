@@ -14,9 +14,6 @@ import Stepper from "@/components/Stepper";
 
 export default function LearningPlan() {
 
-  const router = useRouter();
-  const { user } = useAuth();
-
   const interestLists = useInterestLists();
   const ownedLists = useUserOwnedLists();
 
@@ -72,11 +69,6 @@ export default function LearningPlan() {
       }, 2000);
     });
   };
-
-  // Add back 401 and 403 error when we have live data
-  useEffect(() => {
-    if (!user) router.push('/edlm-portal');
-  }, []);
 
   return (
     <DefaultLayout>

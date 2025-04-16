@@ -15,6 +15,7 @@ import {
   useUnauthenticatedUser,
 } from '@/__mocks__/predefinedMocks';
 import MockRouter from 'next-router-mock';
+import RouteProtection from '@/utils/RouteProtection';
 import Subscribed from '@/pages/edlm-portal/learner/lists/subscribed';
 import singletonRouter from 'next/router';
 
@@ -44,7 +45,9 @@ const renderer = () => {
   return render(
     <MemoryRouterProvider>
       <QueryClientWrapper>
-        <Subscribed />
+        <RouteProtection>
+          <Subscribed />
+        </RouteProtection>
       </QueryClientWrapper>
     </MemoryRouterProvider>
   );
@@ -58,10 +61,10 @@ describe('User Subscribed Lists', () => {
     expect(getAllByText('My Subscriptions').length).toBeGreaterThan(0);
   });
 
-  it('should navigate the user to "/" if not authenticated', () => {
+  it('should navigate the user to "/401" if not authenticated', () => {
     useUnauthenticatedUser();
     renderer();
-    expect(singletonRouter).toMatchObject({ asPath: '/' });
+    expect(singletonRouter).toMatchObject({ asPath: '/edlm-portal/401' });
   });
 
   it('should navigate the user to "/401" if the user is not the owner of the list', () => {

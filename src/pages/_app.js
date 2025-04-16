@@ -1,10 +1,11 @@
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import Head from 'next/head'
-import React, { useEffect, useState} from 'react';
+import React, { useState} from 'react';
+import RouteProtection from '@/utils/RouteProtection';
 
 // contexts
-import { AuthProvider } from '@/contexts/AuthContext';
+import { AuthProvider, useAuth } from '@/contexts/AuthContext';
 
 // styles
 import '@/styles/globals.css';
@@ -29,12 +30,14 @@ export default function MyApp({ Component, pageProps }) {
     <AuthProvider>
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps['dehydratedState']}>
-          <Head>
-            <title>EDLM Portal</title>
-            <link rel="icon" href={faviconIcon.src} />
-          </Head>
-          <Component {...pageProps} />
-          <ReactQueryDevtools />
+          <RouteProtection>
+            <Head>
+              <title>EDLM Portal</title>
+              <link rel="icon" href={faviconIcon.src} />
+            </Head>
+            <Component {...pageProps} />
+            <ReactQueryDevtools />
+          </RouteProtection>
         </Hydrate>
       </QueryClientProvider>
     </AuthProvider>

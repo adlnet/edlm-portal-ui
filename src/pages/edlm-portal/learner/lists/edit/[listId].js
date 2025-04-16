@@ -48,9 +48,6 @@ export default function EditList() {
 
 
   useEffect(() => {
-    // no user
-    if (!user) router.push('/edlm-portal');
-
     // if there is a authorization error
     if (initialList?.isError) {
       if( initialList?.error?.response?.status === 401)
