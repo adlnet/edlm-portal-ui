@@ -168,11 +168,11 @@ export default function Course() {
     // Init moodle session on p1, then navigate to the course enrollment
     moodleSession.mutate(null, {
       onSuccess: () => {
-        window.open(data?.url, '_blank');
+        window.open(data?.url, '_blank, noopener, noreferrer');
       },
       onError: () => {
         console.error('Failed to initialize Moodle session, continuing to enrollment');
-        window.open(data?.url, '_blank');
+        window.open(data?.url, '_blank, noopener, noreferrer');
       }
     });
   }, [router.query?.courseId, data?.title, data?.description, user, data?.url, moodleSession]);
@@ -233,14 +233,18 @@ export default function Course() {
         </div>
 
         <div className='justify-end grid max-w-7xl px-4 mx-auto mt-2'>
-          <button
+          <a
             className='min-w-max whitespace-nowrap p-2 text-center text-white hover:shadow-md rounded-xl bg-blue-900 hover:bg-blue-600  font-medium transform transition-all duration-75 ease-in-out focus:ring-2 ring-blue-400 outline-none'
             rel='noopener noreferrer'
+            href={data?.url}
             target='_blank'
-            onClick={handleClick}
+            onClick={(e) => {
+              e.preventDefault();
+              handleClick();
+            }}
           >
             Go to Enrollment
-          </button>
+          </a>
         </div>
 
         {/* Details divider */}
