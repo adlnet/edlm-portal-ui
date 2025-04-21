@@ -13,7 +13,7 @@ import { AcademicCapIcon,
 import { getDeeplyNestedData } from '@/utils/getDeeplyNestedData';
 import { removeHTML } from '@/utils/cleaning';
 import { useAuth } from '@/contexts/AuthContext';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { useConfig } from '@/hooks/useConfig';
 import { useCourse } from '@/hooks/useCourse';
 import { useMoodleSession } from '@/hooks/useMoodleSession';
@@ -165,16 +165,8 @@ export default function Course() {
 
     xAPISendStatement(context);
 
-    // Init moodle session on p1, then navigate to the course enrollment
-    moodleSession.mutate(null, {
-      onSuccess: () => {
-        window.open(data?.url, '_blank, noopener, noreferrer');
-      },
-      onError: () => {
-        console.error('Failed to initialize Moodle session, continuing to enrollment');
-        window.open(data?.url, '_blank, noopener, noreferrer');
-      }
-    });
+    window.open(data?.url, '_blank, noopener, noreferrer');
+
   }, [router.query?.courseId, data?.title, data?.description, user, data?.url, moodleSession]);
 
   const handleRoute = useCallback(() => {
@@ -184,6 +176,23 @@ export default function Course() {
     }
     router?.query?.keyword ? router.push(`/edlm-portal/learner/search/?keyword=${router?.query?.keyword}&p=${router?.query?.p}`) : router.push('/edlm-portal/learner/search'); 
   });
+
+  // Get Moodle session
+  useEffect(() => {
+    // Only get moodle session if the course enroll URL is 
+    // from the Moddle staging environment (current window location hostname)
+    // P1 moodle is at the root
+    if (data?.url && data.url.includes(window.location.hostname)) {
+      moodleSession.mutate(null, {
+        onSuccess: () => {
+          console.log('Moodle session initialized on page load');
+        },
+        onError: (error) => {
+          console.error('Failed to initialize Moodle session on page load');
+        }
+      });
+    }
+  }, [data, moodleSession]);
   
   return (
     <DefaultLayout>
