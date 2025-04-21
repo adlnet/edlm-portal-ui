@@ -16,6 +16,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useCallback, useMemo } from 'react';
 import { useConfig } from '@/hooks/useConfig';
 import { useCourse } from '@/hooks/useCourse';
+import { useMoodleSession } from '@/hooks/useMoodleSession';
 import { useMoreCoursesLikeThis } from '@/hooks/useMoreCoursesLikeThis';
 import { useRouter } from 'next/router';
 import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement';
@@ -72,6 +73,9 @@ export default function Course() {
   // state of the fetching
   const course = useCourse(router.query?.courseId);
   const config = useConfig();
+
+  // For moodle
+  const moodleSession = useMoodleSession();
 
   // prepare the course data
   const data = useMemo(() => {
@@ -140,7 +144,6 @@ export default function Course() {
 
   const handleClick = useCallback(() => {
     if (!user) return;
-    console.count('enrollment button clicked');
 
     const context = {
       actor: {
@@ -161,7 +164,18 @@ export default function Course() {
     };
 
     xAPISendStatement(context);
-  }, [router.query?.courseId, data?.title, data?.description, user]);
+
+    // Init moodle session on p1, then navigate to the course enrollment
+    moodleSession.mutate(null, {
+      onSuccess: () => {
+        window.open(data?.url, '_blank, noopener, noreferrer');
+      },
+      onError: () => {
+        console.error('Failed to initialize Moodle session, continuing to enrollment');
+        window.open(data?.url, '_blank, noopener, noreferrer');
+      }
+    });
+  }, [router.query?.courseId, data?.title, data?.description, user, data?.url, moodleSession]);
 
   const handleRoute = useCallback(() => {
     if(!routeflag){
@@ -221,10 +235,13 @@ export default function Course() {
         <div className='justify-end grid max-w-7xl px-4 mx-auto mt-2'>
           <a
             className='min-w-max whitespace-nowrap p-2 text-center text-white hover:shadow-md rounded-xl bg-blue-900 hover:bg-blue-600  font-medium transform transition-all duration-75 ease-in-out focus:ring-2 ring-blue-400 outline-none'
-            href={data?.url}
             rel='noopener noreferrer'
+            href={data?.url}
             target='_blank'
-            onClick={handleClick}
+            onClick={(e) => {
+              e.preventDefault();
+              handleClick();
+            }}
           >
             Go to Enrollment
           </a>
