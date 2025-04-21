@@ -1,15 +1,16 @@
 'use strict';
 
-import { useAuth } from '@/contexts/AuthContext';
+import { useMoodleSession } from '@/hooks/useMoodleSession';
 import Home from '@/pages/edlm-portal/learner/index';
-import Login from '@/pages/edlm-portal/login';
 
 export default function IntialPage() {
-  const { user } = useAuth();
 
+  // Initialize Moodle session cookie
+  useMoodleSession();
+  
   return (
     <>
-     {user ? <Home /> : <Login />}
+     <Home />
     </>
   );
 }
