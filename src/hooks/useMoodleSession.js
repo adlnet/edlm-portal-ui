@@ -1,7 +1,7 @@
 'use strict'
 
 import { axiosInstance } from '@/config/axiosConfig';
-import { useEffect } from 'react';
+import { useMutation } from 'react-query';
 
 // Check if MoodleSession cookie exists (For moodle P1)
 const hasMoodleSession = () => {
@@ -10,18 +10,24 @@ const hasMoodleSession = () => {
     .some(cookie => cookie.startsWith('MoodleSession='));
 }
 
-// Make an API call if there is no moodle cookie,
-// to nitialize Moodle session cookie without user visit moodle on p1 first
-export function useMoodleSession() {
-  useEffect(() => {
+const initMoodleSession = () => {
     if (!hasMoodleSession()) {
-      axiosInstance.get('/lib/ajax/service.php')
-        .then(() => {
-          console.log('Moodle session cookie initialized.');
-        })
-        .catch((err) => {
-          console.error('Error initializing Moodle session cookie.');
-        });
-    }  
-  }, []);
-};
+      return axiosInstance
+        .get('/lib/ajax/service.php')
+        .then((res) => res.data);
+    }
+    return Promise.resolve({ status: 'Cookie already exists' });
+  };
+
+export function useMoodleSession() {
+    return useMutation(() => initMoodleSession(), {
+      onSuccess: () => {
+        console.log('Moodle session cookie initialized.');
+      },
+      onError: (error) => {
+        console.error('Error initializing Moodle session cookie.');
+      }
+    });
+  }
+
+

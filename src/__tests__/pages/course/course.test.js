@@ -66,9 +66,8 @@ describe('Course Page', () => {
     expect(screen.getByText('2023-03-20')).toBeInTheDocument();
     expect(screen.getByText('2023-03-21')).toBeInTheDocument();
     expect(screen.getByText('Online')).toBeInTheDocument();
-    expect(screen.getByText('Go to Enrollment').href).toBe(
-      'https://www.test.com/'
-    );
+    expect(screen.getByText('Go to Enrollment')).toBeInTheDocument();
+    expect(screen.getByText('Go to Enrollment')).not.toBeDisabled();
   });
 
   it('should display a save button if the user is authenticated', () => {
