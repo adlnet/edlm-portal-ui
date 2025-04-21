@@ -208,7 +208,7 @@ export default function Course() {
         }
       });
     }
-  }, [data, moodleSession]);
+  }, [data?.url]);
   
   return (
     <DefaultLayout>
