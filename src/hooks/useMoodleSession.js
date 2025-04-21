@@ -3,6 +3,8 @@
  import { axiosInstance } from '@/config/axiosConfig';
  import { useMutation } from 'react-query';
  
+ let attempted = false;
+
  // Check if MoodleSession cookie exists (For moodle P1)
  const hasMoodleSession = () => {
    return document.cookie
@@ -11,7 +13,13 @@
  }
  
  const initMoodleSession = () => {
+    if (attempted) {
+        return Promise.resolve({ status: 'Attempt already made' });
+    }
+
      if (!hasMoodleSession()) {
+       attempted = true;
+
        return axiosInstance
          .get('/lib/ajax/service.php')
          .then((res) => res.data);
