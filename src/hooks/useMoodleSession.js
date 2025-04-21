@@ -14,7 +14,20 @@ const initMoodleSession = () => {
     if (!hasMoodleSession()) {
       return axiosInstance
         .get('/lib/ajax/service.php')
-        .then((res) => res.data);
+        .then((res) => {
+            return axiosInstance
+                .get('/my/', { maxRedirects: 0 })
+                .then(() => {
+                    return {
+                        status: 'Moodle Cookie Set Successfully',
+                    };
+                })
+                .catch(() => {
+                    return {
+                        status: 'Cookie Set',
+                    };
+                });
+        });
     }
     return Promise.resolve({ status: 'Cookie already exists' });
   };
