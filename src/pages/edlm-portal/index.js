@@ -14,7 +14,7 @@ export default function IntialPage() {
   useEffect(() => {
     // Get moodle session from the Moddle staging environment
     if (isSessionInit.current) return;
-    if (process.env.NODE_ENV !== 'production') return;
+    if (process.env.ENABLE_ASSET_PREFIX !== 'true') return;
 
     isSessionInit.current = true;
     moodleSession.mutate(null, {
