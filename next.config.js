@@ -13,6 +13,10 @@ const nextConfig = {
         unoptimized: true,
     },
 
+    env: {
+        ENABLE_MOODLE_SESSION_CALL: process.env.ENABLE_ASSET_PREFIX,
+    },
+
     async rewrites() {
         return [
             {
@@ -24,7 +28,7 @@ const nextConfig = {
                 destination: `${process.env.NEXT_PUBLIC_ECCR_API}/api/data/:path`,
             }
         ]
-    }
+    },
 
     // distDir: 'edlm-portal',
     // Adding policies:
