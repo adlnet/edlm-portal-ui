@@ -14,8 +14,10 @@
  
  const initMoodleSession = () => {
     if (attempted || hasMoodleSession()) {
-        console.log('Moodle Session already initialized');
-        return Promise.resolve({ status: 'Attempt already made' });
+        return Promise.resolve({ 
+            status: 'Session already exists',
+            existedSession: true
+        });
     }
 
     attempted = true;
@@ -23,17 +25,25 @@
     return axiosInstance
         .get('/my/', { maxRedirects: 0 })
         .then(() => {
-            console.log('Moodle session initialized');
-            return { status: 'Session initialized' };
+            return { 
+                status: 'Session initialized',
+                existedSession: false
+            };
         })
         .catch(() => {
             if (hasMoodleSession()) {
                 console.log('Moodle session cookie obtained despite error');
-                return { status: 'Cookie obtained' };
+                return { 
+                    status: 'Cookie obtained',
+                    existedSession: true
+                };
             }
             
             console.log('Moodle session validation attempt completed');
-            return { status: 'Attempted' };
+            return { 
+                status: 'Attempted',
+                existedSession: false
+            };
     });
  }
 
@@ -41,8 +51,10 @@
  export function useMoodleSession() {
      return useMutation(() => initMoodleSession(), {
        retry: 0, 
-       onSuccess: () => {
-         console.log('Moodle session cookie initialized.');
+       onSuccess: (res) => {
+        if (!res.existedSession) {
+            console.log('Moodle session cookie initialized.');
+          }
        },
        onError: (error) => {
          console.error('Error initializing Moodle session cookie.');

@@ -74,10 +74,6 @@ export default function Course() {
   const course = useCourse(router.query?.courseId);
   const config = useConfig();
 
-  // For moodle
-  const moodleSession = useMoodleSession();
-  const isSessionInit = useRef(false);
-
   // prepare the course data
   const data = useMemo(() => {
     if (!course.isSuccess || !config.isSuccess) return null;
@@ -168,7 +164,7 @@ export default function Course() {
 
     window.open(data?.url, '_blank, noopener, noreferrer');
 
-  }, [router.query?.courseId, data?.title, data?.description, user, data?.url, moodleSession]);
+  }, [router.query?.courseId, data?.title, data?.description, user, data?.url]);
 
   const handleRoute = useCallback(() => {
     if(!routeflag){
@@ -178,25 +174,6 @@ export default function Course() {
     router?.query?.keyword ? router.push(`/edlm-portal/learner/search/?keyword=${router?.query?.keyword}&p=${router?.query?.p}`) : router.push('/edlm-portal/learner/search'); 
   });
 
-  // Get Moodle session
-  useEffect(() => {
-    // Only get moodle session if the course enroll URL is 
-    // from the Moddle staging environment (current window location hostname)
-    // P1 moodle is at the root
-    if (isSessionInit.current) return;
-    if (data?.url && data.url.includes(window.location.hostname)) {
-      isSessionInit.current = true;
-      moodleSession.mutate(null, {
-        onSuccess: () => {
-          console.log('Moodle session initialized successfully');
-        },
-        onError: (error) => {
-          console.error('Failed to initialize Moodle session on page load');
-        }
-      });
-    }
-  }, [data?.url]);
-  
   return (
     <DefaultLayout>
       {/* content */}
