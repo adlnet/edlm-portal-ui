@@ -1,8 +1,8 @@
 'use strict';
 
 import { render, screen } from '@testing-library/react';
-import RootRedirect from '@/pages/index';
 import { useRouter } from 'next/router';
+import RootRedirect from '@/pages/index';
 
 jest.mock('next/router', () => ({
   useRouter: jest.fn(),
