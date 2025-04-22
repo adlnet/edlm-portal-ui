@@ -13,7 +13,8 @@
  }
  
  const initMoodleSession = () => {
-    if (attempted) {
+    if (attempted || hasMoodleSession()) {
+        console.log('Moodle Session already initialized');
         return Promise.resolve({ status: 'Attempt already made' });
     }
 

@@ -14,7 +14,7 @@ import { axiosInstance } from '@/config/axiosConfig';
 import { getDeeplyNestedData } from '@/utils/getDeeplyNestedData';
 import { removeHTML } from '@/utils/cleaning';
 import { useAuth } from '@/contexts/AuthContext';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useConfig } from '@/hooks/useConfig';
 import { useCourse } from '@/hooks/useCourse';
 import { useMoodleSession } from '@/hooks/useMoodleSession';
@@ -77,7 +77,8 @@ export default function Course() {
 
   // For moodle
   const moodleSession = useMoodleSession();
-  const [isSessionValidated, setIsSessionValidated] = useState(false);
+  const isSessionValidated = useRef(false);
+  const isSessionInit = useRef(false);
 
   // prepare the course data
   const data = useMemo(() => {
@@ -179,26 +180,29 @@ export default function Course() {
     router?.query?.keyword ? router.push(`/edlm-portal/learner/search/?keyword=${router?.query?.keyword}&p=${router?.query?.p}`) : router.push('/edlm-portal/learner/search'); 
   });
 
+  // Validate Moodle session
   const validateMoodleSession = useCallback(() => {
-    if (isSessionValidated) return Promise.resolve();
+    if (isSessionValidated.current) return Promise.resolve();
 
     return axiosInstance.get('/my/', { maxRedirects: 0 })
       .then(() => {
-        console.log('Moodle session validated with /my/');
-        setIsSessionValidated(true);
+        console.log('Moodle session validated');
+        isSessionValidated.current = true;
       })
       .catch((error) => {
         console.log('Moodle session validation attempt completed');
-        setIsSessionValidated(true);
+        isSessionValidated.current = true;
       });
-  }, [isSessionValidated]);
+  }, []);
 
   // Get Moodle session
   useEffect(() => {
     // Only get moodle session if the course enroll URL is 
     // from the Moddle staging environment (current window location hostname)
     // P1 moodle is at the root
+    if (isSessionInit.current) return;
     if (data?.url && data.url.includes(window.location.hostname)) {
+      isSessionInit.current = true;
       moodleSession.mutate(null, {
         onSuccess: () => {
           validateMoodleSession();
