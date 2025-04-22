@@ -16,7 +16,6 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useCallback, useMemo } from 'react';
 import { useConfig } from '@/hooks/useConfig';
 import { useCourse } from '@/hooks/useCourse';
-import { useMoodleSession } from '@/hooks/useMoodleSession';
 import { useMoreCoursesLikeThis } from '@/hooks/useMoreCoursesLikeThis';
 import { useRouter } from 'next/router';
 import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement';
@@ -73,9 +72,6 @@ export default function Course() {
   // state of the fetching
   const course = useCourse(router.query?.courseId);
   const config = useConfig();
-
-  // For moodle
-  const moodleSession = useMoodleSession();
 
   // prepare the course data
   const data = useMemo(() => {
@@ -165,17 +161,9 @@ export default function Course() {
 
     xAPISendStatement(context);
 
-    // Init moodle session on p1, then navigate to the course enrollment
-    moodleSession.mutate(null, {
-      onSuccess: () => {
-        window.open(data?.url, '_blank, noopener, noreferrer');
-      },
-      onError: () => {
-        console.error('Failed to initialize Moodle session, continuing to enrollment');
-        window.open(data?.url, '_blank, noopener, noreferrer');
-      }
-    });
-  }, [router.query?.courseId, data?.title, data?.description, user, data?.url, moodleSession]);
+    window.open(data?.url, '_blank, noopener, noreferrer');
+
+  }, [router.query?.courseId, data?.title, data?.description, user, data?.url]);
 
   const handleRoute = useCallback(() => {
     if(!routeflag){
@@ -184,7 +172,7 @@ export default function Course() {
     }
     router?.query?.keyword ? router.push(`/edlm-portal/learner/search/?keyword=${router?.query?.keyword}&p=${router?.query?.p}`) : router.push('/edlm-portal/learner/search'); 
   });
-  
+
   return (
     <DefaultLayout>
       {/* content */}

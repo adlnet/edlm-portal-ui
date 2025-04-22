@@ -29,6 +29,19 @@ describe('learningPlan', () => {
     expect(screen.getByText('Onboarding Learning Plan')).toBeInTheDocument();
   });
 
+  it('should render the stepper with correct prop', () => {
+    useAuthenticatedUser();
+    renderLearningPlan();
+    expect(screen.getByTestId('mock-stepper')).toBeInTheDocument();
+    expect(screen.getByTestId('mock-stepper')).toHaveTextContent('Stepper: 1');
+  });
+
+  it('should render the learning plan description', () => {
+    useAuthenticatedUser();
+    renderLearningPlan();
+    expect(screen.getByText(/This Learning Plan phase /)).toBeInTheDocument();
+  });
+
   // it('should navigate the user to "/401" if not authenticated', () => {
   //   useUnauthenticatedUser();
   //   renderLearningPlan();
