@@ -18,15 +18,25 @@
         return Promise.resolve({ status: 'Attempt already made' });
     }
 
-     if (!hasMoodleSession()) {
-       attempted = true;
+    attempted = true;
 
-       return axiosInstance
-         .get('/lib/ajax/service.php')
-         .then((res) => res.data);
-     }
-     return Promise.resolve({ status: 'Cookie already exists' });
-   };
+    return axiosInstance
+        .get('/my/', { maxRedirects: 0 })
+        .then(() => {
+            console.log('Moodle session initialized');
+            return { status: 'Session initialized' };
+        })
+        .catch(() => {
+            if (hasMoodleSession()) {
+                console.log('Moodle session cookie obtained despite error');
+                return { status: 'Cookie obtained' };
+            }
+            
+            console.log('Moodle session validation attempt completed');
+            return { status: 'Attempted' };
+    });
+ }
+
  
  export function useMoodleSession() {
      return useMutation(() => initMoodleSession(), {

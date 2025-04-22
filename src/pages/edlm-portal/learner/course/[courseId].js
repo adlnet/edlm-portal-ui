@@ -10,7 +10,6 @@ import { AcademicCapIcon,
         InformationCircleIcon, 
         Square3Stack3DIcon,
         UserIcon } from '@heroicons/react/24/solid';
-import { axiosInstance } from '@/config/axiosConfig';
 import { getDeeplyNestedData } from '@/utils/getDeeplyNestedData';
 import { removeHTML } from '@/utils/cleaning';
 import { useAuth } from '@/contexts/AuthContext';
@@ -77,7 +76,6 @@ export default function Course() {
 
   // For moodle
   const moodleSession = useMoodleSession();
-  const isSessionValidated = useRef(false);
   const isSessionInit = useRef(false);
 
   // prepare the course data
@@ -180,21 +178,6 @@ export default function Course() {
     router?.query?.keyword ? router.push(`/edlm-portal/learner/search/?keyword=${router?.query?.keyword}&p=${router?.query?.p}`) : router.push('/edlm-portal/learner/search'); 
   });
 
-  // Validate Moodle session
-  const validateMoodleSession = useCallback(() => {
-    if (isSessionValidated.current) return Promise.resolve();
-
-    return axiosInstance.get('/my/', { maxRedirects: 0 })
-      .then(() => {
-        console.log('Moodle session validated');
-        isSessionValidated.current = true;
-      })
-      .catch((error) => {
-        console.log('Moodle session validation attempt completed');
-        isSessionValidated.current = true;
-      });
-  }, []);
-
   // Get Moodle session
   useEffect(() => {
     // Only get moodle session if the course enroll URL is 
@@ -205,7 +188,7 @@ export default function Course() {
       isSessionInit.current = true;
       moodleSession.mutate(null, {
         onSuccess: () => {
-          validateMoodleSession();
+          console.log('Moodle session initialized successfully');
         },
         onError: (error) => {
           console.error('Failed to initialize Moodle session on page load');
