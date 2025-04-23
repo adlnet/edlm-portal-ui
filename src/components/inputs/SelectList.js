@@ -37,6 +37,7 @@ export default function SelectList({
       // Remove the key from the selected state, make sure it is an array
       setSelected(Array.isArray(selected) ? selected.filter((item) => item !== key) : []);
     }
+    
   }
 
   const handleMenuButtonClick = (e) => {
@@ -54,13 +55,35 @@ export default function SelectList({
     }
   };
 
-  useEffect(() => {
-    // Add event listener to handle clicks outside the dropdown
-    document.addEventListener('click', handleClickOutOfMenu);
-      
-    return () => document.removeEventListener('click', handleClickOutOfMenu);
-  }, [handleClickOutOfMenu]);
+  const handleEscapeKey = e => {
+    // Close the dropdown if user presses the escape key
+    if (e.key === 'Escape' && isOpen) {
+      e.preventDefault();
+      setIsOpen(false);
+      onChange({ target: { name: options.field_name, value: selected } });
+    }
+  };
 
+  useEffect(() => {
+    // Add event listener to handle clicks outside the dropdown, and escape key
+    document.addEventListener('click', handleClickOutOfMenu);
+    document.addEventListener('keydown', handleEscapeKey);
+    
+    return () => {
+      document.removeEventListener('click', handleClickOutOfMenu);
+      document.removeEventListener('keydown', handleEscapeKey);
+    }
+  }, [handleClickOutOfMenu, handleEscapeKey]);
+
+  const handleKeyDown = e => {
+    // Open dropdown when arrow down is pressed
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (!isOpen) {
+        setIsOpen(true);
+      }
+    }
+  };
 
   return (
     <div ref={dropDownRef} className='relative inline-block text-left mt-0.5'>
@@ -72,6 +95,7 @@ export default function SelectList({
             title={`${keyName} filter`}
             className='dropdown-button h-[37x] flex items-center justify-center py-1.5 px-2.5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700'
             type="button"
+            onKeyDown={handleKeyDown}
             onClick={handleMenuButtonClick}
           >
             <div className='whitespace-nowrap'>{keyName}</div>

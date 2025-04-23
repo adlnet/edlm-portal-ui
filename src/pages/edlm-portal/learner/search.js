@@ -28,6 +28,8 @@ export default function Search() {
   const tabs = ['Courses', 'Competencies'];
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
 
+  const [showPopover, setShowPopover] = useState(true);
+
   useEffect(() => {
     if (router?.query) {
       unstable_batchedUpdates(() => {
@@ -36,6 +38,15 @@ export default function Search() {
       });
     }
   }, [router.query]);
+
+  useEffect(() => {
+    // Set a timeout to hide the popover after 2 seconds
+    const timer = setTimeout(() => {
+      setShowPopover(false);
+    }, 2000);
+    
+    return () => clearTimeout(timer);
+  }, []); 
 
   function handleChange(event) {
     setParams((previous) => ({
@@ -147,7 +158,8 @@ export default function Search() {
           <div className='flex flex-col md:flex-row -mb-1 max-w-min sticky top-0 z-10 bg-white pb-2'>
             <Popover
                 trigger='hover'
-                initialOpen='true'
+                open={showPopover}
+                onOpenChange={(isOpen) => setShowPopover(isOpen)}
                 content={
                   <div className="w-64 text-sm text-gray-500 rounded-lg dark:text-gray-400">
                     <div className="border-b border-gray-200 bg-blue-700 px-3 py-2 dark:border-gray-600 dark:bg-gray-700">
