@@ -84,7 +84,8 @@ export default function StaticSideNav() {
                                         href={process.env.NEXT_PUBLIC_MOODLE_LEADER_REPORT_URL}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="text-nowrap" 
+                                        className="text-nowrap"
+                                        onKeyDown={e => e.key === 'Enter' && handleSidebarClick(btn, path)} 
                                         tabIndex={0}
                                     >
                                         {renderDropdownBtn('leadersReport', null, "Leader's Report")}
