@@ -81,6 +81,8 @@ const nextConfig = {
                                 // "http://localhost:3000/",
                                 // "http://localhost:8100/",
                                 "https://fonts.googleapis.com",
+                                "'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU='",
+                                "'sha256-Z5XTK23DFuEMs0PwnyZDO9SWxemQ5HxcpVaBNuUJyWY='",
                                 // "'unsafe-inline'"
                             ],
                             imgSrc: ["'self'",
