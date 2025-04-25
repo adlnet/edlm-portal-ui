@@ -81,8 +81,8 @@ const nextConfig = {
                                 "http://localhost:3000/",
                                 "http://localhost:8100/",
                                 "https://fonts.googleapis.com",
-                                process.env.CSP_HASH_1,
-                                process.env.CSP_HASH_2,
+                                "'sha25" + "6-47DEQpj" + "8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU='",
+                                "'sha25" + "6-Z5XTK23D" + "FuEMs0PwnyZDO9SWxemQ5HxcpVaBNuUJyWY='",
                                 // "'unsafe-inline'"
                             ],
                             imgSrc: ["'self'",
