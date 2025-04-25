@@ -68,6 +68,7 @@ const nextConfig = {
                                 "https://dote.staging.dso.mil/edlm-portal/",
                                 "https://fonts.googleapis.com",
                                 "http://localhost:3000/",
+                                "http://localhost:8100/",
                                 "'unsafe-eval'",
 
                             ],
@@ -79,6 +80,7 @@ const nextConfig = {
                                 "https://dote.apps.dso.mil/",
                                 "https://dote.apps.dso.mil/ecc-openlxp-xms-ui/",
                                 "http://localhost:3000/",
+                                "http://localhost:8100/",
                                 "https://fonts.googleapis.com",
                                 "'unsafe-inline'"
                             ],
