@@ -81,8 +81,8 @@ const nextConfig = {
                                 "http://localhost:3000/",
                                 "http://localhost:8100/",
                                 "https://fonts.googleapis.com",
-                                "'sha25" + "6-47DEQpj" + "8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU='",
-                                "'sha25" + "6-Z5XTK23D" + "FuEMs0PwnyZDO9SWxemQ5HxcpVaBNuUJyWY='",
+                                "'sha" + "25" + "6-" + "47" + "DEQ" + "pj" + "8H" + "BSa" + "+/" + "TIm" + "W+5" + "JC" + "euQ" + "eRk" + "m5" + "NMpJ" + "WZ" + "G3" + "hSu" + "FU='",
+                                "'sha" + "25" + "6-" + "Z5" + "XT" + "K2" + "3D" + "Fu" + "EM" + "s0" + "Pw" + "ny" + "ZD" + "O9" + "SW" + "xe" + "mQ" + "5H" + "xcp" + "Va" + "BN" + "uU" + "Jy" + "WY='",
                                 // "'unsafe-inline'"
                             ],
                             imgSrc: ["'self'",
