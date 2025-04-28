@@ -108,7 +108,7 @@ export default function SearchCourses( { params, setParams, handleCompetencyTag 
                           ]}
                           mobileBreakpoint={670}
                       >
-                  {spotlight && spotlight.data?.map((course) => {
+                  {spotlight && Array.isArray(spotlight?.data) && spotlight?.data?.map((course) => {
                       return(
                           <Carousel.Item key={course.meta.id}>
                             <div className='flex justify-center w-full overflow-x-hidden mr-4'>
