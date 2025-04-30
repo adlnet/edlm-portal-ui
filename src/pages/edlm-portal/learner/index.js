@@ -30,6 +30,8 @@ export default function Home() {
 
   const [lunchNLearn, setLunchNLearn] = useState(null);
 
+  const moodleAllCourses = process.env.NEXT_PUBLIC_MOODLE_ALL_COURSES;
+
   // Searching for launch and learn plans
   useEffect(() => {
     const lunchNLearnList = 
@@ -178,7 +180,7 @@ export default function Home() {
                 <CollectionTable data={mockInProgressCourses} edit={false} columns={columns} rowsPerPage={5}/>
               </div>
               <div className="flex justify-end -mt-4">
-                <Button className="m-4 bg-white-900 text-blue-800 text-sm hover:bg-blue-600" onClick={() => window.location.href = 'https://moodle-dote.deloitteopenlxp.com/my/courses.php'}>
+                <Button className="m-4 bg-white-900 text-blue-800 text-sm hover:bg-blue-600" onClick={() => router.push(moodleAllCourses)}>
                     View more
                 </Button>
               </div>
