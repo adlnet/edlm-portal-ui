@@ -13,10 +13,6 @@ const nextConfig = {
         unoptimized: true,
     },
 
-    env: {
-        ENABLE_MOODLE_SESSION_CALL: process.env.ENABLE_ASSET_PREFIX,
-    },
-
     async rewrites() {
         return [
             {

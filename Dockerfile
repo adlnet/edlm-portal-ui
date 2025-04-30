@@ -18,6 +18,7 @@ USER root
 WORKDIR /app
 
 ENV NODE_ENV=production
+ENV NEXT_PUBLIC_ENABLE_MOODLE_SESSION_CALL=true
 
 # RUN addgroup -g 1001 -S nodejs
 
