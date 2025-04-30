@@ -33,25 +33,8 @@ const nextConfig = {
     // distDir: 'edlm-portal',
     // Adding policies:
     async headers() {
-        const cacheControlHeaders = [
-            {
-                key: 'Cache-Control',
-                value: 'no-store, no-cache, must-revalidate',
-            },
-            {
-                key: 'Pragma',
-                value: 'no-cache',
-            }
-        ];
         return [
-            {
-                source: '/edlm-portal/login',
-                headers: cacheControlHeaders,
-            },
-            {
-                source: '/edlm-portal/register',
-                headers: cacheControlHeaders,
-            },
+
             {
                 source: '/(.*)',
                 headers: createSecureHeaders({
