@@ -1,12 +1,12 @@
 'use strict';
 
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
+import { isInputSafe, preventNullChar, preventSpecialChars } from '@/utils/charsValidation';
 
 export default function SearchBar({ parameters, onChange, onClick, placeholder = 'Search for Learning Content' }) {
   const checkSpecialChar = (e) => {
-    if(/[<>/?+={};#$%&*()`~\\]/.test(e.key)){
-     e.preventDefault();
-    }
+    preventNullChar(e);
+    preventSpecialChars(e);
   };
 
   return (
@@ -14,6 +14,10 @@ export default function SearchBar({ parameters, onChange, onClick, placeholder =
       id='search-courses'
       onSubmit={(event) => {
         event.preventDefault();
+        if (!isInputSafe(parameters.keyword)) {
+          console.error('Invalid characters detected');
+          return;
+        }
         if (onClick) onClick(event);
       }}
 
@@ -31,7 +35,7 @@ export default function SearchBar({ parameters, onChange, onClick, placeholder =
         autoComplete='off'
         placeholder={placeholder}
         maxLength="128"
-        onKeyPress={(e)=>checkSpecialChar(e)}
+        onKeyDown={(e)=>checkSpecialChar(e)}
       />
         <button
           title='Search'
