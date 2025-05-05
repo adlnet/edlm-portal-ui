@@ -29,7 +29,7 @@ export default function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <meta httpEquiv="Content-Security-Policy" content="script-src 'self' https://dote.staging.dso.mil https://dote.staging.dso.mil/ https://dote.staging.dso.mil/edlm-portal/ ; img-src 'self' data: https: https://dote.staging.dso.mil https://dote.staging.dso.mil/edlm-portal ; "/>
+        <meta httpEquiv="Content-Security-Policy" content="script-src 'self' https://dote.staging.dso.mil https://dote.staging.dso.mil/ https://dote.staging.dso.mil/edlm-portal/ ; img-src 'self' data: https: https://dote.staging.dso.mil https://dote.staging.dso.mil/edlm-portal/ ; "/>
         <title>EDLM Portal</title>
         <link rel="icon" href= {icon.src} />
       </Head>
