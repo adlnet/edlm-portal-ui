@@ -29,4 +29,3 @@ describe('RootRedirect component', () => {
     expect(screen.getByText('Redirecting to EDLM Portal')).toBeInTheDocument();
   });
 });
-
