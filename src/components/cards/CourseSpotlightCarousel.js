@@ -1,6 +1,5 @@
 // 'use strict';
 
-import {Button, Card} from 'flowbite-react';
 import { getDeeplyNestedData } from '@/utils/getDeeplyNestedData';
 import { removeHTML } from '@/utils/cleaning';
 import { useAuth } from '@/contexts/AuthContext';
@@ -18,11 +17,11 @@ export default function CourseSpotlight({ course }) {
   const { user } = useAuth();
 
   const title = useMemo(() => {
-    return (getDeeplyNestedData(config.data?.course_information?.course_title, course));
+    return removeHTML(getDeeplyNestedData(config.data?.course_information?.course_title, course));
   }, [config.isSuccess, config.data]);
 
   const description = useMemo(() => {
-    return (getDeeplyNestedData(config.data?.course_information?.course_description, course));
+    return removeHTML(getDeeplyNestedData(config.data?.course_information?.course_description, course));
   }, [config.isSuccess, config.data]);
 
   const handleClick = useCallback(
