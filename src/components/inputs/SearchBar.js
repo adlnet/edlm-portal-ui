@@ -1,12 +1,13 @@
 'use strict';
 
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
-import { isInputSafe, preventNullChar, preventSpecialChars } from '@/utils/charsValidation';
+import { isInputSafe, preventNullChar, preventSearchSpecialChars } from '@/utils/charsValidation';
 
 export default function SearchBar({ parameters, onChange, onClick, placeholder = 'Search for Learning Content' }) {
+
   const checkSpecialChar = (e) => {
     preventNullChar(e);
-    preventSpecialChars(e);
+    preventSearchSpecialChars(e);
   };
 
   return (
@@ -18,6 +19,7 @@ export default function SearchBar({ parameters, onChange, onClick, placeholder =
           console.error('Invalid characters detected');
           return;
         }
+
         if (onClick) onClick(event);
       }}
 
