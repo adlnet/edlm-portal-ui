@@ -177,7 +177,7 @@ export default function Register() {
         register(res.data);
       })
       .catch((err) => {
-        console.log(err);
+        console.log('Register error');
       })
       .finally(() => {
         setLoading(false);

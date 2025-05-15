@@ -22,7 +22,7 @@ class XAPIMapper {
   }
 
   sendStatement = ({ statement }) => {
-    return this.xapiInstance?.sendStatement({ statement }).catch((err) => console.error(err));
+    return this.xapiInstance?.sendStatement({ statement }).catch((err) => console.error('Error sending statement'));
   }
 }
 
