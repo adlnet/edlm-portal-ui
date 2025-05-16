@@ -5,6 +5,11 @@ import XAPI from "@xapi/xapi";
 
 let xapiInstance = null;
 
+// Checking if env set correctly
+console.log('Endpoint:', process.env.NEXT_PUBLIC_XAPI_LRS_ENDPOINT);
+console.log('Key', !!process.env.NEXT_PUBLIC_XAPI_LRS_KEY);
+console.log('Secret', !!process.env.NEXT_PUBLIC_XAPI_LRS_SECRET);
+
 class XAPIMapper {
 
   constructor() {
@@ -22,7 +27,7 @@ class XAPIMapper {
   }
 
   sendStatement = ({ statement }) => {
-    return this.xapiInstance?.sendStatement({ statement }).catch((err) => console.error('Error sending statement'));
+    return this.xapiInstance?.sendStatement({ statement }).catch((err) => console.error('Error sending statement', err));
   }
 }
 
