@@ -7,8 +7,8 @@ let xapiInstance = null;
 
 // Checking if env set correctly
 console.log('Endpoint:', process.env.NEXT_PUBLIC_XAPI_LRS_ENDPOINT);
-console.log('Key', !!process.env.NEXT_PUBLIC_XAPI_LRS_KEY);
-console.log('Secret', !!process.env.NEXT_PUBLIC_XAPI_LRS_SECRET);
+console.log('KeyLog', !!process.env.NEXT_PUBLIC_XAPI_LRS_KEY);
+console.log('log', !!process.env.NEXT_PUBLIC_XAPI_LRS_SECRET);
 
 class XAPIMapper {
 
