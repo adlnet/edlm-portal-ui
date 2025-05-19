@@ -5,10 +5,6 @@ import XAPI from "@xapi/xapi";
 
 let xapiInstance = null;
 
-// Checking if env set correctly
-console.log('Endpoint:', process.env.NEXT_PUBLIC_XAPI_LRS_ENDPOINT);
-console.log('KeyLog', !!process.env.NEXT_PUBLIC_XAPI_LRS_KEY);
-
 class XAPIMapper {
 
   constructor() {
