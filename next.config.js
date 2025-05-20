@@ -1,6 +1,6 @@
 const { createSecureHeaders } = require("next-secure-headers");
 
-console.log('Check lrs key config:', !!process.env.NEXT_PUBLIC_XAPI_LRS_KEY);
+console.log('Check lrskey config:', !!process.env.NEXT_PUBLIC_XAPI_LRS_KEY);
 
 const nextConfig = {
     reactStrictMode: true,
