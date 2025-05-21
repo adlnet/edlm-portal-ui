@@ -3,11 +3,6 @@
 import { endpoint, key, secret } from '@/config/xAPIConfig';
 import XAPI from "@xapi/xapi";
 
-// jsut for debugging
-console.log('Lrs key:', key ? 'Available' : 'MISSING');
-console.log(key);
-console.log('Check lrskey:', !!process.env.NEXT_PUBLIC_XAPI_LRS_KEY);
-
 let xapiInstance = null;
 
 class XAPIMapper {

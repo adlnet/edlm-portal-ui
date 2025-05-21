@@ -1,7 +1,5 @@
 const { createSecureHeaders } = require("next-secure-headers");
 
-console.log('Check lrskey config:', !!process.env.NEXT_PUBLIC_XAPI_LRS_KEY);
-
 const nextConfig = {
     reactStrictMode: true,
     eslint: {
@@ -16,8 +14,6 @@ const nextConfig = {
     },
 
     env: {
-        NEXT_PUBLIC_XAPI_LRS_KEY: process.env.NEXT_PUBLIC_XAPI_LRS_KEY,
-        NEXT_PUBLIC_XAPI_LRS_SECRET: process.env.NEXT_PUBLIC_XAPI_LRS_SECRET,
         ENABLE_MOODLE_SESSION_CALL: process.env.ENABLE_ASSET_PREFIX,
     },
 
