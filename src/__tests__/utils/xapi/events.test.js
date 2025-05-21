@@ -63,7 +63,7 @@ describe('xAPI Actions', () => {
       object: {
         id: 'https://fakeorigin.com/lists/list123',
         definition: {
-          type: 'http://id.tincanapi.com/activitytype/playlist',
+          type: 'https://id.tincanapi.com/activitytype/playlist',
           name: {
             en: 'Test List',
           },
@@ -93,7 +93,7 @@ describe('xAPI Actions', () => {
     expect(sendStatement).toHaveBeenCalledTimes(1);
     expect(sendStatement).toHaveBeenCalledWith({
       verb: {
-        id: 'http://adlnet.gov/expapi/verbs/shared',
+        id: 'https://adlnet.gov/expapi/verbs/shared',
         display: {
           en: 'Shared',
         },
@@ -124,7 +124,7 @@ describe('xAPI Actions', () => {
     expect(sendStatement).toHaveBeenCalledTimes(1);
     expect(sendStatement).toHaveBeenCalledWith({
       verb: {
-        id: 'http://activitystrea.ms/save',
+        id: 'https://activitystrea.ms/save',
         display: {
           en: 'Saved',
         },
@@ -197,7 +197,7 @@ describe('xAPI Actions', () => {
     expect(sendStatement).toHaveBeenCalledTimes(1);
     expect(sendStatement).toHaveBeenCalledWith({
       verb: {
-        id: 'http://id.tincanapi.com/verb/viewed',
+        id: 'https://id.tincanapi.com/verb/viewed',
         display: {
           en: 'Viewed',
         },

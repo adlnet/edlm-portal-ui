@@ -48,7 +48,7 @@ export function searched(keyword) {
 export function saved(name, keyword) {
   sendStatement({
     verb: {
-      id: 'http://activitystrea.ms/save',
+      id: 'https://activitystrea.ms/save',
       display: {
         en: 'Saved',
       },
@@ -76,7 +76,7 @@ export function curated(listId, listName, listDescription) {
     },
     object: xapiObject(
       `${window.location.origin}/lists/${listId}`,
-      'http://id.tincanapi.com/activitytype/playlist',
+      'https://id.tincanapi.com/activitytype/playlist',
       'en',
       listName,
       listDescription
@@ -94,7 +94,7 @@ export function curated(listId, listName, listDescription) {
 export function shared(courseId, courseUrl, courseTitle, courseDescription) {
   sendStatement({
     verb: {
-      id: 'http://adlnet.gov/expapi/verbs/shared',
+      id: 'https://adlnet.gov/expapi/verbs/shared',
       display: {
         en: 'Shared',
       },
@@ -121,7 +121,7 @@ export function explored(courseId, courseUrl, courseTitle, courseDescription) {
 export function viewed(courseId, courseUrl, courseTitle, courseDescription) {
   sendStatement({
     verb: {
-      id: 'http://id.tincanapi.com/verb/viewed',
+      id: 'https://id.tincanapi.com/verb/viewed',
       display: {
         en: 'Viewed',
       },

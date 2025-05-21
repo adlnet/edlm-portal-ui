@@ -16,9 +16,6 @@ import XMarkMessageToast from '@/components/cards/XMarkMessageToast';
 export default function SearchLists() {
   const router = useRouter();
 
-  // Get the user's auth context
-  const { user } = useAuth();
-
   // get lists from server
   const interestLists = useInterestLists();
   const subscribedLists = useSubscribedLists();
