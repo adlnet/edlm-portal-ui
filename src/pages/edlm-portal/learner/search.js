@@ -1,12 +1,12 @@
 'use strict';
 import { Popover } from "flowbite-react";
+import { searched } from '@/utils/xapi/events';
 import { unstable_batchedUpdates } from 'react-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { useCallback, useEffect, useState } from 'react';
 import { useCompetencySearch} from '@/hooks/useCompetencySearch';
 import { useCourseSearch} from '@/hooks/useCourseSearch';
 import { useRouter } from 'next/dist/client/router';
-import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement'; 
 import CreateSavedSearchModal from '@/components/modals/CreateSavedSearch';
 import DefaultLayout from '@/components/layouts/DefaultLayout';
 import SearchBar from '@/components/inputs/SearchBar';
@@ -14,7 +14,6 @@ import SearchCompetencies from '@/components/SearchCompetencies';
 import SearchCourses from '@/components/SearchCourses';
 import SelectList from '@/components/inputs/SelectList';
 import TabBar from '@/components/buttons/TabBar';
-
 
 export default function Search() {
 
@@ -84,23 +83,7 @@ export default function Search() {
         setUrl(modified);
       });
 
-      const context = {
-        actor: {
-          first_name: user?.user?.first_name,
-          last_name: user?.user?.last_name,
-        },
-        verb: {
-          id: 'https://w3id.org/xapi/acrossx/verbs/searched',
-          display: 'searched',
-        },
-        object: {
-          definitionName: 'DOT&E Search Capability',
-        },
-        resultExtName: 'https://w3id.org/xapi/ecc/result/extensions/searchTerm',
-        resultExtValue: modified.keyword,
-      };
-
-      xAPISendStatement(context);
+      searched(modified.keyword);
 
       router.push({ pathname: '/edlm-portal/learner/search', query: modified });
     },
