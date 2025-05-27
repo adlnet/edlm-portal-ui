@@ -7,7 +7,6 @@ import { useCallback, useMemo } from 'react';
 import { useConfig } from '@/hooks/useConfig';
 import { useMoreCoursesLikeThis } from '@/hooks/useMoreCoursesLikeThis';
 import {useRouter} from 'next/router';
-import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement';
 import ContentLoadingAnimate from '@/utils/ContentLoadingAnimate';
 import Link from 'next/link';
 
@@ -36,24 +35,6 @@ export default function MoreLikeThis({ course }) {
       if (!user)
         return router.push(`/edlm-portal/learner/course/${meta.metadata_key_hash || meta.id}`);
 
-      const context = {
-        actor: {
-          first_name: user?.user?.first_name,
-          last_name: user?.user?.last_name,
-        },
-        verb: {
-          id: 'https://w3id.org/xapi/tla/verbs/explored',
-          display: 'explored',
-        },
-        object: {
-          id: `${window.origin}/edlm-portal/learner/course/${meta.id}`,
-          definitionName: title || Course.CourseTitle,
-          description: Course.CourseShortDescription,
-        },
-        resultExtName: 'https://w3id.org/xapi/ecc/result/extensions/CourseId',
-        resultExtValue: meta.metadata_key_hash || meta.id,
-      };
-      xAPISendStatement(context);
       router.push('/edlm-portal/learner/course/' + (meta.metadata_key_hash || meta.id));
     },
     [Course, meta, user]

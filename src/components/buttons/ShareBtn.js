@@ -3,10 +3,16 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { DocumentDuplicateIcon, ShareIcon } from '@heroicons/react/24/outline';
 import { Fragment, useCallback, useState } from 'react';
+import { shared } from '@/utils/xapi/events';
 import { useAuth } from '@/contexts/AuthContext';
-import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement';
 
-export default function ShareButton({ id, courseTitle, courseDescription }) {
+export default function ShareButton({
+  id,
+  courseUrl,
+  courseTitle,
+  courseDescription,
+}) {
+
   const { user } = useAuth();
 
   // handle the copy to clipboard action
@@ -15,31 +21,13 @@ export default function ShareButton({ id, courseTitle, courseDescription }) {
   };
 
   const handleClick = useCallback(() => {
-    if (!user) return;
-    console.count('share button clicked');
 
-    const context = {
-      actor: {
-        first_name: user?.user?.first_name || 'anonymous',
-        last_name: user?.user?.last_name || 'user',
-      },
-      verb: {
-        id: 'https://w3id.org/xapi/tla/verbs/socialized',
-        display: 'socialized',
-      },
-      object: {
-        definitionName: courseTitle,
-        description: courseDescription,
-        id: `${window.origin}/edlm-portal/learner/course/${id}`,
-      },
-      resultExtName: 'https://w3id.org/xapi/ecc/result/extensions/CourseId',
-      resultExtValue: id,
-    };
+    console.count('share button clicked');
 
     handleCopy();
     openModal();
-    xAPISendStatement(context);
-  }, [id, courseTitle, courseDescription, user]);
+    shared(id, courseUrl, courseTitle, courseDescription);
+  }, [id, courseUrl, courseTitle, courseDescription, user]);
 
   // modal states
   let [isOpen, setIsOpen] = useState(false);

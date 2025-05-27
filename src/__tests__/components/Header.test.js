@@ -1,5 +1,6 @@
 import { render } from '@testing-library/react';
 import { useAuth } from '@/contexts/AuthContext';
+import { useMockConfig } from '@/__mocks__/predefinedMocks';
 import Header from '@/components/Header';
 import mockRouter from 'next-router-mock';
 
@@ -10,6 +11,7 @@ jest.mock('@/contexts/AuthContext', () => ({
 }));
 beforeEach(() => {
   mockRouter.setCurrentUrl('/edlm-portal');
+  useMockConfig();
 });
 
 // This is all you need:
