@@ -3,10 +3,10 @@ import { sendStatement, xapiObject } from '@/utils/xapi';
 // helpers
 function searchObject(keyword) {
   return xapiObject(
-    `${window.location.origin}/search?keyword=${keyword}`,
+    `${window.location.origin}/edlm-portal/learner/search/?keyword=${keyword}`,
     'https://w3id.org/xapi/acrossx/activities/webpage',
     'en',
-    `ECC Search: ${keyword}`
+    `DOT&E Search: ${keyword}`
   );
 }
 
@@ -48,7 +48,7 @@ export function searched(keyword) {
 export function saved(name, keyword) {
   sendStatement({
     verb: {
-      id: 'https://activitystrea.ms/save',
+      id: 'http://activitystrea.ms/save',
       display: {
         en: 'Saved',
       },
@@ -76,7 +76,7 @@ export function curated(listId, listName, listDescription) {
     },
     object: xapiObject(
       `${window.location.origin}/lists/${listId}`,
-      'https://id.tincanapi.com/activitytype/playlist',
+      'http://id.tincanapi.com/activitytype/playlist',
       'en',
       listName,
       listDescription
@@ -94,7 +94,7 @@ export function curated(listId, listName, listDescription) {
 export function shared(courseId, courseUrl, courseTitle, courseDescription) {
   sendStatement({
     verb: {
-      id: 'https://adlnet.gov/expapi/verbs/shared',
+      id: 'http://adlnet.gov/expapi/verbs/shared',
       display: {
         en: 'Shared',
       },
@@ -121,7 +121,7 @@ export function explored(courseId, courseUrl, courseTitle, courseDescription) {
 export function viewed(courseId, courseUrl, courseTitle, courseDescription) {
   sendStatement({
     verb: {
-      id: 'https://id.tincanapi.com/verb/viewed',
+      id: 'http://id.tincanapi.com/verb/viewed',
       display: {
         en: 'Viewed',
       },
