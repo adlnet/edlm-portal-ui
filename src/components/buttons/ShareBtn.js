@@ -3,7 +3,6 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { DocumentDuplicateIcon, ShareIcon } from '@heroicons/react/24/outline';
 import { Fragment, useCallback, useState } from 'react';
-import { shared } from '@/utils/xapi/events';
 import { useAuth } from '@/contexts/AuthContext';
 
 export default function ShareButton({
@@ -26,7 +25,7 @@ export default function ShareButton({
 
     handleCopy();
     openModal();
-    shared(id, courseUrl, courseTitle, courseDescription);
+
   }, [id, courseUrl, courseTitle, courseDescription, user]);
 
   // modal states

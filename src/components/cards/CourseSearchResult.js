@@ -1,7 +1,7 @@
 'use strict';
+import { explored } from '@/utils/xapi/events';
 import { getDeeplyNestedData } from '@/utils/getDeeplyNestedData';
 import { removeHTML } from '@/utils/cleaning';
-import { searched } from '@/utils/xapi/events';
 import { useAuth } from '@/contexts/AuthContext';
 import { useCallback, useMemo } from 'react';
 import { useConfig } from '@/hooks/useConfig';
@@ -72,7 +72,12 @@ export default function SearchResult({ result, handleCompetencyTag}) {
 
   const handleClick = useCallback(() => {
 
-    searched(router.query.keyword);
+    explored(
+      result.meta.id,
+      `${window.location.origin}/edlm-portal/learner/course/${result.meta.id}`,
+      title,
+      `${removeHTML(getDeeplyNestedData(config.data?.course_information?.course_description, result))}`,
+    );
 
     router.push({
       pathname: `/edlm-portal/learner/course/${result.meta.id}`,

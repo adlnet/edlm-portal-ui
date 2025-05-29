@@ -90,7 +90,7 @@ export function curated(listId, listName, listDescription) {
   });
 }
 
-// when a user shares the ECC course page
+// when a user shares the DOT&E PORTAL course page
 export function shared(courseId, courseUrl, courseTitle, courseDescription) {
   sendStatement({
     verb: {
@@ -103,7 +103,7 @@ export function shared(courseId, courseUrl, courseTitle, courseDescription) {
   });
 }
 
-// when a user views a course on the ECC
+// when a user views a course on the DOT&E PORTAL
 // TODO: Every course NEEDS to have an IRI
 export function explored(courseId, courseUrl, courseTitle, courseDescription) {
   sendStatement({

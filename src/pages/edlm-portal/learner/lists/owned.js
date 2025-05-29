@@ -1,7 +1,7 @@
 'use strict';
 
 import { Pagination } from '@/components/buttons/Pagination';
-import { useAuth } from '@/contexts/AuthContext';
+import { shared } from '@/utils/xapi/events';
 import { useDeleteMyCollection } from '@/hooks/useDeleteMyCollection';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
@@ -47,7 +47,26 @@ export default function Owned() {
   ];
 
   const handleShare = id => {
-    navigator.clipboard.writeText(`${window.origin}/edlm-portal/learner/lists/${id}`)
+
+    // Getting ready for xapi event
+    const shareUrl = `${window.origin}/edlm-portal/learner/lists/${id}`;
+    
+    const listData = data.find(list => list.id === id);
+
+    if (listData) {
+
+      const title = listData.name;
+      const description = listData.description || 'No description provided.';
+
+      shared(
+        id,
+        shareUrl,
+        title,
+        description
+      );
+    }
+
+    navigator.clipboard.writeText(shareUrl)
     .then(() => {
       setCopy('Copied Successfully!');
       setTimeout(() => {
