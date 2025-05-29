@@ -31,11 +31,11 @@ describe('xAPI Actions', () => {
         },
       },
       object: {
-        id: 'https://fakeorigin.com/search?keyword=someKeyword',
+        id: 'https://fakeorigin.com/edlm-portal/learner/search/?keyword=someKeyword',
         definition: {
           type: 'https://w3id.org/xapi/acrossx/activities/webpage',
           name: {
-            en: 'ECC Search: someKeyword',
+            en: 'DOT&E Search: someKeyword',
           },
         },
         objectType: 'Activity',
@@ -63,7 +63,7 @@ describe('xAPI Actions', () => {
       object: {
         id: 'https://fakeorigin.com/lists/list123',
         definition: {
-          type: 'https://id.tincanapi.com/activitytype/playlist',
+          type: 'http://id.tincanapi.com/activitytype/playlist',
           name: {
             en: 'Test List',
           },
@@ -93,7 +93,7 @@ describe('xAPI Actions', () => {
     expect(sendStatement).toHaveBeenCalledTimes(1);
     expect(sendStatement).toHaveBeenCalledWith({
       verb: {
-        id: 'https://adlnet.gov/expapi/verbs/shared',
+        id: 'http://adlnet.gov/expapi/verbs/shared',
         display: {
           en: 'Shared',
         },
@@ -124,17 +124,17 @@ describe('xAPI Actions', () => {
     expect(sendStatement).toHaveBeenCalledTimes(1);
     expect(sendStatement).toHaveBeenCalledWith({
       verb: {
-        id: 'https://activitystrea.ms/save',
+        id: 'http://activitystrea.ms/save',
         display: {
           en: 'Saved',
         },
       },
       object: {
-        id: 'https://fakeorigin.com/search?keyword=keyword123',
+        id: 'https://fakeorigin.com/edlm-portal/learner/search/?keyword=keyword123',
         definition: {
           type: 'https://w3id.org/xapi/acrossx/activities/webpage',
           name: {
-            en: 'ECC Search: keyword123',
+            en: 'DOT&E Search: keyword123',
           },
         },
         objectType: 'Activity',
@@ -197,7 +197,7 @@ describe('xAPI Actions', () => {
     expect(sendStatement).toHaveBeenCalledTimes(1);
     expect(sendStatement).toHaveBeenCalledWith({
       verb: {
-        id: 'https://id.tincanapi.com/verb/viewed',
+        id: 'http://id.tincanapi.com/verb/viewed',
         display: {
           en: 'Viewed',
         },
