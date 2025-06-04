@@ -1,15 +1,11 @@
-import { act, fireEvent, render, screen } from '@testing-library/react';
-import SaveModal from '@/components/modals/SaveModal';
-
-import { Container } from 'postcss';
 import { QueryClientWrapper } from '@/__mocks__/queryClientMock';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useCreateUserList } from '@/hooks/useCreateUserList';
 import { useUpdateUserList } from '@/hooks/useUpdateUserList';
 import { useUserOwnedLists } from '@/hooks/useUserOwnedLists.js';
-import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement';
+import SaveModal from '@/components/modals/SaveModal';
 import userListData from '@/__mocks__/data/userLists.data';
-import xAPIMapper from '@/utils/xapi/xAPIMapper';
 
 jest.mock('@/hooks/useUpdateUserList', () => ({
   useUpdateUserList: jest.fn(),
@@ -208,32 +204,6 @@ describe('Save Modal', () => {
 
       expect(createMutateFn).toHaveBeenCalled
     });
-
-    it.skip('should send xAPI statement when create is clicked', () => {
-      const { getByText, getByPlaceholderText } = renderer(true);
-
-      const spy = jest
-        .spyOn(xAPISendStatement, 'xAPISendStatement')
-        .mockImplementation(() => Promise.resolve({}));
-      act(() => {
-        fireEvent.click(getByText(/save/i));
-      });
-
-      fireEvent.change(getByPlaceholderText(/name/i), {
-        target: { value: 'Name' },
-      });
-
-      fireEvent.change(getByPlaceholderText(/List Description.../i), {
-        target: { value: 'Descprition' },
-      });
-
-      act(() => {
-        fireEvent.click(getByText(/create/i));
-      });
-
-      expect(spy).toHaveBeenCalled();
-    });
-
   });
 
   describe('modal', () => {

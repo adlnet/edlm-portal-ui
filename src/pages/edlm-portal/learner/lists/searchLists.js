@@ -7,7 +7,6 @@ import { useRouter } from 'next/router';
 import { useSubscribeToList } from '@/hooks/useSubscribeToList';
 import { useSubscribedLists } from '@/hooks/useSubscribedLists';
 import { useUnsubscribeFromList } from '@/hooks/useUnsubscribeFromList';
-import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement';
 import CollectionCard from '@/components/cards/CollectionCard';
 import CollectionsLayout from '@/components/layouts/CollectionsLayout';
 import React, { useEffect, useMemo, useState } from 'react';
@@ -16,9 +15,6 @@ import XMarkMessageToast from '@/components/cards/XMarkMessageToast';
 
 export default function SearchLists() {
   const router = useRouter();
-
-  // Get the user's auth context
-  const { user } = useAuth();
 
   // get lists from server
   const interestLists = useInterestLists();
@@ -47,24 +43,6 @@ export default function SearchLists() {
   };
 
   const handleSubscribe = (list) => {
-
-    const context = {
-            actor: {
-              first_name: user?.user?.first_name,
-              last_name: user?.user?.last_name,
-            },
-            verb: {
-              id: 'https://w3id.org/xapi/acrossx/verbs/curated',
-              display: 'curated',
-            },
-            object: {
-              definitionName: 'DOT&E Subscribe Capability',
-            },
-            resultExtName: 'https://w3id.org/xapi/ecc/result/extensions/CuratedListId',
-            resultExtValue: list?.name,
-          };
-
-    xAPISendStatement(context);
     
     subscribe({ id: list.id })
   };
@@ -110,8 +88,6 @@ export default function SearchLists() {
   };
 
   useEffect(() => {
-    // if the user is not logged in, redirect to the home page
-    if (!user) router.push('/edlm-portal');
     if (interestLists.isError && interestLists.error.response.status === 401)
       return router.push('/edlm-portal/401');
     if(interestLists.isError && interestLists.error.response.status === 403)

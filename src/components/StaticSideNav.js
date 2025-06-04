@@ -19,6 +19,8 @@ export default function StaticSideNav() {
     const [showCollections, setShowCollections] = useState(true);
     const [activeBtn, setActiveBtn] = useState(null);
 
+    const moodleLeaderReportUrl = process.env.NEXT_PUBLIC_MOODLE_LEADER_REPORT_URL;
+
     // Check if it is active path
     const isActivePath = path => router.pathname === path;
 
@@ -29,7 +31,7 @@ export default function StaticSideNav() {
         }
     };
 
-    const renderNavBtn = (btn, path, icon, label, toolTip=false) => {
+    const renderNavBtn = (btn, path, icon, label, toolTip = false) => {
         const navBtn = (
             <div className={`w-[221px] h-10 py-1.5 rounded-lg justify-start items-center inline-flex cursor-pointer hover:bg-gray-100 ${activeBtn === btn || isActivePath(path) ? 'bg-[#f4f3f6]' : ''}`} onClick={() => handleSidebarClick(btn, path)} onKeyDown={e => e.key === 'Enter' && handleSidebarClick(btn, path)} role="button" tabIndex={0}>
                 <div className="grow shrink basis-0 h-10 px-2 py-1.5 rounded-lg justify-start items-center flex">
@@ -50,7 +52,7 @@ export default function StaticSideNav() {
         return navBtn;
     }
 
-    const renderDropdownBtn = (btn, path, label, disable=false) => (
+    const renderDropdownBtn = (btn, path, label, disable = false) => (
         <div className={`w-[210px] h-10 flex-col justify-center rounded-lg items-center gap-2.5 inline-flex hover:bg-gray-100 ${activeBtn === btn || isActivePath(path) ? 'bg-[#f4f3f6]' : ''}`} onClick={() => !disable && handleSidebarClick(btn, path)} onKeyDown={e => e.key === 'Enter' && !disable && handleSidebarClick(btn, path)} role="button" tabIndex={0}>
             <div className="w-[133px] text-[#111928] text-base font-medium leading-normal">{label}</div>
         </div>
@@ -80,8 +82,8 @@ export default function StaticSideNav() {
                                     <div className='text-nowrap'>
                                         {renderDropdownBtn('myLearningSummary', '/edlm-portal/learner/learningSummary', 'My Learning Summary')}
                                     </div>
-                                    <div className='text-nowrap' onClick={() => window.location.href = 'https://moodle-dote.deloitteopenlxp.com/local/edwiserreports/index.php'} onKeyDown={e => e.key === 'Enter' && handleSidebarClick(btn, path)} role="button" tabIndex={0}>
-                                        {renderDropdownBtn('leadersReport', null, "Leader's Report")}
+                                    <div className='text-nowrap'>
+                                        {renderDropdownBtn('leadersReport', moodleLeaderReportUrl, "Leader's Report")}
                                     </div>
                                 </>
                             )}

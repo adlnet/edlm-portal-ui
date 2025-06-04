@@ -64,10 +64,7 @@ export default function ListsView() {
     return courses
   },[list.isSuccess, list.data]);
 
-  // verify a user is logged in otherwise redirect to home page
   useEffect(() => {
-    // if the user is not logged in, redirect to the home page
-    if (!user) router.push('/edlm-portal');
     if (list.isError && list.error.response.status === 401)
       return router.push('/edlm-portal/401');
     if (list.isError && list.error.response.status === 403)

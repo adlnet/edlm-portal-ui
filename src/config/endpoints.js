@@ -54,4 +54,7 @@ export const saveSearchOwnedUrl = `${XDSbackendHost}${api}saved-filters/owned`;
 // Competency Search
 export const compSearchUrl = `/edlm-portal/api/data/${ECCR_TYPE}/${ECCR_DOTE_UUID}`
 
+// Forward Statements
+export const statementsUrl = `${XDSbackendHost}${api}statements`;
+
 

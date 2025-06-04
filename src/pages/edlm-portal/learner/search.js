@@ -1,12 +1,12 @@
 'use strict';
 import { Popover } from "flowbite-react";
+import { searched } from '@/utils/xapi/events';
 import { unstable_batchedUpdates } from 'react-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { useCallback, useEffect, useState } from 'react';
 import { useCompetencySearch} from '@/hooks/useCompetencySearch';
 import { useCourseSearch} from '@/hooks/useCourseSearch';
 import { useRouter } from 'next/dist/client/router';
-import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement'; 
 import CreateSavedSearchModal from '@/components/modals/CreateSavedSearch';
 import DefaultLayout from '@/components/layouts/DefaultLayout';
 import SearchBar from '@/components/inputs/SearchBar';
@@ -14,7 +14,6 @@ import SearchCompetencies from '@/components/SearchCompetencies';
 import SearchCourses from '@/components/SearchCourses';
 import SelectList from '@/components/inputs/SelectList';
 import TabBar from '@/components/buttons/TabBar';
-
 
 export default function Search() {
 
@@ -28,6 +27,8 @@ export default function Search() {
   const tabs = ['Courses', 'Competencies'];
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
 
+  const [showPopover, setShowPopover] = useState(true);
+
   useEffect(() => {
     if (router?.query) {
       unstable_batchedUpdates(() => {
@@ -36,6 +37,15 @@ export default function Search() {
       });
     }
   }, [router.query]);
+
+  useEffect(() => {
+    // Set a timeout to hide the popover after 2 seconds
+    const timer = setTimeout(() => {
+      setShowPopover(false);
+    }, 2000);
+    
+    return () => clearTimeout(timer);
+  }, []); 
 
   function handleChange(event) {
     setParams((previous) => ({
@@ -73,23 +83,7 @@ export default function Search() {
         setUrl(modified);
       });
 
-      const context = {
-        actor: {
-          first_name: user?.user?.first_name,
-          last_name: user?.user?.last_name,
-        },
-        verb: {
-          id: 'https://w3id.org/xapi/acrossx/verbs/searched',
-          display: 'searched',
-        },
-        object: {
-          definitionName: 'DOT&E Search Capability',
-        },
-        resultExtName: 'https://w3id.org/xapi/ecc/result/extensions/searchTerm',
-        resultExtValue: modified.keyword,
-      };
-
-      xAPISendStatement(context);
+      searched(modified.keyword);
 
       router.push({ pathname: '/edlm-portal/learner/search', query: modified });
     },
@@ -147,7 +141,8 @@ export default function Search() {
           <div className='flex flex-col md:flex-row -mb-1 max-w-min sticky top-0 z-10 bg-white pb-2'>
             <Popover
                 trigger='hover'
-                initialOpen='true'
+                open={showPopover}
+                onOpenChange={(isOpen) => setShowPopover(isOpen)}
                 content={
                   <div className="w-64 text-sm text-gray-500 rounded-lg dark:text-gray-400">
                     <div className="border-b border-gray-200 bg-blue-700 px-3 py-2 dark:border-gray-600 dark:bg-gray-700">

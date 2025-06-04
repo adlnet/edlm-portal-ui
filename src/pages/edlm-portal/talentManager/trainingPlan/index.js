@@ -27,7 +27,7 @@ export default function TrainingPlan() {
           setData(res.data);
         })
         .catch((err) => {
-          console.log(err);
+          console.log('Training plan error');
         });
     }, []);
 

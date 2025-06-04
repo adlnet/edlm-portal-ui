@@ -24,7 +24,7 @@ export default function Home() {
         setSpotlightData(res.data);
       })
       .catch((err) => {
-          console.log(err);
+          console.log('Sportlight courses error');
       });
   }, []);
 

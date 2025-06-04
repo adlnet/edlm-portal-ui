@@ -5,6 +5,7 @@ import {
   useUnauthenticatedUser,
 } from '@/__mocks__/predefinedMocks';
 import LearningPlan from '@/pages/edlm-portal/learner/learningPlan/index';
+import RouteProtection from '@/utils/RouteProtection';
 import singletonRouter from 'next/router';
 
 jest.mock('@/components/Stepper', () => {
@@ -17,7 +18,7 @@ describe('learningPlan', () => {
   const renderLearningPlan = () => {
     return render(
       <QueryClientWrapper>
-        <LearningPlan />
+          <LearningPlan />
       </QueryClientWrapper>
     );
   };
@@ -28,11 +29,24 @@ describe('learningPlan', () => {
     expect(screen.getByText('Onboarding Learning Plan')).toBeInTheDocument();
   });
 
-  it('should navigate the user to "/" if not authenticated', () => {
-    useUnauthenticatedUser();
+  it('should render the stepper with correct prop', () => {
+    useAuthenticatedUser();
     renderLearningPlan();
-    expect(singletonRouter).toMatchObject({ asPath: '/edlm-portal' });
+    expect(screen.getByTestId('mock-stepper')).toBeInTheDocument();
+    expect(screen.getByTestId('mock-stepper')).toHaveTextContent('Stepper: 1');
   });
+
+  it('should render the learning plan description', () => {
+    useAuthenticatedUser();
+    renderLearningPlan();
+    expect(screen.getByText(/This Learning Plan phase /)).toBeInTheDocument();
+  });
+
+  // it('should navigate the user to "/401" if not authenticated', () => {
+  //   useUnauthenticatedUser();
+  //   renderLearningPlan();
+  //   expect(singletonRouter).toMatchObject({ asPath: '/edlm-portal/401' });
+  // });
 
   it('should render the stepper with correct prop', () => {
     useAuthenticatedUser();

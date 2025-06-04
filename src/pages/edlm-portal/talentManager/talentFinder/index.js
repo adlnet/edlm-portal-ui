@@ -24,7 +24,7 @@ export default function TalentFinder() {
         .then(resp =>
             window.Bokeh.embed.embed_item(resp.data, 'testPlot'))
         .catch((err) => {
-          console.log(err);
+          console.log('Talent finder error');
         });
     }, []);
 

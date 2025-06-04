@@ -7,6 +7,7 @@ import {
 } from "@/__mocks__/predefinedMocks";
 import LearningSummary from "@/pages/edlm-portal/learner/learningSummary/index";
 import MockRouter from "next-router-mock";
+import RouteProtection from "@/utils/RouteProtection";
 import singletonRouter from "next/router";
 
 jest.mock('next/dynamic', () => () => {
@@ -29,7 +30,9 @@ const renderer = () => {
   return render(
     <MemoryRouterProvider>
       <QueryClientWrapper>
-        <LearningSummary />
+        <RouteProtection>
+          <LearningSummary />
+        </RouteProtection>
       </QueryClientWrapper>
     </MemoryRouterProvider>
   );
@@ -43,10 +46,10 @@ describe("Learning Summary Page", () => {
     expect(getByTestId('mock-chart')).toBeInTheDocument();
   });
 
-  it("should navigate the user to '/' if not authenticated", () => {
+  it("should navigate the user to '/401' if not authenticated", () => {
     useUnauthenticatedUser();
     renderer();
-    expect(singletonRouter).toMatchObject({ asPath: "/edlm-portal" });
+    expect(singletonRouter).toMatchObject({ asPath: "/edlm-portal/401" });
   });
 
   it('should show summary stats', () => {

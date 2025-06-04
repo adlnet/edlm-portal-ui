@@ -1,16 +1,39 @@
 'use strict';
 
-import { useAuth } from '@/contexts/AuthContext';
+import { useEffect, useRef } from 'react';
+import { useMoodleSession } from '@/hooks/useMoodleSession';
 import Home from '@/pages/edlm-portal/learner/index';
-import Login from '@/pages/edlm-portal/login';
 
 export default function IntialPage() {
-  const { user } = useAuth();
+
+  // For moodle p1
+  const moodleSession = useMoodleSession();
+  const isSessionInit = useRef(false);
+
+  // Get Moodle session
+  useEffect(() => {
+    // Get moodle session from the Moddle staging environment
+    // If already have moodle session, do not call the API again
+    // If not in the p1 environment, do not call the API
+    if (isSessionInit.current) return;
+    if (process.env.ENABLE_MOODLE_SESSION_CALL !== 'true') return;
+    
+    isSessionInit.current = true;
+    moodleSession.mutate(null, {
+      onSuccess: (res) => {
+        if (!res.existedSession) {
+          console.log('Moodle session initialized successfully.');
+        }
+      },
+      onError: (error) => {
+        console.error('Failed to initialize Moodle session on page load.');
+      }
+    });
+  }, []);
 
   return (
     <>
-    {/* Dont redirect to login page on P1 */}
-     {user ? <Home /> : <Login />}
+     <Home />
     </>
   );
 }

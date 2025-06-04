@@ -23,7 +23,7 @@ export default function TalentFinderAlignment() {
             setWorkRoleData(resp.data);
         })
         .catch((err) => {
-            console.log(err);
+            console.log('Set work role data error');
           });
     }, []);
 

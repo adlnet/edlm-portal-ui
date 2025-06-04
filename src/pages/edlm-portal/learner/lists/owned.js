@@ -1,7 +1,7 @@
 'use strict';
 
 import { Pagination } from '@/components/buttons/Pagination';
-import { useAuth } from '@/contexts/AuthContext';
+import { shared } from '@/utils/xapi/events';
 import { useDeleteMyCollection } from '@/hooks/useDeleteMyCollection';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
@@ -17,7 +17,6 @@ import ShareIcon from '@/public/icons/shareIcon.svg';
 
 export default function Owned() {
   const router = useRouter();
-  const { user } = useAuth();
   const { data, isSuccess, isError, error } = useUserOwnedLists();
   const { mutate: deleteCollection } = useDeleteMyCollection();
   const { mutate: updateList } = useUpdateUserList();
@@ -48,7 +47,26 @@ export default function Owned() {
   ];
 
   const handleShare = id => {
-    navigator.clipboard.writeText(`${window.origin}/edlm-portal/learner/lists/${id}`)
+
+    // Getting ready for xapi event
+    const shareUrl = `${window.origin}/edlm-portal/learner/lists/${id}`;
+    
+    const listData = data.find(list => list.id === id);
+
+    if (listData) {
+
+      const title = listData.name;
+      const description = listData.description || 'No description provided.';
+
+      shared(
+        id,
+        shareUrl,
+        title,
+        description
+      );
+    }
+
+    navigator.clipboard.writeText(shareUrl)
     .then(() => {
       setCopy('Copied Successfully!');
       setTimeout(() => {
@@ -84,7 +102,6 @@ export default function Owned() {
   const totalPages = data ? Math.ceil(data.length / CARD_PER_PAGE) : 0;
 
   useEffect(() => {
-    if (!user) router.push('/edlm-portal');
     if (isError && error.response.status === 403) router.push('/edlm-portal/403');
     if (isError && error.response.status === 401) router.push('/edlm-portal/401');
   }, []);

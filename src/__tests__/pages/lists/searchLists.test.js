@@ -2,6 +2,7 @@ import { MemoryRouterProvider } from 'next-router-mock/MemoryRouterProvider';
 import { QueryClientWrapper } from '@/__mocks__/queryClientMock';
 import { act, fireEvent, render } from '@testing-library/react';
 import MockRouter from 'next-router-mock';
+import RouteProtection from '@/utils/RouteProtection';
 import SearchLists from '@/pages/edlm-portal/learner/lists/searchLists';
 import singletonRouter from 'next/router';
 
@@ -31,7 +32,9 @@ const renderer = () => {
   return render(
     <MemoryRouterProvider>
       <QueryClientWrapper>
-        <SearchLists />
+        <RouteProtection>
+          <SearchLists />
+        </RouteProtection>
       </QueryClientWrapper>
     </MemoryRouterProvider>
   );
@@ -47,7 +50,7 @@ describe('Search Lists', () => {
     expect(getByText(/No search results found/i)).toBeInTheDocument();
   });
 
-  it('should navigate user to "/" when not authenticated', () => {
+  it('should navigate user to "/401" when not authenticated', () => {
     useUnauthenticatedUser();
     useMockInterestListsEmpty();
     useMockSubscribedListsEmpty();
@@ -55,7 +58,7 @@ describe('Search Lists', () => {
     useMockUnsubscribeFromList();
     const { getByText } = renderer();
     expect(singletonRouter).toMatchObject({
-      asPath: '/edlm-portal',
+      asPath: '/edlm-portal/401',
     });
   });
   
