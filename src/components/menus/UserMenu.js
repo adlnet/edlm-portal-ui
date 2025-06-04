@@ -12,13 +12,13 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/router';
 
 export default function UserMenu() {
-
+  
   const { user, logout } = useAuth();
 
   const handleLogout = async (e)=>{
     e.preventDefault();
     await logout();
-    window.location.href = '/edlm-portal';
+    window.location.href = '/edlm-portal/';
   }
 
   return (

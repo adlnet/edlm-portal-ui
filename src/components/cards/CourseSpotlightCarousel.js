@@ -1,13 +1,11 @@
 // 'use strict';
 
-import {Button, Card} from 'flowbite-react';
 import { getDeeplyNestedData } from '@/utils/getDeeplyNestedData';
 import { removeHTML } from '@/utils/cleaning';
 import { useAuth } from '@/contexts/AuthContext';
 import { useCallback, useMemo } from 'react';
 import { useConfig } from '@/hooks/useConfig';
 import { useRouter } from 'next/router';
-import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement';
 
 export default function CourseSpotlight({ course }) {
   const { Course, meta } = {
@@ -18,36 +16,18 @@ export default function CourseSpotlight({ course }) {
   const { user } = useAuth();
 
   const title = useMemo(() => {
-    return (getDeeplyNestedData(config.data?.course_information?.course_title, course));
+    return removeHTML(getDeeplyNestedData(config.data?.course_information?.course_title, course));
   }, [config.isSuccess, config.data]);
 
   const description = useMemo(() => {
-    return (getDeeplyNestedData(config.data?.course_information?.course_description, course));
+    return removeHTML(getDeeplyNestedData(config.data?.course_information?.course_description, course));
   }, [config.isSuccess, config.data]);
 
   const handleClick = useCallback(
     (e) => {
       if (!user)
         return router.push(`/edlm-portal/learner/course/${meta.metadata_key_hash || meta.id}`);
-
-      const context = {
-        actor: {
-          first_name: user?.user?.first_name,
-          last_name: user?.user?.last_name,
-        },
-        verb: {
-          id: 'https://w3id.org/xapi/tla/verbs/explored',
-          display: 'explored',
-        },
-        object: {
-          id: `${window.origin}/edlm-portal/learner/course/${meta.id}`,
-          definitionName: title || Course?.CourseTitle,
-          description: removeHTML(getDeeplyNestedData(config.data?.course_information?.course_description, course)) || Course?.CourseShortDescription,
-        },
-        resultExtName: 'https://w3id.org/xapi/ecc/result/extensions/CourseId',
-        resultExtValue: meta.metadata_key_hash || meta.id,
-      };
-      xAPISendStatement(context);
+      
       router.push('/edlm-portal/learner/course/' + (meta.metadata_key_hash || meta.id));
     },
     [Course, meta, user]

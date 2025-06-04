@@ -1,11 +1,11 @@
 'use strict';
+import { explored } from '@/utils/xapi/events';
 import { getDeeplyNestedData } from '@/utils/getDeeplyNestedData';
 import { removeHTML } from '@/utils/cleaning';
 import { useAuth } from '@/contexts/AuthContext';
 import { useCallback, useMemo } from 'react';
 import { useConfig } from '@/hooks/useConfig';
 import { useRouter } from 'next/router';
-import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement';
 import ClockIcon from '@/public/clock.svg';
 import Image from 'next/image';
 import SaveModal from '@/components/modals/SaveModal';
@@ -71,26 +71,14 @@ export default function SearchResult({ result, handleCompetencyTag}) {
   const competencies = getComps(subject)
 
   const handleClick = useCallback(() => {
-    // create the context
-    const context = {
-      actor: {
-        first_name: user?.user?.first_name,
-        last_name: user?.user?.last_name,
-      },
-      verb: {
-        id: 'https://w3id.org/xapi/tla/verbs/explored',
-        display: 'explored',
-      },
-      object: {
-        id: `${window.origin}/edlm-portal/learner/course/${result.meta.id}`,
-        definitionName: title,
-        description: removeHTML(getDeeplyNestedData(config.data?.course_information?.course_description, result)),
-      },
-      resultExtName: 'https://w3id.org/xapi/ecc/result/extensions/CourseId',
-      resultExtValue: result.meta.id,
-    };
 
-    xAPISendStatement(context);
+    explored(
+      result.meta.id,
+      `${window.location.origin}/edlm-portal/learner/course/${result.meta.id}`,
+      title,
+      `${removeHTML(getDeeplyNestedData(config.data?.course_information?.course_description, result))}`,
+    );
+
     router.push({
       pathname: `/edlm-portal/learner/course/${result.meta.id}`,
       query: router.query

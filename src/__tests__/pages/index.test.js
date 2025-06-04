@@ -1,12 +1,7 @@
 import { QueryClientWrapper } from '@/__mocks__/queryClientMock.js';
-import { act, fireEvent, render, screen } from '@testing-library/react';
-import { useAuth } from '@/contexts/AuthContext';
+import {  render, screen } from '@testing-library/react';
 import { useAuthenticatedUser, useUnauthenticatedUser } from '@/__mocks__/predefinedMocks';
-import Home from '@/pages/edlm-portal/learner/index';
 import InitialPage from '@/pages/edlm-portal/index';
-import mockRouter from 'next-router-mock';
-import singletonRouter from 'next/router';
-import xAPIMapper from "@/utils/xapi/xAPIMapper";
 
 jest.mock('next/dist/client/router', () => require('next-router-mock'));
 

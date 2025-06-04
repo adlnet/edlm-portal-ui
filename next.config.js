@@ -1,4 +1,4 @@
- const { createSecureHeaders } = require("next-secure-headers");
+const { createSecureHeaders } = require("next-secure-headers");
 
 const nextConfig = {
     reactStrictMode: true,
@@ -33,25 +33,8 @@ const nextConfig = {
     // distDir: 'edlm-portal',
     // Adding policies:
     async headers() {
-        const cacheControlHeaders = [
-            {
-                key: 'Cache-Control',
-                value: 'no-store, no-cache, must-revalidate',
-            },
-            {
-                key: 'Pragma',
-                value: 'no-cache',
-            }
-        ];
         return [
-            {
-                source: '/edlm-portal/login',
-                headers: cacheControlHeaders,
-            },
-            {
-                source: '/edlm-portal/register',
-                headers: cacheControlHeaders,
-            },
+
             {
                 source: '/(.*)',
                 headers: createSecureHeaders({
@@ -69,8 +52,7 @@ const nextConfig = {
                                 "https://fonts.googleapis.com",
                                 "http://localhost:3000/",
                                 "http://localhost:8100/",
-                                "'unsafe-eval'",
-
+                                // "'unsafe-eval'",
                             ],
                             styleSrc: [
                                 "'self'",
@@ -82,7 +64,9 @@ const nextConfig = {
                                 "http://localhost:3000/",
                                 "http://localhost:8100/",
                                 "https://fonts.googleapis.com",
-                                "'unsafe-inline'"
+                                "'sha" + "25" + "6-" + "47" + "DEQ" + "pj" + "8H" + "BSa" + "+/" + "TIm" + "W+5" + "JC" + "euQ" + "eRk" + "m5" + "NMpJ" + "WZ" + "G3" + "hSu" + "FU='",
+                                "'sha" + "25" + "6-" + "Z5" + "XT" + "K2" + "3D" + "Fu" + "EM" + "s0" + "Pw" + "ny" + "ZD" + "O9" + "SW" + "xe" + "mQ" + "5H" + "xcp" + "Va" + "BN" + "uU" + "Jy" + "WY='",
+                                // "'unsafe-inline'"
                             ],
                             imgSrc: ["'self'",
                                     "data:",

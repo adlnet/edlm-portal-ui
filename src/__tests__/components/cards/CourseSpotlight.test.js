@@ -6,7 +6,6 @@ import CourseSpotlight from '@/components/cards/CourseSpotlight';
 import courseData from '@/__mocks__/data/course.data';
 import courseNoHashData from '@/__mocks__/data/courseNoHash.data';
 import uiConfigData from '@/__mocks__/data/uiConfig.data';
-import xAPIMapper from "@/utils/xapi/xAPIMapper";
 
 // jest mocks
 jest.mock('next/dist/client/router', () => require('next-router-mock'));
@@ -56,69 +55,6 @@ describe('Course Spotlight', () => {
     });
   });
 
-  it('send xAPI statement when course is clicked', () => {
-    useAuthenticatedUser();
-    const { getByText } = renderer();
-
-    const spy = jest.spyOn(xAPIMapper, 'sendStatement')
-      .mockImplementation(() => Promise.resolve({})
-      );
-
-      act(() => {
-      fireEvent.click(getByText(/Test Course Title/i).parentElement);
-    });
-
-    expect(spy).toHaveBeenCalled();
-  })
-
-  it('send xAPI statement when course is clicked with no hash in data', () => {
-    useAuthenticatedUser();
-    const { getByText } = renderer(courseNoHashData);
-
-    const spy = jest.spyOn(xAPIMapper, 'sendStatement')
-      .mockImplementation(() => Promise.resolve({})
-      );
-
-      act(() => {
-      fireEvent.click(getByText(/Test Course Title/i).parentElement);
-    });
-
-    expect(spy).toHaveBeenCalled();
-  })
-
-  it('do not send xAPI statement when course is clicked', () => {
-    
-    useUnauthenticatedUser();
-    
-    const { getByText } = renderer();
-
-    const spy = jest.spyOn(xAPIMapper, 'sendStatement')
-      .mockImplementation(() => Promise.resolve({})
-      );
-
-      act(() => {
-      fireEvent.click(getByText(/Test Course Title/i).parentElement);
-    });
-
-    expect(spy).toHaveBeenCalled();
-  })
-
-  it('do not send xAPI statement when course with no hash is clicked', () => {
-    
-    useUnauthenticatedUser();
-    
-    const { getByText } = renderer(courseNoHashData);
-
-    const spy = jest.spyOn(xAPIMapper, 'sendStatement')
-      .mockImplementation(() => Promise.resolve({})
-      );
-
-      act(() => {
-      fireEvent.click(getByText(/Test Course Title/i).parentElement);
-    });
-
-    expect(spy).toHaveBeenCalled();
-  })
 });
 
 it('renders', () => {

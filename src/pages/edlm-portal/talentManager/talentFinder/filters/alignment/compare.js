@@ -27,7 +27,7 @@ export default function TalentFinderAlignment() {
 
         )
         .catch((err) => {
-          console.log(err);
+          console.log('Talent finder alignment error');
         });
     }, []);
 
@@ -38,7 +38,7 @@ export default function TalentFinderAlignment() {
             setWorkRoleData(resp.data);
         })
         .catch((err) => {
-            console.log(err);
+            console.log('Work role data error');
           });
     }, []);
 
@@ -50,7 +50,7 @@ export default function TalentFinderAlignment() {
                 role: workRoleData.vacancy_key,
             })
             .catch((err) => {
-                console.log(err);
+                console.log('Candidate list save results error');
             })
         router.push('/edlm-portal')
     }

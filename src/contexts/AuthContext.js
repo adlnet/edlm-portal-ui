@@ -37,7 +37,7 @@ export function AuthProvider({ children }) {
       .post(`${XDSbackendHost}/api/auth/logout`)
       .then((res) => removeLocal())
       .catch((err) => {
-        console.log(err);
+        console.log('Logout failed');
       })
       .finally(() => {
         removeLocal();

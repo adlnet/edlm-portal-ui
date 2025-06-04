@@ -13,11 +13,6 @@ export function isInputSafe(str) {
     return false;
   }
   
-  // Check for special characters that could enable XSS
-  if (/[<>/?+={};#$%&*()`~\\]/.test(str)) {
-    return false;
-  }
-  
   return true;
 }
 
@@ -31,6 +26,13 @@ export function preventSpecialChars(e) {
 // Prevents nul characters from being entered into input fields
 export function preventNullChar(e) {
   if (e.key === '\0' || e.key === '%00') {
+    e.preventDefault();
+  }
+}
+
+// Prevents search box input special characters that could be used for attacks such as XSS
+export function preventSearchSpecialChars(e) {
+  if(/[<>?+={};#$%*()`~\\]/.test(e.key)){
     e.preventDefault();
   }
 }

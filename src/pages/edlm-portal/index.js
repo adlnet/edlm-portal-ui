@@ -17,7 +17,7 @@ export default function IntialPage() {
     // If not in the p1 environment, do not call the API
     if (isSessionInit.current) return;
     if (process.env.ENABLE_MOODLE_SESSION_CALL !== 'true') return;
-
+    
     isSessionInit.current = true;
     moodleSession.mutate(null, {
       onSuccess: (res) => {

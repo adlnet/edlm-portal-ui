@@ -13,12 +13,12 @@ import { AcademicCapIcon,
 import { getDeeplyNestedData } from '@/utils/getDeeplyNestedData';
 import { removeHTML } from '@/utils/cleaning';
 import { useAuth } from '@/contexts/AuthContext';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useConfig } from '@/hooks/useConfig';
 import { useCourse } from '@/hooks/useCourse';
 import { useMoreCoursesLikeThis } from '@/hooks/useMoreCoursesLikeThis';
 import { useRouter } from 'next/router';
-import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement';
+
 import CourseSpotlight from '@/components/cards/CourseSpotlight';
 import DefaultLayout from '@/components/layouts/DefaultLayout';
 import SaveModal from '@/components/modals/SaveModal';
@@ -141,26 +141,6 @@ export default function Course() {
   const handleClick = useCallback(() => {
     if (!user) return;
 
-    const context = {
-      actor: {
-        first_name: user?.user?.first_name,
-        last_name: user?.user?.last_name,
-      },
-      verb: {
-        id: 'https://w3id.org/xapi/tla/verbs/registered',
-        display: 'enrolled',
-      },
-      object: {
-        definitionName: data?.title,
-        description: data?.description,
-        id: `${window.origin}/edlm-portal/learner/course/${router.query?.courseId}`,
-      },
-      resultExtName: 'https://w3id.org/xapi/ecc/result/extensions/CourseId',
-      resultExtValue: router.query?.courseId,
-    };
-
-    xAPISendStatement(context);
-
     window.open(data?.url, '_blank, noopener, noreferrer');
 
   }, [router.query?.courseId, data?.title, data?.description, user, data?.url]);
@@ -191,6 +171,7 @@ export default function Course() {
               <div className='flex gap-2'>
                 <ShareButton
                   id={router.query?.courseId}
+                  courseUrl={data?.url}
                   courseTitle={data?.title}
                   courseDescription={data?.description}
                 />

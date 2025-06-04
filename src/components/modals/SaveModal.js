@@ -2,11 +2,11 @@
 
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useCallback, useState } from 'react';
+import { curated } from '@/utils/xapi/events';
 import { useAuth } from '@/contexts/AuthContext';
 import { useCreateUserList } from '@/hooks/useCreateUserList';
 import { useUpdateUserList } from '@/hooks/useUpdateUserList';
 import { useUserOwnedLists } from '@/hooks/useUserOwnedLists';
-import { xAPISendStatement } from '@/utils/xapi/xAPISendStatement';
 import Image from 'next/image';
 import InputField from '@/components/inputs/InputField';
 import PlusIcon from '@/public/cart-plus.svg';
@@ -71,25 +71,7 @@ export default function SaveModal({ courseId, title }) {
           onSuccess: (data) => {
             // note: It assumed that the user is present if the button is available.
             // create the context
-            const context = {
-              actor: {
-                first_name: user?.user?.first_name,
-                last_name: user?.user?.last_name,
-              },
-              verb: {
-                id: 'https://w3id.org/xapi/dod-isd/verbs/curated',
-                display: 'curated',
-              },
-              object: {
-                definitionName: fields.name,
-                description: fields.description,
-              },
-              resultExtName:
-                'https://w3id.org/xapi/ecc/result/extensions/CuratedListId',
-              resultExtValue: data.id,
-            };
-
-            xAPISendStatement(context);
+            curated(data.id, fields.name, fields.description);
           },
         }
       );

@@ -50,7 +50,7 @@ async function getRelateLinks(relateLinks, competencies){
           targetComp.children.push(sourceComp.name)
         })
         .catch(error=>{
-          console.log('Relate Error: ', error)
+          console.log('Competencies relate error')
         })
         relationPromises.push(promise);
   }
@@ -87,7 +87,7 @@ async function getCompData(compLinks){
               return Competency(name, desc, compLinks[key], '', []);
           })
           .catch(error=>{
-              console.log('Comp Link Error: ', error);
+              console.log('Comp Link Error');
           }) 
     } 
     fetchPromises.push(promise);
@@ -134,7 +134,7 @@ async function getCompetencySearch() {
       Competencies: competenciesWithRelations
     };
   } catch (error) {
-      console.log('Error on initial API request - using backup data: ', error)
+      console.log('Error on initial Competency API request - using backup data')
       return {
         Competencies: backupData
     }

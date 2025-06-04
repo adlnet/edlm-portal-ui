@@ -44,7 +44,7 @@ export default function SearchCourses( { params, setParams, handleCompetencyTag 
           setSpotlightData(res.data);
         })
         .catch((err) => {
-            console.log(err);
+            console.log('Sportlight courses error');
         });
     }, []);
 
