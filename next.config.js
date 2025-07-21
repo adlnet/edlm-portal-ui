@@ -50,9 +50,16 @@ const nextConfig = {
                                 "https://dote.staging.dso.mil/xds/admin/",
                                 "https://dote.staging.dso.mil/edlm-portal/",
                                 "https://fonts.googleapis.com",
+                                "https://www.ssa.gov",
+                                "https://ajax.googleapis.com",
                                 "http://localhost:3000/",
                                 "http://localhost:8100/",
                                 // "'unsafe-eval'",
+                            ],
+                            scriptSrc: [
+                                "'self'",
+                                "https://www.ssa.gov",
+                                "https://ajax.googleapis.com",
                             ],
                             styleSrc: [
                                 "'self'",
@@ -64,6 +71,7 @@ const nextConfig = {
                                 "http://localhost:3000/",
                                 "http://localhost:8100/",
                                 "https://fonts.googleapis.com",
+                                "https://www.ssa.gov",
                                 "'sha" + "25" + "6-" + "47" + "DEQ" + "pj" + "8H" + "BSa" + "+/" + "TIm" + "W+5" + "JC" + "euQ" + "eRk" + "m5" + "NMpJ" + "WZ" + "G3" + "hSu" + "FU='",
                                 "'sha" + "25" + "6-" + "Z5" + "XT" + "K2" + "3D" + "Fu" + "EM" + "s0" + "Pw" + "ny" + "ZD" + "O9" + "SW" + "xe" + "mQ" + "5H" + "xcp" + "Va" + "BN" + "uU" + "Jy" + "WY='",
                                 // "'unsafe-inline'"
@@ -71,10 +79,12 @@ const nextConfig = {
                             imgSrc: ["'self'",
                                     "data:",
                                     "data:*",
+                                    "https://www.ssa.gov",
                             ],
                             fontSrc: [
                                 "'self'", 
-                                "https://fonts.gstatic.com"
+                                "https://fonts.gstatic.com",
+                                "https://www.ssa.gov",
                             ],
                             frameAncestors: [
                                 "'self'",
