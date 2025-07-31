@@ -6,7 +6,7 @@ import { statementsUrl } from '@/config/endpoints.js';
 const forwardStatement = ({ statement }) => {
   return axiosInstance
     .post(statementsUrl, [statement])
-    .catch((err) => console.error(err));
+    .catch((err) => console.error("Error in sending statement to the LRS Forwarding Endpoint"));
 };
 
 // Create a real, valid statement.

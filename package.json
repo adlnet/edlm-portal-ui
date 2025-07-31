@@ -12,7 +12,7 @@
     "ag-charts-community": "^11.0.0",
     "ag-charts-react": "^11.0.0",
     "apexcharts": "^4.3.0",
-    "axios": "1.8.2",
+    "axios": "1.8.4",
     "axios-retry": "^4.5.0",
     "flowbite": "^2.4.1",
     "flowbite-react": "^0.10.1",
