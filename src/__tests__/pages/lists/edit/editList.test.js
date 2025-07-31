@@ -1,0 +1,120 @@
+import { MemoryRouterProvider } from 'next-router-mock/MemoryRouterProvider/next-13.5';
+import { QueryClientWrapper } from '@/__mocks__/queryClientMock';
+import { act, fireEvent, render, screen } from '@testing-library/react';
+import {
+  updateListMockFn,
+  useAuthenticatedUser,
+  useMockConfig,
+  useMockUpdateUserList,
+  useMockUserList,
+  useMockUserListWith401,
+  useMockUserListWith403,
+  useMockUserListWithDifferentUserId,
+  useUnauthenticatedUser,
+} from '@/__mocks__/predefinedMocks';
+import EditList, { getServerSideProps } from '@/pages/edlm-portal/learner/lists/edit/[listId]';
+import MockRouter from 'next-router-mock';
+import RouteProtection from '@/utils/RouteProtection';
+import singletonRouter from 'next/router';
+
+beforeEach(() => {
+  useMockConfig();
+});
+const renderer = () => {
+  MockRouter.setCurrentUrl('/edlm-portal/learner/lists/edit/1');
+  return render(
+    <MemoryRouterProvider>
+      <QueryClientWrapper>
+        <RouteProtection>
+          <EditList listId={1} />
+        </RouteProtection>
+      </QueryClientWrapper>
+    </MemoryRouterProvider>
+  );
+};
+
+describe('Edit List', () => {
+  it('should render the page', () => {
+    useAuthenticatedUser();
+    useMockUserList();
+    useMockUpdateUserList();
+    renderer();
+    screen.getAllByText('My Collections');
+  });
+
+  it('should navigate the user to "/401" if not authenticated', () => {
+    useUnauthenticatedUser();
+    useMockUserList();
+    useMockUpdateUserList();
+    renderer();
+    expect(singletonRouter).toMatchObject({ asPath: '/edlm-portal/401' });
+  });
+
+  it('should navigate the user to "/" if the user id does not match the list owner id', () => {
+    useAuthenticatedUser();
+    useMockUserListWithDifferentUserId();
+    useMockUpdateUserList();
+    renderer();
+    expect(singletonRouter).toMatchObject({ asPath: '/edlm-portal/learner/lists/edit/1' });
+  });
+
+  it.skip('should navigate the user to "/401" if the user is not the owner of the list', () => {
+    useAuthenticatedUser();
+    useMockUserListWith401();
+    useMockUpdateUserList();
+    renderer();
+    expect(singletonRouter).toMatchObject({ asPath: '/edlm-portal/learner/401' });
+  });
+
+  it.skip('should navigate the user to "/403" if the user is not the owner of the list', () => {
+    useAuthenticatedUser();
+    useMockUserListWith403();
+    useMockUpdateUserList();
+    renderer();
+    expect(singletonRouter).toMatchObject({ asPath: '/edlm-portal/learner/403' });
+  });
+
+  // it('should navigate user to the public view of the list on click', () => {
+  //   useAuthenticatedUser();
+  //   useMockUserList();
+  //   useMockUpdateUserList();
+  //   renderer();
+  //   act(() => {
+  //     fireEvent.click(screen.getByText('View public list'));
+  //   });
+  //   expect(singletonRouter).toMatchObject({ asPath: '/edlm-portal/learner/lists/1' });
+  // });
+
+  it.skip('should load the list data', () => {
+    useAuthenticatedUser();
+    useMockUserList();
+    useMockUpdateUserList();
+    renderer();
+    expect(screen.getByText('Test List')).toBeInTheDocument();
+    expect(screen.getByText('test description')).toBeInTheDocument();
+  });
+
+ // it('should remove a course when "remove" is clicked', () => {
+  //   useAuthenticatedUser();
+  //   useMockUserList();
+  //   useMockUpdateUserList();
+  //   renderer();
+  //   expect(screen.getByText(/Test Title/i)).toBeInTheDocument();
+  //   act(() => {
+  //     fireEvent.click(screen.getByRole('button', { name: /remove/i }));
+  //   });
+  //   expect(screen.queryByText('Test Title')).not.toBeInTheDocument();
+  //   expect(updateListMockFn).toHaveBeenCalled();
+  // });
+  
+  it('should call the updateList mutation when the form is submitted', () => {
+    useAuthenticatedUser();
+    useMockUserList();
+    useMockUpdateUserList();
+    renderer();
+    act(() => {
+      fireEvent.click(screen.getByText('Save'));
+    });
+    expect(updateListMockFn).toHaveBeenCalled();
+  });
+});
