@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 const Accordion = ({ acctitle, accdescription }) => {
     const [accordionOpen, setAccordionOpen] = useState(false);
@@ -9,7 +9,6 @@ const Accordion = ({ acctitle, accdescription }) => {
                 onClick={() => setAccordionOpen(!accordionOpen)} 
                 className='flex justify-left w-full'
             >
-                {/*{accordionOpen ? <span>-&nbsp;&nbsp;</span> : <span>+&nbsp;&nbsp;</span>} */}
                 <svg
                     className='mt-1.5 fill-purple shrink-0 ml-8'
                     width='16'

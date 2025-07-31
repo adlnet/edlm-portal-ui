@@ -1,0 +1,79 @@
+'use strict';
+
+import { getDeeplyNestedData } from '@/utils/getDeeplyNestedData';
+import { removeHTML } from '@/utils/cleaning';
+import { useAuth } from '@/contexts/AuthContext';
+import { useCallback, useMemo } from 'react';
+import { useConfig } from '@/hooks/useConfig';
+import { useMoreCoursesLikeThis } from '@/hooks/useMoreCoursesLikeThis';
+import {useRouter} from 'next/router';
+import ContentLoadingAnimate from '@/utils/ContentLoadingAnimate';
+import Link from 'next/link';
+
+export default function MoreLikeThis({ course }) {
+  const { data, isLoading } = useMoreCoursesLikeThis(course?.meta.id);
+  const { Course, meta } = {
+    ...course,
+  };
+
+  const router = useRouter();
+
+  const { user } = useAuth();
+  const config = useConfig();
+
+  const title = useMemo(() => {
+    return removeHTML(getDeeplyNestedData(config.data?.course_information?.course_title, course));
+    
+  }, [config.isSuccess, config.data]);
+
+  const provider = useMemo(() => {
+    return getDeeplyNestedData(config.data?.course_information?.course_provider, course);
+  }, [config.isSuccess, config.data]);
+
+  const handleClick = useCallback(
+    (e) => {
+      if (!user)
+        return router.push(`/edlm-portal/learner/course/${meta.metadata_key_hash || meta.id}`);
+
+      router.push('/edlm-portal/learner/course/' + (meta.metadata_key_hash || meta.id));
+    },
+    [Course, meta, user]
+  );
+
+  // if loading
+  if (isLoading) {
+    return <ContentLoadingAnimate />;
+  }
+
+  // if error
+  else if (data.hits.length < 1) {
+    return null;
+  }
+
+  // show suggested card
+  return (
+    <Link href={`/edlm-portal/learner/course/${meta.metadata_key_hash || meta.id}`} passHref>
+      <div
+        onClick={handleClick}
+        role='button'
+        tabIndex='0'
+        aria-hidden='true'
+        className="px-5 py-[19px] bg-gray-500 rounded-lg shadow flex-col justify-start items-start gap-2.5 inline-flex cursor-pointer transform transition-shadow duration-150 ease-in-out text-white h-[228px] w-[387px] hover:shadow-lg"
+      >
+        <div className="w-[330px] relative">
+          <div className="w-full flex flex-col">
+            <div className="text-white text-xl font-bold leading-normal">
+              {title || Course?.CourseTitle}
+            </div>
+          </div>
+          <div>
+            <span className="text-white text-base font-medium leading-normal">Provider: </span>
+            <span className="text-white text-base font-medium leading-normal">
+              {provider || Course?.CourseProviderName}
+            </span>
+          </div>
+        </div>
+      </div>
+    </Link>
+  );
+}

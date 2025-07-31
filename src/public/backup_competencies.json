@@ -1,0 +1,626 @@
+[
+    {
+        "name": "1.1 (Mission)",
+        "desc": "Understands and communicates CONEMP/CONOPS, TTP, and how (Services, Joint) units/forces equipped with DoD system are intended to contribute to the warfighter's/joint force mission. Considers DoD systems in the context of kill-webs, mission threads and other operationally relevant and realistic system-of-system mission scenarios.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/1",
+        "parent": "Competency #1: Operating Environment and System Design",
+        "children": []
+    },
+    {
+        "name": "1.2 (COIs)",
+        "desc": "Understands COIs that the DoD system is intended to address. This includes but is not limited to fundamental operational factors and levels that might affect COIs including but not limited to terrain, climate, vegetation, opposing forces to support the development of mission scenarios in all domain or multi domain operations.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/2",
+        "parent": "Competency #1: Operating Environment and System Design",
+        "children": []
+    },
+    {
+        "name": "1.3 (DoD System)",
+        "desc": "Understands the DoD systems and its mission critical function including but not limited to sub-components, components, sub-systems, and systems design features critical to operational effectiveness, suitability, survivability, and lethality.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/3",
+        "parent": "Competency #1: Operating Environment and System Design",
+        "children": []
+    },
+    {
+        "name": "1.4 (System User)",
+        "desc": "Understands the user mission/training and how the user will use and operate the DoD systems. Understands the human-system interface, workload demands, usability, situational awareness requirements, training process and requirements.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/4",
+        "parent": "Competency #1: Operating Environment and System Design",
+        "children": []
+    },
+    {
+        "name": "1.5 (Opposing Forces)",
+        "desc": "In coordination with the Intelligence Community, maintains operational understanding, awareness and expertise of the adversary CONEMP/CONOPS, TTP, threat and target landscape that have, will, or currently impact DoD system(s) in the intended theater of operations. Understands the kinetic and non-kinetic threat and targets laydown, density, distribution, capabilities, effects for the intended DoD system area of operation, including but not limited to the most relevant, proliferated and stressing threats and targets to the DoD system. Understands how to access threat resources for threat simulators, models, targets, U.S. surrogates and foreign materiel in support of OT&E and LFT&E. This includes (1) kinetic, (2) cyber, (3) EMS including directed energy weapons and doctrinally appropriate force structures to evaluate congested and constrained environments, (4) CBRN, and (5) other operationally relevant kinetic and non-kinetic threats and targets including but not limited to AI-based threats and data storage targets.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/5",
+        "parent": "Competency #1: Operating Environment and System Design",
+        "children": []
+    },
+    {
+        "name": "2.1 (Acquisition Strategy)",
+        "desc": "Understands the intent of the acquisition strategy. Considers the details of the acquisition strategy in the context of the development of TEMP or T&E strategy, and OT&E and LFT&E plans.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/6",
+        "parent": "Competency #2: Acquisition and Requirements Process",
+        "children": []
+    },
+    {
+        "name": "2.2 (Acquisition Pathway)",
+        "desc": "Understands the acquisition policy for each of the acquisition pathways. Considers the acquisition and program decisions in identifying the appropriate test data and M&S results needed to inform those decisions, given the maturity of the DoD system.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/7",
+        "parent": "Competency #2: Acquisition and Requirements Process",
+        "children": []
+    },
+    {
+        "name": "2.3 (Acquisition Management)",
+        "desc": "Understands the acquisition process and the roles and responsibilities of the program manager, the test and evaluation working-level integrated product team or integrated test team, and the roles and responsibilities of the operational test agencies and the LFT&E organizations. Has the building coalitions and leadership skills to influence the acquisition management for the benefit of meeting OT&E and LFT&E objectives.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/8",
+        "parent": "Competency #2: Acquisition and Requirements Process",
+        "children": []
+    },
+    {
+        "name": "2.4 (Contracting)",
+        "desc": "Understands when and how to define OT&E and LFT&E requirements to inform requests for proposals and acquisition contracts, and secure access to required contractor-generated data, tools, support, test articles, and expertise.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/9",
+        "parent": "Competency #2: Acquisition and Requirements Process",
+        "children": []
+    },
+    {
+        "name": "2.5 (Requirements)",
+        "desc": "Understands and supports the role of the DOT&E as an advisor to the Joint Requirements Oversight Council on matters within DOT&E authority and expertise. Informs and influences the requirements development process so the technical and operational requirements are measurable, testable, justifiable, achievable, and relevant to the operational mission.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/10",
+        "parent": "Competency #2: Acquisition and Requirements Process",
+        "children": []
+    },
+    {
+        "name": "3.1 (Policy Compliance)",
+        "desc": "Understands, implements, and ensures compliance with DoD policy for OT&E and LFT&E for programs on the T&E Oversight List for OT&E and LFT&E.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/11",
+        "parent": "Competency #3: Policy Development and Implementation",
+        "children": []
+    },
+    {
+        "name": "3.2 (Policy Development)",
+        "desc": "Identifies policy and guidance gaps or challenges and offers solutions to the DOT&E strategy and policy development team in accordance with DOT&E standard operating procedures.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/12",
+        "parent": "Competency #3: Policy Development and Implementation",
+        "children": []
+    },
+    {
+        "name": "3.3 (Policy Adoption)",
+        "desc": "Offers use cases and opportunities within the program to pilot new policy and guidance initiatives. Drafts language for new policy and guidance as demonstrated with use cases.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/13",
+        "parent": "Competency #3: Policy Development and Implementation",
+        "children": []
+    },
+    {
+        "name": "3.4 (Policy Awareness)",
+        "desc": "Understands and keeps up-to-date on local, national, and international policies and trends that affect the organization and shape stakeholders' views; is aware of the organization's impact on the external environment. Understands and keeps-up-to-date on new and developing policy governing T&E of next-generation technology and emerging threats.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/14",
+        "parent": "Competency #3: Policy Development and Implementation",
+        "children": []
+    },
+    {
+        "name": "4.1 (Science and Technology)",
+        "desc": "Understands and applies the latest advances in science (e.g., design of experiments, statistical inference methods, big data analytics) and technology (e.g., M&S, digital engineering, digital tools, data management tools, modern predictive analytics tools using AI and machine learning, other automation and AI-enabled tools) to optimize planning, execution, analysis, and reporting of integrated T&E, OT&E, and LFT&E across the acquisition life cycle.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/15",
+        "parent": "Competency #4: Test Planning, Execution, and Evaluation",
+        "children": []
+    },
+    {
+        "name": "4.2 (Risk Assessment)",
+        "desc": "Understands and/or executes risk-based level of test assessment and mission-based risk assessments needed to inform OT&E and LFT&E scope tailored to the acquisition strategy. Identifies how the operational and live fire test strategies map to IDSK to integrate T&E data and independent OT&E and LFT&E data and M&S results needed to appropriately inform the acquisition and program decisions.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/16",
+        "parent": "Competency #4: Test Planning, Execution, and Evaluation",
+        "children": []
+    },
+    {
+        "name": "4.3 (TEMP/T&E Strategy Development)",
+        "desc": "Understands and implements DoD policy for TEMP/T&E strategy to help codify an agreement between the DoD system program manager and T&E stakeholders. Has the knowledge to help outline and justify the focus and scope of OT&E and LFT&E activities required to evaluate the operational effectiveness, suitability, survivability, and lethality (as applicable) of DoD systems as they mature across the acquisition life cycle.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/17",
+        "parent": "Competency #4: Test Planning, Execution, and Evaluation",
+        "children": []
+    },
+    {
+        "name": "4.4 (Test and M&S V&V Plan Development)",
+        "desc": "Support the development of OT&E, LFT&E, and M&S plans using applied mathematics, statistics, inference methods, or related science-based test and analysis methods. Ensure test and M&S plans include operationally relevant conditions, information about the order of test event execution and test data collection, cost estimate, and relevant operating instructions that may impact test outcomes.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/18",
+        "parent": "Competency #4: Test Planning, Execution, and Evaluation",
+        "children": []
+    },
+    {
+        "name": "4.5 (Execution)",
+        "desc": "Ensures execution of tests and data collection in accordance with DoD policy for OT&E and LFT&E, approved test, M&S, and M&S V&V plans. Understands and confirms requirements of an approved test or M&S plan are satisfied by the end of an OT&E, LFT&E, or M&S event.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/19",
+        "parent": "Competency #4: Test Planning, Execution, and Evaluation",
+        "children": []
+    },
+    {
+        "name": "4.6 (Evaluation)",
+        "desc": "Understands and uses digital tools, applied mathematics, statistics, inference methods, and other science-based analytical methods to independently analyze all relevant test data and M&S results in as real-time as possible to inform the existing and next phase of test.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/20",
+        "parent": "Competency #4: Test Planning, Execution, and Evaluation",
+        "children": []
+    },
+    {
+        "name": "4A.1 (T&E Data Strategy and Management)",
+        "desc": "Understands the DoD data management strategy, policy and guidance and ensures that acquisition programs have an adequate data management strategy and plan to maximize the use of contractor and developmental test and evaluation data and other program artifacts in support of OT&E and LFT&E planning, execution, analysis, and reporting. Ensures DOT&E access to all program relevant data to increase OT&E and LFT&E efficiency and effectiveness.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/21",
+        "parent": "Competency #4A: Data Management and Reporting",
+        "children": []
+    },
+    {
+        "name": "4A.2 (DOT&E Data and Knowledge Management)",
+        "desc": "Store the data and M&S results throughout the OT&E and LFT&E planning, preparation, execution, analysis, and evaluation phases, in accordance with the DOT&E data management plan. Develop and deliver OT&E and LFT&E reports on test adequacy, preliminary or final evaluation of operational effectiveness, suitability, survivability, and lethality, and actionable recommendations in accordance with the policy for OT&E and LFT&E, and DOT&E reporting guidance.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/22",
+        "parent": "Competency #4A: Data Management and Reporting",
+        "children": []
+    },
+    {
+        "name": "4A.3 (Technical Writing and Reporting)",
+        "desc": "Creates clear, concise, timely, and accurate technical T&E documentation (e.g., annual reports, Operational Assessments, emerging results briefs, Initial Operational Test reports) and follows the recommended structure in every report, and personally defends data, conclusions, and recommendations.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/23",
+        "parent": "Competency #4A: Data Management and Reporting",
+        "children": []
+    },
+    {
+        "name": "4A.4 (Communication)",
+        "desc": "Applies knowledge of DoD acquisition system, science and technology-based test and evaluation, and concepts of operations for clear and convincing presentations of technical data, analysis, and evaluation tailored to the intended audience (Congress, DoD Senior leaders, and Warfighter).",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/24",
+        "parent": "Competency #4A: Data Management and Reporting",
+        "children": []
+    },
+    {
+        "name": "4A.5 Information Security",
+        "desc": "Properly protects and safeguards classified information to prevent unauthorized disclosure by adhering to DoD Manual 5200.01, Volume 3 and Executive Order 13526, and specific acquisition program classification guidance manuals. Prevents, detects, and reports security incidents, security violations, and classified data spills and helps correct the causes of such occurrence.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/25",
+        "parent": "Competency #4A: Data Management and Reporting",
+        "children": []
+    },
+    {
+        "name": "4B.1 (IDSK)",
+        "desc": "Correctly identify and help efficiently codify qualified integrated T&E data and independent OT&E and LFT&E data and M&S results needed to appropriately inform the acquisition and program decisions; increase T&E efficiency; and support the evaluation of operational effectiveness, suitability, survivability, and lethality (as applicable) across the acquisition life cycle, in support of each acquisition decision.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/26",
+        "parent": "Competency #4B: TEMP/T&E Strategy Development",
+        "children": []
+    },
+    {
+        "name": "4B.2 (OT&E)",
+        "desc": "Understands and implements DoD policy for OT&E. Considers measures, metrics, and statistical methods to maximize use of available data and design the OT&E to evaluate, with scientific rigor, the operational effectiveness and suitability of a production or fielding representative DoD systems in operationally relevant and representative contested, congested, and constrained environments while taking into equal consideration survivability and lethality effects (as applicable).",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/27",
+        "parent": "Competency #4B: TEMP/T&E Strategy Development",
+        "children": []
+    },
+    {
+        "name": "4B.3 (LFT&E)",
+        "desc": "Understands and implements DoD policy for LFT&E. Considers measures, metrics, and statistical methods to maximize use of available data and design LFT&E to evaluate, with scientific rigor, realistic, full spectrum survivability and lethality (as applicable) of a combat-loaded system in operationally relevant and representative contested, congested, and constrained environments using live kinetic and non-kinetic threats and targets (or their surrogates) and their combined effects.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/28",
+        "parent": "Competency #4B: TEMP/T&E Strategy Development",
+        "children": []
+    },
+    {
+        "name": "4B.4 (M&S)",
+        "desc": "Understands and implements DoD policy for M&S VV&A for OT&E and LFT&E. Understands and implements a scientifically rigorous verification, validation, and accreditation (VV&A) that includes uncertainty quantification of M&S results using statistical methods.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/29",
+        "parent": "Competency #4B: TEMP/T&E Strategy Development",
+        "children": []
+    },
+    {
+        "name": "4B.5 (Resources)",
+        "desc": "Develop an independent T&E Concept to inform the TEMP/T&E strategy and OT&E and LFT&E plans and identify T&E resources needed to implement the TEMP/T&E strategy. Identify T&E resources gaps and their effect on the adequacy of the TEMP/T&E strategy, OT&E and LFT&E plans. Inform and coordinate with the DOT&E Pillar 1 lead on T&E resources gaps and proposed solutions.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/30",
+        "parent": "Competency #4B: TEMP/T&E Strategy Development",
+        "children": []
+    },
+    {
+        "name": "4B.6 (Cost)",
+        "desc": "Provide an independent assessment of the cost of required OT&E, LFT&E and M&S including FUSL, alternate LFT&E strategy, and M&S VV&A to evaluate the TEMP/T&E strategy adequacy.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/31",
+        "parent": "Competency #4B: TEMP/T&E Strategy Development",
+        "children": []
+    },
+    {
+        "name": "4C.1 (M&S Intended Use)",
+        "desc": "Understands different types of M&S and how they support OT&E and LFT&E across the acquisition life cycle.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/32",
+        "parent": "Competency #4C: Modeling and Simulation VV&A",
+        "children": []
+    },
+    {
+        "name": "4C.2 (M&S Capability Assessment)",
+        "desc": "Determines the feasibility and benefits of using M&S to support OT&E or LFT&E.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/33",
+        "parent": "Competency #4C: Modeling and Simulation VV&A",
+        "children": []
+    },
+    {
+        "name": "4C.3 (M&S Management)",
+        "desc": "Understands the M&S management, including roles and responsibilities across organizations, and associated definitions such as modeling, simulation, verification, validation, accreditation, uncertainty quantification, etc.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/34",
+        "parent": "Competency #4C: Modeling and Simulation VV&A",
+        "children": []
+    },
+    {
+        "name": "4C.4 (M&S Requirements)",
+        "desc": "Assesses the M&S, VV&A requirements, and acceptability criteria to meet OT&E or LFT&E objectives and ensure rigorous VV&A.Identifies M&S outputs and live data requirements, criteria for comparing M&S to live data, and quantitative methods of comparing data and calculating associated uncertainties in support of VV&A.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/35",
+        "parent": "Competency #4C: Modeling and Simulation VV&A",
+        "children": []
+    },
+    {
+        "name": "4C.5 (M&S Planning and Analysis)",
+        "desc": "Understands and applies statistical and other methods that can be useful for scoping and analyzing M&S outputs (e.g., design of experiments, uncertainty quantification, extrapolation, statistical modeling).",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/36",
+        "parent": "Competency #4C: Modeling and Simulation VV&A",
+        "children": []
+    },
+    {
+        "name": "4C.6 (M&S Independent Review)",
+        "desc": "Supports the review process of M&S VV&A reports and independently analyzes the M&S V&V results for record to determine their use in supporting DOT&E's evaluation of operational effectiveness, suitability, survivability, and lethality (as applicable).",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/37",
+        "parent": "Competency #4C: Modeling and Simulation VV&A",
+        "children": []
+    },
+    {
+        "name": "4C.7 (M&S Evaluation)",
+        "desc": "Determines whether the test data collected using M&S tools are sufficient to adequately supplement data collected during OT or LFT to facilitate a credible evaluation of the system. Understands the risks of using unvalidated M&S.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/38",
+        "parent": "Competency #4C: Modeling and Simulation VV&A",
+        "children": []
+    },
+    {
+        "name": "4D.1 (Full Spectrum Survivability Kill Chain)",
+        "desc": "Understands measures, metrics, and methods to evaluate full spectrum survivability with scientific rigor in an operationally representative and relevant contested, congested, and constrained environment acrossthe acquisition life cycle including operations and sustainment.Supports the evaluation of the DoD system survivability kill chain including: (1) susceptibility to attack or engagement, (2) vulnerability to attack evaluation of the effect of the vulnerability on operational effectiveness and suitability, (3) effect of the attack or engagement on user casualties, (4) recoverability from the attack, and (5) coordinated, full spectrum attack effects.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/39",
+        "parent": "Competency #4D: Full Spectrum Survivability and Lethality",
+        "children": []
+    },
+    {
+        "name": "4D.2 (Kinetic Threats T&E)",
+        "desc": "Understands and applies susceptibility, vulnerability, user casualties (as applicable), recoverability and collateral damage to support survivability evaluation against kinetic threat effects (e.g., penetration (projectile, fragmentation), shock, blast, and fire effects on the DoD system or adversary target) in a contested kinetic threat environment.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/40",
+        "parent": "Competency #4D: Full Spectrum Survivability and Lethality",
+        "children": []
+    },
+    {
+        "name": "4D.3 (Cyber T&E)",
+        "desc": "Understands and applies susceptibility (prevent), vulnerability (mitigate), user casualties (as applicable), recoverability (recover) and collateral damage to support survivability evaluation against cyberattack (e.g., deny, degrade, disrupt, deceive, destroy, exploit, or influence, including cascading effects in the physical domains) in a contested and congested cyberspace.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/41",
+        "parent": "Competency #4D: Full Spectrum Survivability and Lethality",
+        "children": []
+    },
+    {
+        "name": "4D.4 (EMSO T&E)",
+        "desc": "Understands and applies susceptibility (prevent), vulnerability (mitigate), user casualties (as applicable), recoverability (recover) and collateral damage to support survivability evaluation against electromagnetic spectrum fires (e.g., deny, degrade, disrupt, deceive, destroy, exploit, or influence, including cascading effects in the physical domains) in a contested and congested, and constrained EMSO). Includes directed energy: electromagnetic attack or spectrum effects such as wideband radio frequency, lasers; and high-power microwaves.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/42",
+        "parent": "Competency #4D: Full Spectrum Survivability and Lethality",
+        "children": []
+    },
+    {
+        "name": "4D.5 (CBRN T&E)",
+        "desc": "Understands and applies susceptibility, vulnerability, user casualties, recoverability and collateral damage to support survivability evaluation against CBRN threats (e.g., chemical and biological agents or radioactive particles, electromagnetic pulse, blast, and thermal energy (nuclear events).",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/43",
+        "parent": "Competency #4D: Full Spectrum Survivability and Lethality",
+        "children": []
+    },
+    {
+        "name": "4D.6 (Lethality Kill Chain)",
+        "desc": "Understands measures, metrics, and methods required to support an evaluation of full spectrum lethality with scientific rigor in an operationally representative and relevant contested, congested, and constrained environment across the acquisition life cycle including operations and sustainment. Considers the adversary TTP and the adversary kill-chain; and will include but not be limited to: (1) offensive capability lethal mechanism, (2) offensive capabilities against operationally representative and realistic functional, physical, or information materials and targets, as fired from the host platform or the warfighter, (3) offensive capabilities in the presence of adversaries' susceptibility and vulnerability reduction effects, and (4) effect of an offensive attack on collateral damage.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/44",
+        "parent": "Competency #4D: Full Spectrum Survivability and Lethality",
+        "children": []
+    },
+    {
+        "name": "5.1 (Mission Context)",
+        "desc": "Builds understanding of mission(s) the software will support, to scope the operational testing to those missions. Further builds understanding of deployment strategy, including training strategy, to align operational testing to the capabilities delivered.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/45",
+        "parent": "Competency #5: Software",
+        "children": []
+    },
+    {
+        "name": "5.2 (Software Development)",
+        "desc": "Demonstrates an understanding of agile and DevSecOps methodologies and their associated terminologies for iterative software development. Further understands testing conducted throughout development. Identifies and understands limitations of testing conducted throughout the development for use in operational evaluations.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/46",
+        "parent": "Competency #5: Software",
+        "children": []
+    },
+    {
+        "name": "5.3 (Risk Based Approach)",
+        "desc": "Applies a risk-based approach to scoping OT&E and LFT&E. Demonstrates the ability to outline the processes, frequency, and approval process for operational tests. Advocates for independent operational testing to be conducted as needed.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/47",
+        "parent": "Competency #5: Software",
+        "children": []
+    },
+    {
+        "name": "5.4 (OT&E and LFT&E of Software)",
+        "desc": "Demonstrates an understanding of the basic OT&E and LFT&E responsibilities for T&E of software intensive and software embedded in DoD systems or services acquired via the Defense Acquisition System. Understands and can develop an operational testing strategy that balances the OT&E/LFT&E of the system with the deployment rate of the system to inform decision makers on operational effectiveness, suitability, survivability, and lethality.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/48",
+        "parent": "Competency #5: Software",
+        "children": []
+    },
+    {
+        "name": "5.5 (Test Automation)",
+        "desc": "Understands test automation use cases and how automated test data is designed into systems to support planning and execution of functional, regression, performance, and survivability testing.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/49",
+        "parent": "Competency #5: Software",
+        "children": []
+    },
+    {
+        "name": "5.6 (Support to Decisions)",
+        "desc": "Understands how the role of automated and manual Software T&E maintains cadence with software development decision points and acquisition decision points.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/50",
+        "parent": "Competency #5: Software",
+        "children": []
+    },
+    {
+        "name": "5.7 (Infrastructure)",
+        "desc": "Develops an understanding of underlying hardware and software infrastructure, including differences that may affect the operational performance, and including interfacing systems, to scope testing for the system-of-systems, as applicable. Supports VV&A activities of the infrastructure to determine applicability of testing data to operational evaluations.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/51",
+        "parent": "Competency #5: Software",
+        "children": []
+    },
+    {
+        "name": "6.1 (AI Awareness)",
+        "desc": "Understands how AI presents challenges as a subject of OT&E and LFT&E and how AI can enable future improvements in T&E effectiveness and efficiency.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/52",
+        "parent": "Competency #6: Artificial Intelligence",
+        "children": []
+    },
+    {
+        "name": "6.2 (AI T&E Policy and Ethics)",
+        "desc": "Understands the policy, law and ethical considerations in performing T&E on AI-enabled systems. Understands the five AI ethical principles (responsible, equitable, traceable, reliable, and governable) and how they can be measured during the evaluation of AI systems.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/53",
+        "parent": "Competency #6: Artificial Intelligence",
+        "children": []
+    },
+    {
+        "name": "6.3 (Dataset Relevancy)",
+        "desc": "Can distinguish between training, validation, and test datasets and can identify if the training dataset is operationally representative to ensure that AI model testing is more relevant to OT and LFT.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/54",
+        "parent": "Competency #6: Artificial Intelligence",
+        "children": []
+    },
+    {
+        "name": "6.4 (AI Planning)",
+        "desc": "Understands the requirements, screening characterization, designing factors, recording conditions, identifying constraints, test matrices for AI planning efforts, and demonstrates the ability to determine the confidence level and power of hypothesis tests.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/55",
+        "parent": "Competency #6: Artificial Intelligence",
+        "children": []
+    },
+    {
+        "name": "6.5 (AI Performance)",
+        "desc": "Demonstrates the ability to confirm that the information received from AI-enabled systems and data is accurate, precise, recallable, and robust.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/56",
+        "parent": "Competency #6: Artificial Intelligence",
+        "children": []
+    },
+    {
+        "name": "6.6 (Human-Machine Teaming)",
+        "desc": "Understands human-machine science and test approaches that include cognitive and physiological assessments of human operators to inform system development. Understands the role of the human-machine evaluation strategy within the larger TEMP/T&E Strategy.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/57",
+        "parent": "Competency #6: Artificial Intelligence",
+        "children": []
+    },
+    {
+        "name": "6.7 (AI Application)",
+        "desc": "Understands the application of AI tools and systems; applies the processes, principles, and technologies inherent in DevSecOps; uses ML models and prediction methods for evaluating AI performance; communicates best practices for AI/ML T&E validation and verification to the T&E enterprise from the field, DoD Partners, academia, and industry; and leverages AI capabilities in designing tests and analyzing results.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/58",
+        "parent": "Competency #6: Artificial Intelligence",
+        "children": []
+    },
+    {
+        "name": "6.8 (AI Visualization)",
+        "desc": "Demonstrates the ability to evaluate graphical representations of AI data and understands the importance of evaluating ML model performance through visualization tools for communicating the results to stakeholders.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/59",
+        "parent": "Competency #6: Artificial Intelligence",
+        "children": []
+    },
+    {
+        "name": "7.1 (Professional Ethics)",
+        "desc": "Understands the guidelines of professional and personal conduct of DOT&E ethical standards and provides clear direction and expectations when engaging with OTAs and LFT&E organizations to set and track against explicit and defensible positions throughout OT&E and LFT&E.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/61",
+        "parent": "Competency #7: Leadership",
+        "children": []
+    },
+    {
+        "name": "7.2 (Collaboration and Partnerships)",
+        "desc": "Inspires and fosters collaboration, partnership, team commitment, and trust inside and outside of DOT&E. Facilitates cooperation and motivates team members to accomplish group goals.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/1e85257e-c455-4caa-a02c-efa2545f0b8d",
+        "parent": "Competency #7: Leadership",
+        "children": []
+    },
+    {
+        "name": "7.3 (Conflict Resolution)",
+        "desc": "Engages with DOT&E leadership in advance, when necessary, to discuss notable test planning concerns and resolve potential issues and creates resolution channels for arbitrating test program issues/disagreements that cannot be resolved at the working level.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/63",
+        "parent": "Competency #7: Leadership",
+        "children": []
+    },
+    {
+        "name": "7.4 (Creativity and Innovation)",
+        "desc": "Develops new insights into situations; questions conventional approaches; encourages new ideas and innovations; designs and implements new or cutting-edge programs/processes.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/64",
+        "parent": "Competency #7: Leadership",
+        "children": []
+    },
+    {
+        "name": "7.5 (Strategic Thinking and Planning)",
+        "desc": "Formulates objectives and priorities and implements plans consistent with long-term interests of the organization in a global environment and capitalizes on opportunities and manages risks.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/65",
+        "parent": "Competency #7: Leadership",
+        "children": []
+    },
+    {
+        "name": "7.6 (Workforce Development)",
+        "desc": "Contributes to the design, development, and implementation of education and training programs to fill identified competency gaps in the workforce.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/66",
+        "parent": "Competency #7: Leadership",
+        "children": []
+    },
+    {
+        "name": "Competency #1: Operating Environment and System Design",
+        "desc": "Understand and communicate joint warfighting concepts, CONEMP/CONOPS and TTP for DoD systems, including but not limited to the CONOP/CONEMP, TTP, and capabilities of opposing forces. Contextualize DoD system design requirements with respect to the operational mission and the intended operating environment.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/4a899387-c455-4279-99cf-217aa3a7f3f1",
+        "parent": "",
+        "children": [
+            "1.1 (Mission)",
+            "1.2 (COIs)",
+            "1.3 (DoD System)",
+            "1.4 (System User)",
+            "1.5 (Opposing Forces)"
+        ]
+    },
+    {
+        "name": "Competency #2: Acquisition and Requirements Process",
+        "desc": "Understand the acquisition strategy and the relevant acquisition and program decisions for each of the adaptive acquisition framework pathways. Understand and maximize the contracting process for the benefit of meeting OT&E and LFT&E objectives. Understand and inform the technical and operational requirements.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/ad9048ff-c455-4d44-a96c-7b67858bde6a",
+        "parent": "",
+        "children": [
+            "2.3 (Acquisition Management)",
+            "2.1 (Acquisition Strategy)",
+            "2.2 (Acquisition Pathway)",
+            "2.5 (Requirements)",
+            "2.4 (Contracting)"
+        ]
+    },
+    {
+        "name": "Competency #3: Policy Development and Implementation",
+        "desc": "Understand, implement, and promulgate relevant DoD and T&E policies and guidance. Support DOT&E strategic initiatives intended to update existing and establish new policy for OT&E and LFT&E.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/9d9e76b8-c455-417d-88f5-9c42c606eed5",
+        "parent": "",
+        "children": [
+            "3.3 (Policy Adoption)",
+            "3.4 (Policy Awareness)",
+            "3.2 (Policy Development)",
+            "3.1 (Policy Compliance)"
+        ]
+    },
+    {
+        "name": "Competency #4: Test Planning, Execution, and Evaluation",
+        "desc": "Evaluate the adequacy and compliance of TEMPs, T&E strategies, OT&E, and LFT&E plans with DoD policy for OT&E and LFT&E. Observe test events and analyze results of T&E to evaluate operational effectiveness, operational suitability, survivability, and lethality with scientific rigor.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/895301f1-c455-43a4-a617-2a6174204ca8",
+        "parent": "",
+        "children": [
+            "4.3 (TEMP/T&E Strategy Development)",
+            "4.6 (Evaluation)",
+            "4.1 (Science and Technology)",
+            "4.4 (Test and M&S V&V Plan Development)",
+            "4.5 (Execution)",
+            "4.2 (Risk Assessment)"
+        ]
+    },
+    {
+        "name": "Competency #4A: Data Management and Reporting",
+        "desc": "Manage the data and information gathered during testing and assess data collection methodologies and tools to improve the testing process, and clearly articulate highly technical results of OT&E and LFT&E test to Congress and other stakeholders.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/986071bc-c455-4d81-99ff-694e37977e37",
+        "parent": "",
+        "children": [
+            "4A.1 (T&E Data Strategy and Management)",
+            "4A.4 (Communication)",
+            "4A.2 (DOT&E Data and Knowledge Management)",
+            "4A.5 Information Security",
+            "4A.3 (Technical Writing and Reporting)"
+        ]
+    },
+    {
+        "name": "Competency #4B: TEMP/T&E Strategy Development",
+        "desc": "Ensure compliance with DoD policy for TEMP/T&E Strategy. Help codify an agreement between the DoD system program manager and T&E stakeholders outlining and justifying the focus and scope of T&E activities required to evaluate the operational effectiveness, suitability, survivability, and lethality of DoD systems as they mature across the acquisition life cycle.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/0adf8a8b-c455-4d5f-8f90-562c1d359c6c",
+        "parent": "",
+        "children": [
+            "4B.3 (LFT&E)",
+            "4B.1 (IDSK)",
+            "4B.2 (OT&E)",
+            "4B.6 (Cost)",
+            "4B.5 (Resources)",
+            "4B.4 (M&S)"
+        ]
+    },
+    {
+        "name": "Competency #4C: Modeling and Simulation VV&A",
+        "desc": "Understands and implements DoD policy for M&S VV&A for OT&E and LFT&E. Understands and implements a scientifically rigorous verification, validation, and accreditation (VV&A) that includes uncertainty quantification of M&S results using statistical methods.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/30f1a0e6-c455-40e5-b83a-7451324b5ec2",
+        "parent": "",
+        "children": [
+            "4C.2 (M&S Capability Assessment)",
+            "4C.6 (M&S Independent Review)",
+            "4C.5 (M&S Planning and Analysis)",
+            "4C.3 (M&S Management)",
+            "4C.4 (M&S Requirements)",
+            "4C.1 (M&S Intended Use)",
+            "4C.7 (M&S Evaluation)"
+        ]
+    },
+    {
+        "name": "Competency #4D: Full Spectrum Survivability and Lethality",
+        "desc": "Understands and implements DoD policy for LFT&E. Considers measures, metrics, and statistical methods to maximize use of available data and design LFT&E to evaluate, with scientific rigor, realistic, full spectrum survivability and lethality (as applicable) of a combat-loaded system in operationally relevant and representative contested, congested, and constrained environments using live kinetic and non-kinetic threats and targets (or their surrogates) and their combined effects.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/07ca18e0-c455-47e8-b9eb-f7c3a94de6c8",
+        "parent": "",
+        "children": [
+            "4D.2 (Kinetic Threats T&E)",
+            "4D.3 (Cyber T&E)",
+            "4D.4 (EMSO T&E)",
+            "4D.1 (Full Spectrum Survivability Kill Chain)",
+            "4D.6 (Lethality Kill Chain)",
+            "4D.5 (CBRN T&E)"
+        ]
+    },
+    {
+        "name": "Competency #5: Software",
+        "desc": "Understands and can implement DoD policy for OT&E and LFT&E of software intensive systems and software embedded in systems to evaluate, with scientific rigor, the operational effectiveness, suitability, survivability, and lethality (as applicable) of DoD systems in support of the delivery of each incremental capability.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/d60d6863-c455-4295-8cf9-bc38b87395a3",
+        "parent": "",
+        "children": [
+            "5.2 (Software Development)",
+            "5.1 (Mission Context)",
+            "5.3 (Risk Based Approach)",
+            "5.6 (Support to Decisions)",
+            "5.5 (Test Automation)",
+            "5.7 (Infrastructure)",
+            "5.4 (OT&E and LFT&E of Software)"
+        ]
+    },
+    {
+        "name": "Competency #6: Artificial Intelligence",
+        "desc": "Understand and implement DoD policy for OT&E and LFT&E of Artificial Intelligence (AI)-Based and Autonomous Systems. Understand aspects of AI such as tools, models, design, testing and evaluation protocols.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/ed9d8c1e-c455-4690-9292-b2069c764904",
+        "parent": "",
+        "children": [
+            "6.1 (AI Awareness)",
+            "6.3 (Dataset Relevancy)",
+            "6.2 (AI T&E Policy and Ethics)",
+            "6.5 (AI Performance)",
+            "6.7 (AI Application)",
+            "6.8 (AI Visualization)",
+            "6.4 (AI Planning)",
+            "6.6 (Human-Machine Teaming)",
+            "6.9 (AI Capabilities Assessment)"
+        ]
+    },
+    {
+        "name": "Competency #7: Leadership",
+        "desc": "Demonstrate personal and professional attributes of effective leaders to lead change; lead people; deliver results; manage human capital, finances, and technology; and build coalitions.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/3d83aa07-c455-4407-9db7-cd718c2c3865",
+        "parent": "",
+        "children": [
+            "7.3 (Conflict Resolution)",
+            "7.6 (Workforce Development)",
+            "7.1 (Professional Ethics)",
+            "7.4 (Creativity and Innovation)",
+            "7.5 (Strategic Thinking and Planning)",
+            "7.2 (Collaboration and Partnerships)",
+            "7.7 (Financial Management)"
+        ]
+    },
+    {
+        "name": "6.9 (AI Capabilities Assessment)",
+        "desc": "Understands AI tools and coding, can identify issues in ML models and common frameworks used to implement AI methods; recognizes potential use cases to integrate AI into T&E, and leverages AI capabilities in analyzing results.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/ae8786df-c455-48ea-92ce-7e150942ebc6",
+        "parent": "Competency #6: Artificial Intelligence",
+        "children": []
+    },
+    {
+        "name": "7.7 (Financial Management)",
+        "desc": "Understands the organization’s financial processes and prepares, justifies, and administers the program budget and oversees procurement and contracting to achieve desired results. Monitors expenditures and uses cost-benefit thinking to set priorities.",
+        "id": "https://dev-eccr.deloitteopenlxp.com/api/data/schema.cassproject.org.0.4.Competency/63727cef-c455-4546-94df-4b8dc81fbe4b",
+        "parent": "Competency #7: Leadership",
+        "children": []
+    }
+]
