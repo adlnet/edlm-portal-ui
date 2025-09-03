@@ -2,7 +2,6 @@ import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import Head from 'next/head'
 import React, { useState} from 'react';
-import RouteProtection from '@/utils/RouteProtection';
 
 // contexts
 import { AuthProvider, useAuth } from '@/contexts/AuthContext';
@@ -29,17 +28,14 @@ export default function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <meta httpEquiv="Content-Security-Policy" content="script-src 'self' https://dote.staging.dso.mil https://dote.staging.dso.mil/ https://dote.staging.dso.mil/edlm-portal/ https://ajax.googleapis.com https://www.ssa.gov; img-src 'self' data: https: https://dote.staging.dso.mil https://dote.staging.dso.mil/edlm-portal/ ; "/>
         <title>EDLM Portal</title>
         <link rel="icon" href= {icon.src} />
       </Head>
       <AuthProvider>
         <QueryClientProvider client={queryClient}>
           <Hydrate state={pageProps['dehydratedState']}>
-            <RouteProtection>
-              <Component {...pageProps} />
-              <ReactQueryDevtools />
-            </RouteProtection>
+            <Component {...pageProps} />
+            <ReactQueryDevtools />
           </Hydrate>
         </QueryClientProvider>
       </AuthProvider>
