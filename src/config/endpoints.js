@@ -1,5 +1,5 @@
 // local host endpoint from .env
-export const backendHost = process.env.NEXT_PUBLIC_XDS_BACKEND;
+export const backendHost = process.env.NEXT_PUBLIC_PORTAL_BACKEND_HOST;
 export const XDSbackendHost = process.env.NEXT_PUBLIC_XDS_BACKEND;
 export const LRSbackendHost = process.env.NEXT_PUBLIC_LRS_API;
 export const ECCRHost = process.env.NEXT_PUBLIC_ECCR_API;
@@ -57,4 +57,5 @@ export const compSearchUrl = `/edlm-portal/api/data/${ECCR_TYPE}/${ECCR_DOTE_UUI
 // Forward Statements
 export const statementsUrl = `${XDSbackendHost}${api}statements`;
 
-
+// Course Progress details
+export const courseProgressDetail = `${backendHost}${api}course-progress/`;

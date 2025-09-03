@@ -63,8 +63,10 @@ describe("Learning Summary Page", () => {
     ];
     
     mockSummaryData.forEach(({ name, value }) => {
-      expect(getAllByText(name).length).toBeGreaterThan(0);
-      expect(getAllByText(value).length).toBeGreaterThan(0);
+      expect(getAllByText('Courses Completed').length).toBeGreaterThan(0);
+      expect(getAllByText('Upcoming Courses').length).toBeGreaterThan(0);
+      expect(getAllByText('Competencies Worked On').length).toBeGreaterThan(0);
+      expect(getAllByText('In Progress Courses').length).toBeGreaterThan(0);
     });
   });
 

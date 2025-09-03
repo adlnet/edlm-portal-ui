@@ -3,7 +3,7 @@
 import { TrashIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 
-const TableBody = ({ pageData, columns, deleteCourse}) => {
+const TableBody = ({ pageData, columns, deleteCourse, url}) => {
     
     return (
      <tbody className='w-full'>
@@ -21,9 +21,13 @@ const TableBody = ({ pageData, columns, deleteCourse}) => {
             if (accessor === 'title'){
                 const tData = data[accessor] ? data[accessor] : "——";
 
+                const linkUrl = url
+                    ? url(data)
+                    : data.url || `/edlm-portal/learner/course/${data.id}`;
+
                 return (
                     <td key={accessor} className='pl-4 hover:text-[#3892F3] hover:underline'>
-                        <Link href={`/edlm-portal/learner/course/${data.id}`} passHref className=''>
+                        <Link href={linkUrl} passHref className=''>
                             {tData}
                         </Link>
                     </td>
