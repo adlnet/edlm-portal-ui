@@ -45,8 +45,6 @@ export default function LearningSummary() {
 
   const { data: courseProgressData } = useCourseProgressDetail();
 
-  console.log('courseProgressData', courseProgressData);
-
   const columns = [
     {label: 'COURSES', accessor: 'title'},
   ]
