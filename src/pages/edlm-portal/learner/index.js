@@ -2,6 +2,7 @@
 
 import { Button, Card } from 'flowbite-react';
 import { useAuth } from '@/contexts/AuthContext';
+import { useCourseProgressDetail } from '@/hooks/useCourseProgressDetail';
 import { useInterestLists } from "@/hooks/useInterestLists";
 import { useRouter } from 'next/router';
 import { useUserOwnedLists } from "@/hooks/useUserOwnedLists";
@@ -23,6 +24,8 @@ export default function Home() {
   const router = useRouter();
   const { user } = useAuth();
 
+  const { data: courseProgressData } = useCourseProgressDetail()
+
   const spotlight = useSpotlightCourses();
 
   const interestLists = useInterestLists();
@@ -40,14 +43,12 @@ export default function Home() {
     setLunchNLearn(lunchNLearnList);
   }, [interestLists, ownedLists]);
 
-  // Mock data for development
-  const mockInProgressCourses = [
-    { id: 1, title: 'AI Ethics', status: 'In Progress' },
-    { id: 2, title: 'NLP', status: 'In Progress' },
-    { id: 3, title: 'Machine Learning', status: 'In Progress'},
-    { id: 4, title: 'Deep Learning', status: 'In Progress'},
-    { id: 5, title: 'Data Science', status: 'In Progress'},
-  ];
+  const inProgressCourses = courseProgressData?.in_progress_courses?.map((course, i) => ({
+    id: i + 1,
+    title: course?.course_name || 'Loading...',
+    status: 'In Progress',
+    url: course?.course_id
+  })) || [{ id: 1, title: 'Loading...' }];
 
   const columns = [
     {label: 'COURSES', accessor: 'title'},
@@ -177,7 +178,7 @@ export default function Home() {
             <div className='w-1/2 bg-white shadow-md rounded-lg justify-between mr-5'> 
               <div className='p-4 text-xl font-bold'>Pick Up Where you Left Off</div>
               <div className='p-4 -mt-10'>              
-                <CollectionTable data={mockInProgressCourses} edit={false} columns={columns} rowsPerPage={5}/>
+                <CollectionTable data={inProgressCourses} edit={false} columns={columns} rowsPerPage={5}/>
               </div>
               <div className="flex justify-end -mt-4">
                 <Button className="m-4 bg-white-900 text-blue-800 text-sm hover:bg-blue-600" onClick={() => router.push(moodleAllCourses)}>
@@ -195,11 +196,11 @@ export default function Home() {
                   />
                 </div>
                 <div className="flex flex-col pl-4 w-1/4 items-center text-center">
-                  <div className=' text-3xl text-blue-800 font-bold'>3</div>
+                  <div className=' text-3xl text-blue-800 font-bold'>{courseProgressData?.completed_courses?.length || 0}</div>
                   <div className='pb-2 text-sm text-gray-500'>Courses Completed</div>
-                  <div className='text-3xl text-blue-800 font-bold'>43</div>
+                  <div className='text-3xl text-blue-800 font-bold'>{courseProgressData?.in_progress_courses?.length || 0}</div>
                   <div className='pb-2 text-sm text-gray-500'>In Progress Courses</div>
-                  <div className='text-3xl text-blue-800 font-bold'>2</div>
+                  <div className='text-3xl text-blue-800 font-bold'>{courseProgressData?.enrolled_courses?.length || 0}</div>
                   <div className='pb-4 text-sm text-gray-500 '>Upcoming Courses</div>
                 </div>
               </div>
