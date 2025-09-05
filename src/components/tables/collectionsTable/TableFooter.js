@@ -5,6 +5,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 const TableFooter = ({currentPage, setPage, handlePageChange, totalPages }) => {
 
     const pageNumbers = [];
+    const hasOnlyOnePage = totalPages <= 1;
 
     const start = Math.max(1, Math.min(currentPage - 2));
     const end = Math.min(totalPages, (currentPage + 2));
@@ -44,8 +45,8 @@ const TableFooter = ({currentPage, setPage, handlePageChange, totalPages }) => {
             <div className='flex justify-center items-center'>
                 <button
                     onClick={() => handleLeftClick()}
-                    className={`${currentPage === 1 ? 'cursor-not-allowed bg-gray-100 text-gray-400' : 'bg-white text-blue-900 hover:text-blue-400 hover:border-blue-400'} px-3 py-2 border border-[#d6d2db] rounded`}
-                    disabled={currentPage === 1 ? true : false}
+                    className={`${currentPage === 1 || hasOnlyOnePage ? 'cursor-not-allowed bg-gray-100 text-gray-400' : 'bg-white text-blue-900 hover:text-blue-400 hover:border-blue-400'} px-3 py-2 border border-[#d6d2db] rounded`}
+                    disabled={currentPage === 1 || hasOnlyOnePage ? true : false}
                     data-testid='FooterButton'
                 >
                     <ChevronLeftIcon class="h-6 w-6" />
@@ -68,8 +69,8 @@ const TableFooter = ({currentPage, setPage, handlePageChange, totalPages }) => {
 
                 <button
                     onClick={() => handleRightClick()}
-                    className={`${currentPage === totalPages ? 'cursor-not-allowed bg-gray-100 text-gray-400' : 'text-blue-900 hover:text-blue-400 hover:border-blue-400'} px-3 py-2 border border-[#d6d2db] rounded bg-white`}
-                    disabled={totalPages <= currentPage ? true : false}
+                    className={`${currentPage === totalPages || hasOnlyOnePage ? 'cursor-not-allowed bg-gray-100 text-gray-400' : 'text-blue-900 hover:text-blue-400 hover:border-blue-400'} px-3 py-2 border border-[#d6d2db] rounded`}
+                    disabled={totalPages <= currentPage || hasOnlyOnePage ? true : false}
                     data-testid='FooterButton'
                 >
                     <ChevronRightIcon class="h-6 w-6" />
