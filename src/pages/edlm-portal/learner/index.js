@@ -6,6 +6,7 @@ import { useCourseProgressDetail } from '@/hooks/useCourseProgressDetail';
 import { useInterestLists } from "@/hooks/useInterestLists";
 import { useRouter } from 'next/router';
 import { useUserOwnedLists } from "@/hooks/useUserOwnedLists";
+import ActiveCompleteTab from '@/components/buttons/ActiveCompleteTab';
 import Carousel from 'react-grid-carousel'
 import CollectionTable from '@/components/tables/collectionsTable/CollectionTable';
 import CompetencyChart from '@/components/CompetencyChart';
@@ -33,7 +34,8 @@ export default function Home() {
 
   const [lunchNLearn, setLunchNLearn] = useState(null);
 
-  const moodleAllCourses = process.env.NEXT_PUBLIC_MOODLE_ALL_COURSES;
+  const tabs = ['Active', 'Completed'];
+  const [selectedTab, setSelectedTab] = useState(tabs[0]);
 
   // Searching for launch and learn plans
   useEffect(() => {
@@ -50,9 +52,17 @@ export default function Home() {
     url: course?.course_id
   })) || [{ id: 1, title: 'Loading...' }];
 
+  const completedCourses = courseProgressData?.completed_courses?.map((course, i) => ({
+    id: i + 1,
+    title: course?.course_name || 'Loading...',
+    url: course?.course_id
+  })) || [{ id: 1, title: 'Loading...' }];
+
   const columns = [
     {label: 'COURSES', accessor: 'title'},
-    {label: 'COURSES STATUS', accessor: 'status'},
+    {label: 'Start Date', accessor: 'startDate'},
+    {label: 'End Date', accessor: 'endDate'},
+    {label: 'Competencies', accessor: 'competencies'}
   ]
 
   const mockCompetencyData = [
@@ -176,14 +186,22 @@ export default function Home() {
         <div className='flex flex-row mt-10 h-100'>
           <div className='flex flex-row w-full'>
             <div className='w-1/2 bg-white shadow-md rounded-lg justify-between mr-5'> 
-              <div className='p-4 text-xl font-bold'>Pick Up Where you Left Off</div>
-              <div className='p-4 -mt-10'>              
-                <CollectionTable data={inProgressCourses} edit={false} columns={columns} rowsPerPage={5}/>
-              </div>
-              <div className="flex justify-end -mt-4">
-                <Button className="m-4 bg-white-900 text-blue-800 text-sm hover:bg-blue-600" onClick={() => router.push(moodleAllCourses)}>
-                    View more
-                </Button>
+              <div className='p-4 text-xl font-bold'>My Courses</div>
+              <div className='p-4'>
+                <ActiveCompleteTab
+                  selectedTab={selectedTab}
+                  setSelectedTab={setSelectedTab}
+                  tabs={tabs}
+                />
+                {selectedTab === 'Active' ? (
+                  <div>              
+                    <CollectionTable data={inProgressCourses} edit={false} columns={columns} rowsPerPage={5}/>
+                  </div>
+                ) : (
+                  <div>              
+                    <CollectionTable data={completedCourses} edit={false} columns={columns} rowsPerPage={5}/>
+                  </div>
+                )}
               </div>
             </div>
             <div className='w-1/2 bg-white shadow-md rounded-lg'>
