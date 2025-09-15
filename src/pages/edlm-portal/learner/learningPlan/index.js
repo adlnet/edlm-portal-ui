@@ -1,12 +1,13 @@
 'use strict';
 
 import { Button, Card } from 'flowbite-react';
+import { useRouter } from 'next/router';
+import ActiveCompleteTab from '@/components/buttons/ActiveCompleteTab';
 import DefaultLayout from "@/components/layouts/DefaultLayout";
 import LearningJourneyCard from "@/components/cards/LearningJourneyCard";
-
+import React, { useEffect, useState } from 'react';
 
 export default function LearningPlan() {
-
 
   // // Card dropdown menu options
   // const getMenuItems = id => [
@@ -34,16 +35,16 @@ export default function LearningPlan() {
   // };
 
 
-  // const mockLearningJourneys = [
-  //   { id: 0, name: 'Short-term Plan', progress: 50, time: '1-2 years' },
-  //   { id: 0, name: 'Long-term Plan', progress: 50, time: '3-4 years' },
-  // ]
+  const mockLearningJourneys = [
+    { id: 0, name: 'Short-term Plan', progress: 50, time: '1-2 years' },
+    { id: 0, name: 'Long-term Plan', progress: 100, time: '3-4 years' },
+  ]
 
   // const mockLearningJourneys = []
 
-  const mockLearningJourneys = [
-    { id: 0, name: 'Short-term Plan', progress: 50, time: '1-2 years' }
-  ]
+  // const mockLearningJourneys = [
+  //   { id: 0, name: 'Short-term Plan', progress: 50, time: '1-2 years' }
+  // ]
 
   const mockOnboardingJourneys = [
     { id: 0, name: 'Phase I (30 Days)', progress: 100 },
@@ -51,6 +52,11 @@ export default function LearningPlan() {
     { id: 2, name: 'Phase III (90 Days)', progress: 75 }
   ]
 
+  const router = useRouter();
+
+  const tabs = ['Active', 'Completed'];
+  const [selectedTab, setSelectedTab] = useState(tabs[0]);
+  
   return (
     <DefaultLayout>
       <div className='bg-white shadow-md p-5 py-0 w-full mb-5 rounded-xl m-4 -my-6 overflow-clip'>
@@ -60,7 +66,13 @@ export default function LearningPlan() {
             <h2 className=''> Manage and track your individual development plans. </h2>
           </div>
 
-          <div className='mb-4 rounded-lg bg-gray-100 p-4 leading-tight'>
+          <ActiveCompleteTab
+            selectedTab={selectedTab}
+            setSelectedTab={setSelectedTab}
+            tabs={tabs}
+          />
+
+          <div className='mt-4 mb-4 rounded-lg bg-gray-100 p-4 leading-tight'>
             <h1 className="text-lg font-bold">Individual Development Plan</h1>
             <p className="">
               Create personalized learning journeys tailored to your career goals and skill gaps. 
@@ -72,21 +84,25 @@ export default function LearningPlan() {
           <div className='flex flex-row w-100 mb-6 gap-4'>
             
             {mockLearningJourneys?.map((journey, idx) => {
-              if (journey.progress < 100) {
+              if (journey.progress < 100 && selectedTab=='Active') {
                 return <LearningJourneyCard key={idx} journey={journey} />
-              }else {
-                return null;
+              }else if (journey.progress >= 100 && selectedTab=='Completed'){
+                return <LearningJourneyCard key={idx} journey={journey} />
+              }else{
+                return null
               }
             })}
 
-            {mockLearningJourneys.length < 2 && (
+            {mockLearningJourneys.length < 4 && selectedTab=='Active' && (
               <div className='flex flex-grow justify-center items-center border border-dashed rounded-lg p-5 shadow hover:shadow-lg transition shadow min-h-36'>
-                <Button className="flex justify-center bg-blue-900 hover:bg-blue-600" onClick={() => {}}>
+                <Button className="flex justify-center bg-blue-900 hover:bg-blue-600" 
+                        onClick={() => {router.push('/edlm-portal/learner/learningPlan/developmentPlan')}}
+                >
                   + Create New Plan
                 </Button>
               </div>
             )}
-            
+
           </div>
 
           {/* Learning Phases Section */}
@@ -103,10 +119,12 @@ export default function LearningPlan() {
           <div className='flex flex-row w-100 mb-6 gap-4'>
             
             {mockOnboardingJourneys?.map((journey, idx) => {
-              if (journey.progress < 100) {
+              if (journey.progress < 100 && selectedTab=='Active') {
                 return <LearningJourneyCard key={idx} journey={journey} />
-              }else {
-                return null;
+              }else if (journey.progress >= 100 && selectedTab=='Completed'){
+                return <LearningJourneyCard key={idx} journey={journey} />
+              }else{
+                return null
               }
             })}
 
