@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Card } from 'flowbite-react';
+import { Button, Card, Spinner } from 'flowbite-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useCourseProgressDetail } from '@/hooks/useCourseProgressDetail';
 import { useInterestLists } from "@/hooks/useInterestLists";
@@ -9,7 +9,6 @@ import { useUserOwnedLists } from "@/hooks/useUserOwnedLists";
 import ActiveCompleteTab from '@/components/buttons/ActiveCompleteTab';
 import Carousel from 'react-grid-carousel'
 import CollectionTable from '@/components/tables/collectionsTable/CollectionTable';
-import CompetencyChart from '@/components/CompetencyChart';
 import CourseSpotlightCarouselCard from '@/components/cards/CourseSpotlightCarousel';
 import DefaultLayout from '@/components/layouts/DefaultLayout';
 import Head from 'next/head'
@@ -25,7 +24,10 @@ export default function Home() {
   const router = useRouter();
   const { user } = useAuth();
 
-  const { data: courseProgressData } = useCourseProgressDetail()
+  const {
+    data: courseProgressData,
+    isLoading: courseProgressLoading
+   } = useCourseProgressDetail()
 
   const spotlight = useSpotlightCourses();
 
@@ -45,53 +47,73 @@ export default function Home() {
     setLunchNLearn(lunchNLearnList);
   }, [interestLists, ownedLists]);
 
-  const inProgressCourses = courseProgressData?.in_progress_courses?.map((course, i) => ({
-    id: i + 1,
-    title: course?.course_name || 'Loading...',
-    status: 'In Progress',
-    url: course?.course_id
-  })) || [{ id: 1, title: 'Loading...' }];
+  const mockActiveCourseProgressData = {
+    course: 'Leadership Fundamentals',
+    startDate:'Jan 30, 2025',
+    endDate: 'Mar 30, 2025',
+    competencies: ['Leadership', 'AI'],
+  };
 
-  const completedCourses = courseProgressData?.completed_courses?.map((course, i) => ({
-    id: i + 1,
-    title: course?.course_name || 'Loading...',
-    url: course?.course_id
-  })) || [{ id: 1, title: 'Loading...' }];
+  const mockCompletedCourseProgressData = {
+    course: 'Software Architecture Basics',
+    startDate:'Oct 1, 2024',
+    endDate: 'Dec 15, 2024',
+    competencies: ['Software'],
+  };
+
+  // Mock data for development
+  const inProgressCourses = courseProgressData?.in_progress_courses?.length > 0 
+    ? courseProgressData?.in_progress_courses?.map((course, i) => ({
+      id: i + 1,
+      title: course?.course_name || mockActiveCourseProgressData.course,
+      status: 'In Progress',
+      url: course?.course_id,
+      startDate: course?.start_date || mockActiveCourseProgressData.startDate,
+      endDate: course?.end_date || mockActiveCourseProgressData.endDate,
+      competencies: course?.competencies || mockActiveCourseProgressData.competencies,
+    })) : [{
+      id: 1,
+      title: mockActiveCourseProgressData.course,
+      startDate: mockActiveCourseProgressData.startDate,
+      endDate: mockActiveCourseProgressData.endDate,
+      competencies: mockActiveCourseProgressData.competencies,
+      isUnClickable: true
+    }];
+
+  const completedCourses = courseProgressData?.completed_courses?.length > 0
+   ? courseProgressData?.completed_courses?.map((course, i) => ({
+      id: i + 1,
+      title: course?.course_name || mockCompletedCourseProgressData.course,
+      url: course?.course_id,
+      startDate: course?.start_date || mockCompletedCourseProgressData.startDate,
+      endDate: course?.end_date || mockCompletedCourseProgressData.endDate,
+      competencies: course?.competencies || mockCompletedCourseProgressData.competencies
+    })) : [{
+      id: 1,
+      title : mockCompletedCourseProgressData.course,
+      startDate: mockCompletedCourseProgressData.startDate,
+      endDate: mockCompletedCourseProgressData.endDate,
+      competencies: mockCompletedCourseProgressData.competencies,
+      isUnClickable: true
+    }];
 
   const columns = [
     {label: 'COURSES', accessor: 'title'},
     {label: 'Start Date', accessor: 'startDate'},
     {label: 'End Date', accessor: 'endDate'},
     {label: 'Competencies', accessor: 'competencies'}
-  ]
-
-  const mockCompetencyData = [
-    { name: 'Operating & System Design', courses:4, hours: 4 },
-    { name: 'Acquisition & Requirements Process', courses: 2, hours: 3 },
-    { name: 'Policy Development & Implementation', courses: 3, hours: 5 },
-    { name: 'Test Planning, Execution & Reporting', courses: 2, hours: 2 },
-    { name: 'Data Management & Reporting', courses: 2, hours: 3 },
-    { name: 'TEMP/T&E Strategy & Development', courses: 2, hours: 3 },
-    { name: 'Modeling & Stimulation VV&A', courses: 2, hours: 3 },
-    { name: 'Software', courses: 2, hours: 3 },
-    { name: 'Full Spectrum Survivability & Lethality', courses: 2, hours: 3 },
-    { name: 'Artificial Intelligence', courses: 2, hours: 3 },
-    { name: 'Leadership', courses: 2, hours: 3 }
   ];
-  
-  const mockCompetencyColor = {
-    'Operating & System Design': '#E8EAA1',
-    'Acquisition & Requirements Process': '#00AAA0',
-    'Policy Development & Implementation': '#5068C3',
-    'Test Planning, Execution & Reporting': '#927FBF',
-    'Data Management & Reporting': '#F7C873',
-    'TEMP/T&E Strategy & Development': '#E29578',
-    'Modeling & Stimulation VV&A': '#CCF186',
-    'Software': '#3b445b',
-    'Full Spectrum Survivability & Lethality': '#307672',
-    'Artificial Intelligence': '#694B7C',
-    'Leadership': '#BADFDB'
-  }
+
+  const renderLoading = loadingMessage => {
+    if (courseProgressLoading) {
+      return (
+        <div className='flex flex-col items-center justify-center p-8'>
+          <Spinner color='success' aria-label='Success spinner example' size='xl'/>
+          <p className='mt-4'>{loadingMessage}</p>
+        </div>
+      );
+    }
+  };
 
   return (
     <DefaultLayout>
@@ -185,47 +207,28 @@ export default function Home() {
 
         <div className='flex flex-row mt-10 h-100'>
           <div className='flex flex-row w-full'>
-            <div className='w-1/2 bg-white shadow-md rounded-lg justify-between mr-5'> 
+            <div className='w-full bg-white shadow-md rounded-lg justify-between mr-5'> 
               <div className='p-4 text-xl font-bold'>My Courses</div>
-              <div className='p-4'>
-                <ActiveCompleteTab
-                  selectedTab={selectedTab}
-                  setSelectedTab={setSelectedTab}
-                  tabs={tabs}
-                />
-                {selectedTab === 'Active' ? (
-                  <div>              
-                    <CollectionTable data={inProgressCourses} edit={false} columns={columns} rowsPerPage={5}/>
-                  </div>
-                ) : (
-                  <div>              
-                    <CollectionTable data={completedCourses} edit={false} columns={columns} rowsPerPage={5}/>
-                  </div>
-                )}
-              </div>
-            </div>
-            <div className='w-1/2 bg-white shadow-md rounded-lg'>
-            <div className='flex flex-row p-4 text-xl font-bold'>Learning Summary</div>
-              <div className="flex flex-row items-center">
-                <div className='ml-2 mt-6'>
-                  <CompetencyChart
-                    data={mockCompetencyData}
-                    colors={mockCompetencyColor}
-                  />
-                </div>
-                <div className="flex flex-col pl-4 w-1/4 items-center text-center">
-                  <div className=' text-3xl text-blue-800 font-bold'>{courseProgressData?.completed_courses?.length || 0}</div>
-                  <div className='pb-2 text-sm text-gray-500'>Courses Completed</div>
-                  <div className='text-3xl text-blue-800 font-bold'>{courseProgressData?.in_progress_courses?.length || 0}</div>
-                  <div className='pb-2 text-sm text-gray-500'>In Progress Courses</div>
-                  <div className='text-3xl text-blue-800 font-bold'>{courseProgressData?.enrolled_courses?.length || 0}</div>
-                  <div className='pb-4 text-sm text-gray-500 '>Upcoming Courses</div>
-                </div>
-              </div>
-              <div className="flex justify-end">
-                <Button className="m-4 bg-white-900 text-blue-800 text-sm hover:bg-blue-600 mt-10" onClick={() => router.push('/edlm-portal/learner/learningSummary')}>
-                    View more
-                </Button>
+              <div className='p-4 -mt-4'>
+                  {renderLoading("Loading your course progress...")
+                    || (
+                      <>
+                        <ActiveCompleteTab
+                          selectedTab={selectedTab}
+                          setSelectedTab={setSelectedTab}
+                          tabs={tabs}
+                        />
+                        {selectedTab === 'Active' ? (
+                          <div className='-mt-4'>              
+                            <CollectionTable data={inProgressCourses} edit={false} columns={columns} rowsPerPage={5} />
+                          </div>
+                        ) : (
+                          <div className='-mt-4'>              
+                            <CollectionTable data={completedCourses} edit={false} columns={columns} rowsPerPage={5} />
+                          </div>
+                        )}
+                      </>
+                    )}
               </div>
             </div>
           </div>
