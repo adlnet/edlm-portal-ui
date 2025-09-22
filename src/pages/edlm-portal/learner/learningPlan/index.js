@@ -1,43 +1,17 @@
 'use strict';
 
-import { Button, Card } from 'flowbite-react';
+import { Button } from 'flowbite-react';
 import { useRouter } from 'next/router';
 import ActiveCompleteTab from '@/components/buttons/ActiveCompleteTab';
 import DefaultLayout from "@/components/layouts/DefaultLayout";
 import LearningJourneyCard from "@/components/cards/LearningJourneyCard";
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 export default function LearningPlan() {
 
-  // // Card dropdown menu options
-  // const getMenuItems = id => [
-  //   {
-  //     icon: <Image src={ShareIcon} alt='Share' />,
-  //     label: 'Share',
-  //     onClick: () => handleShare(id),
-  //   },
-  // ];
-
-  // const handleShare = id => {
-  //   navigator.clipboard.writeText(`${window.origin}/edlm-portal/learner/lists/${id}`)
-  //   .then(() => {
-  //     setCopy('Copied Successfully!');
-  //     setTimeout(() => {
-  //       setCopy('');
-  //     }, 2000);
-  //   })
-  //   .catch(() => {
-  //     setCopy('Failed to copy');
-  //     setTimeout(() => {
-  //       setCopy('');
-  //     }, 2000);
-  //   });
-  // };
-
-
   const mockLearningJourneys = [
     { id: 0, name: 'Short-term Plan', progress: 50, time: '1-2 years' },
-    { id: 0, name: 'Long-term Plan', progress: 100, time: '3-4 years' },
+    { id: 1, name: 'Long-term Plan', progress: 100, time: '3-4 years' },
   ]
 
   // const mockLearningJourneys = []
@@ -47,9 +21,9 @@ export default function LearningPlan() {
   // ]
 
   const mockOnboardingJourneys = [
-    { id: 0, name: 'Phase I (30 Days)', progress: 100 },
-    { id: 1, name: 'Phase II (60 Days)', progress: 60 },
-    { id: 2, name: 'Phase III (90 Days)', progress: 75 }
+    { id: 2, name: 'Phase I (30 Days)', progress: 100 },
+    { id: 3, name: 'Phase II (60 Days)', progress: 60 },
+    { id: 4, name: 'Phase III (90 Days)', progress: 75 }
   ]
 
   const router = useRouter();
