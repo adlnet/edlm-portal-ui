@@ -2,7 +2,9 @@
 import { Button } from 'flowbite-react';
 import { ExclamationCircleIcon } from "@heroicons/react/24/solid";
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 import CompetencyDevPlan from "@/components/CompetencyDevPlan";
+import CreateLearningPlan from '@/pages/edlm-portal/learner/learningPlan/createLearningPlan';
 import DefaultLayout from "@/components/layouts/DefaultLayout";
 import backupData from '@/public/backup_competencies.json';
 
@@ -23,11 +25,17 @@ export default function DevelopmentPlan() {
 
   const router = useRouter();
 
+  const [showCreatePlan, setShowCreatePlan] = useState(false);
+
   const Competencies = backupData;
 
   const ParentComps = findParents({Competencies});
 
   console.log(ParentComps)
+
+  if (showCreatePlan) {
+    return <CreateLearningPlan />;
+  }
 
   return (
     <DefaultLayout>
@@ -83,7 +91,7 @@ export default function DevelopmentPlan() {
                 <div className='flex flex-row'>
                   <Button 
                     className='flex justify-center bg-blue-400 hover:bg-blue-700' 
-                    onClick={() =>{}}
+                    onClick={() => setShowCreatePlan(true)}
                   >
                     Skip Assessment
                   </Button>
