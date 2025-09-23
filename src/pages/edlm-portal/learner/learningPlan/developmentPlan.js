@@ -62,46 +62,20 @@ export default function DevelopmentPlan() {
               ))}
             </div>
             <div className="p-4">
-              <div className="border-t pt-2 pb-4"></div>
-              <p className="pb-4">How This Self-Assessment Works</p>
-              <div className="flex flex-row bg-yellow-100 p-4 rounded-md border-solid border-2 border-yellow-400">
-                <div className="mr-2">
-                  <ExclamationCircleIcon class="h-6 w-6 text-yellow-400" />
-                </div>
-                <div>
-                  <span className="font-bold">Reflect honestly</span> on your current abilities in each competency area. This assessment helps identify where 
-                  you are today and where you want to grow. Each competency has tailored learning journeys designed to bridge 
-                  the gap between your current proficiency and your career goals.
-                </div>
-              </div>
-              <ul className="pt-4 list-disc pl-5">
-                <li className="marker:text-blue-500">Assess your current skill level in each of the 6 core competencies</li>
-                <li className="marker:text-blue-500">Set target proficiency levels aligned with your career aspirations</li>
-                <li className="marker:text-blue-500">Receive personalized learning journeys with curated courses and resources</li>
-                <li className="marker:text-blue-500">Create a structured development plan to achieve your goals</li>
-              </ul>
-
-              <div className='flex flex-row justify-between pt-6'>
+              <div className="border-t pt-2"></div>
+              <div className='flex flex-row justify-between pt-4'>
                 <Button 
-                  className='flex justify-center bg-blue-900 hover:bg-blue-600' 
+                  className='flex justify-center bg-blue-300 hover:bg-blue-600' 
                   onClick={() =>{router.push('/edlm-portal/learner/learningPlan/')}}
                 >
                   Cancel
                 </Button>
-                <div className='flex flex-row'>
-                  <Button 
-                    className='flex justify-center bg-blue-400 hover:bg-blue-700' 
-                    onClick={() => setShowCreatePlan(true)}
-                  >
-                    Skip Assessment
-                  </Button>
-                  <Button 
-                    className='flex justify-center bg-blue-900 hover:bg-blue-600 ml-2' 
-                    onClick={() =>{}}
-                  >
-                    Begin Self-Assessment
-                  </Button>
-                </div>
+                <Button 
+                  className='flex justify-center bg-blue-900 hover:bg-blue-600 ml-2' 
+                  onClick={() =>{}}
+                >
+                  Start Role Based Plan
+                </Button>
               </div>
             </div>
           </div>
