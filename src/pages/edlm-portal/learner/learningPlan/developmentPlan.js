@@ -61,7 +61,7 @@ export default function DevelopmentPlan() {
                 <div className="border-t pt-2 pb-4"></div>
                 <div className='flex flex-row justify-between pt-6'>
                   <Button 
-                    className='flex justify-center bg-blue-900 hover:bg-blue-600' 
+                    className='flex justify-center bg-blue-200 hover:bg-blue-500 text-blue-900' 
                     onClick={() =>{router.push('/edlm-portal/learner/learningPlan/')}}
                   >
                     Cancel
@@ -69,7 +69,7 @@ export default function DevelopmentPlan() {
                   <div className='flex flex-row'>
                     <Button 
                       className='flex justify-center bg-blue-900 hover:bg-blue-600 ml-2' 
-                      onClick={() =>{}}
+                      onClick={() =>{setCurrentStep(2)}}
                     >
                       Start Role Based Plan
                     </Button>
