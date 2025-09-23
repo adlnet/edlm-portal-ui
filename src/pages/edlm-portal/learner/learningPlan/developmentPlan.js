@@ -69,9 +69,9 @@ export default function DevelopmentPlan() {
                   <div className='flex flex-row'>
                     <Button 
                       className='flex justify-center bg-blue-900 hover:bg-blue-600 ml-2' 
-                      onClick={() => setCurrentStep(2)}
+                      onClick={() =>{}}
                     >
-                      Create Learning Plan
+                      Start Role Based Plan
                     </Button>
                   </div>
                 </div>
