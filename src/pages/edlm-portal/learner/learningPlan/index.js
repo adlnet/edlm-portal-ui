@@ -96,13 +96,15 @@ export default function LearningPlan() {
 
           </div>
 
-          <div className='text-right pr-4'>
-            <button className="text-blue-600 text-lg" 
-                    onClick={() => {router.push('/edlm-portal/learner/learningPlan/developmentPlan')}}
-            >
-              + Create New Plan
-            </button>
-          </div>
+          {activeJourneys.length > 0  && selectedTab=='Active' && (
+            <div className='text-right pr-4'>
+              <button className="text-blue-600 text-lg" 
+                      onClick={() => {router.push('/edlm-portal/learner/learningPlan/developmentPlan')}}
+              >
+                + Create New Plan
+              </button>
+            </div>
+          )}
 
           {/* Learning Phases Section */}
           <div className='mb-4 mt-10 leading-tight'>
