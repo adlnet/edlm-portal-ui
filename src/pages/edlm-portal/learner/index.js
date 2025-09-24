@@ -36,7 +36,7 @@ export default function Home() {
 
   const [lunchNLearn, setLunchNLearn] = useState(null);
 
-  const tabs = ['Active', 'Completed'];
+  const tabs = ['Active Courses', 'Completed Courses'];
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
 
   // Searching for launch and learn plans
@@ -99,9 +99,9 @@ export default function Home() {
 
   const columns = [
     {label: 'COURSES', accessor: 'title'},
-    {label: 'Start Date', accessor: 'startDate'},
-    {label: 'End Date', accessor: 'endDate'},
-    {label: 'Competencies', accessor: 'competencies'}
+    {label: 'START DATE', accessor: 'startDate'},
+    {label: 'END DATE', accessor: 'endDate'},
+    {label: 'COMPETENCIES', accessor: 'competencies'}
   ];
 
   const renderLoading = loadingMessage => {
@@ -208,7 +208,7 @@ export default function Home() {
         <div className='flex flex-row mt-10 h-100'>
           <div className='flex flex-row w-full'>
             <div className='w-full bg-white shadow-md rounded-lg justify-between mr-5'> 
-              <div className='p-4 text-xl font-bold'>My Courses</div>
+              <div className='p-4 text-xl font-bold mb-4'>Pick Up Where You Left Off</div>
               <div className='p-4 -mt-4'>
                   {renderLoading("Loading your course progress...")
                     || (

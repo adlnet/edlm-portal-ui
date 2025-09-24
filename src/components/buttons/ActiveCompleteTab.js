@@ -6,25 +6,27 @@ export default function ActiveCompleteTab({ selectedTab, setSelectedTab, tabs = 
   const selectedIndex = tabs.indexOf(selectedTab);
 
   const tabClasses = selected => 
-    `flex-1 px-2 py-1 text-sm font-medium rounded-full focus:outline-none ${
+    `px-4 text-sm font-bold focus:outline-none ${
       selected
-        ? 'bg-white shadow'
-        : 'hover:text-gray-600'
+        ? 'text-blue-400 border-b border-b-blue-800 border-b-2'
+        : 'hover:text-gray-400'
     }`;
 
   return (
     <Tab.Group selectedIndex={selectedIndex} onChange={i => setSelectedTab(tabs[i])}>
-      <div className="inline-flex rounded-full bg-[#ECECF0] p-1" style={{ width: '155px', height: '36px' }}>
-        <Tab.List className="flex w-full">
-          {tabs.map((label) => (
-            <Tab
-              key={label}
-              className={({ selected }) => tabClasses(selected)}
-            >
-              {label}
-            </Tab>
-          ))}
-        </Tab.List>
+      <div className="w-full border-b border-b-2 m-0" style={{height: '36px' }}>
+        <div className='w-1/4 m-0'>
+          <Tab.List className="">
+            {tabs.map((label) => (
+              <Tab
+                key={label}
+                className={({ selected }) => tabClasses(selected)}
+              >
+                {label}
+              </Tab>
+            ))}
+          </Tab.List>
+        </div>
       </div>
     </Tab.Group>
   );
