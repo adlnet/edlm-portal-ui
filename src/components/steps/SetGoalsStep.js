@@ -12,7 +12,7 @@ import {
 import { Label, Select, TextInput } from 'flowbite-react';
 import { MultiSelectDropdown } from '@/components/menus/MultiSelectDropdown';
 import {  ksaOptions, obstacleOptions, proficiencyLevels, resourceSupportOptions } from '@/utils/dropdownMenuConstants';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function priorityIcon(priority) {
     if (priority === 'Lowest') {
@@ -64,6 +64,37 @@ export function SetGoalsStep({
 
     const availableTimelineOptions = getTimelineOptions();
 
+    // Init competencyGoals for any new selected competencies
+    useEffect(() => {
+        const competenciesToInitialize = selectedCompetencies.filter(
+            competency => !competencyGoals[competency]
+        );
+
+        if (competenciesToInitialize.length > 0) {
+            setCompetencyGoals(prev => {
+                const newGoals = {};
+                competenciesToInitialize.forEach(competency => {
+                    newGoals[competency] = [{
+                        id: crypto.randomUUID(),
+                        goal: '',
+                        timeline: '',
+                        resources: [],
+                        resourcesOther: '',
+                        obstacles: [],
+                        obstaclesOther: '',
+                        ksas: [{
+                            id: crypto.randomUUID(),
+                            type: '',
+                            currentLevel: 'Basic',
+                            targetLevel: 'Intermediate'
+                        }]
+                    }];
+                });
+                return { ...prev, ...newGoals };
+            });
+        }
+    }, [selectedCompetencies, competencyGoals, setCompetencyGoals]);
+
     return (
         <>
             <div className="mb-6 space-y-4">
@@ -77,28 +108,9 @@ export function SetGoalsStep({
                 {selectedCompetencies.map((competency, index) => {
                     const competencyGoalsList = competencyGoals[competency] || [];
                     const competencyPriority = goals.find(g => g.competency === competency)?.priority || 'Not set';
-
-                    // Initialize competency goals if not exists
-                    if (!competencyGoals[competency]) {
-                        setCompetencyGoals(prev => ({
-                            ...prev,
-                            [competency]: [{
-                                id: crypto.randomUUID(),
-                                goal: '',
-                                timeline: '',
-                                resources: [],
-                                resourcesOther: '',
-                                obstacles: [],
-                                obstaclesOther: '',
-                                ksas: [{
-                                    id: crypto.randomUUID(),
-                                    type: '',
-                                    currentLevel: 'Basic',
-                                    targetLevel: 'Intermediate'
-                                }]
-                            }]
-                        }));
-                    }
+                    
+                    // Default to true
+                    const isOpen = openCompetencies[competency] !== false;
 
                     return (
                         <div key={competency} className='border rounded-lg border-gray-300 mb-4'>
