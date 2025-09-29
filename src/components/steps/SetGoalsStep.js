@@ -12,7 +12,7 @@ import {
 import { Label, Select, TextInput } from 'flowbite-react';
 import { MultiSelectDropdown } from '@/components/menus/MultiSelectDropdown';
 import {  ksaOptions, obstacleOptions, proficiencyLevels, resourceSupportOptions } from '@/utils/dropdownMenuConstants';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 function priorityIcon(priority) {
     if (priority === 'Lowest') {
