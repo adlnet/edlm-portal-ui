@@ -36,9 +36,6 @@ export default function Home() {
 
   const [lunchNLearn, setLunchNLearn] = useState(null);
 
-  const tabs = ['Active Courses', 'Completed Courses'];
-  const [selectedTab, setSelectedTab] = useState(tabs[0]);
-
   // Searching for launch and learn plans
   useEffect(() => {
     const lunchNLearnList = 
@@ -104,6 +101,12 @@ export default function Home() {
     {label: 'COMPETENCIES', accessor: 'competencies'}
   ];
 
+  const tabData = [
+    { label: 'Active Courses', count: inProgressCourses.length },
+    { label: 'Completed Courses', count: completedCourses.length },
+  ];
+  const [activeIndex, setActiveIndex] = useState(0);
+
   const renderLoading = loadingMessage => {
     if (courseProgressLoading) {
       return (
@@ -114,6 +117,30 @@ export default function Home() {
       );
     }
   };
+
+  // --- Summary Card Component ---
+  const summaryData = [
+    {
+      value: "2",
+      label: "Active Plans",
+      dot: "bg-blue-800"
+    },
+    {
+      value: "6",
+      label: "Goals in Progress",
+      dot: "bg-yellow-700"
+    },
+    {
+      value: "1",
+      label: "Short-Term Plan",
+      dot: "bg-blue-800"
+    },
+    {
+      value: "10%",
+      label: "Overall Progress",
+      dot: "bg-yellow-700"
+    },
+  ];
 
   return (
     <DefaultLayout>
@@ -205,25 +232,52 @@ export default function Home() {
           </div>
         </div>
 
+        <div className="mt-10 pb-6 bg-white h-100 shadow-md rounded-lg p-4">
+          <div className="font-semibold text-xl mb-4">My Learning Summary Overview</div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
+            {summaryData.map((item, idx) => (
+              <div
+                key={idx}
+                className="flex flex-col justify-between bg-gray-50 border border-gray-100 rounded-lg px-6 py-5 h-28 shadow-sm"
+              >
+                <div className="text-2xl font-semibold text-gray-900 mb-2">{item.value}</div>
+                <div className="flex items-center justify-between w-full">
+                  <span className="text-sm text-gray-700">{item.label}</span>
+                  <span className={`w-3 h-3 rounded-full ${item.dot} ml-2`} />
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="flex justify-end mt-6">
+            <button 
+              className="text-blue-600 text-sm font-medium hover:underline cursor-pointer"
+              onClick = {() => {router.push('/edlm-portal/learner/learningPlan/')}}
+            > 
+              View Your Learning Plans
+            </button>
+          </div>
+        </div>
+  
         <div className='flex flex-row mt-10 h-100'>
           <div className='flex flex-row w-full'>
-            <div className='w-full bg-white shadow-md rounded-lg justify-between mr-5'> 
+            <div className='w-full bg-white shadow-md rounded-lg justify-between'> 
               <div className='p-4 text-xl font-bold mb-4'>Pick Up Where You Left Off</div>
               <div className='p-4 -mt-4'>
                   {renderLoading("Loading your course progress...")
                     || (
                       <>
                         <ActiveCompleteTab
-                          selectedTab={selectedTab}
-                          setSelectedTab={setSelectedTab}
-                          tabs={tabs}
+                          activeIndex={activeIndex}
+                          setActiveIndex={setActiveIndex}
+                          tabs={tabData}
                         />
-                        {selectedTab === 'Active' ? (
+                        {console.log(activeIndex)}
+                        {activeIndex === 0 ? (
                           <div className='-mt-4'>              
                             <CollectionTable data={inProgressCourses} edit={false} columns={columns} rowsPerPage={5} />
                           </div>
                         ) : (
-                          <div className='-mt-4'>              
+                          <div className='-mt-4'>    
                             <CollectionTable data={completedCourses} edit={false} columns={columns} rowsPerPage={5} />
                           </div>
                         )}

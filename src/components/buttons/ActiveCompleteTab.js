@@ -1,33 +1,47 @@
 'use strict';
 
-import { Tab } from '@headlessui/react';
+import React, { useState } from 'react';
 
-export default function ActiveCompleteTab({ selectedTab, setSelectedTab, tabs = ['Active', 'Completed'] }) {
-  const selectedIndex = tabs.indexOf(selectedTab);
+export default function ActiveCompleteTab({ tabs, activeIndex, setActiveIndex, onChange }) {
 
-  const tabClasses = selected => 
-    `px-4 text-sm font-bold focus:outline-none ${
-      selected
-        ? 'text-blue-400 border-b border-b-blue-800 border-b-2'
-        : 'hover:text-gray-400'
-    }`;
+  const handleTabClick = (idx) => {
+    setActiveIndex(idx);
+    if (onChange) onChange(idx);
+  };
 
   return (
-    <Tab.Group selectedIndex={selectedIndex} onChange={i => setSelectedTab(tabs[i])}>
-      <div className="w-full border-b border-b-2 m-0" style={{height: '36px' }}>
-        <div className='w-1/4 m-0'>
-          <Tab.List className="">
-            {tabs.map((label) => (
-              <Tab
-                key={label}
-                className={({ selected }) => tabClasses(selected)}
-              >
-                {label}
-              </Tab>
-            ))}
-          </Tab.List>
-        </div>
-      </div>
-    </Tab.Group>
+    <div className="flex items-end border-b border-gray-200 mb-4">
+      {tabs.map((tab, idx) => (
+        <button
+          key={tab.label}
+          className={`
+            group
+            flex items-center mr-7 pb-1 outline-none bg-transparent
+            ${activeIndex === idx
+              ? 'border-b-2 border-sky-500 text-sky-600 font-semibold'
+              : 'border-b-2 border-transparent text-gray-800 font-normal hover:text-sky-600'
+            }
+            transition-all duration-150
+          `}
+          onClick={() => handleTabClick(idx)}
+        >
+          <span>
+            {tab.label}
+          </span>
+          <span
+            className={`
+              ml-2 px-2 py-0.5 rounded-md text-xs leading-5
+              ${activeIndex === idx
+                ? 'bg-sky-100 text-sky-600'
+                : 'bg-sky-50 text-sky-400'
+              }
+              font-medium
+            `}
+          >
+            {tab.count}
+          </span>
+        </button>
+      ))}
+    </div>
   );
 }
