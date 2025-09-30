@@ -31,6 +31,10 @@ export default function DevelopmentPlan() {
 
   const ParentComps = findParents({Competencies});
 
+  const autoScrollToTop = () => {
+    window.scrollTo(0, 0);
+  };
+
   return (
     <>
     {currentStep === 1 ? (
@@ -69,7 +73,10 @@ export default function DevelopmentPlan() {
                   <div className='flex flex-row'>
                     <Button 
                       className='flex justify-center bg-blue-900 hover:bg-blue-600 ml-2' 
-                      onClick={() =>{setCurrentStep(2)}}
+                      onClick={() => {
+                        setCurrentStep(2)
+                        autoScrollToTop();
+                      }}
                     >
                       Start Role Based Plan
                     </Button>
@@ -84,6 +91,7 @@ export default function DevelopmentPlan() {
       <CreateLearningPlan 
         initialStep={2} 
         onBack={() => setCurrentStep(1)}
+        
       />
     )}
     </>

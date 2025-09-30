@@ -1,11 +1,18 @@
 'use strict';
-import { Button, Label, Select, TextInput } from 'flowbite-react';
+
+import { ArrowLongRightIcon } from '@heroicons/react/24/outline';
+import { Button } from 'flowbite-react';
+import { ChooseSkillsStep } from '@/components/steps/ChooseSkillsStep';
+import { NamePlanStep } from '@/components/steps/NamePlanStep';
+import { ReviewStep } from '@/components/steps/ReviewStep';
+import { SetGoalsStep } from '@/components/steps/SetGoalsStep';
+import { useLearningPlanForm } from '@/hooks/useLearningPlanForm';
+import { useLearningPlanSave } from '@/hooks/useLearningPlanSave';
+import { useLearningPlanValidation } from '@/hooks/useLearningPlanValidation';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
 import DefaultLayout from "@/components/layouts/DefaultLayout";
 import SaveAndContinueBtn from '@/components/buttons/SaveAndContinueBtn';
 import Stepper from '@/components/Stepper';
-import backupData from '@/public/backup_competencies.json';
 
 const ALL_STEPS = [
     'Learning Plans',
@@ -16,126 +23,37 @@ const ALL_STEPS = [
     'Review & Save'
 ];
 
-// Dropdown options
-const timeframeOptions = ['Short-term (1–2 years)', 'Long-term (3–4 years)'];
-const proficiencyLevels = ['Basic', 'Intermediate', 'Advanced', 'Mastery'];
-const priorityOptions = ['Highest', 'High', 'Medium', 'Low', 'Lowest'];
-
-// Helper function that returns all parent competencies
-function findParents({ Competencies }) {
-    const parentComps = []
-
-    Competencies.forEach((comp) => {
-        if (comp['parent'].length === 0)
-            parentComps.push(comp);
-    })
-
-    return parentComps
-}
-
-export default function CreatePlanForm({ initialStep = 2, onBack }) {
+export default function CreatePlanForm({ initialStep = 2, onBack}) {
     const router = useRouter();
-    const [currentStep, setCurrentStep] = useState(initialStep);
-    const [planName, setPlanName] = useState('');
-    const [timeframe, setTimeframe] = useState('');
-    const [goals, setGoals] = useState([
-        {
-            id: crypto.randomUUID(),
-            competency: '',
-            current: 'Basic',
-            target: 'Intermediate',
-            priority: '',
-            description: '',
-            selectedCourses: [],
-            recs: [],
-        },
-    ]);
 
-    const addGoal = () =>
-        setGoals((goals) => [
-            ...goals,
-            {
-                id: crypto.randomUUID(),
-                competency: '',
-                current: 'Basic',
-                target: 'Intermediate',
-                priority: '',
-                description: '',
-                selectedCourses: [],
-                recs: [],
-            },
-        ]);
+    const formState = useLearningPlanForm(initialStep, onBack);
+    const { handleSaveStep, isLoading } = useLearningPlanSave(formState);
+    const { canProceedFromStep, getTimelineOptions } = useLearningPlanValidation(formState);
 
-    const Competencies = backupData;
-    const ParentComps = findParents({ Competencies });
-
-    const removeGoal = id => {
-        setGoals(goals => goals.filter((goal) => goal.id !== id));
-    };
-
-    // If this is the goal we want to update, merge the updates with existing goal data
-    // If not the goal, return it unchanged
-    const setGoalState = (id, updates) => {
-        setGoals((goals) => goals.map((goal) => (goal.id === id ? { ...goal, ...updates } : goal)));
-    };
-
-    const updateGoal = (id, key, value) => {
-        const objectUpdate = { [key]: value };
-        setGoalState(id, objectUpdate);
-    };
-
-    const onCompetencyChange = (goalId, newCompetency) => {
-        const recs = []
-        setGoalState(goalId, {
-            competency: newCompetency,
-            recs,
-            selectedCourses: [],
-        });
-    };
-
-    const addCourseToGoal = (goalId, course) => {
-        setGoals((goals) =>
-            goals.map((goal) => {
-                if (goal.id !== goalId) return goal;
-                const exists = goal.selectedCourses.some(selectedCourse => selectedCourse.id === course.id);
-
-                // If course already exist dont add again
-                if (exists) return goal;
-                return {
-                    ...goal,
-                    selectedCourses: [...goal.selectedCourses, course]
-                };
-            }),
-        );
-    };
-
-    const removeCourseFromGoal = (goalId, courseId) => {
-        setGoals((goals) =>
-            goals.map((goal) => {
-                // If goal is not the one to update, return it unchanged
-                if (goal.id !== goalId) return goal;
-                return { ...goal, selectedCourses: goal.selectedCourses.filter(selectedCourse => selectedCourse.id !== courseId) };
-            }),
-        );
-    };
-
-    // Aggregate all selected courses across all goals for Learning Plan Summary table
-    const selectedPlanCourses = [];
-    for (const goal of goals) {
-        for (const course of goal.selectedCourses) {
-            selectedPlanCourses.push({
-                ...course,
-                competency: goal.competency || '—',
-                priority: goal.priority || '—',
-            });
-        }
-    }
-
-    const handleSave = () => {
-        const payload = { planName, timeframe, goals };
-        console.log('Learning Plan payload:', payload);
-        router.push('/edlm-portal/learner/learningPlan/');
-    };
+    const {
+        currentStep,
+        setCurrentStep,
+        savedPlanId,
+        nextStep,
+        prevStep,
+        planName,
+        setPlanName,
+        timeframe,
+        setTimeframe,
+        goals,
+        competencyGoals,
+        setCompetencyGoals,
+        addGoal,
+        removeGoal,
+        updateGoal,
+        onCompetencyChange,
+        addGoalToCompetency,
+        removeGoalFromCompetency,
+        updateCompetencyGoal,
+        addKSAToGoal,
+        removeKSAFromGoal,
+        updateKSAForGoal
+    } = formState;
 
     // step 0: Learning Plans (redirects to main page)
     // step 1: Create a New Plan (goes back to intro page)
@@ -147,186 +65,85 @@ export default function CreatePlanForm({ initialStep = 2, onBack }) {
             onBack();
         } else if (stepIndex <= currentStep) {
             setCurrentStep(stepIndex);
+            autoScrollToTop();
         }
     };
 
-    const nextStep = () => {
-        if (currentStep < 5) {
-            setCurrentStep(currentStep + 1);
-        }
+    // Update the save button logic
+    const handleSaveAndContinue = () => {
+        handleSaveStep(currentStep);
+        nextStep();
+        autoScrollToTop();
     };
 
-    const prevStep = () => {
-        if (currentStep > 2) {
-            setCurrentStep(currentStep - 1);
-        } else {
-            onBack();
-        }
+    // Handle final page redirect
+    const handleFinalSave = () => {
+        router.push(`/edlm-portal/learner/learningPlan/`);
     };
 
-    // These conditions validates if a user can go to the next step and enable the save button
-    const canProceedFromStep = step => {
-        switch (step) {
-            case 2:
-                return planName && timeframe;
-            case 3:
-                return goals.some(goal => goal.competency && goal.priority);
-            case 4:
-                return goals.filter(g => g.competency).every(goal =>
-                    goal.current && goal.target && goal.priority
-                );
-            case 5:
-                return true;
-            default:
-                return false;
-        }
+    const handleExport = () => {
+        console.log('Future export functionality');
+    }
+
+    // Instant scroll to top when going to the next form step
+    const autoScrollToTop = () => {
+        window.scrollTo(0, 0);
     };
 
     const renderStepContent = () => {
         switch (currentStep) {
             case 2:
-                return renderNamePlanStep();
+                return (
+                    <NamePlanStep
+                        planName={planName}
+                        setPlanName={setPlanName}
+                        timeframe={timeframe}
+                        setTimeframe={setTimeframe}
+                    />
+                )
             case 3:
-                return renderChooseSkillsStep();
+                return (
+                    <ChooseSkillsStep
+                        goals={goals}
+                        addGoal={addGoal}
+                        removeGoal={removeGoal}
+                        updateGoal={updateGoal}
+                        onCompetencyChange={onCompetencyChange}
+                    />
+                )
             case 4:
-                return renderSetGoalsStep();
+                return (
+                    <SetGoalsStep
+                        goals={goals}
+                        competencyGoals={competencyGoals}
+                        setCompetencyGoals={setCompetencyGoals}
+                        timeframe={timeframe}
+                        getTimelineOptions={getTimelineOptions}
+                        addGoalToCompetency={addGoalToCompetency}
+                        removeGoalFromCompetency={removeGoalFromCompetency}
+                        updateCompetencyGoal={updateCompetencyGoal}
+                        addKSAToGoal={addKSAToGoal}
+                        removeKSAFromGoal={removeKSAFromGoal}
+                        updateKSAForGoal={updateKSAForGoal}
+                    />
+                )
             case 5:
-                return renderReviewStep();
+                return (
+                    <ReviewStep
+                        planName={planName}
+                        timeframe={timeframe}
+                        goals={goals}
+                        competencyGoals={competencyGoals}
+                    />
+                )
             default:
                 return null;
         }
     };
-  const renderNamePlanStep = () => (
-    <>
-      <div>
-        <h2 className="text-lg font-semibold">Name Your Plan</h2>
-        <p className="text-sm text-gray-500">
-          What would you like to call your learning plan? And when do you want to finish it?
-        </p>
-        <p>
-          * = required
-        </p>
-      </div>
-      <div className="mt-2 grid gap-6 md:grid-cols-2">
-          <div className="flex flex-col gap-2">
-              <Label htmlFor="planName" value="Plan Name" />
-              <TextInput
-                  id="planName"
-                  placeholder="e.g., My 2025 Development Plan"
-                  value={planName}
-                  onChange={e => setPlanName(e.target.value)}
-              />
-          </div>
-          <div className="flex flex-col gap-2">
-              <Label htmlFor="timeframe" value="Completion Timeframe" />
-              <Select
-                  id="timeframe"
-                  value={timeframe}
-                  onChange={e => setTimeframe(e.target.value)}
-              >
-                  <option value="" disabled>
-                      Select timeframe
-                  </option>
-                  {timeframeOptions.map(t => (
-                      <option key={t} value={t}>
-                          {t}
-                      </option>
-                  ))}
-              </Select>
-          </div>
-      </div>
-    </>
-  );
-
-  const renderChooseSkillsStep = () => (
-    <>
-      <h2 className="text-lg font-semibold -mb-4">Choose a Skill Area</h2>
-        <p className="text-sm py-4">
-          Select one or more DOT&E competencies you’d like to develop, based on current job requirements or personal growth interests.
-        </p>
-        {goals.map(goal => {
-          // Find the selected competency
-          const selectedCompetency = ParentComps.find(c => c.name === goal.competency);
-            return (
-                <div key={goal.id} className=" border-b py-4">
-                    <div className="grid gap-4 md:grid-cols-2">
-                        <div className="flex flex-col gap-2">
-                            <Label value="Competency" />
-                            <Select
-                                value={goal.competency}
-                                onChange={(e) => onCompetencyChange(goal.id, e.target.value)}
-                            >
-                                <option value="" disabled>
-                                    Select competency
-                                </option>
-                                {ParentComps.map((c) => (
-                                    <option
-                                        key={c.id}
-                                        value={c.name}
-                                    >
-                                        {c.name}
-                                    </option>
-                                ))}
-                            </Select>
-                        </div>
-                        <div className="flex flex-col gap-2">
-                          <Label value="Competency Description" />
-                          <div className=" min-h-[120px] flex items-start">
-                            {selectedCompetency ? (
-                              <p className="text-sm text-gray-700 leading-relaxed">
-                                {selectedCompetency.desc}
-                                  </p>
-                                ) : (
-                                  <p className="text-sm text-gray-500">
-                                    Choose a competency to view its description here
-                                  </p>
-                                )}
-                            </div>
-                            {selectedCompetency && (
-                                    <div className="flex justify-end hover:cursor-pointer -mt-8">
-                                        <button 
-                                            className="text-center justify-center text-[#4883B4] text-[11px] font-normal leading-[14.3px] hover:underline transition-all"
-                                            onClick={() => {
-                                              // I'll make this open a new page and redirecting to competency page?
-                                                console.log(selectedCompetency.name);
-                                            }}
-                                        >
-                                            View more
-                                        </button>
-                                    </div>
-                                )}
-                        </div>
-                        <div className="flex flex-col gap-2">
-                            <Label value="Priority Level" />
-                            <Select value={goal.priority} onChange={(e) => updateGoal(goal.id, 'priority', e.target.value)}>
-                                <option value="" disabled>
-                                    Select priority
-                                </option>
-                                {priorityOptions.map((p) => (
-                                    <option key={p} value={p}>
-                                        {p}
-                                    </option>
-                                ))}
-                            </Select>
-                        </div>
-                      </div>
-                  </div>
-            );
-        })}
-        </>
-    );
-
-    const renderSetGoalsStep = () => (
-        <div>Dev team is working hard on this step.</div>
-    );
-
-    const renderReviewStep = () => (
-        <div>Dev team is working hard on this step.</div>
-    );
 
     return (
         <DefaultLayout>
-            <div className='bg-white shadow-md p-5 py-0 w-full h-full mb-5 rounded-xl m-4 -my-6 overflow-clip'>
+            <div className='bg-white shadow-md p-5 py-0 w-full h-full mb-5 rounded-xl m-4 -my-6 overflow-visible'>
                 <div className='mt-10 pb-4 py-4'>
                     <div className="mb-6">
                         <Stepper
@@ -339,35 +156,74 @@ export default function CreatePlanForm({ initialStep = 2, onBack }) {
                     {renderStepContent()}
 
                     <div className="flex justify-end items-center mt-8 gap-8">
-                        <button
-                            onClick={() => router.push('/edlm-portal/learner/learningPlan/')}
-                            className="text-[#4883B4] text-base font-medium leading-[22.4px] hover:underline transition-all"
-                        >
-                            Cancel
+                        {currentStep < 5 ? (
+                            <>
+                            <button
+                                onClick={() => router.push('/edlm-portal/learner/learningPlan/')}
+                                className="text-[#4883B4] text-base font-medium leading-[22.4px] hover:underline transition-all"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                onClick={prevStep}
+                                className="text-[#4883B4] text-base font-medium leading-[22.4px] hover:underline transition-all"
+                            >
+                                Back
                         </button>
-
-                        <button
-                            onClick={prevStep}
-                            className="text-[#4883B4] text-base font-medium leading-[22.4px] hover:underline transition-all"
-                        >
-                            Back
-                        </button>
-
-                        <div className="flex gap-3">
-                            {currentStep < 5 ? (
-                                <SaveAndContinueBtn
-                                    onClick={nextStep}
-                                    disabled={!canProceedFromStep(currentStep)}
-                                />
-                            ) : (
-                                <Button
-                                    onClick={handleSave}
+                            <SaveAndContinueBtn
+                                onClick={handleSaveAndContinue}
+                                disabled={!canProceedFromStep(currentStep)}
+                                loading={isLoading}
+                            />
+                        </>
+                    ) : (
+                        <div className='flex flex-col -mt-8'>
+                            <div className='p-4 border rounded-lg border-gray-300 mt-6'>
+                                <div className='font-bold pb-6 text-xl text-gray-900'>Next Steps</div>
+                                <div className='text-gray-890 pb-3'>Keep progressing with your development plan and explore additional resources.</div>
+                                <div className='flex flex-row gap-4'>
+                                <div className='flex flex-col w-1/3 border border-gray-300 rounded-lg py-4 px-6 items-center'>
+                                    <div className='pb-2 font-bold text-lg'>Track Your Progress</div>
+                                    <div className='text-sm pb-8 flex-wrap text-center'>Monitor your development through the Learning Plan page and update your progress as you complete courses.</div>
+                                    <button 
+                                    className='flex flex-row items-center gap-2 border border-blue-600 rounded-lg py-1 px-3 text-sm hover:bg-blue-100 text-blue-600'
+                                    onClick={()=> {}}
+                                    > View My Plans <ArrowLongRightIcon className='h-4 w-4' /> </button>
+                                </div>
+                                <div className='flex flex-col w-1/3 border border-gray-300 rounded-lg p-3 py-4 px-6 items-center'>
+                                    <div className='pb-2 font-bold text-lg'>Explore Course Catalog</div>
+                                    <div className='text-sm pb-8 flex-wrap text-center'>Browse additional courses and resources to supplement your development plan with more learning opportunities.</div>
+                                    <button 
+                                    className='flex flex-row items-center gap-2 border border-blue-600 rounded-lg py-1 px-3 text-sm hover:bg-blue-100 text-blue-600'
+                                    onClick={()=> {}}
+                                    > Browse Collections <ArrowLongRightIcon className='h-4 w-4' /> </button>
+                                </div>
+                                <div className='flex flex-col w-1/3 border border-gray-300 rounded-lg p-3 py-4 px-6 items-center'>
+                                    <div className='pb-2 font-bold text-lg'>Add from Collections</div>
+                                    <div className='text-sm pb-8 flex-wrap text-center'>Access your saved collections to add curated courses and resources to enhance your development plan.</div>
+                                    <button 
+                                    className='flex flex-row items-center gap-2 border border-blue-600 rounded-lg py-1 px-3 text-sm hover:bg-blue-100 text-blue-600'
+                                    onClick={()=> {}}
+                                    > View Collections <ArrowLongRightIcon className='h-4 w-4' /> </button>
+                                </div>
+                                </div>
+                            </div>
+                            <div className='flex flex-row justify-end pt-8'>
+                                <Button 
+                                className='flex justify-center bg-blue-100 text-blue-900 hover:bg-blue-300' 
+                                onClick={() =>{}}
+                                >
+                                Export 
+                                </Button>
+                                <Button className='flex justify-center bg-blue-900 hover:bg-blue-600 ml-2'
+                                    onClick={handleFinalSave}
                                     disabled={!canProceedFromStep(currentStep)}
                                 >
-                                    Save Learning Plan
+                                    Return to Learning Plan
                                 </Button>
-                            )}
+                            </div>
                         </div>
+                        )}
                     </div>
                 </div>
             </div>
