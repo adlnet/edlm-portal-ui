@@ -1,5 +1,6 @@
 'use strict';
 
+import { ALL_STEPS } from '@/utils/dropdownMenuConstants';
 import { ArrowLongRightIcon } from '@heroicons/react/24/outline';
 import { Button } from 'flowbite-react';
 import { ChooseSkillsStep } from '@/components/steps/ChooseSkillsStep';
@@ -13,15 +14,6 @@ import { useRouter } from 'next/router';
 import DefaultLayout from "@/components/layouts/DefaultLayout";
 import SaveAndContinueBtn from '@/components/buttons/SaveAndContinueBtn';
 import Stepper from '@/components/Stepper';
-
-const ALL_STEPS = [
-    'Learning Plans',
-    'Create a New Plan',
-    'Name Your Plan',
-    'Choose a Skill Area',
-    'Set Competency Goals',
-    'Review & Save'
-];
 
 export default function CreatePlanForm({ initialStep = 2, onBack}) {
     const router = useRouter();

@@ -1,9 +1,16 @@
 'use strict';
 
 import { Label, Select } from 'flowbite-react';
-import { PlusIcon, XMarkIcon } from '@heroicons/react/24/solid';
+import { InfoTooltip } from '@/components/InfoTooltip';
+import { PlusIcon, XMarkIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
 import { priorityOptions } from '@/utils/dropdownMenuConstants';
+import { useRouter } from 'next/router';
+import AsteriskIcon from '@/public/icons/asteriskIcon.svg';
+import CustomDropdown from '@/components/menus/CustomDropdown';
+import Image from 'next/image';
+import PriorityDropdown from '@/components/menus/PriorityDropdown';
 import backupData from '@/public/backup_competencies.json';
+
 
 // Helper function that returns all parent competencies
 function findParents({ Competencies }) {
@@ -24,48 +31,70 @@ export function ChooseSkillsStep({
     updateGoal,
     onCompetencyChange,
 }) {
+
+    const router = useRouter();
     // Using backup data for development
     // In the future, this data should come from an API
     const Competencies = backupData;
     const ParentComps = findParents({ Competencies });
 
     // Check if a competency is already added to this goal
-    const isCompetencySelected = competencyName =>
+    const isCompetencySelected = competencyName => 
         goals.some(goal => goal.competency === competencyName);
+
+    const handleRedirectToCompSearch = () => {
+        window.open('/edlm-portal/learner/search/', '_blank');
+    };
+
+    const competencyRedirectOptionFooter = (
+        <div 
+            className="w-full flex items-center justify-between"
+            onClick={handleRedirectToCompSearch}
+        >
+            <div className="text-gray-700 pl-1 text-sm text-[#1E3764] font-normal leading-tight hover:text-gray-900">
+                Go to Competency Search
+            </div>
+            <ChevronRightIcon className="h-4 w-4 text-gray-400" />
+        </div>
+    );
+
 
     return (
         <>
-            <h2 className="text-lg font-semibold -mb-4">Choose a Skill Area</h2>
-            <p className="text-sm py-4">
+            <h2 className="text-2xl font-semibold">Choose a Skill Area</h2>
+            <p className="text-sm py-6">
                 Select one or more DOT&E competencies you’d like to develop, based on current job requirements or personal growth interests.
             </p>
+            <span className="flex items-center gap-1 text-[#993033]">
+                <Image src={AsteriskIcon} alt="Asterisk" className="w-4 h-4" /> = Required
+            </span>
             {goals.map((goal, goalIndex) => {
                 const selectedCompetency = ParentComps.find(c => c.name === goal.competency);
                 return (
                     <div key={goal.id} className=" border-b py-4">
                         <div className="grid gap-10 md:grid-cols-2">
                             <div className="flex flex-col gap-2">
-                                <Label value="Choose a Competency *" />
-                                <Select
+                                <div className="flex items-center gap-2">
+                                    <span className="flex items-center gap-2 text-sm">
+                                        Choose a Competency 
+                                        <InfoTooltip 
+                                            title="Selecting Competencies"
+                                            content="Think about where you want to grow—what skill do you wish you felt more confident in? Is there a skill you've always wanted to develop but haven't had the chance to yet?"
+                                        />
+                                        <Image src={AsteriskIcon} alt="Required" className="w-3 h-3" />
+                                    </span>
+                                </div>
+                                <CustomDropdown
                                     value={goal.competency}
-                                    onChange={(e) => onCompetencyChange(goal.id, e.target.value)}
-                                >
-                                    <option value="" disabled>
-                                        Select competency
-                                    </option>
-                                    {ParentComps.map((c) => {
-                                        const isDisabled = isCompetencySelected(c.name) && goal.competency !== c.name;
-                                        return (
-                                            <option
-                                                key={c.id}
-                                                value={c.name}
-                                                disabled={isDisabled}
-                                            >
-                                                {c.name}
-                                            </option>
-                                        );
-                                    })}
-                                </Select>
+                                    onChange={e => onCompetencyChange(goal.id, e.target.value)}
+                                    options={ParentComps.map(comp => ({
+                                        label: comp.name,
+                                        value: comp.name,
+                                        disabled: isCompetencySelected(comp.name) && goal.competency !== comp.name,
+                                    }))}
+                                    placeholder="Select a competency"
+                                    footerItem={competencyRedirectOptionFooter}
+                                />
                             </div>
                             <div className="flex flex-col gap-2">
                                 <div className="flex justify-between items-center">
@@ -105,17 +134,14 @@ export function ChooseSkillsStep({
                                 )}
                             </div>
                             <div className="flex flex-col gap-2 -mt-16">
-                                <Label value="Priority *" />
-                                <Select value={goal.priority} onChange={(e) => updateGoal(goal.id, 'priority', e.target.value)}>
-                                    <option value="" disabled>
-                                        Select priority
-                                    </option>
-                                    {priorityOptions.map((p) => (
-                                        <option key={p} value={p}>
-                                            {p}
-                                        </option>
-                                    ))}
-                                </Select>
+                                <span className="flex items-center gap-2 text-sm">
+                                    Priority <Image src={AsteriskIcon} alt="Asterisk" className="w-3 h-3" />
+                                </span>
+                                <PriorityDropdown
+                                    value={goal.priority}
+                                    onChange={(e) => updateGoal(goal.id, 'priority', e.target.value)}
+                                    options={priorityOptions}
+                                />
                             </div>
                         </div>
                     </div>
