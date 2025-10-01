@@ -12,7 +12,7 @@ export function MultiSelectDropdown({ options, selectedValues = [], onChange, pl
                 type="button"
                 onClick={() => setIsOpen(!isOpen)}
                 disabled={disabled}
-                className={`w-full px-3 py-2 text-left bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${disabled ? 'bg-gray-100 cursor-not-allowed' : 'hover:border-gray-400 cursor-pointer'
+                className={`w-full px-3 py-2.5 text-left text-sm bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${disabled ? 'bg-gray-100 cursor-not-allowed' : 'hover:border-gray-400 cursor-pointer'
                     }`}
             >
                 <div className="flex justify-between items-center">
@@ -36,7 +36,7 @@ export function MultiSelectDropdown({ options, selectedValues = [], onChange, pl
                                         : selectedValues.filter(v => v !== option);
                                     onChange(newValues);
                                 }}
-                                className="w-4 h-4 text-blue-600 border-gray-300 rounded-full focus:ring-blue-500"
+                                className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
                             />
                             <span className="ml-3 text-sm text-gray-700">{option}</span>
                         </label>
