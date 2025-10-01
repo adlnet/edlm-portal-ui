@@ -1,5 +1,14 @@
 'use strict';
 
+export const ALL_STEPS = [
+    'Learning Plans',
+    'Create a New Plan',
+    'Name Your Plan',
+    'Choose a Skill Area',
+    'Set Competency Goals',
+    'Review & Save'
+];
+
 export const timeframeOptions = ['Short-term (1-2 years)', 'Long-term (3-4 years)'];
 export const proficiencyLevels = ['Basic', 'Intermediate', 'Advanced', 'Mastery'];
 export const priorityOptions = ['Highest', 'High', 'Medium', 'Low', 'Lowest'];
