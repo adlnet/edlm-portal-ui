@@ -90,8 +90,6 @@ export default function DevelopmentPlan() {
     ) : (
       <CreateLearningPlan 
         initialStep={2} 
-        onBack={() => setCurrentStep(1)}
-        
       />
     )}
     </>
