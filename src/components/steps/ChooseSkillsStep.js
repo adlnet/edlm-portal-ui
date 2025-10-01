@@ -1,6 +1,6 @@
 'use strict';
 
-import { Label, Select } from 'flowbite-react';
+import { Label, Select, Tooltip } from 'flowbite-react';
 import { InfoTooltip } from '@/components/InfoTooltip';
 import { PlusIcon, XMarkIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
 import { priorityOptions } from '@/utils/dropdownMenuConstants';
@@ -9,6 +9,7 @@ import AsteriskIcon from '@/public/icons/asteriskIcon.svg';
 import CustomDropdown from '@/components/menus/CustomDropdown';
 import Image from 'next/image';
 import PriorityDropdown from '@/components/menus/PriorityDropdown';
+import SuccessMessageToast from '@/components/cards/SuccessMessageToast';
 import backupData from '@/public/backup_competencies.json';
 
 
@@ -30,6 +31,8 @@ export function ChooseSkillsStep({
     removeGoal,
     updateGoal,
     onCompetencyChange,
+    planName = "",
+    showSuccessMessage = false
 }) {
 
     const router = useRouter();
@@ -61,6 +64,12 @@ export function ChooseSkillsStep({
 
     return (
         <>
+            {showSuccessMessage && (
+                <SuccessMessageToast
+                    title={"Your plan has been created"}
+                    description={`Nice work! You’ve successfully created your learning plan: ${planName}`}
+                />
+            )}
             <h2 className="text-2xl font-semibold">Choose a Skill Area</h2>
             <p className="text-sm py-6">
                 Select one or more DOT&E competencies you’d like to develop, based on current job requirements or personal growth interests.

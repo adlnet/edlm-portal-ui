@@ -2,8 +2,9 @@
 
 import { ksaOptions } from '@/utils/dropdownMenuConstants';
 import DevelopmentGoal from '@/components/cards/DevelopmentGoal';
+import SuccessMessageToast from "@/components/cards/SuccessMessageToast";
 
-export function ReviewStep({ planName, timeframe, goals, competencyGoals }) {
+export function ReviewStep({ planName, timeframe, goals, competencyGoals, showSuccessMessage = false }) {
     const selectedCompetencies = goals
         .filter(goal => goal.competency)
         .map(goal => goal.competency);
@@ -38,6 +39,12 @@ export function ReviewStep({ planName, timeframe, goals, competencyGoals }) {
 
     return (
         <>
+            {showSuccessMessage && (
+                <SuccessMessageToast
+                    title={"Learning Plan Created Successfully!"}
+                    description={"Your personalized development plan has been saved and is ready to guide your career growth"}
+                />
+            )}
             <div className='border border-gray-300 flex flex-row py-6 px-4 rounded-lg items-center justify-between mb-6'>
                 <h1 className='font-bold text-gray-900 text-xl'>{planName || 'Learning Plan'}</h1>
                 <div className='text-sm bg-blue-50 text-blue-700 rounded-md px-2 py-1'>{timeframe || 'No timeframe set'}</div>

@@ -11,6 +11,7 @@ import { useLearningPlanForm } from '@/hooks/useLearningPlanForm';
 import { useLearningPlanSave } from '@/hooks/useLearningPlanSave';
 import { useLearningPlanValidation } from '@/hooks/useLearningPlanValidation';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 import DefaultLayout from "@/components/layouts/DefaultLayout";
 import SaveAndContinueBtn from '@/components/buttons/SaveAndContinueBtn';
 import Stepper from '@/components/Stepper';
@@ -21,6 +22,7 @@ export default function CreatePlanForm({ initialStep = 2, onBack}) {
     const formState = useLearningPlanForm(initialStep, onBack);
     const { handleSaveStep, isLoading } = useLearningPlanSave(formState);
     const { canProceedFromStep, getTimelineOptions } = useLearningPlanValidation(formState);
+    const [lastStep, setLastStep] = useState(initialStep);
 
     const {
         currentStep,
@@ -63,8 +65,15 @@ export default function CreatePlanForm({ initialStep = 2, onBack}) {
 
     // Update the save button logic
     const handleSaveAndContinue = () => {
+        setLastStep(currentStep);
         handleSaveStep(currentStep);
         nextStep();
+        autoScrollToTop();
+    };
+
+    const handleBack = () => {
+        setLastStep(currentStep);
+        prevStep();
         autoScrollToTop();
     };
 
@@ -101,6 +110,8 @@ export default function CreatePlanForm({ initialStep = 2, onBack}) {
                         removeGoal={removeGoal}
                         updateGoal={updateGoal}
                         onCompetencyChange={onCompetencyChange}
+                        showSuccessMessage={lastStep < currentStep}
+                        planName={planName}
                     />
                 )
             case 4:
@@ -117,6 +128,7 @@ export default function CreatePlanForm({ initialStep = 2, onBack}) {
                         addKSAToGoal={addKSAToGoal}
                         removeKSAFromGoal={removeKSAFromGoal}
                         updateKSAForGoal={updateKSAForGoal}
+                        showSuccessMessage={lastStep < currentStep}
                     />
                 )
             case 5:
@@ -126,6 +138,7 @@ export default function CreatePlanForm({ initialStep = 2, onBack}) {
                         timeframe={timeframe}
                         goals={goals}
                         competencyGoals={competencyGoals}
+                        showSuccessMessage={lastStep < currentStep}
                     />
                 )
             default:
@@ -157,7 +170,7 @@ export default function CreatePlanForm({ initialStep = 2, onBack}) {
                                 Cancel
                             </button>
                             <button
-                                onClick={prevStep}
+                                onClick={handleBack}
                                 className="text-[#4883B4] text-base font-medium leading-[22.4px] hover:underline transition-all"
                             >
                                 Back

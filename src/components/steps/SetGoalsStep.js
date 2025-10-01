@@ -14,6 +14,7 @@ import { useEffect, useState } from 'react';
 import AsteriskIcon from '@/public/icons/asteriskIcon.svg';
 import CustomDropdown from '@/components/menus/CustomDropdown';
 import Image from 'next/image';
+import SuccessMessageToast from '@/components/cards/SuccessMessageToast';
 import priorityIcon from '@/utils/priorityIcon';
 
 export function SetGoalsStep({
@@ -27,7 +28,8 @@ export function SetGoalsStep({
     updateCompetencyGoal,
     addKSAToGoal,
     removeKSAFromGoal,
-    updateKSAForGoal
+    updateKSAForGoal,
+    showSuccessMessage = false,
 }) {
 
     const [openCompetencies, setOpenCompetencies] = useState({});
@@ -92,6 +94,11 @@ export function SetGoalsStep({
 
     return (
         <>
+            {showSuccessMessage && (
+                <SuccessMessageToast
+                    title={"Your changes have been saved"}
+                />
+            )}
             <div className="mb-6 space-y-4">
                 <h2 className="text-2xl font-semibold">Set Competency Goals</h2>
                 <p className="text-sm text-gray-500">
