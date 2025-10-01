@@ -36,6 +36,8 @@ export default function Home() {
 
   const [lunchNLearn, setLunchNLearn] = useState(null);
 
+  const moodleAllCourses = process.env.NEXT_PUBLIC_MOODLE_ALL_COURSES;
+
   // Searching for launch and learn plans
   useEffect(() => {
     const lunchNLearnList = 
@@ -250,7 +252,7 @@ export default function Home() {
           </div>
           <div className="flex justify-end mt-6">
             <button 
-              className="text-blue-600 text-sm font-medium hover:underline cursor-pointer"
+              className="text-[#4883B4] text-sm font-medium hover:underline cursor-pointer"
               onClick = {() => {router.push('/edlm-portal/learner/learningPlan/')}}
             > 
               View Your Learning Plans
@@ -284,6 +286,12 @@ export default function Home() {
                       </>
                     )}
               </div>
+              <div className="flex justify-end -mt-4 p-1">
+                <Button className="text-[#4883B4] text-sm font-medium hover:underline cursor-pointer" onClick={() => router.push(moodleAllCourses)}>
+                    View More in Moodle
+                </Button>
+              </div>
+
             </div>
           </div>
         </div>
