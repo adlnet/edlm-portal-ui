@@ -6,10 +6,10 @@ import {
     PlusIcon, 
     XMarkIcon
 } from '@heroicons/react/24/outline';
-import { Label, Select, TextInput } from 'flowbite-react';
 import { InfoTooltip } from '@/components/InfoTooltip';
+import { Label, Select, TextInput } from 'flowbite-react';
 import { MultiSelectDropdown } from '@/components/menus/MultiSelectDropdown';
-import {  ksaOptions, obstacleOptions, proficiencyLevels, resourceSupportOptions } from '@/utils/dropdownMenuConstants';
+import { ksaOptions, obstacleOptions, proficiencyLevels, resourceSupportOptions } from '@/utils/dropdownMenuConstants';
 import { useEffect, useState } from 'react';
 import AsteriskIcon from '@/public/icons/asteriskIcon.svg';
 import CustomDropdown from '@/components/menus/CustomDropdown';
@@ -88,7 +88,8 @@ export function SetGoalsStep({
         const competencyGoalsList = competencyGoals[competency] || [];
         const currentGoal = competencyGoalsList.find(goal => goal.id === goalId);
         if (!currentGoal) return false;
-        //Gget the current goal
+
+        //Get the current goal
         return currentGoal.ksas?.some(ksa => ksa.type === ksaType) || false;
     };
 

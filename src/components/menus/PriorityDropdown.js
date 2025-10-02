@@ -1,7 +1,7 @@
 'use strict';
 
-import priorityIcon from '@/utils/priorityIcon';
 import CustomDropdown from '@/components/menus/CustomDropdown';
+import priorityIcon from '@/utils/priorityIcon';
 
 export default function PriorityDropdown({ value, onChange, options, placeholder = "Select priority" }) {
     const renderDisplay = (selectedValue, placeholderText) => (

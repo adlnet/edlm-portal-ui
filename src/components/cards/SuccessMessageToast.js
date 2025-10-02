@@ -1,5 +1,5 @@
-import { Toast } from "flowbite-react";
 import { HiCheck } from "react-icons/hi";
+import { Toast } from "flowbite-react";
 
 export default function SuccessMessageToast({ title = "Your plan has been created", description = ""}) {
     return (

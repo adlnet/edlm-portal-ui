@@ -1,7 +1,7 @@
 'use strict';
 
-import Image from 'next/image';
 import { Tooltip } from 'flowbite-react';
+import Image from 'next/image';
 import InfoIcon from '@/public/icons/infoIcon.svg';
 
 export function InfoTooltip({ title, content, iconClassName = 'w-3 h-3' }) {

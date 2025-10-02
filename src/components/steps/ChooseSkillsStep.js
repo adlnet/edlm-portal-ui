@@ -1,8 +1,8 @@
 'use strict';
 
-import { Label, Select, Tooltip } from 'flowbite-react';
+import { ChevronRightIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/solid';
 import { InfoTooltip } from '@/components/InfoTooltip';
-import { PlusIcon, XMarkIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
+import { Label, Select, Tooltip } from 'flowbite-react';
 import { priorityOptions } from '@/utils/dropdownMenuConstants';
 import { useRouter } from 'next/router';
 import AsteriskIcon from '@/public/icons/asteriskIcon.svg';
@@ -36,6 +36,7 @@ export function ChooseSkillsStep({
 }) {
 
     const router = useRouter();
+
     // Using backup data for development
     // In the future, this data should come from an API
     const Competencies = backupData;
@@ -50,7 +51,7 @@ export function ChooseSkillsStep({
     };
 
     const competencyRedirectOptionFooter = (
-        <div 
+        <button 
             className="w-full flex items-center justify-between"
             onClick={handleRedirectToCompSearch}
         >
@@ -58,7 +59,7 @@ export function ChooseSkillsStep({
                 Go to Competency Search
             </div>
             <ChevronRightIcon className="h-4 w-4 text-gray-400" />
-        </div>
+        </button>
     );
 
 
