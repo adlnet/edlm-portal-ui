@@ -1,34 +1,21 @@
 'use strict';
 
 import { 
-    Bars3Icon,
-    ChevronDoubleDownIcon, 
-    ChevronDoubleUpIcon, 
     ChevronDownIcon, 
     ChevronUpIcon,
     PlusIcon, 
     XMarkIcon
 } from '@heroicons/react/24/outline';
+import { InfoTooltip } from '@/components/InfoTooltip';
 import { Label, Select, TextInput } from 'flowbite-react';
 import { MultiSelectDropdown } from '@/components/menus/MultiSelectDropdown';
-import {  ksaOptions, obstacleOptions, proficiencyLevels, resourceSupportOptions } from '@/utils/dropdownMenuConstants';
+import { ksaOptions, obstacleOptions, proficiencyLevels, resourceSupportOptions } from '@/utils/dropdownMenuConstants';
 import { useEffect, useState } from 'react';
-
-function priorityIcon(priority) {
-    if (priority === 'Lowest') {
-        return <ChevronDoubleDownIcon className='h-6 w-6 text-green-500'/>
-    } else if (priority === 'Low') {
-        return <ChevronDownIcon className='h-6 w-6 text-green-500'/>
-    } else if (priority === 'Medium') {
-        return <Bars3Icon className='h-6 w-6 text-yellow-800'/>
-    } else if (priority === 'High') {
-        return <ChevronUpIcon className='h-6 w-6 text-green-500'/>
-    } else if (priority === 'Highest') {
-        return <ChevronDoubleUpIcon className='h-6 w-6 text-red-500'/>
-    } else {
-        return null;
-    }
-}
+import AsteriskIcon from '@/public/icons/asteriskIcon.svg';
+import CustomDropdown from '@/components/menus/CustomDropdown';
+import Image from 'next/image';
+import SuccessMessageToast from '@/components/cards/SuccessMessageToast';
+import priorityIcon from '@/utils/priorityIcon';
 
 export function SetGoalsStep({
     goals,
@@ -41,7 +28,8 @@ export function SetGoalsStep({
     updateCompetencyGoal,
     addKSAToGoal,
     removeKSAFromGoal,
-    updateKSAForGoal
+    updateKSAForGoal,
+    showSuccessMessage = false,
 }) {
 
     const [openCompetencies, setOpenCompetencies] = useState({});
@@ -95,13 +83,31 @@ export function SetGoalsStep({
         }
     }, [selectedCompetencies, competencyGoals, setCompetencyGoals]);
 
+    // Check if a KSA is already selected in this goal
+    const isKSASelected = (competency, goalId, ksaType) => {
+        const competencyGoalsList = competencyGoals[competency] || [];
+        const currentGoal = competencyGoalsList.find(goal => goal.id === goalId);
+        if (!currentGoal) return false;
+
+        //Get the current goal
+        return currentGoal.ksas?.some(ksa => ksa.type === ksaType) || false;
+    };
+
     return (
         <>
+            {showSuccessMessage && (
+                <SuccessMessageToast
+                    title={"Your changes have been saved"}
+                />
+            )}
             <div className="mb-6 space-y-4">
-                <h2 className="text-lg font-semibold">Set Competency Goals</h2>
+                <h2 className="text-2xl font-semibold">Set Competency Goals</h2>
                 <p className="text-sm text-gray-500">
                     {`Now, let's narrow it down. Within each selected competency, define the goal you wish to achieve noting timeframe for completion, relevant KSAs, baseline and target proficiency per KSA, and obstacles and resources needed to support goal attainment. Multiple goals can be established per competency.`}
                 </p>
+                <span className="flex items-center gap-1 text-[#993033]">
+                    <Image src={AsteriskIcon} alt="Asterisk" className="w-4 h-4" /> = Required
+                </span>
             </div>
 
             <div className="space-y-4">
@@ -133,7 +139,7 @@ export function SetGoalsStep({
                                 <div className="p-4">
                                     <div className="space-y-6">
                                         {competencyGoalsList.map((competencyGoal, goalIndex) => (
-                                            <div key={competencyGoal.id} className="border border-gray-200 rounded-lg p-4 mb-6">
+                                            <div key={competencyGoal.id} className="mb-6 -mt-4">
                                                 <div className="flex justify-end items-center mb-4">
                                                     {goalIndex > 0 && (
                                                         <button
@@ -148,27 +154,41 @@ export function SetGoalsStep({
                                                 
                                                 <div className="grid gap-4 md:grid-cols-2 mb-6">
                                                     <div className="flex flex-col gap-2">
-                                                        <Label value="Define Your Goal *" />
+                                                        <div className="flex items-center gap-2">
+                                                            <span className="flex items-center gap-2 text-sm">
+                                                                Define Your Goal 
+                                                                <InfoTooltip 
+                                                                    title="Defining Your Goal"
+                                                                    content="When thinking of a name for your goal, think SMART - Specific, Measurable, Achievable, Relevant, and Time-bound. Common goals might aim to increase, improve, reduce, save, or develop something—like leading a team project or building a new skill."
+                                                                />
+                                                                <Image src={AsteriskIcon} alt="asterisk" className="w-3 h-3" />
+                                                            </span>
+                                                        </div>
                                                         <TextInput
-                                                            placeholder="e.g., What does success look like for you?."
+                                                            placeholder="What does success look like for you?"
                                                             value={competencyGoal.goal || ''}
                                                             onChange={(e) => updateCompetencyGoal(competency, competencyGoal.id, 'goal', e.target.value)}
                                                         />
+                                                        <span className="text-sm font-normal text-[#545964] leading-tight">
+                                                            What do you want to accomplish? Be as specific as you can be. Lead a cross-functional project to improve team collaboration by March.
+                                                        </span>
                                                     </div>
                                                     <div className="flex flex-col gap-2">
-                                                        <Label value="Goal Timeline *" />
-                                                        <Select
+                                                        <div className="flex items-center gap-2">
+                                                            <span className="flex items-center gap-2 text-sm">
+                                                                Goal Timeline 
+                                                                <Image src={AsteriskIcon} alt="asterisk" className="w-3 h-3" />
+                                                            </span>
+                                                        </div>
+                                                        <CustomDropdown
                                                             value={competencyGoal.timeline || ''}
                                                             onChange={(e) => updateCompetencyGoal(competency, competencyGoal.id, 'timeline', e.target.value)}
-                                                            disabled={!timeframe}
-                                                        >
-                                                            <option value="" disabled>
-                                                                {!timeframe ? 'Select plan timeframe first' : 'Select timeline'}
-                                                            </option>
-                                                            {availableTimelineOptions.map(timeline => (
-                                                                <option key={timeline} value={timeline}>{timeline}</option>
-                                                            ))}
-                                                        </Select>
+                                                            options={availableTimelineOptions.map(option => ({
+                                                                label: option,
+                                                                value: option
+                                                            }))}
+                                                            placeholder="When will you achieve this goal?"
+                                                        />
                                                     </div>
                                                 </div>
                                                 <div className="pt-4">
@@ -176,16 +196,26 @@ export function SetGoalsStep({
                                                         <div key={ksa.id} className="mb-4">
                                                             <div className="grid gap-4 md:grid-cols-2 mb-4">
                                                                 <div className="flex flex-col gap-2">
-                                                                    <Label value="Choose a Knowledge, Skill, or Ability (KSA) *" />
-                                                                    <Select
-                                                                        value={ksa.type}
+                                                                    <div className="flex items-center gap-2">
+                                                                        <span className="flex items-center gap-2 text-sm">
+                                                                            Choose a Knowledge, Skill, or Ability (KSA)
+                                                                            <InfoTooltip 
+                                                                                title="Selecting a KSA"
+                                                                                content="Think about what you want to sharpen—what specific skill or area within this competency would help you feel more focused or effective? Is there a particular focus area you've been meaning to explore that could bring you closer to your goals?"
+                                                                            />
+                                                                            <Image src={AsteriskIcon} alt="asterisk" className="w-3 h-3" />
+                                                                        </span>
+                                                                    </div>
+                                                                    <CustomDropdown
+                                                                        value={ksa.type || ''}
                                                                         onChange={(e) => updateKSAForGoal(competency, competencyGoal.id, ksa.id, 'type', e.target.value)}
-                                                                    >
-                                                                        <option value="" disabled>Select KSA type</option>
-                                                                        {ksaOptions.map(ksaOption => (
-                                                                            <option key={ksaOption.name} value={ksaOption.name}>{ksaOption.name}</option>
-                                                                        ))}
-                                                                    </Select>
+                                                                        options={ksaOptions.map(option => ({
+                                                                            label: option.name,
+                                                                            value: option.name,
+                                                                            disabled: isKSASelected(competency, competencyGoal.id, option.name) && ksa.type !== option.name,
+                                                                        }))}
+                                                                        placeholder="Which KSA will help you achieve that goal?"
+                                                                    />
                                                                 </div>
                                                                 <div className="flex flex-col gap-2">
                                                                     <Label value="KSA Description" />
@@ -196,7 +226,7 @@ export function SetGoalsStep({
                                                                             </p>
                                                                         ) : (
                                                                             <p className="text-sm text-gray-500">
-                                                                                Select a KSA to view its description
+                                                                                Select a focus area to see what it’s all about
                                                                             </p>
                                                                         )}
                                                                     </div>
@@ -204,26 +234,38 @@ export function SetGoalsStep({
                                                             </div>
                                                             <div className="grid gap-4 md:grid-cols-2 mb-4">
                                                                 <div className="flex flex-col gap-2">
-                                                                    <Label value="Where You Are Now *" />
-                                                                    <Select
+                                                                    <div className="flex items-center gap-2">
+                                                                        <span className="flex items-center gap-2 text-sm">
+                                                                            Where You Are Now 
+                                                                            <Image src={AsteriskIcon} alt="asterisk" className="w-3 h-3" />
+                                                                        </span>
+                                                                    </div>
+                                                                    <CustomDropdown
                                                                         value={ksa.currentLevel}
                                                                         onChange={(e) => updateKSAForGoal(competency, competencyGoal.id, ksa.id, 'currentLevel', e.target.value)}
-                                                                    >
-                                                                        {proficiencyLevels.map(level => (
-                                                                            <option key={level} value={level}>{level}</option>
-                                                                        ))}
-                                                                    </Select>
+                                                                        options={proficiencyLevels.map(level => ({
+                                                                            label: level,
+                                                                            value: level
+                                                                        }))}
+                                                                        placeholder="Estimate your current proficiency on this goal"
+                                                                    />
                                                                 </div>
                                                                 <div className="flex flex-col gap-2">
-                                                                    <Label value="Where You Want to Be *" />
-                                                                    <Select
+                                                                    <div className="flex items-center gap-2">
+                                                                        <span className="flex items-center gap-2 text-sm">
+                                                                            Where You Want to Be 
+                                                                            <Image src={AsteriskIcon} alt="asterisk" className="w-3 h-3" />
+                                                                        </span>
+                                                                    </div>
+                                                                    <CustomDropdown
                                                                         value={ksa.targetLevel}
                                                                         onChange={(e) => updateKSAForGoal(competency, competencyGoal.id, ksa.id, 'targetLevel', e.target.value)}
-                                                                    >
-                                                                        {proficiencyLevels.map(level => (
-                                                                            <option key={level} value={level}>{level}</option>
-                                                                        ))}
-                                                                    </Select>
+                                                                        options={proficiencyLevels.map(level => ({
+                                                                            label: level,
+                                                                            value: level
+                                                                        }))}
+                                                                        placeholder="Select your desired proficiency on this goal"
+                                                                    />
                                                                 </div>
                                                             </div>
                                                             {ksaIndex > 0 && (
@@ -243,7 +285,7 @@ export function SetGoalsStep({
                                                     <div className="flex items-center justify-between mb-4">
                                                         <button
                                                             onClick={() => addKSAToGoal(competency, competencyGoal.id)}
-                                                            className="flex items-center gap-2 text-blue-600 hover:text-blue-800 text-sm bg-transparent border-none"
+                                                            className="flex items-center gap-2 text-[#4883B4] hover:text-blue-800 text-sm bg-transparent border-none"
                                                         >
                                                             <PlusIcon className="w-4 h-4" />
                                                             Add Another KSA
@@ -262,7 +304,7 @@ export function SetGoalsStep({
                                                                     updateCompetencyGoal(competency, competencyGoal.id, 'resourcesOther', '');
                                                                 }
                                                             }}
-                                                            placeholder="Select resources"
+                                                            placeholder="Add resources or support you need to accomplish your goal"
                                                         />
                                                         {competencyGoal.resources?.includes('Other') && (
                                                             <div className="mt-2">
@@ -287,7 +329,7 @@ export function SetGoalsStep({
                                                                     updateCompetencyGoal(competency, competencyGoal.id, 'obstaclesOther', '');
                                                                 }
                                                             }}
-                                                            placeholder="Select obstacles"
+                                                            placeholder="What might get in the way of your goal?"
                                                         />
                                                         {competencyGoal.obstacles?.includes('Other') && (
                                                             <div className="mt-2">
@@ -308,7 +350,7 @@ export function SetGoalsStep({
                                         <div className="flex justify-end">
                                             <button
                                                 onClick={() => addGoalToCompetency(competency)}
-                                                className="flex items-center gap-2 text-blue-600 hover:text-blue-800 text-sm bg-transparent border-none"
+                                                className="flex items-center gap-2 text-[#4883B4] hover:text-blue-800 text-sm bg-transparent border-none"
                                             >
                                                 <PlusIcon className="w-4 h-4" />
                                                 Add Another Goal

@@ -1,4 +1,6 @@
 'use strict';
+
+import { ALL_STEPS } from '@/utils/dropdownMenuConstants';
 import { Button } from 'flowbite-react';
 import { ExclamationCircleIcon } from "@heroicons/react/24/solid";
 import { useRouter } from 'next/router';
@@ -6,6 +8,7 @@ import { useState } from 'react';
 import CompetencyDevPlan from "@/components/CompetencyDevPlan";
 import CreateLearningPlan from '@/pages/edlm-portal/learner/learningPlan/createLearningPlan';
 import DefaultLayout from "@/components/layouts/DefaultLayout";
+import Stepper from '@/components/Stepper';
 import backupData from '@/public/backup_competencies.json';
 
 
@@ -35,12 +38,25 @@ export default function DevelopmentPlan() {
     window.scrollTo(0, 0);
   };
 
+  const handleStepClick = stepIndex => {
+    if (stepIndex === 0) {
+      router.push('/edlm-portal/learner/learningPlan/');
+    }
+  };
+
   return (
     <>
     {currentStep === 1 ? (
       <DefaultLayout>
         <div className='bg-white shadow-md p-5 py-0 w-full mb-5 rounded-xl m-4 -my-6 overflow-clip'>
           <div className='mt-10 pb-4 py-4'>
+            <div className="mb-6">
+              <Stepper
+                currentStep={currentStep}
+                steps={ALL_STEPS}
+                onStepClick={handleStepClick}
+              />
+            </div>
             <h1 className='text-center text-xl p-2'>
               Create Your Individual Development Plan
             </h1>
