@@ -3,7 +3,7 @@
 export default function SaveAndContinueBtn ({ onClick, disabled, loading }) {
   // Accessibility
   const handleKeyDown = (e) => {
-    if (e.key === 'Enter' && isClickable) {
+    if (e.key === 'Enter' && !disabled && !loading) {
       e.preventDefault();
       onClick();
     }

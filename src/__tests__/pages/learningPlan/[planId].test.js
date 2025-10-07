@@ -49,6 +49,7 @@ describe('Plan Page', () => {
   it('finds a learning journey and renders goals', () => {
     mockQuery.planId = '0'; // matches first mockLearningJourneys id
     render(<Plan />);
+    
     // Page header and breadcrumb
     expect(screen.getAllByText('Job Development')[0]).toBeInTheDocument();
     expect(screen.getAllByTestId('dev-goal')[0]).toHaveTextContent('Leadership');
@@ -76,6 +77,4 @@ describe('Plan Page', () => {
     fireEvent.click(screen.getByText('Return to Learning Plans'));
     expect(mockPush).toHaveBeenCalledWith('/edlm-portal/learner/learningPlan/');
   });
-
-  // You can add further tests for the three Next Steps buttons if you provide unique selectors or test ids
 });
