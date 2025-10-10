@@ -2,12 +2,6 @@ import { NamePlanStep } from '@/components/steps/NamePlanStep';
 import { fireEvent, render, screen} from '@testing-library/react';
 import React from 'react';
 
-// Mock dependencies
-// jest.mock('next/image', () => ({
-//   __esModule: true,
-//   default: (props) => <img data-testid="next-image" {...props} />,
-// }));
-
 jest.mock('flowbite-react', () => ({
   __esModule: true,
   TextInput: ({ id, value, placeholder, onChange }) => (
