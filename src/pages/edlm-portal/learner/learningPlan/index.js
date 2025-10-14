@@ -18,17 +18,6 @@ export default function LearningPlan() {
     { id: 5, name: 'Last Job Development', progress: 75, length: 'Long-Term Plan', created: '10/15/2022' },
   ]
 
-  // const mockLearningJourneysComp = [
-  //   { id: 0, name: 'Job Development', progress: 100, length: 'Short-Term Plan', created: '9/19/2025' },
-  //   { id: 1, name: 'My Learning Plan', progress: 100, length: 'Long-Term Plan', created: '10/15/2022' },
-  // ]
-
-  // const mockLearningJourneys = []
-
-  // const mockLearningJourneys = [
-  //   { id: 0, name: 'Short-term Plan', progress: 50, time: '1-2 years' }
-  // ]
-
   const mockOnboardingJourneys = [
     { id: 2, name: 'Phase I (30 Days)', progress: 100, length: 'DOT&E', description: 'Items for my job in 2025.'},
     { id: 3, name: 'Phase II (60 Days)', progress: 60, length: 'DOT&E', description: 'Things to do in 2025.' },
@@ -78,11 +67,11 @@ export default function LearningPlan() {
 
           <div className='grid grid-cols-3 w-100 mb-6 flex-wrap gap-4'>
             
-            {mockLearningJourneys?.map((journey, idx) => {
+            {mockLearningJourneys?.map((journey, id) => {
               if (journey.progress < 100 && activeIndex == 0) {
-                return <LearningJourneyCard key={idx} journey={journey} />
+                return <LearningJourneyCard key={id} journey={journey} />
               }else if (journey.progress >= 100 && activeIndex == 1){
-                return <LearningJourneyCard key={idx} journey={journey} />
+                return <LearningJourneyCard key={id} journey={journey} />
               }else{
                 return null
               }
@@ -128,11 +117,11 @@ export default function LearningPlan() {
 
           <div className='grid grid-cols-3 w-100 mb-6 gap-4'>
             
-            {mockOnboardingJourneys?.map((journey, idx) => {
+            {mockOnboardingJourneys?.map((journey, id) => {
               if (journey.progress < 100 && activeIndex == 0) {
-                return <LearningJourneyCard key={idx} journey={journey} />
+                return <LearningJourneyCard key={id} journey={journey} />
               }else if (journey.progress >= 100 && activeIndex == 1){
-                return <LearningJourneyCard key={idx} journey={journey} />
+                return <LearningJourneyCard key={id} journey={journey} />
               }else{
                 return null
               }

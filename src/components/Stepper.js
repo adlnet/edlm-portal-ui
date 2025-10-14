@@ -5,18 +5,18 @@ import { ChevronRightIcon } from '@heroicons/react/24/outline';
 export default function Stepper ({ currentStep, steps, onStepClick }) {
   return (
     <ol className="flex items-center w-full space-x-2 text-sm font-medium text-center">
-      {steps.map((step, index) => {
+      {steps.map((step) => {
         // It shouldnt be clickable if it's at the last step (review)
-        const isClickable = onStepClick && (index === 0 || index <= currentStep && currentStep < steps.length - 1);
-        const isActive = index <= currentStep;
+        const isClickable = onStepClick && (step.id === 0 || step.id <= currentStep && currentStep < steps.length - 1);
+        const isActive = step.id <= currentStep;
         const handleKeyDown = (e) => {
           if (e.key === 'Enter' && isClickable) {
-            onStepClick(index);
+            onStepClick(step.id);
           }
         };
         
         return (
-          <li key={index} className="flex items-center">
+          <li key={step.id} className="flex items-center">
             {isClickable ? (
               <button
                 className={`flex items-center ${
@@ -24,12 +24,12 @@ export default function Stepper ({ currentStep, steps, onStepClick }) {
                     ? 'text-[#0B61BD]' 
                     : 'text-[#E0E4E9]'
                 } cursor-pointer hover:text-blue-800 transition-colors bg-transparent border-none p-0 font-inherit text-sm font-medium`}
-                onClick={() => onStepClick(index)}
+                onClick={() => onStepClick(step.id)}
                 onKeyDown={handleKeyDown}
-                aria-label={`step ${step}`}
+                aria-label={`step ${step.name}`}
               >
                 <span className="flex items-center">
-                  {step}
+                  {step.name}
                 </span>
               </button>
             ) : (
@@ -40,11 +40,11 @@ export default function Stepper ({ currentStep, steps, onStepClick }) {
                     : 'text-[#E0E4E9]'
                 }`}
               >
-                {step}
+                {step.name}
               </span>
             )}
 
-            {index < steps.length - 1 && (
+            {step.id < steps.length - 1 && (
               <ChevronRightIcon className="w-3 h-3 ms-2 sm:ms-4" />
             )}
           </li>

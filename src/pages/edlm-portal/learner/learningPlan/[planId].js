@@ -131,8 +131,8 @@ export default function Plan() {
             <div className='text-sm bg-blue-50 text-blue-700 rounded-md px-2 py-1'>{plan.length}</div>
           </div>
 
-          {mockGoalSet1?.map((goal, idx) => (
-            <DevelopmentGoal key={idx} goal={goal}/>            
+          {mockGoalSet1?.map((goal, id) => (
+            <DevelopmentGoal key={id} goal={goal}/>            
           ))}
 
           <div className='p-4 border rounded-lg border-gray-300 mt-6'>
