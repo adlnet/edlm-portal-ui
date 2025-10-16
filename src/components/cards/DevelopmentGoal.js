@@ -57,8 +57,8 @@ export default function DevelopmentGoal({ goal }) {
             </div>
           </div>
           <div>
-            {goal.ksaList.map((ksa, id) => (
-              <div key={id} className='grid grid-cols-2 gap-4 p-4'>
+            {goal.ksaList.map((ksa) => (
+              <div key={ksa.id} className='grid grid-cols-2 gap-4 p-4'>
                 <div>
                   <p className='text-gray-900 font-semibold pb-1'>Knowledge, Skill, or Ability (KSA)</p>
                   <p className='text-gray-700'>{ksa.title}</p>
@@ -82,8 +82,8 @@ export default function DevelopmentGoal({ goal }) {
             <div>
               <p className='text-gray-900 font-semibold pb-1'>Resources & Support</p>
               <div className='flex flex-row flex-wrap'> 
-                {goal.resources.map((resource, id) => (
-                  <div key={id} className='bg-gray-100 rounded-md w-fit p-1 mr-1 mb-1'>
+                {goal.resources.map((resource) => (
+                  <div key={resource.id} className='bg-gray-100 rounded-md w-fit p-1 mr-1 mb-1'>
                     {resource}
                   </div>
                 ))}
@@ -92,8 +92,8 @@ export default function DevelopmentGoal({ goal }) {
             <div>
               <p className='text-gray-900 font-semibold pb-1'>Potential Obstacles</p>
               <div className='flex flex-row flex-wrap'> 
-                {goal.obstacles.map((obstacle, id) => (
-                  <div key={id} className='bg-gray-100 rounded-md w-fit p-1 mr-1 mb-1'>
+                {goal.obstacles.map((obstacle) => (
+                  <div key={obstacle.id} className='bg-gray-100 rounded-md w-fit p-1 mr-1 mb-1'>
                     {obstacle}
                   </div>
                 ))}

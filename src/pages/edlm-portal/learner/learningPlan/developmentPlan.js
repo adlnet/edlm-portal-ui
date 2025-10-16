@@ -73,8 +73,8 @@ export default function DevelopmentPlan() {
                 </p>
               </div>
               <div className="flex flex-wrap p-4">
-                {ParentComps.map((comp, id) => (
-                  <CompetencyDevPlan key={id} competency={comp}/>
+                {ParentComps.map((comp) => (
+                  <CompetencyDevPlan key={comp.id} competency={comp}/>
                 ))}
               </div>
               <div className="p-4">
