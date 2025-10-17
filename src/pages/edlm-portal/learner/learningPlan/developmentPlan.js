@@ -73,8 +73,8 @@ export default function DevelopmentPlan() {
                 </p>
               </div>
               <div className="flex flex-wrap p-4">
-                {ParentComps.map((comp, idx) => (
-                  <CompetencyDevPlan key={idx} competency={comp}/>
+                {ParentComps.map((comp) => (
+                  <CompetencyDevPlan key={comp.id} competency={comp}/>
                 ))}
               </div>
               <div className="p-4">
@@ -105,7 +105,8 @@ export default function DevelopmentPlan() {
       </DefaultLayout>
     ) : (
       <CreateLearningPlan 
-        initialStep={2} 
+        initialStep={2}
+        onBack={() => setCurrentStep(1)} 
       />
     )}
     </>

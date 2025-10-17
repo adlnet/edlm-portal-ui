@@ -2,7 +2,7 @@
 
 import { ChevronRightIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/solid';
 import { InfoTooltip } from '@/components/InfoTooltip';
-import { Label, Select, Tooltip } from 'flowbite-react';
+import { Label } from 'flowbite-react';
 import { priorityOptions } from '@/utils/dropdownMenuConstants';
 import { useRouter } from 'next/router';
 import AsteriskIcon from '@/public/icons/asteriskIcon.svg';
@@ -34,8 +34,6 @@ export function ChooseSkillsStep({
     planName = "",
     showSuccessMessage = false
 }) {
-
-    const router = useRouter();
 
     // Using backup data for development
     // In the future, this data should come from an API

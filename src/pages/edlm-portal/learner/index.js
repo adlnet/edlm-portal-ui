@@ -123,21 +123,25 @@ export default function Home() {
   // --- Summary Card Component ---
   const summaryData = [
     {
+      id: 0,
       value: "2",
       label: "Active Plans",
       dot: "bg-blue-800"
     },
     {
+      id: 1,
       value: "6",
       label: "Goals in Progress",
       dot: "bg-yellow-700"
     },
     {
+      id: 2,
       value: "1",
       label: "Short-Term Plan",
       dot: "bg-blue-800"
     },
     {
+      id: 3,
       value: "10%",
       label: "Overall Progress",
       dot: "bg-yellow-700"
@@ -237,9 +241,9 @@ export default function Home() {
         <div className="mt-10 pb-6 bg-white h-100 shadow-md rounded-lg p-4">
           <div className="font-semibold text-xl mb-4">My Learning Summary Overview</div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
-            {summaryData.map((item, idx) => (
+            {summaryData.map((item) => (
               <div
-                key={idx}
+                key={item.id}
                 className="flex flex-col justify-between bg-gray-50 border border-gray-100 rounded-lg px-6 py-5 h-28 shadow-sm"
               >
                 <div className="text-2xl font-semibold text-gray-900 mb-2">{item.value}</div>

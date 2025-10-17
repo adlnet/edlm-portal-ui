@@ -27,7 +27,6 @@ export default function CreatePlanForm({ initialStep = 2, onBack}) {
     const {
         currentStep,
         setCurrentStep,
-        savedPlanId,
         nextStep,
         prevStep,
         planName,
@@ -81,10 +80,6 @@ export default function CreatePlanForm({ initialStep = 2, onBack}) {
     const handleFinalSave = () => {
         router.push(`/edlm-portal/learner/learningPlan/`);
     };
-
-    const handleExport = () => {
-        console.log('Future export functionality');
-    }
 
     // Instant scroll to top when going to the next form step
     const autoScrollToTop = () => {

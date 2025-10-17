@@ -50,8 +50,8 @@ export function ReviewStep({ planName, timeframe, goals, competencyGoals, showSu
                 <div className='text-sm bg-blue-50 text-blue-700 rounded-md px-2 py-1'>{timeframe || 'No timeframe set'}</div>
             </div>
 
-            {formattedGoals.map((goal, i) => (
-                <DevelopmentGoal key={i} goal={goal} />
+            {formattedGoals.map((goal) => (
+                <DevelopmentGoal key={goal.id} goal={goal} />
             ))}
         </>
     );
