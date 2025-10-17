@@ -67,11 +67,11 @@ export default function LearningPlan() {
 
           <div className='grid grid-cols-3 w-100 mb-6 flex-wrap gap-4'>
             
-            {mockLearningJourneys?.map((journey, id) => {
+            {mockLearningJourneys?.map((journey) => {
               if (journey.progress < 100 && activeIndex == 0) {
-                return <LearningJourneyCard key={id} journey={journey} />
+                return <LearningJourneyCard key={journey.id} journey={journey} />
               }else if (journey.progress >= 100 && activeIndex == 1){
-                return <LearningJourneyCard key={id} journey={journey} />
+                return <LearningJourneyCard key={journey.id} journey={journey} />
               }else{
                 return null
               }
@@ -117,11 +117,11 @@ export default function LearningPlan() {
 
           <div className='grid grid-cols-3 w-100 mb-6 gap-4'>
             
-            {mockOnboardingJourneys?.map((journey, id) => {
+            {mockOnboardingJourneys?.map((journey) => {
               if (journey.progress < 100 && activeIndex == 0) {
-                return <LearningJourneyCard key={id} journey={journey} />
+                return <LearningJourneyCard key={journey.id} journey={journey} />
               }else if (journey.progress >= 100 && activeIndex == 1){
-                return <LearningJourneyCard key={id} journey={journey} />
+                return <LearningJourneyCard key={journey.id} journey={journey} />
               }else{
                 return null
               }
