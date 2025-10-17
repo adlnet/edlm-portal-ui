@@ -150,33 +150,47 @@ export function useLearningPlanForm(initialStep = 2, onBack = null) {
         }));
     };
 
+    const updateKSAInGoal = (goal, ksaId, field, value) => {
+        if (goal.ksas) {
+            // Update the specific KSA within this goal
+            const updatedKSAs = goal.ksas.map(ksa => {
+                if (ksa.id === ksaId) {
+                    return { ...ksa, [field]: value };
+                } else {
+                    return ksa;
+                }
+            });
+            return { ...goal, ksas: updatedKSAs };
+        } else {
+            return goal;
+        }
+    };
+
     const updateKSAForGoal = (competencyName, goalId, ksaId, field, value) => {
         setCompetencyGoals(prev => {
             const currentGoals = prev[competencyName] || [];
 
             const updatedGoals = currentGoals.map(goal => {
                 if (goal.id === goalId) {
-                    // Update the specific KSA within this goal
-                    const updatedKSAs = goal.ksas?.map(ksa => {
-                        if (ksa.id === ksaId) {
-                            return { ...ksa, [field]: value };
-                        }
-                        return ksa;
-                    }) || [];
-                    
-                    return {
-                        ...goal,
-                        ksas: updatedKSAs
-                    };
+                    return updateKSAInGoal(goal, ksaId, field, value);
                 }
                 return goal;
             });
-            
+
             return {
                 ...prev,
                 [competencyName]: updatedGoals
             };
         });
+    };
+    
+    const removeKSAFromGoalHelper = (goal, ksaId) => {
+        if (goal.ksas) {
+            // Filter out the KSA with the matching ID
+            const filteredKSAs = goal.ksas.filter(ksa => ksa.id !== ksaId);
+            return { ...goal, ksas: filteredKSAs };
+        }
+        return goal;
     };
 
     const removeKSAFromGoal = (competencyName, goalId, ksaId) => {
@@ -185,12 +199,7 @@ export function useLearningPlanForm(initialStep = 2, onBack = null) {
 
             const updatedGoals = currentGoals.map(goal => {
                 if (goal.id === goalId) {
-                    // Filter out the KSA with the matching ID
-                    const filteredKSAs = goal.ksas?.filter(ksa => ksa.id !== ksaId) || [];
-                    return {
-                        ...goal,
-                        ksas: filteredKSAs
-                    };
+                    return removeKSAFromGoalHelper(goal, ksaId);
                 }
                 return goal;
             });

@@ -45,24 +45,29 @@ jest.mock('@/components/menus/CustomDropdown', () => ({
 
 jest.mock('@/components/menus/MultiSelectDropdown', () => ({
   __esModule: true,
-  MultiSelectDropdown: ({ options, selectedValues, onChange, placeholder }) => (
-    <div data-testid={`multiselect-${placeholder}`}>
-      {options.map((opt, i) => (
-        <button 
-          key={opt} 
-          data-testid={`ms-opt-${opt}-${placeholder}`}
-          onClick={() => {
-            const updated = selectedValues.includes(opt)
-              ? selectedValues.filter(v => v !== opt)
-              : [...selectedValues, opt];
-            onChange(updated);
-          }}>
-          {opt}
-        </button>
-      ))}
-    </div>
-  )
+  MultiSelectDropdown: ({ options, selectedValues, onChange, placeholder }) => {
+    const handleOptionClick = opt => {
+      const isSelected = selectedValues.includes(opt);
+      const updated = isSelected
+        ? selectedValues.filter(v => v !== opt)
+        : [...selectedValues, opt];
+      onChange(updated);
+    };
+    return (
+      <div data-testid={`multiselect-${placeholder}`}>
+        {options.map((opt, i) => (
+          <button 
+            key={opt} 
+            data-testid={`ms-opt-${opt}-${placeholder}`}
+            onClick={() => handleOptionClick(opt)}>
+            {opt}
+          </button>
+        ))}
+      </div>
+    );
+  }
 }));
+
 jest.mock('flowbite-react', () => ({
   __esModule: true,
   Label: ({ value }) => <label>{value}</label>,
