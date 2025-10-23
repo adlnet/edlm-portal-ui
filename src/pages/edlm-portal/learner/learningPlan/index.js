@@ -1,22 +1,17 @@
 'use strict';
 
 import { ClipboardDocumentListIcon } from '@heroicons/react/24/outline';
+import { CompetencyProvider } from '@/contexts/CompetencyContext';
+import { useAllLearningPlans } from '@/hooks/learningPlan/useAllLearningPlans';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import ActiveCompleteTab from '@/components/buttons/ActiveCompleteTab';
 import DefaultLayout from "@/components/layouts/DefaultLayout";
 import LearningJourneyCard from "@/components/cards/LearningJourneyCard";
-import React, { useEffect, useState } from 'react';
 
-export default function LearningPlan() {
+function LearningPlanContent() {
 
-  const mockLearningJourneys = [
-    { id: 0, name: 'Job Development', progress: 50, length: 'Short-Term Plan', created: '9/19/2025' },
-    { id: 1, name: 'My Learning Plan', progress: 70, length: 'Long-Term Plan', created: '10/15/2022' },
-    { id: 2, name: 'Another Plan', progress: 60, length: 'Short-Term Plan', created: '9/19/2025' },
-    { id: 3, name: 'More Development', progress: 100, length: 'Long-Term Plan', created: '10/15/2022' },
-    { id: 4, name: 'One More Plan', progress: 100, length: 'Short-Term Plan', created: '9/19/2025' },
-    { id: 5, name: 'Last Job Development', progress: 75, length: 'Long-Term Plan', created: '10/15/2022' },
-  ]
+  const { data: learningPlans } = useAllLearningPlans();
 
   const mockOnboardingJourneys = [
     { id: 2, name: 'Phase I (30 Days)', progress: 100, length: 'DOT&E', description: 'Items for my job in 2025.'},
@@ -29,11 +24,20 @@ export default function LearningPlan() {
   const [activePlans, setActivePlans] = useState(0);
   const [completedPlans, setCompletedPlans] = useState(0);
 
+  const formattedLearningPlans = learningPlans?.map(plan => ({
+    id: plan.id,
+    name: plan.name,
+    progress: 70, // placeholder for now before we have real progress calculation
+    length: plan.timeframe,
+    created: new Date(plan.created).toLocaleDateString(),
+  }));
+
   useEffect(() => {
-    // Example: Fetch counts from API or calculate
-    setActivePlans((mockLearningJourneys.filter(journey => journey.progress < 100)).length);      // Replace with your logic or API result
-    setCompletedPlans((mockLearningJourneys.filter(journey => journey.progress == 100)).length);  // Replace with your logic or API result
-  }, []);
+    if (formattedLearningPlans) {
+      setActivePlans(formattedLearningPlans.filter(plan => plan.progress < 100).length);
+      setCompletedPlans(formattedLearningPlans.filter(plan => plan.progress >= 100).length);
+    }
+  }, [formattedLearningPlans]);
 
   const tabData = [
     { label: 'Active Plans', count: activePlans },
@@ -67,7 +71,7 @@ export default function LearningPlan() {
 
           <div className='grid grid-cols-3 w-100 mb-6 flex-wrap gap-4'>
             
-            {mockLearningJourneys?.map((journey) => {
+            {formattedLearningPlans?.map((journey) => {
               if (journey.progress < 100 && activeIndex == 0) {
                 return <LearningJourneyCard key={journey.id} journey={journey} />
               }else if (journey.progress >= 100 && activeIndex == 1){
@@ -79,7 +83,7 @@ export default function LearningPlan() {
 
             {activePlans === 0  && activeIndex == 0 && (
               <div className='flex flex-col w-100 justify-center items-center border border-dashed rounded-lg pt-4 pb-10 shadow hover:shadow-lg transition shadow min-h-36'>
-                <ClipboardDocumentListIcon class="h-7 w-7 text-gray-700 mb-4" />
+                <ClipboardDocumentListIcon className="h-7 w-7 text-gray-700 mb-4" />
                 <div className='text-center pb-6'>
                   <p className='text-gray-700 pb-3 font-bold'>  No plans yet </p>
                   <p className='text-xs text-gray-800'> Create a new plan to get started</p>
@@ -132,4 +136,12 @@ export default function LearningPlan() {
       </div>
     </DefaultLayout>
   )
+}
+
+export default function LearningPlan() {
+  return (
+    <CompetencyProvider>
+      <LearningPlanContent />
+    </CompetencyProvider>
+  );
 }
