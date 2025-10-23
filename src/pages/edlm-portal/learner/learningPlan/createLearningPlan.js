@@ -7,14 +7,15 @@ import { ChooseSkillsStep } from '@/components/steps/ChooseSkillsStep';
 import { NamePlanStep } from '@/components/steps/NamePlanStep';
 import { ReviewStep } from '@/components/steps/ReviewStep';
 import { SetGoalsStep } from '@/components/steps/SetGoalsStep';
-import { useLearningPlanForm } from '@/hooks/useLearningPlanForm';
-import { useLearningPlanSave } from '@/hooks/useLearningPlanSave';
-import { useLearningPlanValidation } from '@/hooks/useLearningPlanValidation';
+import { useLearningPlanForm } from '@/hooks/learningPlan/useLearningPlanForm';
+import { useLearningPlanSave } from '@/hooks/learningPlan/useLearningPlanSave';
+import { useLearningPlanValidation } from '@/hooks/learningPlan/useLearningPlanValidation';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import DefaultLayout from "@/components/layouts/DefaultLayout";
 import SaveAndContinueBtn from '@/components/buttons/SaveAndContinueBtn';
 import Stepper from '@/components/Stepper';
+import XMarkMessageToast from '@/components/cards/XMarkMessageToast';
 
 export default function CreatePlanForm({ initialStep = 2, onBack}) {
     const router = useRouter();
@@ -22,6 +23,8 @@ export default function CreatePlanForm({ initialStep = 2, onBack}) {
     const formState = useLearningPlanForm(initialStep, onBack);
     const { handleSaveStep, isLoading } = useLearningPlanSave(formState);
     const { canProceedFromStep, getTimelineOptions } = useLearningPlanValidation(formState);
+    const [showErrorToast, setShowErrorToast] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
     const [lastStep, setLastStep] = useState(initialStep);
 
     const {
@@ -63,11 +66,21 @@ export default function CreatePlanForm({ initialStep = 2, onBack}) {
     };
 
     // Update the save button logic
-    const handleSaveAndContinue = () => {
+    const handleSaveAndContinue = async () => {
         setLastStep(currentStep);
-        handleSaveStep(currentStep);
-        nextStep();
-        autoScrollToTop();
+        const saveSuccess = await handleSaveStep(currentStep);
+
+        // if not succesful, show error toast and blocking going to the next step
+        if (saveSuccess) {
+            nextStep();
+            autoScrollToTop();
+        } else {
+            setErrorMessage('An error occurred while saving your progress. Please try again.');
+            setShowErrorToast(true);
+            setTimeout(() => {
+                setShowErrorToast(false);
+            }, 5000);
+        }
     };
 
     const handleBack = () => {
@@ -144,6 +157,11 @@ export default function CreatePlanForm({ initialStep = 2, onBack}) {
     return (
         <DefaultLayout>
             <div className='bg-white shadow-md p-5 py-0 w-full h-full mb-5 rounded-xl m-4 -my-6 overflow-visible'>
+                {showErrorToast && (
+                    <div className="fixed top-10 right-10 justify-center z-999">
+                        <XMarkMessageToast message={errorMessage} />
+                    </div>
+                )}
                 <div className='mt-10 pb-4 py-4'>
                     <div className="mb-6">
                         <Stepper
