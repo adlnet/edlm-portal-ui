@@ -183,9 +183,9 @@ export default function Plan() {
             onDelete={handlePlanDelete}
           />
 
-          <div className='text-red-700 flex flex-row items-center'>
-            <p className='text-2xl pr-1 pt-1'>*</p> 
-            <p>= Required</p>
+          <div className='text-red-800 flex flex-row items-center'>
+            <Image src={AsteriskIcon} alt="asterisk" className="w-3 h-3" />
+            <p className='pl-1'>= Required</p>
           </div>
 
           <h1 className='text-2xl text-gray-900 font-bold pt-2'> Plan Name</h1>
