@@ -3,27 +3,14 @@
 import { ChevronRightIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/solid';
 import { InfoTooltip } from '@/components/InfoTooltip';
 import { Label } from 'flowbite-react';
+import { extractEccrReference } from '@/utils/extractEccrReference';
 import { priorityOptions } from '@/utils/dropdownMenuConstants';
-import { useRouter } from 'next/router';
+import { useCompetencies } from '@/contexts/CompetencyContext';
 import AsteriskIcon from '@/public/icons/asteriskIcon.svg';
 import CustomDropdown from '@/components/menus/CustomDropdown';
 import Image from 'next/image';
 import PriorityDropdown from '@/components/menus/PriorityDropdown';
 import SuccessMessageToast from '@/components/cards/SuccessMessageToast';
-import backupData from '@/public/backup_competencies.json';
-
-
-// Helper function that returns all parent competencies
-function findParents({ Competencies }) {
-    const parentComps = []
-
-    Competencies.forEach((comp) => {
-        if (comp['parent'].length === 0)
-            parentComps.push(comp);
-    })
-
-    return parentComps
-}
 
 export function ChooseSkillsStep({
     goals,
@@ -34,11 +21,8 @@ export function ChooseSkillsStep({
     planName = "",
     showSuccessMessage = false
 }) {
-
-    // Using backup data for development
-    // In the future, this data should come from an API
-    const Competencies = backupData;
-    const ParentComps = findParents({ Competencies });
+    
+    const { parentCompetencies } = useCompetencies();
 
     // Check if a competency is already added to this goal
     const isCompetencySelected = competencyName => 
@@ -46,6 +30,20 @@ export function ChooseSkillsStep({
 
     const handleRedirectToCompSearch = () => {
         window.open('/edlm-portal/learner/search/', '_blank');
+    };
+
+    const onCompetencyChangeWithId = (goalId, competencyName) => {
+        // Find the competency to get its ID
+        const selectedCompetency = parentCompetencies.find(c => c.name === competencyName);
+        
+        // Update the goal with both name and ID
+        updateGoal(goalId, 'competency', competencyName);
+        if (selectedCompetency) {
+            const competencyReference = extractEccrReference(selectedCompetency.id);
+            updateGoal(goalId, 'competencyId', competencyReference);
+        }
+        
+        onCompetencyChange(goalId, competencyName);
     };
 
     const competencyRedirectOptionFooter = (
@@ -77,7 +75,7 @@ export function ChooseSkillsStep({
                 <Image src={AsteriskIcon} alt="Asterisk" className="w-4 h-4" /> = Required
             </span>
             {goals.map((goal, goalIndex) => {
-                const selectedCompetency = ParentComps.find(c => c.name === goal.competency);
+                const selectedCompetency = parentCompetencies.find(c => c.name === goal.competency);
                 return (
                     <div key={goal.id} className=" border-b py-4">
                         <div className="grid gap-10 md:grid-cols-2">
@@ -94,8 +92,8 @@ export function ChooseSkillsStep({
                                 </div>
                                 <CustomDropdown
                                     value={goal.competency}
-                                    onChange={e => onCompetencyChange(goal.id, e.target.value)}
-                                    options={ParentComps.map(comp => ({
+                                    onChange={e => onCompetencyChangeWithId(goal.id, e.target.value)}
+                                    options={parentCompetencies.map(comp => ({
                                         label: comp.name,
                                         value: comp.name,
                                         disabled: isCompetencySelected(comp.name) && goal.competency !== comp.name,
@@ -120,7 +118,7 @@ export function ChooseSkillsStep({
                                 <div className="min-h-[120px] flex items-start">
                                     {selectedCompetency ? (
                                         <p className="text-sm text-gray-700 leading-relaxed">
-                                            {selectedCompetency.desc}
+                                            {selectedCompetency.description || 'No description available'}
                                         </p>
                                     ) : (
                                         <p className="text-sm text-gray-500">

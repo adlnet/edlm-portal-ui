@@ -59,3 +59,9 @@ export const statementsUrl = `${XDSbackendHost}${api}statements`;
 
 // Course Progress details
 export const courseProgressDetail = `${backendHost}${api}course-progress/`;
+
+// Learning Plans
+export const learningPlansUrl = `${backendHost}${api}learning-plans/`;
+export const learningPlanCompetenciesUrl = `${backendHost}${api}learning-plan-competencies/`;
+export const learningPlanGoalsUrl = `${backendHost}${api}learning-plan-goals/`;
+export const learningPlanGoalKsasUrl = `${backendHost}${api}learning-plan-goal-ksas/`;

@@ -7,9 +7,11 @@ import {
     XMarkIcon
 } from '@heroicons/react/24/outline';
 import { InfoTooltip } from '@/components/InfoTooltip';
-import { Label, Select, TextInput } from 'flowbite-react';
+import { Label, TextInput } from 'flowbite-react';
 import { MultiSelectDropdown } from '@/components/menus/MultiSelectDropdown';
-import { ksaOptions, obstacleOptions, proficiencyLevels, resourceSupportOptions } from '@/utils/dropdownMenuConstants';
+import { extractEccrReference } from '@/utils/extractEccrReference';
+import { obstacleOptions, proficiencyLevels, resourceSupportOptions } from '@/utils/dropdownMenuConstants';
+import { useCompetencies } from '@/contexts/CompetencyContext';
 import { useEffect, useState } from 'react';
 import AsteriskIcon from '@/public/icons/asteriskIcon.svg';
 import CustomDropdown from '@/components/menus/CustomDropdown';
@@ -24,8 +26,30 @@ const KSAItem = ({
     competencyGoal,
     updateKSAForGoal,
     removeKSAFromGoal,
-    isKSASelected
+    isKSASelected,
+    parentCompetencyId
 }) => {
+    const { childCompetencies } = useCompetencies();
+
+    const availableKSAs = childCompetencies.filter(child => {
+        if (child.parent === parentCompetencyId) return true;
+        if (child.parent === competency) return true;
+        return false;
+    });
+
+    const handleKSAChange = (ksaName) => {
+        const selectedKSA = availableKSAs.find(k => k.name === ksaName);
+        
+        // Update KSA name
+        updateKSAForGoal(competency, competencyGoal.id, ksa.id, 'type', ksaName);
+        
+        // Update KSA ID with extracted reference
+        if (selectedKSA) {
+            const ksaReference = extractEccrReference(selectedKSA.id);
+            updateKSAForGoal(competency, competencyGoal.id, ksa.id, 'ksaId', ksaReference);
+        }
+    };
+
     return (
         <div key={ksa.id} className="mb-4">
             <div className="grid gap-4 md:grid-cols-2 mb-4">
@@ -42,8 +66,8 @@ const KSAItem = ({
                     </div>
                     <CustomDropdown
                         value={ksa.type || ''}
-                        onChange={(e) => updateKSAForGoal(competency, competencyGoal.id, ksa.id, 'type', e.target.value)}
-                        options={ksaOptions.map(option => ({
+                        onChange={(e) => handleKSAChange(e.target.value)} 
+                        options={availableKSAs.map(option => ({
                             label: option.name,
                             value: option.name,
                             disabled: isKSASelected(competency, competencyGoal.id, option.name) && ksa.type !== option.name,
@@ -56,7 +80,7 @@ const KSAItem = ({
                     <div className="min-h-[40px]">
                         {ksa.type ? (
                             <p className="text-sm text-gray-700">
-                                {ksaOptions.find(opt => opt.name === ksa.type)?.description || ''}
+                                {availableKSAs.find(opt => opt.name === ksa.type)?.description || ''}
                             </p>
                         ) : (
                             <p className="text-sm text-gray-500">
@@ -183,7 +207,8 @@ const GoalItem = ({
     updateKSAForGoal, 
     removeKSAFromGoal, 
     addKSAToGoal, 
-    isKSASelected 
+    isKSASelected,
+    getCompetencyId
 }) => {
     return (
         <div key={competencyGoal.id} className="mb-6 -mt-4">
@@ -249,6 +274,7 @@ const GoalItem = ({
                         updateKSAForGoal={updateKSAForGoal}
                         removeKSAFromGoal={removeKSAFromGoal}
                         isKSASelected={isKSASelected}
+                        parentCompetencyId={getCompetencyId(competency)}
                     />
                 ))}
                 
@@ -285,7 +311,8 @@ const CompetencySection = ({
     removeKSAFromGoal, 
     addKSAToGoal, 
     addGoalToCompetency, 
-    isKSASelected 
+    isKSASelected,
+    getCompetencyId
 }) => {
     return (
         <div key={competency} className='border rounded-lg border-gray-300 mb-4'>
@@ -320,6 +347,7 @@ const CompetencySection = ({
                                 removeKSAFromGoal={removeKSAFromGoal}
                                 addKSAToGoal={addKSAToGoal}
                                 isKSASelected={isKSASelected}
+                                getCompetencyId={getCompetencyId}
                             />
                         ))}
 
@@ -354,6 +382,14 @@ export function SetGoalsStep({
     updateKSAForGoal,
     showSuccessMessage = false,
 }) {
+
+    const { parentCompetencies } = useCompetencies();
+
+    // Get competency ID from name
+    const getCompetencyId = competencyName => {
+        const competency = parentCompetencies.find(comp => comp.name === competencyName);
+        return competency ? competency.id : null;
+    };
 
     const [openCompetencies, setOpenCompetencies] = useState({});
 
@@ -456,6 +492,7 @@ export function SetGoalsStep({
                             addKSAToGoal={addKSAToGoal}
                             addGoalToCompetency={addGoalToCompetency}
                             isKSASelected={isKSASelected}
+                            getCompetencyId={getCompetencyId}
                         />
                     );
                 })}

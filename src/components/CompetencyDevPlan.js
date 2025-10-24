@@ -2,9 +2,14 @@
 
 
 export default function CompetencyDevPlan({ competency }) {
-  
-  const compName = competency.name.split(':')[1].trim();
-  const compNumber = competency.name.match(/#(\d+[A-Za-z]?)/)[1];
+
+  const competencyName = competency.name || '';
+  const competencyDesc = competency.desc || competency.description || '';
+
+  const compName = competencyName.includes(':') ? competencyName.split(':')[1].trim() : competencyName;
+
+  const match = competencyName.match(/#(\d+[A-Za-z]?)/);
+  const compNumber = match ? match[1] : '';
 
   return (
     <div className="flex flex-row w-1/2 pb-2">
@@ -15,7 +20,7 @@ export default function CompetencyDevPlan({ competency }) {
       </div>
       <div className="flex flex-col pl-2">
         <div className="font-bold">{compName}</div>
-        <p className="text-sm">{competency.desc}</p>
+        <p className="text-sm">{competencyDesc}</p>
       </div>
     </div>
   )
