@@ -1,11 +1,17 @@
 'use-strict';
 
-import { ArrowLongRightIcon, ChevronRightIcon, PencilSquareIcon} from '@heroicons/react/24/outline';
+import { ArrowLongRightIcon, ChevronRightIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { Button } from 'flowbite-react';
+import { TextInput } from 'flowbite-react';
+import { timeframeOptions } from '@/utils/dropdownMenuConstants';
 import { useRouter } from 'next/router';
+import AsteriskIcon from '@/public/icons/asteriskIcon.svg';
+import CustomDropdown from '@/components/menus/CustomDropdown';
 import DefaultLayout from '@/components/layouts/DefaultLayout';
-import DevelopmentGoal from '@/components/cards/DevelopmentGoal';
-import React from 'react';
+import DeletePlanModal from '@/components/modals/DeletePlanModal';
+import DevelopmentGoalEdit from '@/components/cards/DevelopmentGoalEdit';
+import Image from 'next/image';
+import React, {useState}from 'react';
 
 const mockGoalSet1 = [
   { 
@@ -100,18 +106,17 @@ const mockGoalSet1 = [
 
 const mockLearningJourneys = [
   { id: 0, name: 'Job Development', progress: 50, length: 'Short-term (1-2 years)', created: '9/19/2025' },
-  { id: 1, name: 'My Learning Plan', progress: 70, length: 'Long-Term Plan', created: '10/15/2022' },
+  { id: 1, name: 'My Learning Plan', progress: 70, length: 'Long-term (3-4 years)', created: '10/15/2022' },
   { id: 2, name: 'Another Plan', progress: 60, length: 'Short-term (1-2 years)', created: '9/19/2025' },
-  { id: 5, name: 'Last Job Development', progress: 75, length: 'Long-Term Plan', created: '10/15/2022' },
+  { id: 5, name: 'Last Job Development', progress: 75, length: 'Long-term (3-4 years)', created: '10/15/2022' },
 ]
-
 
 const mockOnboardingJourneys = [
   { id: 3, name: 'Phase II (60 Days)', progress: 60, time: '60 days' },
   { id: 4, name: 'Phase III (90 Days)', progress: 75, time: '90 days' },
 ];
 
-export default function Plan () {
+export default function Plan() {
 
   const router = useRouter();
   const { planId } = router.query;
@@ -120,6 +125,16 @@ export default function Plan () {
   const plan =
     mockLearningJourneys.find(j => String(j.id) === planId) ||
     mockOnboardingJourneys.find(j => String(j.id) === planId);
+
+  const [planName, setPlanName] = useState(plan.name);
+  const [timeframe, setTimeframe] = useState(plan.length);
+
+  const [delPlanModalOpen, setDelPlanModalOpen] = useState(false);
+
+  const handlePlanDelete = () => {
+    // handle plan delete code
+    console.log('Plan deleted!');
+  };
 
   if (!plan) {
     return (
@@ -142,72 +157,99 @@ export default function Plan () {
             <button onClick={() => {router.push('/edlm-portal/learner/learningPlan/')}}>Learning Plans</button>
             <ChevronRightIcon className='h-4 w-4'></ChevronRightIcon>
             <p>{plan.name}</p>
+            <ChevronRightIcon className='h-4 w-4'></ChevronRightIcon>
+            <p>Edit Plan</p>
+            <ChevronRightIcon className='h-4 w-4 text-gray-400'></ChevronRightIcon>
+            <p className='text-gray-400'>Review & Save</p>
           </div>
+ 
+          <h1 className='text-2xl text-gray-900 font-bold'>Edit Plan</h1>
 
-          <div className='w-full flex flex-row items-center justify-end pb-4 pr-1'>
+          <div className='w-full flex flex-row items-center justify-end pb-2 pr-1'>
             <button
               className='text-blue-700 hover:text-blue-400'
-              onClick={()=> router.push(`/edlm-portal/learner/learningPlan/edit/${planId}`)}
+              onClick={()=> setDelPlanModalOpen(true)}
             >
               <div className='flex flex-row'>
-                <PencilSquareIcon class='h-5 w-5'/>
-                <p className='pl-1'>Edit</p>
+                <TrashIcon class='h-5 w-5'/>
+                <p className='pl-1'>Delete</p>
               </div>
             </button>
           </div>
- 
-          <div className='border border-gray-300 flex flex-row py-6 px-4 rounded-lg items-center justify-between mb-6'>  
-            <h1 className='font-bold text-gray-900 text-xl'>{plan.name}</h1>
-            <div className='text-sm bg-blue-50 text-blue-700 rounded-md px-2 py-1'>{plan.length}</div>
+
+          <DeletePlanModal
+            open={delPlanModalOpen}
+            onClose={() => setDelPlanModalOpen(false)}
+            onDelete={handlePlanDelete}
+          />
+
+          <div className='text-red-700 flex flex-row items-center'>
+            <p className='text-2xl pr-1 pt-1'>*</p> 
+            <p>= Required</p>
           </div>
 
-          {mockGoalSet1?.map((goal) => (
-            <DevelopmentGoal key={goal.id} goal={goal} initiallyOpen={true}/>            
-          ))}
+          <h1 className='text-2xl text-gray-900 font-bold pt-2'> Plan Name</h1>
 
-          <div className='p-4 border rounded-lg border-gray-300 mt-6'>
-            <div className='font-bold pb-6 text-xl text-gray-900'>Next Steps</div>
-            <div className='text-gray-890 pb-3'>Keep progressing with your development plan and explore additional resources.</div>
-            <div className='flex flex-row gap-4'>
-              <div className='flex flex-col w-1/3 border border-gray-300 rounded-lg py-4 px-6 items-center'>
-                <div className='pb-2 font-bold text-lg'>Track Your Progress</div>
-                <div className='text-sm pb-8 flex-wrap text-center'>Monitor your development through the Learning Plan page and update your progress as you complete courses.</div>
-                <button 
-                  className='flex flex-row items-center gap-2 border border-blue-600 rounded-lg py-1 px-3 text-sm hover:bg-blue-100 text-blue-600'
-                  onClick={()=> {}}
-                > View My Plans <ArrowLongRightIcon className='h-4 w-4' /> </button>
-              </div>
-              <div className='flex flex-col w-1/3 border border-gray-300 rounded-lg p-3 py-4 px-6 items-center'>
-                <div className='pb-2 font-bold text-lg'>Explore Course Catalog</div>
-                <div className='text-sm pb-8 flex-wrap text-center'>Browse additional courses and resources to supplement your development plan with more learning opportunities.</div>
-                <button 
-                  className='flex flex-row items-center gap-2 border border-blue-600 rounded-lg py-1 px-3 text-sm hover:bg-blue-100 text-blue-600'
-                  onClick={()=> {}}
-                > Browse Collections <ArrowLongRightIcon className='h-4 w-4' /> </button>
-              </div>
-              <div className='flex flex-col w-1/3 border border-gray-300 rounded-lg p-3 py-4 px-6 items-center'>
-                <div className='pb-2 font-bold text-lg'>Add from Collections</div>
-                <div className='text-sm pb-8 flex-wrap text-center'>Access your saved collections to add curated courses and resources to enhance your development plan.</div>
-                <button 
-                  className='flex flex-row items-center gap-2 border border-blue-600 rounded-lg py-1 px-3 text-sm hover:bg-blue-100 text-blue-600'
-                  onClick={()=> {}}
-                > View Collections <ArrowLongRightIcon className='h-4 w-4' /> </button>
-              </div>
+          {/* Plan Name and Date Section */}
+          <div className="mt-2 grid gap-6 md:grid-cols-2 pt-2 text-gray-900 pb-8 border-b">
+            <div className="flex flex-col gap-2">
+              <span className="flex items-center gap-2 text-sm font-bold">
+                Plan Name <Image src={AsteriskIcon} alt="Asterisk" className="w-3 h-3" />
+              </span>
+              <TextInput
+                id="planName"
+                placeholder="Create a name for your learning plan"
+                value={planName}
+                onChange={e => setPlanName(e.target.value)}
+              />
+              <span className='flex items-center gap-2 text-sm text-gray-600'>
+                Create a name for your learning plan
+              </span>
+            </div>
+            <div className="flex flex-col gap-2">
+              <span className="flex items-center gap-2 text-sm font-bold">
+                Completion Timeframe <Image src={AsteriskIcon} alt="Asterisk" className="w-3 h-3" />
+              </span>
+              <CustomDropdown
+                value={timeframe}
+                onChange={e => setTimeframe(e.target.value)}
+                options={timeframeOptions}
+                placeholder="When do you aim to complete this plan?"
+              />
             </div>
           </div>
 
-          <div className='flex flex-row justify-end pt-8'>
-            <Button 
-              className='flex justify-center bg-blue-100 text-blue-900 hover:bg-blue-300' 
-              onClick={() =>{}}
+          <h1 className='text-2xl text-gray-900 font-bold pt-8 pb-2'> Skill Areas </h1>
+
+          {/* Development Goal Accordion Cards */}
+          {mockGoalSet1?.map((goal) => (
+            <DevelopmentGoalEdit key={goal.id} goal={goal} initiallyOpen={false} timeframe={timeframe}/>            
+          ))}
+
+          <div className="flex mt-10 pl-2 border-t pt-10 items-center">
+            <button
+              onClick={()=> {console.log("add another goal presses")}}
+              className="flex items-center gap-2 text-blue-700 text-base font-bold leading-[22.4px] hover:text-blue-400 transition-all bg-transparent border-none"
             >
-              Export 
-            </Button>
-            <Button 
-              className='flex justify-center bg-blue-900 hover:bg-blue-600 ml-2' 
-              onClick={() =>{router.push('/edlm-portal/learner/learningPlan/')}}
+              <PlusIcon className="w-5 h-5" />
+              <p className='pt-0.5'>Add Another Competency</p>
+            </button>
+          </div>         
+
+
+          {/* Cancel and Continue Buttons */}
+          <div className='flex flex-row justify-end pt-8 items-center'>
+            <button 
+              className='flex justify-center text-blue-700 hover:text-blue-300 pr-6' 
+              onClick={() =>{router.push(`/edlm-portal/learner/learningPlan/${planId}`)}}
             >
-              Return to Learning Plans
+              Cancel 
+            </button>
+            <Button 
+              className='flex justify-center bg-blue-900 hover:bg-blue-600 ml-2'
+              onClick={() =>{console.log('Edit pushed')}}
+            >
+              Save & Continue
             </Button>
           </div>
 

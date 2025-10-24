@@ -18,7 +18,7 @@ function priorityIcon (priority){
   } else if (priority === 'Medium') {
     return <Bars3Icon data-testid='priority-medium' className='h-6 w-6 text-yellow-800'/>
   } else if (priority === 'High') {
-    return <ChevronUpIcon data-testid='priority-high' className='h-6 w-6 text-green-500'/>
+    return <ChevronUpIcon data-testid='priority-high' className='h-6 w-6 text-red-500'/>
   } else if (priority === 'Highest') {
     return <ChevronDoubleUpIcon data-testid='priority-highest' className='h-6 w-6 text-red-500'/>
   } else{
@@ -26,9 +26,9 @@ function priorityIcon (priority){
   }
 }
 
-export default function DevelopmentGoal({ goal }) {
+export default function DevelopmentGoal({ goal, initiallyOpen }) {
 
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(initiallyOpen);
 
   return (
     <div className='border rounded-lg border-gray-300 mb-4'>
@@ -46,6 +46,8 @@ export default function DevelopmentGoal({ goal }) {
       </div>
       {open && (
         <div>
+
+          {/* Goal desc and timeline */}
           <div className='p-4 grid grid-cols-2 gap-4'>
             <div>
               <p className='text-gray-900 font-semibold pb-1'>Goal</p>
@@ -56,6 +58,8 @@ export default function DevelopmentGoal({ goal }) {
               <p className='text-gray-700'>{goal.timeline}</p>
             </div>
           </div>
+
+          {/* KSA's, Descriptions, levels  */}
           <div>
             {goal.ksaList.map((ksa) => (
               <div key={ksa.id} className='grid grid-cols-2 gap-4 p-4'>
@@ -78,6 +82,8 @@ export default function DevelopmentGoal({ goal }) {
               </div>
             ))}
           </div>
+
+          {/* Resources and Obstacles */}
           <div className='grid grid-cols-2 p-4 gap-4'>
             <div>
               <p className='text-gray-900 font-semibold pb-1'>Resources & Support</p>
@@ -99,7 +105,24 @@ export default function DevelopmentGoal({ goal }) {
                 ))}
               </div>
             </div>
+
+            {console.log(goal.courses)}
           </div>
+          {/* Courses Section */}
+            <div className='pl-4 pb-4'>
+              <p className='text-gray-900 font-semibold pb-1'>Linked Courses</p>
+              <div className='w-full grid grid-cols-2 align-left gap-1'>
+                {goal.courses.map((course) => (
+                  <button 
+                    key={course.id} 
+                    className='text-blue-700 text-left'
+                    onClick={()=>{}}
+                  >
+                    {course.title}
+                  </button>
+                ))}
+              </div>
+            </div>
         </div>
       )}
     </div>

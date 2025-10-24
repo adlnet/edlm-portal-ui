@@ -30,6 +30,9 @@ export function NamePlanStep({ planName, setPlanName, timeframe, setTimeframe })
                         value={planName}
                         onChange={e => setPlanName(e.target.value)}
                     />
+                    <span className='flex items-center gap-2 text-sm text-gray-600'>
+                        Create a name for your learning plan
+                    </span>
                 </div>
                 <div className="flex flex-col gap-2">
                     <span className="flex items-center gap-2 text-sm">
