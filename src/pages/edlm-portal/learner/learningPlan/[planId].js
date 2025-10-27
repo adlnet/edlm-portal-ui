@@ -1,6 +1,6 @@
 'use-strict';
 
-import { ArrowLongRightIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
+import { ArrowLongRightIcon, ChevronRightIcon, PencilSquareIcon} from '@heroicons/react/24/outline';
 import { Button } from 'flowbite-react';
 import { useLearningPlan } from '@/hooks/learningPlan/useLearningPlan';
 import { useMemo } from 'react';
@@ -9,7 +9,7 @@ import { useRouter } from 'next/router';
 import DefaultLayout from '@/components/layouts/DefaultLayout';
 import DevelopmentGoal from '@/components/cards/DevelopmentGoal';
 
-export default function Plan() {
+export default function Plan () {
 
   const router = useRouter();
   const { planId } = router.query;
@@ -90,10 +90,22 @@ export default function Plan() {
       <div className='bg-white shadow-md p-5 py-0 w-full mb-5 rounded-xl m-4 -my-6 overflow-clip'>
         <div className='mt-10 pb-4 py-4'>
 
-          <div className='flex flex-row text-blue-700 items-center gap-2 mb-8'>
+          <div className='flex flex-row text-blue-700 items-center gap-2 mb-4'>
             <button onClick={() => {router.push('/edlm-portal/learner/learningPlan/')}}>Learning Plans</button>
             <ChevronRightIcon className='h-4 w-4'></ChevronRightIcon>
             <p>{plan.name}</p>
+          </div>
+
+          <div className='w-full flex flex-row items-center justify-end pb-4 pr-1'>
+            <button
+              className='text-blue-700 hover:text-blue-400'
+              onClick={()=> router.push(`/edlm-portal/learner/learningPlan/edit/${planId}`)}
+            >
+              <div className='flex flex-row'>
+                <PencilSquareIcon class='h-5 w-5'/>
+                <p className='pl-1'>Edit</p>
+              </div>
+            </button>
           </div>
  
           <div className='border border-gray-300 flex flex-row py-6 px-4 rounded-lg items-center justify-between mb-6'>  
