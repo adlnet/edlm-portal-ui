@@ -126,8 +126,8 @@ export default function Plan() {
     mockLearningJourneys.find(j => String(j.id) === planId) ||
     mockOnboardingJourneys.find(j => String(j.id) === planId);
 
-  const [planName, setPlanName] = useState(plan.name);
-  const [timeframe, setTimeframe] = useState(plan.length);
+  const [planName, setPlanName] = useState(plan?.name);
+  const [timeframe, setTimeframe] = useState(plan?.length);
 
   const [delPlanModalOpen, setDelPlanModalOpen] = useState(false);
 
@@ -156,7 +156,7 @@ export default function Plan() {
           <div className='flex flex-row text-blue-700 items-center gap-2 mb-4'>
             <button onClick={() => {router.push('/edlm-portal/learner/learningPlan/')}}>Learning Plans</button>
             <ChevronRightIcon className='h-4 w-4'></ChevronRightIcon>
-            <p>{plan.name}</p>
+            <p>{planName}</p>
             <ChevronRightIcon className='h-4 w-4'></ChevronRightIcon>
             <p>Edit Plan</p>
             <ChevronRightIcon className='h-4 w-4 text-gray-400'></ChevronRightIcon>
