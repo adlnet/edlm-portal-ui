@@ -83,7 +83,7 @@ export default function StaticSideNav() {
                                         {renderDropdownBtn('myLearningSummary', '/edlm-portal/learner/learningSummary', 'My Learning Summary')}
                                     </div>
                                     <div className='text-nowrap'>
-                                        {renderDropdownBtn('leadersReport', moodleLeaderReportUrl, "Leader's Report")}
+                                        {renderDropdownBtn('leadersReport', '/edlm-portal/learner/learningSummary/leaderReport', "Leader's Report")}
                                     </div>
                                 </>
                             )}

@@ -1,38 +1,24 @@
 'use strict';
 
 import { ALL_STEPS } from '@/utils/dropdownMenuConstants';
-import { Button } from 'flowbite-react';
-import { ExclamationCircleIcon } from "@heroicons/react/24/solid";
+import { Button, Spinner } from 'flowbite-react';
+import { CompetencyProvider, useCompetencies } from '@/contexts/CompetencyContext';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import CompetencyDevPlan from "@/components/CompetencyDevPlan";
 import CreateLearningPlan from '@/pages/edlm-portal/learner/learningPlan/createLearningPlan';
 import DefaultLayout from "@/components/layouts/DefaultLayout";
 import Stepper from '@/components/Stepper';
-import backupData from '@/public/backup_competencies.json';
 
-
-// Helper function that returns all parent competencies
-function findParents({Competencies}){
-  const parentComps = []
-  
-  Competencies.forEach((comp) =>{
-    if (comp['parent'].length === 0)
-      parentComps.push(comp);
-  })
-
-  return parentComps
-}
-
-export default function DevelopmentPlan() {
+function DevelopmentPlanContent() {
 
   const router = useRouter();
-
   const [currentStep, setCurrentStep] = useState(1);
 
-  const Competencies = backupData;
-
-  const ParentComps = findParents({Competencies});
+  const { 
+    parentCompetencies, 
+    isLoading
+  } = useCompetencies();
 
   const autoScrollToTop = () => {
     window.scrollTo(0, 0);
@@ -43,6 +29,8 @@ export default function DevelopmentPlan() {
       router.push('/edlm-portal/learner/learningPlan/');
     }
   };
+    
+  const showLoading = isLoading || (!parentCompetencies || parentCompetencies.length === 0);
 
   return (
     <>
@@ -73,9 +61,19 @@ export default function DevelopmentPlan() {
                 </p>
               </div>
               <div className="flex flex-wrap p-4">
-                {ParentComps.map((comp) => (
-                  <CompetencyDevPlan key={comp.id} competency={comp}/>
-                ))}
+                {showLoading ? (
+                  <div className="w-full flex items-center justify-center p-12">
+                    <div className="flex flex-col items-center">
+                      <Spinner color="purple" aria-label="Loading competencies" size="xl" />
+                      <p className="text-gray-600 text-lg mt-4">Loading competencies...</p>
+                      <p className="text-gray-500 text-sm mt-2">Please wait while we fetch the latest competency data</p>
+                    </div>
+                  </div>
+                ) : (
+                  parentCompetencies.map((comp) => (
+                    <CompetencyDevPlan key={comp.id} competency={comp}/>
+                  ))
+                )}
               </div>
               <div className="p-4">
                 <div className="border-t pt-2 pb-4"></div>
@@ -111,4 +109,12 @@ export default function DevelopmentPlan() {
     )}
     </>
   )
+}
+
+export default function DevelopmentPlan() {
+  return (
+    <CompetencyProvider>
+      <DevelopmentPlanContent />
+    </CompetencyProvider>
+  );
 }

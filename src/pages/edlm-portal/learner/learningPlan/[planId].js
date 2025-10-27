@@ -2,126 +2,50 @@
 
 import { ArrowLongRightIcon, ChevronRightIcon, PencilSquareIcon} from '@heroicons/react/24/outline';
 import { Button } from 'flowbite-react';
+import { useLearningPlan } from '@/hooks/learningPlan/useLearningPlan';
+import { useMemo } from 'react';
+import { useMultipleCompAndKsaDesc } from '@/hooks/useCompOrKsaDesc';
 import { useRouter } from 'next/router';
 import DefaultLayout from '@/components/layouts/DefaultLayout';
 import DevelopmentGoal from '@/components/cards/DevelopmentGoal';
-import React from 'react';
-
-const mockGoalSet1 = [
-  { 
-    id: 0, 
-    name: 'Leadership', 
-    desc: 'Lead a cross-functional project to improve team collaboration by March.', 
-    priority: 'Highest', 
-    timeline: '3-6 Months',
-    resources: ['External professional networking', 'Mentorship from senior colleagues', 'Supervisor guidance and support'],
-    obstacles: ['Limited time due to current workload', 'Completing work priorities and deadlines'],
-    ksaList: [ 
-      {
-        title : '7.2 Collaboration and Partnerships', 
-        desc : 'Inspires and fosters collaboration, partnership, team commitment, and trust inside and outside of DOT&E. Facilitates cooperation and motivates team members to accomplish group goals.',
-        currLvl: 'Advanced', 
-        targetLvl: 'Mastery', 
-      },
-      {
-        title : '7.4 Creativity and Innovation', 
-        desc : 'Develops new insights into situations; questions conventional approaches; encourages new ideas and innovations; designs and implements new or cutting-edge programs/processes.',
-        currLvl: 'Basic', 
-        targetLvl: 'Intermediate', 
-      },
-    ],
-    courses: [
-      {
-        id:0,
-        title: 'How to Lead 101',
-        status: 'Completed',
-        hours: '24',
-        institute: 'Leader U'
-      },
-      {  
-        id:1,
-        title: 'Team Goal Setting',
-        status: 'In Progress',
-        hours: '48',
-        institute: 'Leadership Institute'
-      } 
-    ]  
-  },
-  { 
-    id: 1, 
-    name: 'Software', 
-    desc: 'Take a software development competency test', 
-    currLvl: 'Intermediate', 
-    targetLvl: 'Advanced', 
-    priority: 'High', 
-    timeline: '1-2 Months',
-    resources: ['Online Courses', 'Mentorship from external connections', 'Supervisor guidance and support'],
-    obstacles: ['Cost of software courses', 'Completing work priorities and deadlines'],
-    ksaList: [ 
-      {
-        title : '5.2 Software Development', 
-        desc : 'Demonstrates an understanding of agile and DevSecOps methodologies and their associated terminologies for iterative software development. Further understands testing conducted throughout development. Identifies and understands limitations of testing conducted throughout the development for use in operational evaluations.',
-        currLvl: 'Intermediate', 
-        targetLvl: 'Mastery', 
-      },
-    ],
-    courses: [
-      {
-        id:2,
-        title: 'Software Development Lifecycle',
-        status: 'In Progress',
-        hours: '48',
-        institute: 'Tech University'
-      },
-      {  
-        id:3,
-        title: 'Software System Engineering',
-        status: 'Enrolled',
-        hours: '36',
-        institute: 'Software University'
-      },
-      {
-        id:4,
-        title: 'Data Structures and Algorithms',
-        status: 'In Progress',
-        hours: '48',
-        institute: 'Tech University'
-      },
-      {  
-        id:5,
-        title: 'Applies Model-Based Systems Engineering (MBSE)',
-        status: 'Enrolled',
-        hours: '36',
-        institute: 'Software University'
-      }  
-    ]  
-  }
-];
-
-const mockLearningJourneys = [
-  { id: 0, name: 'Job Development', progress: 50, length: 'Short-term (1-2 years)', created: '9/19/2025' },
-  { id: 1, name: 'My Learning Plan', progress: 70, length: 'Long-Term Plan', created: '10/15/2022' },
-  { id: 2, name: 'Another Plan', progress: 60, length: 'Short-term (1-2 years)', created: '9/19/2025' },
-  { id: 5, name: 'Last Job Development', progress: 75, length: 'Long-Term Plan', created: '10/15/2022' },
-]
-
-
-const mockOnboardingJourneys = [
-  { id: 3, name: 'Phase II (60 Days)', progress: 60, time: '60 days' },
-  { id: 4, name: 'Phase III (90 Days)', progress: 75, time: '90 days' },
-];
 
 export default function Plan () {
 
   const router = useRouter();
   const { planId } = router.query;
 
-  // Find the plan in either list
-  const plan =
-    mockLearningJourneys.find(j => String(j.id) === planId) ||
-    mockOnboardingJourneys.find(j => String(j.id) === planId);
+  const { data: plan, error} = useLearningPlan(planId);
 
-  if (!plan) {
+  // Get all ECCR references (both competencies and KSAs) from the plan
+  const eccrReference = useMemo(() => {
+    if (!plan?.competencies) return [];
+    const refs = [];
+    plan.competencies.forEach(competency => {
+      // Add competency ECCR reference
+      if (competency.eccr_competency) {
+        refs.push(competency.eccr_competency);
+      }
+
+      // Add KSA ECCR references
+      competency.goals?.forEach(goal => {
+        goal.ksas?.forEach(ksa => {
+          if (ksa.eccr_ksa) {
+            refs.push(ksa.eccr_ksa);
+          }
+        });
+      });
+    });
+    return refs
+  }, [plan]);
+
+  const { data: descriptions } = useMultipleCompAndKsaDesc(eccrReference);
+
+  // // Find the plan in either list
+  // const plan =
+  //   mockLearningJourneys.find(j => String(j.id) === planId) ||
+  //   mockOnboardingJourneys.find(j => String(j.id) === planId);
+
+  if (!plan || error) {
     return (
     <DefaultLayout>
       <div className='bg-white shadow-md p-5 py-0 w-full mb-5 rounded-xl m-4 -my-6 overflow-clip'>
@@ -132,6 +56,34 @@ export default function Plan () {
     </DefaultLayout>
     );
   }
+
+  const reformattedGoals = [];
+  plan.competencies?.forEach((competency) => {
+    competency.goals?.forEach((goal) => {
+      const transformedGoal = {
+        id: goal.id,
+        name: competency.plan_competency_name,
+        desc: goal.goal_name,
+        priority: competency.priority,
+        timeline: goal.timeline,
+        resources: goal.resources_support || [],
+        obstacles: goal.obstacles || [],
+        resourcesOther: goal.resources_support_other,
+        obstaclesOther: goal.obstacles_other,
+        ksaList: goal.ksas?.map(ksa => {
+          const ksaData = descriptions?.find(item => item.id === ksa.eccr_ksa);
+          return {
+            title: ksa.ksa_name,
+            desc: ksaData?.description || '',
+            currLvl: ksa.current_proficiency,
+            targetLvl: ksa.target_proficiency,
+          };
+        }) || [],
+        courses: [] // will populate later when this feature is added
+      };
+      reformattedGoals.push(transformedGoal);
+    });
+  });
 
   return (
     <DefaultLayout>
@@ -158,11 +110,11 @@ export default function Plan () {
  
           <div className='border border-gray-300 flex flex-row py-6 px-4 rounded-lg items-center justify-between mb-6'>  
             <h1 className='font-bold text-gray-900 text-xl'>{plan.name}</h1>
-            <div className='text-sm bg-blue-50 text-blue-700 rounded-md px-2 py-1'>{plan.length}</div>
+            <div className='text-sm bg-blue-50 text-blue-700 rounded-md px-2 py-1'>{plan.timeframe}</div>
           </div>
 
-          {mockGoalSet1?.map((goal) => (
-            <DevelopmentGoal key={goal.id} goal={goal} initiallyOpen={true}/>            
+          {reformattedGoals?.map((goal) => (
+            <DevelopmentGoal key={goal.id} goal={goal}/>            
           ))}
 
           <div className='p-4 border rounded-lg border-gray-300 mt-6'>

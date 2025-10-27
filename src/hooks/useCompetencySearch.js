@@ -65,12 +65,8 @@ async function getRelateLinks(relateLinks, competencies){
 async function getCompData(compLinks){
 
   const fetchPromises = [];
-
-  // Function to fetch data from all the competency links and return once 
-  //  all axios requests have completed
-  const fetchData = async() => {
     for (const key in compLinks) {
-        axios.get(proxyUrl(compLinks[key]))
+        const promise = axios.get(proxyUrl(compLinks[key]))
           .then(res=>{
 
               const compInfo = res.data;
@@ -88,12 +84,12 @@ async function getCompData(compLinks){
           })
           .catch(error=>{
               console.log('Comp Link Error');
+              return null;
           }) 
-    } 
-    fetchPromises.push(promise);
-  };
-  await Promise.all(fetchPromises);
-  return fetchData();
+        fetchPromises.push(promise);
+    }
+  const results = await Promise.all(fetchPromises);
+  return results.filter(comp => comp !== null);
 }
 
 // Hekper function to fetch competency data
@@ -110,7 +106,7 @@ async function getCompetencySearch() {
     url: compSearchUrl,
     headers: {},
     data: data,
-    timeout: 510,
+    timeout: 5000,
     retryAfter: 500
   };
 
