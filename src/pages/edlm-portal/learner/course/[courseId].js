@@ -21,7 +21,7 @@ import { useRouter } from 'next/router';
 
 import CourseSpotlight from '@/components/cards/CourseSpotlight';
 import DefaultLayout from '@/components/layouts/DefaultLayout';
-import SaveModal from '@/components/modals/SaveModal';
+import SaveModal from '@/components/modals/SaveCollectionModal';
 import ShareButton from '@/components/buttons/ShareBtn';
 
 function RelatedCourses({ id }) {
