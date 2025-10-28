@@ -12,7 +12,7 @@ import InputField from '@/components/inputs/InputField';
 import PlusIcon from '@/public/cart-plus.svg';
 import useField from '@/hooks/useField';
 
-export default function SaveModal({ courseId, title }) {
+export default function SaveCollectionModal({ courseId, title, setIsDropdownOpen}) {
   // authentication
   const { user } = useAuth();
 
@@ -81,7 +81,7 @@ export default function SaveModal({ courseId, title }) {
 
   // modal states
   let [isOpen, setIsOpen] = useState(false);
-  const closeModal = () => setIsOpen(false);
+  const closeModal = () => setIsOpen(false) & setIsDropdownOpen(false);
   const openModal = () => setIsOpen(true);
 
   const checkSpecialChar =(e)=>{
@@ -95,14 +95,9 @@ export default function SaveModal({ courseId, title }) {
       <button
         title='save course'
         onClick={openModal}
-        className='w-[62px] h-6 px-3 py-2 border justify-center items-center gap-2 inline-flex rounded-lg bg-gradient-to-l from-blue-900 to-cyan-400 hover:from-cyan-400 hover:to-blue-900 transition-all ease-in duration-75'
+        className='flex py-1 hover:text-blue-500'
       >
-        <div className='justify-center items-center gap-2 flex bg-white rounded-md border-4 border-white px-[0.5rem]'>
-
-          <Image src={PlusIcon} alt='Plus' className='w-3 h-3' />
-
-          <span className="text-[#1f3764] text-xs font-medium leading-none">Save</span>
-        </div>
+        Save to Collection
       </button>
 
       <Transition appear show={isOpen} as={Fragment}>
@@ -121,7 +116,7 @@ export default function SaveModal({ courseId, title }) {
               leaveFrom='opacity-100'
               leaveTo='opacity-0'
             >
-              <Dialog.Overlay className='fixed inset-0 bg-gray-700 bg-opacity-10' />
+              <Dialog.Overlay className='fixed inset-0 bg-gray-700 bg-opacity-40' />
             </Transition.Child>
 
             {/* This element is to trick the browser into centering the modal contents. */}
@@ -250,4 +245,3 @@ export default function SaveModal({ courseId, title }) {
     </>
   );
 }
-

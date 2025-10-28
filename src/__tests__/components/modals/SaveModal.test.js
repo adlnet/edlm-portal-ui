@@ -4,7 +4,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useCreateUserList } from '@/hooks/useCreateUserList';
 import { useUpdateUserList } from '@/hooks/useUpdateUserList';
 import { useUserOwnedLists } from '@/hooks/useUserOwnedLists.js';
-import SaveModal from '@/components/modals/SaveModal';
+import SaveModal from '@/components/modals/SaveCollectionModal';
 import userListData from '@/__mocks__/data/userLists.data';
 
 jest.mock('@/hooks/useUpdateUserList', () => ({

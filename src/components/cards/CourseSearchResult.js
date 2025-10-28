@@ -3,12 +3,12 @@ import { explored } from '@/utils/xapi/events';
 import { getDeeplyNestedData } from '@/utils/getDeeplyNestedData';
 import { removeHTML } from '@/utils/cleaning';
 import { useAuth } from '@/contexts/AuthContext';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useConfig } from '@/hooks/useConfig';
 import { useRouter } from 'next/router';
 import ClockIcon from '@/public/clock.svg';
 import Image from 'next/image';
-import SaveModal from '@/components/modals/SaveModal';
+import SaveDropdown from '@/components/buttons/SaveDropdown';
 import ShareButton from '@/components/buttons/ShareBtn';
 import StoreIcon from '@/public/store.svg';
 import WindowIcon from '@/public/window.svg';
@@ -55,7 +55,7 @@ function getComps(subjects){
   return comps
 }
 
-export default function SearchResult({ result, handleCompetencyTag}) {
+export default function SearchResult({ result, setSuccessMessage, handleCompetencyTag}) {
   const { user } = useAuth();
   const router = useRouter();
   const config = useConfig();
@@ -98,12 +98,20 @@ export default function SearchResult({ result, handleCompetencyTag}) {
           <h3>{title}</h3>
         </button>
         <div className='flex gap-2'>
+          {/* <ShareButton
+            id={result.meta.id}
+            courseTitle={title}
+            courseDescription={removeHTML(getDeeplyNestedData(config.data?.course_information?.course_description, result))}
+          /> */}
+          {/* {user && <SaveDropdown courseId={1} title={title} setSuccessMessage={setSuccessMessage}/>} */}
+
+          {/* MOCK DATA CODE */}
           <ShareButton
-                  id={result.meta.id}
+                  id={1}
                   courseTitle={title}
                   courseDescription={removeHTML(getDeeplyNestedData(config.data?.course_information?.course_description, result))}
           />
-          {user && <SaveModal courseId={result.meta.id} title={title} />}
+          <SaveDropdown courseId={1} title={title} setSuccessMessage={setSuccessMessage}/>
         </div>
       </div>
       <div className='text-gray-500 text-base'>
