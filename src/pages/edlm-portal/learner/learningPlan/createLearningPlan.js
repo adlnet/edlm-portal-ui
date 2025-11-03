@@ -158,7 +158,7 @@ export default function CreatePlanForm({ initialStep = 2, onBack}) {
         <DefaultLayout>
             <div className='bg-white shadow-md p-5 py-0 w-full h-full mb-5 rounded-xl m-4 -my-6 overflow-visible'>
                 {showErrorToast && (
-                    <div className="fixed top-10 right-10 justify-center z-999">
+                    <div className="fixed top-10 right-10 justify-center z-9999">
                         <XMarkMessageToast message={errorMessage} />
                     </div>
                 )}

@@ -9,12 +9,14 @@ import {
 import { InfoTooltip } from '@/components/InfoTooltip';
 import { Label, TextInput } from 'flowbite-react';
 import { MultiSelectDropdown } from '@/components/menus/MultiSelectDropdown';
+import { TrashIcon } from '@heroicons/react/24/outline';
 import { extractEccrReference } from '@/utils/extractEccrReference';
 import { obstacleOptions, proficiencyLevels, resourceSupportOptions } from '@/utils/dropdownMenuConstants';
 import { useCompetencies } from '@/contexts/CompetencyContext';
 import { useEffect, useState } from 'react';
 import AsteriskIcon from '@/public/icons/asteriskIcon.svg';
 import CustomDropdown from '@/components/menus/CustomDropdown';
+import DeleteCompetencyModal from '@/components/modals/DeleteSkillModal';
 import Image from 'next/image';
 import SuccessMessageToast from '@/components/cards/SuccessMessageToast';
 import priorityIcon from '@/utils/priorityIcon';
@@ -145,31 +147,6 @@ const ResourcesAndObstacles = ({ competency, competencyGoal, updateCompetencyGoa
     return (
         <div className="grid gap-4 md:grid-cols-2 pb-4 border-b">
             <div className="flex flex-col gap-2">
-                <Label value="Resources & Support (Select all that apply)" />
-                <MultiSelectDropdown
-                    options={resourceSupportOptions}
-                    selectedValues={competencyGoal.resources || []}
-                    onChange={(newResources) => {
-                        updateCompetencyGoal(competency, competencyGoal.id, 'resources', newResources);
-                        if (!newResources.includes('Other')) {
-                            updateCompetencyGoal(competency, competencyGoal.id, 'resourcesOther', '');
-                        }
-                    }}
-                    placeholder="Add resources or support you need to accomplish your goal"
-                />
-                {competencyGoal.resources?.includes('Other') && (
-                    <div className="mt-2">
-                        <TextInput
-                            placeholder="Please specify other resources..."
-                            value={competencyGoal.resourcesOther || ''}
-                            onChange={(e) => updateCompetencyGoal(competency, competencyGoal.id, 'resourcesOther', e.target.value)}
-                            className="text-sm"
-                        />
-                    </div>
-                )}
-            </div>
-
-            <div className="flex flex-col gap-2">
                 <Label value="Potential Obstacles (Select all that apply)" />
                 <MultiSelectDropdown
                     options={obstacleOptions}
@@ -188,6 +165,31 @@ const ResourcesAndObstacles = ({ competency, competencyGoal, updateCompetencyGoa
                             placeholder="Please specify other obstacles..."
                             value={competencyGoal.obstaclesOther || ''}
                             onChange={(e) => updateCompetencyGoal(competency, competencyGoal.id, 'obstaclesOther', e.target.value)}
+                            className="text-sm"
+                        />
+                    </div>
+                )}
+            </div>
+
+            <div className="flex flex-col gap-2">
+                <Label value="Resources & Support (Select all that apply)" />
+                <MultiSelectDropdown
+                    options={resourceSupportOptions}
+                    selectedValues={competencyGoal.resources || []}
+                    onChange={(newResources) => {
+                        updateCompetencyGoal(competency, competencyGoal.id, 'resources', newResources);
+                        if (!newResources.includes('Other')) {
+                            updateCompetencyGoal(competency, competencyGoal.id, 'resourcesOther', '');
+                        }
+                    }}
+                    placeholder="Add resources or support you need to accomplish your goal"
+                />
+                {competencyGoal.resources?.includes('Other') && (
+                    <div className="mt-2">
+                        <TextInput
+                            placeholder="Please specify other resources..."
+                            value={competencyGoal.resourcesOther || ''}
+                            onChange={(e) => updateCompetencyGoal(competency, competencyGoal.id, 'resourcesOther', e.target.value)}
                             className="text-sm"
                         />
                     </div>
@@ -312,8 +314,16 @@ const CompetencySection = ({
     addKSAToGoal, 
     addGoalToCompetency, 
     isKSASelected,
-    getCompetencyId
+    getCompetencyId,
+    onDeleteCompetency,
+    showTrashIcon = false
 }) => {
+
+    const [delCompModalOpen, setDelCompModalOpen] = useState(false);
+
+    const handleCompDelete = () => {
+        onDeleteCompetency(competency);
+    };
     return (
         <div key={competency} className='border rounded-lg border-gray-300 mb-4'>
             <div className='flex flex-row justify-between border-b p-4'>
@@ -321,16 +331,35 @@ const CompetencySection = ({
                     {priorityIcon(competencyPriority)}
                     <h1 className='font-bold text-lg text-blue-900'>{competency}</h1>
                 </div>
-                <button 
-                    className=''
-                    onClick={() => toggleCompetency(competency)}
-                >
-                    {isOpen ? 
-                        (<ChevronUpIcon className='h-6 w-6 text-gray-900'/>) : 
-                        (<ChevronDownIcon className='h-6 w-6 text-gray-900'/>)
-                    }
-                </button>
+                <div className='flex items-center gap-2'>
+                    {showTrashIcon && (
+                        <button
+                            className='mr-2 hover:text-red-600 text-gray-400' 
+                            onClick={() => setDelCompModalOpen(true)}
+                            title="Delete Competency"
+                        >
+                            <TrashIcon className='h-5 w-5'/>
+                        </button>
+                    )}
+                    <button 
+                        className=''
+                        onClick={() => toggleCompetency(competency)}
+                    >
+                        {isOpen ? 
+                            (<ChevronUpIcon className='h-6 w-6 text-gray-900'/>) : 
+                            (<ChevronDownIcon className='h-6 w-6 text-gray-900'/>)
+                        }
+                    </button>
+                </div>
             </div>
+
+            {showTrashIcon && (
+                <DeleteCompetencyModal
+                    open={delCompModalOpen}
+                    onClose={() => setDelCompModalOpen(false)}
+                    onDelete={handleCompDelete}
+                />
+            )}
             {isOpen && (
                 <div className="p-4">
                     <div className="space-y-6">
@@ -381,6 +410,9 @@ export function SetGoalsStep({
     removeKSAFromGoal,
     updateKSAForGoal,
     showSuccessMessage = false,
+    removeGoal,
+    showTrashIcon = false,
+    setDeletedCompetencies
 }) {
 
     const { parentCompetencies } = useCompetencies();
@@ -451,6 +483,26 @@ export function SetGoalsStep({
         //Get the current goal
         return currentGoal.ksas?.some(ksa => ksa.type === ksaType) || false;
     };
+
+    const handleDeleteCompetency = competencyName => {
+        if (setDeletedCompetencies) {
+            setDeletedCompetencies(prev => [...prev, competencyName]);
+        }
+
+        if (removeGoal) {
+            const goalToRemove = goals.find(goal => goal.competency === competencyName);
+            if (goalToRemove) {
+                removeGoal(goalToRemove.id);
+            }
+        }
+
+        setCompetencyGoals(prev => {
+            const newGoals = { ...prev };
+            delete newGoals[competencyName];
+            return newGoals;
+        });
+    };
+
     return (
         <>
             {showSuccessMessage && (
@@ -493,6 +545,8 @@ export function SetGoalsStep({
                             addGoalToCompetency={addGoalToCompetency}
                             isKSASelected={isKSASelected}
                             getCompetencyId={getCompetencyId}
+                            onDeleteCompetency={handleDeleteCompetency}
+                            showTrashIcon={showTrashIcon}
                         />
                     );
                 })}
