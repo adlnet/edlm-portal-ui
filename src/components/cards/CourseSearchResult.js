@@ -85,6 +85,12 @@ export default function SearchResult({ result, setSuccessMessage, handleCompeten
     });
   }, [result, user, router]);
 
+  const experience_hash_key = useMemo(() => {
+    return result?.meta?.id || null;
+  }, [result]);
+
+
+
   return (
     <div
       className='p-4 bg-white rounded-lg shadow-xl flex flex-col gap-4 hover:shadow-2xl transition-shadow duration-200'
@@ -98,20 +104,20 @@ export default function SearchResult({ result, setSuccessMessage, handleCompeten
           <h3>{title}</h3>
         </button>
         <div className='flex gap-2'>
-          {/* <ShareButton
-            id={result.meta.id}
+          <ShareButton
+            id={result?.meta.id}
             courseTitle={title}
             courseDescription={removeHTML(getDeeplyNestedData(config.data?.course_information?.course_description, result))}
-          /> */}
-          {/* {user && <SaveDropdown courseId={1} title={title} setSuccessMessage={setSuccessMessage}/>} */}
+          />
+          <SaveDropdown courseId={1} title={title} setSuccessMessage={setSuccessMessage} courseHash={experience_hash_key} />
 
           {/* MOCK DATA CODE */}
-          <ShareButton
+          {/* <ShareButton
                   id={1}
                   courseTitle={title}
                   courseDescription={removeHTML(getDeeplyNestedData(config.data?.course_information?.course_description, result))}
           />
-          <SaveDropdown courseId={1} title={title} setSuccessMessage={setSuccessMessage}/>
+          <SaveDropdown courseId={1} title={title} setSuccessMessage={setSuccessMessage}/> */}
         </div>
       </div>
       <div className='text-gray-500 text-base'>
