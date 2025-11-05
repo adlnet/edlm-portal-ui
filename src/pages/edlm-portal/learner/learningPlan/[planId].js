@@ -40,11 +40,6 @@ export default function Plan () {
 
   const { data: descriptions } = useMultipleCompAndKsaDesc(eccrReference);
 
-  // // Find the plan in either list
-  // const plan =
-  //   mockLearningJourneys.find(j => String(j.id) === planId) ||
-  //   mockOnboardingJourneys.find(j => String(j.id) === planId);
-
   if (!plan || error) {
     return (
     <DefaultLayout>
@@ -79,7 +74,9 @@ export default function Plan () {
             targetLvl: ksa.target_proficiency,
           };
         }) || [],
-        courses: [] // will populate later when this feature is added
+        courseList: goal.courses?.map(course => ({
+          title: course.course_name,
+        })) || [],
       };
       reformattedGoals.push(transformedGoal);
     });

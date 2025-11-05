@@ -112,10 +112,10 @@ export default function DevelopmentGoal({ goal, initiallyOpen }) {
             <div className='pl-4 pb-4'>
               <p className='text-gray-900 font-semibold pb-1'>Linked Courses</p>
               <div className='w-full grid grid-cols-2 align-left gap-1'>
-                {goal.courses.map((course) => (
+                {goal.courseList.map((course) => (
                   <button 
                     key={course.id} 
-                    className='text-blue-700 text-left'
+                    className='text-left'
                     onClick={()=>{}}
                   >
                     {course.title}
