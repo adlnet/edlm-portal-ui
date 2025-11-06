@@ -11,12 +11,15 @@ import LifeBuoyIcon from '@/public/icons/lifeBuoyIcon.svg';
 import OutdentIcon from '@/public/icons/outdentIcon.svg';
 import SearchIcon from '@/public/icons/searchIcon.svg';
 
+//Mock role
+const isLeader = true
+
 export default function StaticSideNav() {
 
     const router = useRouter();
 
-    const [showLearningSummary, setShowLearningSummary] = useState(true);
-    const [showCollections, setShowCollections] = useState(true);
+    // const [showLearningSummary, setShowLearningSummary] = useState(true);
+    const [showCollections, setShowCollections] = useState(false);
     const [activeBtn, setActiveBtn] = useState(null);
 
     const moodleLeaderReportUrl = process.env.NEXT_PUBLIC_MOODLE_LEADER_REPORT_URL;
@@ -31,24 +34,22 @@ export default function StaticSideNav() {
         }
     };
 
-    const renderNavBtn = (btn, path, icon, label, toolTip = false) => {
+    const renderNavBtn = (btn, path, icon, label, active = true) => {
         const navBtn = (
-            <div className={`w-[221px] h-10 py-1.5 rounded-lg justify-start items-center inline-flex cursor-pointer hover:bg-gray-100 ${activeBtn === btn || isActivePath(path) ? 'bg-[#f4f3f6]' : ''}`} onClick={() => handleSidebarClick(btn, path)} onKeyDown={e => e.key === 'Enter' && handleSidebarClick(btn, path)} role="button" tabIndex={0}>
+            <button 
+                className={`w-[221px] h-10 py-1.5 rounded-lg justify-start items-center inline-flex cursor-pointer text-[#111928] disabled:text-gray-500 disabled:hover:bg-white hover:bg-gray-100 ${activeBtn === btn || isActivePath(path) ? 'bg-blue-50' : ''}`} 
+                onClick={() => handleSidebarClick(btn, path)} onKeyDown={e => e.key === 'Enter' && handleSidebarClick(btn, path)} 
+                tabIndex={0} 
+                disabled={!active}
+            >
                 <div className="grow shrink basis-0 h-10 px-2 py-1.5 rounded-lg justify-start items-center flex">
                     <div className="grow shrink basis-0 h-6 justify-start items-center gap-3 flex">
-                        <Image src={icon} alt={label} />
-                        <div className="text-[#111928] text-base font-medium leading-normal">{label}</div>
+                        <Image src={icon} alt={label}/>
+                        <div className="text-base font-medium leading-normal">{label}</div>
                     </div>
                 </div>
-            </div>
+            </button>
         );
-        if (toolTip) {
-            return (
-                <Tooltip content="This functionality is not yet developed." placement="top" animation="duration-300" style="light">
-                    {navBtn}
-                </Tooltip>
-            );
-        }
         return navBtn;
     }
 
@@ -62,12 +63,20 @@ export default function StaticSideNav() {
         <div className="h-full sticky top-0 shadow">
             <div className="w-60 h-screen pt-px bg-white flex-col justify-start items-start gap-4 inline-flex">
                 <div className="self-stretch flex-col justify-start items-start gap-2 inline-flex">
-                    <div className="self-stretch px-4 pt-2 pb-6 border-b border-gray-200 flex-col justify-center items-center gap-2 flex">
+                    <div className='self-stretch px-4 pt-2 pb-2 border-b border-gray-200 flex-col justify-center items-center gap-2 flex'>
                         {renderNavBtn('home', '/edlm-portal', HomeIcon, 'Home')}
+                    </div>
+                    <div className="self-stretch px-4 pb-2 border-b border-gray-200 flex-col justify-center items-center gap-2 flex">
+                        
                         {renderNavBtn('search', '/edlm-portal/learner/search', SearchIcon, 'Search')}
-                        {renderNavBtn('learningPlan', '/edlm-portal/learner/learningPlan', ClipboardCheckIcon, 'Learning Plan')}
-
-                        <div className={`w-[221px] p-2 rounded-lg flex-col justify-start items-center cursor-pointer`}>
+                        {renderNavBtn('learningPlan', '/edlm-portal/learner/learningPlan', ClipboardCheckIcon, 'Learning Plans')}                        
+                        {isLeader && (
+                            renderNavBtn('leadersReport', '/edlm-portal/learner/learningSummary/leaderReport', FileBarIcon ,"Leader's Report")
+                        )}
+                        {!isLeader && (
+                            renderNavBtn('leadersReport', '/edlm-portal/learner/learningSummary', FileBarIcon ,"My Learning Summary")
+                        )}
+                        {/* <div className={`w-[221px] p-2 rounded-lg flex-col justify-start items-center cursor-pointer`}>
                             <div className="justify-start items-center flex" onClick={() => setShowLearningSummary(!showLearningSummary)} onKeyDown={e => e.key === 'Enter' && setShowLearningSummary(!showLearningSummary)} role="button" tabIndex={0}>
                                 <div className="grow shrink basis-0 h-6 justify-start items-center gap-3 flex">
                                     <Image src={FileBarIcon} alt='Learning Summary' />
@@ -87,7 +96,7 @@ export default function StaticSideNav() {
                                     </div>
                                 </>
                             )}
-                        </div>
+                        </div> */}
 
                         <div className={`w-[221px] p-2 rounded-lg flex-col justify-start items-center cursor-pointer`}>
                             <div className="justify-start items-center flex" onClick={() => setShowCollections(!showCollections)} onKeyDown={e => e.key === 'Enter' && setShowCollections(!showCollections)} role="button" tabIndex={0}>
@@ -111,8 +120,8 @@ export default function StaticSideNav() {
                 </div>
 
                 <div className="self-stretch h-20 px-3 flex-col justify-start items-start gap-2 inline-flex cursor-pointer">
-                    {renderNavBtn('additional', null, BookIcon, 'Additional Resources', true)}
-                    {renderNavBtn('help', null, LifeBuoyIcon, 'Help', true)}
+                    {renderNavBtn('additional', null, BookIcon, 'Additional Resources', false)}
+                    {renderNavBtn('help', null, LifeBuoyIcon, 'Help', false)}
                 </div>
             </div>
         </div>
