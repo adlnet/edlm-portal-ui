@@ -3,32 +3,32 @@ import {ChevronLeftIcon, ChevronRightIcon} from '@heroicons/react/24/outline';
 
 import React from "react";
 
-// Returns array of page items to render
-function getPages(current, total) {
-  if (total <= 4) {
-    // Just show 1...total
-    return Array.from({ length: total }, (_, i) => i + 1);
-  }
+// // Returns array of page items to render
+// function getPages(current, total) {
+//   if (total <= 4) {
+//     // Just show 1...total
+//     return Array.from({ length: total }, (_, i) => i + 1);
+//   }
 
-  // Left-side ellipsis case: at the end
-  if (current >= total - 2) {
-    return [
-      1,
-      "...",
-      total - 2,
-      total - 1,
-      total,
-    ];
-  }
+//   // Left-side ellipsis case: at the end
+//   if (current >= total - 2) {
+//     return [
+//       1,
+//       "...",
+//       total - 2,
+//       total - 1,
+//       total,
+//     ];
+//   }
 
-  // When in the beginning (page 1 or 2), show [1 2 3 ... N]
-  if (current <= 2) {
-    return [1, 2, 3, "...", total];
-  }
+//   // When in the beginning (page 1 or 2), show [1 2 3 ... N]
+//   if (current <= 2) {
+//     return [1, 2, 3, "...", total];
+//   }
 
-  // In the "middle"
-  return [1, "...", current, current + 1, "...", total];
-}
+//   // In the "middle"
+//   return [1, "...", current, current + 1, "...", total];
+// }
 
 /**
  * A reusable, screenshot-matching pagination for your table.

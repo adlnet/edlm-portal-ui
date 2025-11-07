@@ -11,16 +11,16 @@ import { useUpdateLearningPlanGoal } from '@/hooks/learningPlan/useUpdateLearnin
 import { useUpdateLearningPlanGoalKsa } from '@/hooks/learningPlan/useUpdateLearningPlanGoalKsa';
 
 export function useLearningPlanSave(formState) {
-        const { mutateAsync: createPlan } = useCreateLearningPlan();
-        const { mutateAsync: updatePlan } = useUpdateLearningPlan();
-        const { mutateAsync: createCompetency } = useCreateLearningPlanCompetency();
-        const { mutateAsync: updateCompetency } = useUpdateLearningPlanCompetency();
-        const { mutateAsync: createGoal } = useCreateLearningPlanGoal();
-        const { mutateAsync: updatePlanGoal } = useUpdateLearningPlanGoal();
-        const { mutateAsync: createKsa } = useCreateLearningPlanGoalKsa();
-        const { mutateAsync: updateKsa } = useUpdateLearningPlanGoalKsa();
-        const { mutateAsync: deleteCompetency } = useDeleteLearningPlanCompetency();
 
+    const { mutateAsync: createPlan } = useCreateLearningPlan();
+    const { mutateAsync: updatePlan } = useUpdateLearningPlan();
+    const { mutateAsync: createCompetency } = useCreateLearningPlanCompetency();
+    const { mutateAsync: updateCompetency } = useUpdateLearningPlanCompetency();
+    const { mutateAsync: createGoal } = useCreateLearningPlanGoal();
+    const { mutateAsync: updatePlanGoal } = useUpdateLearningPlanGoal();
+    const { mutateAsync: createKsa } = useCreateLearningPlanGoalKsa();
+    const { mutateAsync: updateKsa } = useUpdateLearningPlanGoalKsa();
+    const { mutateAsync: deleteCompetency } = useDeleteLearningPlanCompetency();
 
     const {
         planName,

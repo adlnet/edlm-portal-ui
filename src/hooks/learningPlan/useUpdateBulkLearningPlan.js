@@ -12,6 +12,7 @@ import { useUpdateLearningPlanCompetency } from '@/hooks/learningPlan/useUpdateL
 import { useUpdateLearningPlanGoal } from '@/hooks/learningPlan/useUpdateLearningPlanGoal';
 import { useUpdateLearningPlanGoalKsa } from '@/hooks/learningPlan/useUpdateLearningPlanGoalKsa';
 
+
 export function useUpdateBulkLearningPlan() {
     const queryClient = useQueryClient();
     const { mutateAsync: updatePlan } = useUpdateLearningPlan();
@@ -90,7 +91,7 @@ export function useUpdateBulkLearningPlan() {
                             }
                         });
                     }
-
+                   
                     // KSAs
                     for (const ksaData of goalData.ksas || []) {
                         if (ksaData.isNew) {

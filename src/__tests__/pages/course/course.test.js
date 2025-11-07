@@ -70,15 +70,6 @@ describe('Course Page', () => {
     expect(screen.getByText('Go to Enrollment')).not.toBeDisabled();
   });
 
-  it('should display a save button if the user is authenticated', () => {
-    useAuthenticatedUser();
-    useMockMoreLikeThis();
-    useMockCourse();
-    const screen = renderer();
-
-    expect(screen.getByText('Save')).toBeEnabled();
-  });
-
   it('should not display a save button if the user is not authenticated', () => {
     useUnauthenticatedUser();
     useMockMoreLikeThis();

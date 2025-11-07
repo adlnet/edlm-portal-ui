@@ -39,6 +39,7 @@ export default function DevelopmentGoal({ goal, initiallyOpen }) {
         </div>
         <button 
           className=''
+          data-testid='toggle-button'
           onClick={() => setOpen(!open)}
         >
           {open ? (<ChevronUpIcon className='h-6 w-6 tex-gray-900'/>) : (<ChevronDownIcon className='h-6 w-6 tex-gray-900'/>)}

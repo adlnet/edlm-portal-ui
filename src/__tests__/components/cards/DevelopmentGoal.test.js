@@ -23,6 +23,10 @@ const sampleGoal = {
   ],
   resources: ['Toastmasters', 'Manager feedback'],
   obstacles: ['Nerves', 'Time constraints'],
+  courseList: [
+    {id: 1, title: 'test course'},
+    {id: 1, title: 'test course'}
+  ]
 };
 
 const sampleGoal2 = {
@@ -33,6 +37,7 @@ const sampleGoal2 = {
   ksaList: [],
   resources: [],
   obstacles: [],
+  courseList: [],
 };
 
 const sampleGoal3 = {
@@ -43,6 +48,7 @@ const sampleGoal3 = {
   ksaList: [],
   resources: [],
   obstacles: [],
+  courseList: [],
 };
 
 const sampleGoal4 = {
@@ -53,6 +59,7 @@ const sampleGoal4 = {
   ksaList: [],
   resources: [],
   obstacles: [],
+  courseList: [],
 };
 
 const sampleGoal5 = {
@@ -63,6 +70,7 @@ const sampleGoal5 = {
   ksaList: [],
   resources: [],
   obstacles: [],
+  courseList: [],
 };
 
 const sampleGoalFail = {
@@ -73,18 +81,19 @@ const sampleGoalFail = {
   ksaList: [],
   resources: [],
   obstacles: [],
+  courseList: [],
 };
 
 describe('DevelopmentGoal', () => {
   it('renders the goal name and description', () => {
-    render(<DevelopmentGoal goal={sampleGoal} />);
+    render(<DevelopmentGoal goal={sampleGoal} initiallyOpen={true}/>);
     expect(screen.getByText('Improve Communication')).toBeInTheDocument();
     expect(screen.getByText('Become more effective in team meetings and presentations.')).toBeInTheDocument();
     expect(screen.getByText('Q1 2026')).toBeInTheDocument();
   });
 
   it('displays all KSA items correctly', () => {
-    render(<DevelopmentGoal goal={sampleGoal} />);
+    render(<DevelopmentGoal goal={sampleGoal} initiallyOpen={true}/>);
     expect(screen.getByText('Presentation Skills')).toBeInTheDocument();
     expect(screen.getByText('Ability to deliver structured presentations.')).toBeInTheDocument();
     expect(screen.getByText('Intermediate')).toBeInTheDocument();
@@ -97,7 +106,7 @@ describe('DevelopmentGoal', () => {
   });
 
   it('lists all resources and obstacles', () => {
-    render(<DevelopmentGoal goal={sampleGoal} />);
+    render(<DevelopmentGoal goal={sampleGoal} initiallyOpen={true}/>);
     expect(screen.getByText('Toastmasters')).toBeInTheDocument();
     expect(screen.getByText('Manager feedback')).toBeInTheDocument();
     expect(screen.getByText('Nerves')).toBeInTheDocument();
@@ -105,10 +114,10 @@ describe('DevelopmentGoal', () => {
   });
 
   it('toggles details section when button is clicked', () => {
-    render(<DevelopmentGoal goal={sampleGoal} />);
+    render(<DevelopmentGoal goal={sampleGoal} initiallyOpen={true}/>);
     expect(screen.getByText('Goal')).toBeInTheDocument();
 
-    const toggleButton = screen.getByRole('button');
+    const toggleButton = screen.getByTestId('toggle-button');
     fireEvent.click(toggleButton);
 
     expect(screen.queryByText('Goal')).not.toBeInTheDocument();

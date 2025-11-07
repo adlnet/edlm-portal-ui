@@ -18,15 +18,6 @@ export default function LearningJourneyCard({ journey }) {
                 <p className='text-sm text-gray-600 mb-2'>{journey.description}</p>
             )}
             <div className='text-xs px-4 p-2 bg-blue-50 text-blue-600 rounded-md w-fit'>{journey.length}</div>
-            <div className='text-right pr-4 text-sm text-gray-600 pb-1'>
-                <p>{journey.progress}%</p>
-            </div>
-            <div className='w-full bg-gray-200 rounded-full h-2'>
-                <div 
-                    className='bg-blue-900 h-2 rounded-full transition-all duration-300'
-                    style={{ width: `${journey.progress}%`}}>
-                </div>
-            </div>
             <div className='text-right pr-4 pt-4 text-sm text-blue-400'>
                 <button className=''
                         onClick={() => router.push(`/edlm-portal/learner/learningPlan/${journey.id}`)}     

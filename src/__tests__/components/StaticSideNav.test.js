@@ -1,4 +1,4 @@
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen} from '@testing-library/react';
 import StaticSideNav from '@/components/StaticSideNav';
 import mockRouter from 'next-router-mock';
 
@@ -15,8 +15,7 @@ describe('StaticSideNav', () => {
 
     expect(getByText('Home')).toBeInTheDocument();
     expect(getByText('Search')).toBeInTheDocument();
-    expect(getByText('Learning Plan')).toBeInTheDocument();
-    expect(getByText('Learning Summary')).toBeInTheDocument();
+    expect(getByText('Learning Plans')).toBeInTheDocument();
     expect(getByText('Collections')).toBeInTheDocument();
     expect(getByText('Additional Resources')).toBeInTheDocument();
     expect(getByText('Help')).toBeInTheDocument();
@@ -28,7 +27,7 @@ describe('StaticSideNav', () => {
     fireEvent.click(getByText('Search'));
     expect(mockRouter).toMatchObject({ asPath: '/edlm-portal/learner/search' });
 
-    fireEvent.click(getByText('Learning Plan'));
+    fireEvent.click(getByText('Learning Plans'));
     expect(mockRouter).toMatchObject({ asPath: '/edlm-portal/learner/learningPlan' });
   });
 
@@ -36,42 +35,30 @@ describe('StaticSideNav', () => {
     mockRouter.setCurrentUrl('/edlm-portal/learner/search');
     const { getByText } = render(<StaticSideNav />);
     
-    const searchButton = getByText('Search').closest('[role="button"]');
-    expect(searchButton).toHaveClass('bg-[#f4f3f6]');
+    const searchButton = screen.getByRole('button', { name: /search/i });
+    expect(searchButton).toHaveClass('bg-blue-50');
     
-    const homeButton = getByText('Home').closest('[role="button"]');
-    expect(homeButton).not.toHaveClass('bg-[#f4f3f6]');
-  });
-
-  it('should toggle the Learning Summary dropdown', () => {
-    const { getByText, queryByText } = render(<StaticSideNav />);
-    
-    // Open by default
-    expect(getByText('My Learning Summary')).toBeInTheDocument();
-    
-    fireEvent.click(getByText('Learning Summary'));
-    expect(queryByText('My Learning Summary')).not.toBeInTheDocument();
-    
-    fireEvent.click(getByText('Learning Summary'));
-    expect(getByText('My Learning Summary')).toBeInTheDocument();
+    const homeButton = getByText('Home');
+    expect(homeButton).not.toHaveClass('bg-blue-50');
   });
 
   it('should toggle the Collections dropdown', () => {
     const { getByText, queryByText } = render(<StaticSideNav />);
       
-    // Open by default
-    expect(getByText('My Collections')).toBeInTheDocument();
+    // Closed by default
+    expect(queryByText('My Collections')).not.toBeInTheDocument();
 
     fireEvent.click(getByText('Collections'));
-    expect(queryByText('My Collections')).not.toBeInTheDocument();
+    expect(getByText('My Collections')).toBeInTheDocument();
     
     fireEvent.click(getByText('Collections'));
-    expect(getByText('My Collections')).toBeInTheDocument();
+    expect(queryByText('My Collections')).not.toBeInTheDocument();
   });
 
   it('should navigate when dropdown buttons are clicked', () => {
     const { getByText } = render(<StaticSideNav />);
-    
+
+    fireEvent.click(getByText('Collections'));
     fireEvent.click(getByText('My Collections'));
     expect(mockRouter).toMatchObject({ asPath: '/edlm-portal/learner/lists/owned' });
     
@@ -82,6 +69,7 @@ describe('StaticSideNav', () => {
   it('should navigate when press keyboard', () => {
     const { getByText } = render(<StaticSideNav />);
     
+    fireEvent.click(getByText('Collections'));
     const myCollectionsBtn = getByText('My Collections').closest('[role="button"]');
 
     fireEvent.keyDown(myCollectionsBtn, { key: 'Enter' });

@@ -16,7 +16,6 @@ const sampleJourney = {
   created: '2024-09-01',
   description: 'Intro to data, dashboards, and storytelling.',
   length: '4 hours',
-  progress: 80,
 };
 
 describe('LearningJourneyCard', () => {
@@ -30,13 +29,6 @@ describe('LearningJourneyCard', () => {
     expect(screen.getByText(/Date Created:/)).toHaveTextContent('2024-09-01');
     expect(screen.getByText(sampleJourney.description)).toBeInTheDocument();
     expect(screen.getByText('4 hours')).toBeInTheDocument();
-    expect(screen.getByText('80%')).toBeInTheDocument();
-  });
-
-  it('sets progress bar width correctly', () => {
-    render(<LearningJourneyCard journey={sampleJourney} />);
-    const progressBar = document.querySelector('.bg-blue-900');
-    expect(progressBar).toHaveStyle('width: 80%');
   });
 
   it('button click calls router.push with the journey id URL', () => {
