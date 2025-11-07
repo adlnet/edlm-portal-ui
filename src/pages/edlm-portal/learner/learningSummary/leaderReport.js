@@ -9,6 +9,9 @@ import {
     EyeIcon,
     UserIcon 
 } from '@heroicons/react/24/outline';
+import { removeHTML } from '@/utils/cleaning';
+import { useTopSavedCourses } from '@/hooks/useTopSavedCourses';
+import { useTopSubscribedCollections } from '@/hooks/useTopSubscribedCollections';
 import DefaultLayout from "@/components/layouts/DefaultLayout";
 import LearnerTable from '@/components/tables/LearnerTable';
 
@@ -191,19 +194,6 @@ const mostViewedCourses = [
     {id: 0, name: "Acquisition Law", views: 150},
 ]
 
-const popularCollections = [
-    {id: 0, name: "Operating Environment and System Design", subs: 45},
-    {id: 1, name: "Test Planning, Execution and Evaluation", subs: 38},
-    {id: 2, name: "Leadership", subs: 25}
-]
-
-const popularCourses = [
-    {id: 0, name: "Advanced Combat Systems Analysis", saves: 156},
-    {id: 1, name: "Cyber Warfare Defense Strategies", saves: 38},
-    {id: 2, name: "Aircraft Testing and Evaluation", saves: 25},
-    {id: 3, name: "Naval Weapons Systems", saves: 18 }
-]
-
 const topSharedCourses = [
     {id: 0, name: "Combat Systems Fundamentals", shares: 156},
     {id: 1, name: "Cybersecurity Essentials", shares: 135},
@@ -211,6 +201,9 @@ const topSharedCourses = [
 ]
 
 export default function LeaderReport() {
+
+  const { data: popularCoursesData } = useTopSavedCourses();
+  const { data: popularCollectionsData } = useTopSubscribedCollections();
 
   return (
     <DefaultLayout>
@@ -297,10 +290,10 @@ export default function LeaderReport() {
                         <BookmarkIcon class='h-6 w-6'/>
                         <p className='text-lg text-gray-900 font-bold pl-2'>Popular Collections</p>
                     </div>
-                    {popularCollections.map((collection) => (
+                    {popularCollectionsData?.map((collection) => (
                         <div key={collection.id} className='bg-gray-100 rounded-md py-2 px-4 mt-4'>
                             <p>{collection.name}</p>
-                            <p className='text-[#4883B4]'>{collection.subs} Subscribers</p>     
+                            <p className='text-[#4883B4]'>{collection.num_subscribers} Subscribers</p>     
                         </div>
                     ))}
                 </div>
@@ -311,10 +304,10 @@ export default function LeaderReport() {
                         <BookmarkSquareIcon class='h-6 w-6'/>
                         <p className='text-lg text-gray-900 font-bold pl-2'>Popular Saved Courses</p>
                     </div>
-                    {popularCourses.map((course) => (
-                        <div key={course.id} className='bg-gray-100 rounded-md py-2 px-4 mt-4'>
-                            <p>{course.name}</p>
-                            <p className='text-[#4883B4]'>{course.saves} Saves</p>     
+                    {popularCoursesData?.map((course) => (
+                        <div key={course.metadata_key_hash} className='bg-gray-100 rounded-md py-2 px-4 mt-4'>
+                            <p>{removeHTML(course.title)}</p>
+                            <p className='text-[#4883B4]'>{course.num_saved} Saves</p>     
                         </div>
                     ))}
                 </div>
