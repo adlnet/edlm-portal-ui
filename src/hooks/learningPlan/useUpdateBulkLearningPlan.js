@@ -91,7 +91,7 @@ export function useUpdateBulkLearningPlan() {
                             }
                         });
                     }
-                    
+                   
                     // KSAs
                     for (const ksaData of goalData.ksas || []) {
                         if (ksaData.isNew) {
