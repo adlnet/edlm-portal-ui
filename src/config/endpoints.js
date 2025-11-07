@@ -66,3 +66,7 @@ export const learningPlanCompetenciesUrl = `${backendHost}${api}learning-plan-co
 export const learningPlanGoalsUrl = `${backendHost}${api}learning-plan-goals/`;
 export const learningPlanGoalKsasUrl = `${backendHost}${api}learning-plan-goal-ksas/`;
 export const learningPlanGoalCoursesUrl = `${backendHost}${api}learning-plan-goal-courses/`;
+
+// Leader's Report
+export const topSavedCoursesDetail = `${XDSbackendHost}${api}experiences/most-saved`;
+export const topSubscribedCollectionsDetail = `${XDSbackendHost}${api}interest-lists/most-subscribed`;

@@ -7,43 +7,49 @@ import { useLearningPlan } from '@/hooks/learningPlan/useLearningPlan';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
-const Modal = ({ open, onClose, title, courseId, selectedPlan, selectedCompetency, setSelectedCompetency, setSelectedPlan, checkedGoals, setSuccessMessage, router, children}) => {
+const Modal = ({ open, onClose, title, courseId, selectedPlan, setSelectedPlan, checkedGoals, setSuccessMessage, router, children }) => {
   const { mutate: createGoalCourse } = useCreateLearningPlanGoalCourse();
 
   if (!open) return null;
 
   const handleSaveToGoals = async () => {
-    if (!selectedPlan || checkedGoals.length === 0 || !courseId) return;
-    try {
-      // Save course to each selected goal
-      const savePromises = checkedGoals.map(goalId => 
-        new Promise((resolve, reject) => {
-          createGoalCourse(
-            {
-              planGoalId: goalId,
-              courseExternalReference: courseId
-            },
-            {
-              onSuccess: resolve,
-              onError: reject
-            }
-          );
-        })
-      );
 
-      await Promise.all(savePromises);
-      
-      setSuccessMessage(`"${title}" added to ${checkedGoals.length} goal(s) in the "${selectedPlan.name}" learning plan!`);
+    if (!selectedPlan || checkedGoals.length === 0 || !courseId) {
+      return;
+    }
+    
+    try {
+      for (const goalId of checkedGoals) {
+        
+        const payload = {
+          planGoalId: goalId,
+          courseExternalReference: courseId
+        };
+
+        await new Promise((resolve, reject) => {
+          createGoalCourse(payload, {
+            onSuccess: (data) => {
+              resolve(data);
+            },
+            onError: (error) => {
+              console.error('Failed to save to goal');
+              reject(error);
+            }
+          });
+        });
+      }
+
+      setSuccessMessage(`"${title}" added to ${checkedGoals.length} ${checkedGoals.length === 1 ? 'goal' : 'goals'} in the "${selectedPlan.name}" learning plan!`);
       onClose();
     } catch (err) {
       console.error('Failed to save course to goals');
+      setSuccessMessage(`Failed to save course. Please try again.`);
     }
   }
 
   const getModalTitle = () => {
     if (!selectedPlan) return `Add "${title}" to learning plan`;
-    if (!selectedCompetency) return `Choose competency in ${selectedPlan.name}`;
-    return `Goals in ${selectedCompetency.plan_competency_name}`;
+    return `Select goals in ${selectedPlan.name}`;
   };
 
   return (
@@ -66,11 +72,11 @@ const Modal = ({ open, onClose, title, courseId, selectedPlan, selectedCompetenc
             Cancel
           </button>
 
-          {selectedPlan && selectedCompetency ? (
+          {selectedPlan ? (
             <>
               <button
                 className="flex px-3 py-2 my-2 mr-4 text-center items-center rounded-md bg-blue-50 text-blue-700 text-md hover:bg-blue-200 transition-colors"
-                onClick={() => setSelectedCompetency(null)}
+                onClick={() => setSelectedPlan(null)}
               >
                 Back
               </button>
@@ -115,7 +121,6 @@ export default function SavePlanModal({ courseId, title, setIsDropdownOpen, setS
 
   const [modal, setModal] = useState(null);
   const [selectedPlan, setSelectedPlan] = useState(null);
-  const [selectedCompetency, setSelectedCompetency] = useState(null);
   const [checkedGoals, setCheckedGoals] = useState([]);
   const { data: selectedPlanDetails } = useLearningPlan(selectedPlan?.id);
 
@@ -125,32 +130,22 @@ export default function SavePlanModal({ courseId, title, setIsDropdownOpen, setS
     setIsDropdownOpen(false);
     setSelectedPlan(null);
     setCheckedGoals([]);
-    setSelectedCompetency(null);
   };
 
   // Handle selection of a learning plan
   const handlePlanSelect = (plan) => {
     setSelectedPlan(plan);
-    setSelectedCompetency(null);
     setCheckedGoals([]); // Reset checked goals
   };
 
-  const handleCompetencySelect = competency => {
-    setSelectedCompetency(competency);
-    setCheckedGoals([]);
-  };
+  const competenciesWithGoals = selectedPlanDetails ? 
+    selectedPlanDetails.competencies.filter(comp => comp.goals && comp.goals.length > 0) : [];
 
-  const availableGoals = selectedPlanDetails ? 
-    selectedPlanDetails.competencies.flatMap(comp => comp.goals || []) : [];
-
-  const availableCompetencies = selectedPlanDetails ? selectedPlanDetails.competencies : [];
-
-  // Handle toggling goals
-  const handleGoalToggle = (goal) => {
+  const handleGoalToggle = (goalId) => {
     setCheckedGoals((prev) =>
-      prev.includes(goal)
-        ? prev.filter(g => g !== goal)
-        : [...prev, goal]
+      prev.includes(goalId)
+        ? prev.filter(id => id !== goalId)
+        : [...prev, goalId]
     );
   };
 
@@ -176,8 +171,6 @@ export default function SavePlanModal({ courseId, title, setIsDropdownOpen, setS
         onClose={closeModal}
         selectedPlan={selectedPlan}
         setSelectedPlan={setSelectedPlan}
-        selectedCompetency={selectedCompetency}
-        setSelectedCompetency={setSelectedCompetency}
         checkedGoals={checkedGoals}
         setSuccessMessage={setSuccessMessage}
         router={router}
@@ -210,77 +203,66 @@ export default function SavePlanModal({ courseId, title, setIsDropdownOpen, setS
               </div>
             )}
           </>
-        ) : !selectedCompetency ? (
-
-          // select Competency
-          <>
-            <p className='pt-2 pb-4'>Choose a competency for this course</p>
-            {availableCompetencies.length === 0 ? (
-              <p className='py-4 text-gray-500'>No competencies in this plan yet.</p>
-            ) : (
-              <div className="space-y-2">
-                {availableCompetencies.map((competency) => (
-                  <button
-                    key={competency.id}
-                    className='w-full text-left py-3 px-3 text-gray-900 border border-gray-300 rounded-lg hover:bg-blue-100 hover:border-blue-500'
-                    onClick={() => handleCompetencySelect(competency)}
-                  >
-                    <p className='text-base font-medium'>{competency.plan_competency_name}</p>
-                    <p className='text-sm text-gray-500 mt-1'>
-                      {competency.goals?.length || 0} goals • Priority: {competency.priority}
-                    </p>
-                  </button>
-                ))}
-              </div>
-            )}
-          </>
         ) : (
 
-          // select Goals
+          // Select Goals (grouped with parent competencies)
           <>
             <p className='pt-2 pb-4'>Select one or more goals for this course</p>
-            {availableGoals.length === 0 ? (
-              <p className='py-4 text-gray-500'>No goals in this competency yet.</p>
+            {competenciesWithGoals.length === 0 ? (
+              <p className='py-4 text-gray-500'>No goals in this plan yet.</p>
             ) : (
-              <ul className="space-y-2 pb-2">
-                {availableGoals.map((goal) => (
-                  <li key={goal.id} className="flex items-center">
-                    <label className="flex items-center cursor-pointer select-none">
-                      <input
-                        type="checkbox"
-                        checked={checkedGoals.includes(goal.id)}
-                        onChange={() => handleGoalToggle(goal.id)}
-                        className="hidden"
-                      />
-                      <span
-                        className={`w-5 h-5 flex items-center justify-center border rounded border-gray-300 mr-3 transition
-                          ${
-                            checkedGoals.includes(goal.id)
-                              ? "bg-blue-900 border-blue-900"
-                              : "bg-white"
-                          }`}
-                      >
-                        {checkedGoals.includes(goal.id) && (
-                          <svg
-                            className="w-3 h-3 text-white"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth={3}
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M5 13l4 4L19 7"
+              <div className="space-y-6">
+                {competenciesWithGoals.map((competency) => (
+                  <div key={competency.id} className="space-y-2">
+                    <div className="self-stretch justify-start text-General-Foreground-Primary text-base font-semibold leading-6">
+                      <h3 className="font-semibold text-gray-900 text-sm">
+                        {competency.plan_competency_name}
+                      </h3>
+                    </div>
+                    
+                    {/* Goals */}
+                    <ul className="space-y-2 ">
+                      {competency.goals.map((goal) => (
+                        <li key={goal.id} className="flex items-center">
+                          <label className="flex items-center cursor-pointer select-none">
+                            <input
+                              type="checkbox"
+                              checked={checkedGoals.includes(goal.id)}
+                              onChange={() => handleGoalToggle(goal.id)}
+                              className="hidden"
                             />
-                          </svg>
-                        )}
-                      </span>
-                      <span className="text-gray-900">{goal.goal_name || goal.description}</span>
-                    </label>
-                  </li>
+                            <span
+                              className={`w-5 h-5 flex items-center justify-center border rounded border-gray-300 mr-3 transition
+                                ${
+                                  checkedGoals.includes(goal.id)
+                                    ? "bg-blue-900 border-blue-900"
+                                    : "bg-white"
+                                }`}
+                            >
+                              {checkedGoals.includes(goal.id) && (
+                                <svg
+                                  className="w-3 h-3 text-white"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  strokeWidth={3}
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M5 13l4 4L19 7"
+                                  />
+                                </svg>
+                              )}
+                            </span>
+                            <span className="text-gray-900">{goal.goal_name || goal.description}</span>
+                          </label>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 ))}
-              </ul>
+              </div>
             )}
           </>
         )}
