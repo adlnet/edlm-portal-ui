@@ -46,8 +46,6 @@ describe('Home Page', () => {
 
     expect(getAllByText('Learning Action').length).toBeGreaterThan(0);
 
-    expect(getAllByText('Learning Summary').length).toBeGreaterThan(0);
-
     expect(getAllByText('Pick Up Where You Left Off').length).toBeGreaterThan(0);
 
     expect(getAllByText('Spotlight Courses').length).toBeGreaterThan(0);

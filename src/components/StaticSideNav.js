@@ -76,28 +76,6 @@ export default function StaticSideNav() {
                         {!isLeader && (
                             renderNavBtn('leadersReport', '/edlm-portal/learner/learningSummary', FileBarIcon ,"My Learning Summary")
                         )}
-                        {/* <div className={`w-[221px] p-2 rounded-lg flex-col justify-start items-center cursor-pointer`}>
-                            <div className="justify-start items-center flex" onClick={() => setShowLearningSummary(!showLearningSummary)} onKeyDown={e => e.key === 'Enter' && setShowLearningSummary(!showLearningSummary)} role="button" tabIndex={0}>
-                                <div className="grow shrink basis-0 h-6 justify-start items-center gap-3 flex">
-                                    <Image src={FileBarIcon} alt='Learning Summary' />
-                                    <div className="text-[#111928] text-base font-medium leading-normal">Learning Summary</div>
-                                </div>
-                                <div className="mx-1.5">
-                                    <Image src={ChevronDownIcon} alt='Chevron' />
-                                </div>
-                            </div>
-                            {showLearningSummary && (
-                                <>
-                                    <div className='text-nowrap'>
-                                        {renderDropdownBtn('myLearningSummary', '/edlm-portal/learner/learningSummary', 'My Learning Summary')}
-                                    </div>
-                                    <div className='text-nowrap'>
-                                        {renderDropdownBtn('leadersReport', '/edlm-portal/learner/learningSummary/leaderReport', "Leader's Report")}
-                                    </div>
-                                </>
-                            )}
-                        </div> */}
-
                         <div className={`w-[221px] p-2 rounded-lg flex-col justify-start items-center cursor-pointer`}>
                             <div className="justify-start items-center flex" onClick={() => setShowCollections(!showCollections)} onKeyDown={e => e.key === 'Enter' && setShowCollections(!showCollections)} role="button" tabIndex={0}>
                                 <div className="grow shrink basis-0 h-6 justify-start items-center gap-3 flex">

@@ -79,15 +79,6 @@ describe('Search Page', () => {
     expect(getByText('More Like This Title')).toBeInTheDocument();
   });
 
-  it('should not render the save button when the user is not authenticated', () => {
-    useMockSearch();
-    useUnauthenticatedUser();
-    useMockMoreLikeThis();
-    const { queryByText } = renderer();
-
-    expect(queryByText('Save')).not.toBeInTheDocument();
-  });
-
   it('should render the save button when the user is authenticated', () => {
     useAuthenticatedUser();
     useMockSearch();

@@ -1,5 +1,5 @@
 import { act, renderHook } from '@testing-library/react';
-import { useLearningPlanForm } from '@/hooks/useLearningPlanForm'; 
+import { useLearningPlanForm } from '@/hooks/learningPlan/useLearningPlanForm'; 
 
 // Proper mock for crypto.randomUUID in Node/Jest environment
 beforeAll(() => {

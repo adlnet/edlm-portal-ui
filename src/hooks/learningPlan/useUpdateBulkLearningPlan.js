@@ -1,16 +1,17 @@
 'use strict';
 
-import { useQueryClient } from 'react-query';
 import { useCreateLearningPlanCompetency } from '@/hooks/learningPlan/useCreateLearningPlanCompetency';
 import { useCreateLearningPlanGoal } from '@/hooks/learningPlan/useCreateLearningPlanGoal';
 import { useCreateLearningPlanGoalKsa } from '@/hooks/learningPlan/useCreateLearningPlanGoalKsa';
 import { useDeleteLearningPlanCompetency } from '@/hooks/learningPlan/useDeleteLearningPlanCompetency';
 import { useDeleteLearningPlanGoal } from '@/hooks/learningPlan/useDeleteLearningPlanGoal';
 import { useDeleteLearningPlanGoalKsa } from '@/hooks/learningPlan/useDeleteLearningPlanGoalKsa';
+import { useQueryClient } from 'react-query';
 import { useUpdateLearningPlan } from '@/hooks/learningPlan/useUpdateLearningPlan';
 import { useUpdateLearningPlanCompetency } from '@/hooks/learningPlan/useUpdateLearningPlanCompetency';
 import { useUpdateLearningPlanGoal } from '@/hooks/learningPlan/useUpdateLearningPlanGoal';
 import { useUpdateLearningPlanGoalKsa } from '@/hooks/learningPlan/useUpdateLearningPlanGoalKsa';
+
 
 export function useUpdateBulkLearningPlan() {
     const queryClient = useQueryClient();
@@ -90,6 +91,7 @@ export function useUpdateBulkLearningPlan() {
                             }
                         });
                     }
+                    
                     // KSAs
                     for (const ksaData of goalData.ksas || []) {
                         if (ksaData.isNew) {

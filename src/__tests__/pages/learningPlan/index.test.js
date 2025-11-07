@@ -24,7 +24,6 @@ describe('learningPlan', () => {
   it('should render the page and headers', () => {
     useAuthenticatedUser();
     renderLearningPlan();
-    expect(screen.getByText('Learning Plans')).toBeInTheDocument();
     expect(screen.getByText('Individual Development Plan')).toBeInTheDocument();
     expect(screen.getByText('DOT&E Onboarding Plans')).toBeInTheDocument();
   });

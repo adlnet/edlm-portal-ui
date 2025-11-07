@@ -86,7 +86,7 @@ const KSAItem = ({
                             </p>
                         ) : (
                             <p className="text-sm text-gray-500">
-                                Select a focus area to see what it’s all about
+                                Select a focus area to see what it&apos;s all about
                             </p>
                         )}
                     </div>

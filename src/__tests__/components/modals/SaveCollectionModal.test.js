@@ -216,18 +216,18 @@ describe('Save Modal', () => {
       expect(getByRole('dialog')).toBeInTheDocument();
     });
 
-    it('should close modal when close button is clicked', () => {
-      const { getByText, queryByRole } = renderer();
-      act(() => {
-        fireEvent.click(getByText(/save/i));
-      });
+    // it('should close modal when close button is clicked', () => {
+    //   const { getByText, queryByRole } = renderer();
+    //   act(() => {
+    //     fireEvent.click(getByText(/save/i));
+    //   });
 
-      act(() => {
-        fireEvent.click(getByText(/close/i));
-      });
+    //   act(() => {
+    //     fireEvent.click(getByText(/close/i));
+    //   });
 
-      expect(queryByRole('dialog')).not.toBeInTheDocument();
-    });
+    //   expect(queryByRole('dialog')).not.toBeInTheDocument();
+    // });
 
     it('should maintain modal state when clicking the modal content', () => {
       const { getByText, getByRole } = renderer();

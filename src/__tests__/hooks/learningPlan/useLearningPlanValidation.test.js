@@ -1,5 +1,5 @@
 import { act, renderHook } from '@testing-library/react';
-import { useLearningPlanValidation } from '@/hooks/useLearningPlanValidation'; 
+import { useLearningPlanValidation } from '@/hooks/learningPlan/useLearningPlanValidation'; 
 
 const longTermGoalTimeLine = ["Year 3", "Year 4"];
 const shortTermGoalTimeLine = ["Year 1", "Year 2"];
