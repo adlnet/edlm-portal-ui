@@ -18,7 +18,7 @@ export default function LearningJourneyCard({ journey }) {
                 <p className='text-sm text-gray-600 mb-2'>{journey.description}</p>
             )}
             <div className='text-xs px-4 p-2 bg-blue-50 text-blue-600 rounded-md w-fit'>{journey.length}</div>
-            <div className='text-right pr-4 pt-4 text-sm text-blue-400'>
+            <div className='text-right pr-4 pt-4 text-sm text-blue-500 hover:text-blue-300'>
                 <button className=''
                         onClick={() => router.push(`/edlm-portal/learner/learningPlan/${journey.id}`)}     
                 >

@@ -111,7 +111,7 @@ export default function Plan () {
           </div>
 
           {reformattedGoals?.map((goal) => (
-            <DevelopmentGoal key={goal.id} goal={goal}/>            
+            <DevelopmentGoal key={goal.id} goal={goal} initiallyOpen={true}/>            
           ))}
 
           <div className='p-4 border rounded-lg border-gray-300 mt-6'>

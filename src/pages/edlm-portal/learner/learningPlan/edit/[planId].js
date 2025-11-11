@@ -4,7 +4,7 @@ import { Button } from 'flowbite-react';
 import { ChevronRightIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { ChooseSkillsStep } from '@/components/steps/ChooseSkillsStep';
 import { CompetencyProvider } from '@/contexts/CompetencyContext';
-import { SetGoalsStep } from '@/components/steps/SetGoalsStep';
+import { SetGoalsStepEdit } from '@/components/steps/SetGoalsStepEdit';
 import { TextInput } from 'flowbite-react';
 import { timeframeOptions } from '@/utils/dropdownMenuConstants';
 import { useDeleteLearningPlan } from '@/hooks/learningPlan/useDeleteLearningPlan';
@@ -322,7 +322,7 @@ function EditPlanContent() {
                 </div>
               </div>
               <div className='pt-6'>
-                <SetGoalsStep
+                <SetGoalsStepEdit
                   goals={goals}
                   competencyGoals={competencyGoals}
                   setCompetencyGoals={setCompetencyGoals}
