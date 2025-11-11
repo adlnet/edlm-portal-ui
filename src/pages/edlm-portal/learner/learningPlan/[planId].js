@@ -52,12 +52,22 @@ export default function Plan () {
     );
   }
 
-  const reformattedGoals = [];
+  const reformattedCompetency = {};
+
   plan.competencies?.forEach((competency) => {
+    // if competency id doesnt exisit, create a new one
+    if (!reformattedCompetency[competency.id]) {
+      reformattedCompetency[competency.id] = {
+        id: competency.id,
+        name: competency.plan_competency_name,
+        priority: competency.priority,
+        goals: []
+      }
+    }
+
     competency.goals?.forEach((goal) => {
       const transformedGoal = {
         id: goal.id,
-        name: competency.plan_competency_name,
         desc: goal.goal_name,
         priority: competency.priority,
         timeline: goal.timeline,
@@ -78,9 +88,11 @@ export default function Plan () {
           title: course.course_name,
         })) || [],
       };
-      reformattedGoals.push(transformedGoal);
+      reformattedCompetency[competency.id].goals.push(transformedGoal);
     });
   });
+  
+  const competenciesWithGoals = Object.values(reformattedCompetency);
 
   return (
     <DefaultLayout>
@@ -110,9 +122,9 @@ export default function Plan () {
             <div className='text-sm bg-blue-50 text-blue-700 rounded-md px-2 py-1'>{plan.timeframe}</div>
           </div>
 
-          {reformattedGoals?.map((goal) => (
-            <DevelopmentGoal key={goal.id} goal={goal} initiallyOpen={true}/>            
-          ))}
+        {competenciesWithGoals?.map((competency) => (
+          <DevelopmentGoal key={competency.id} competency={competency} />
+        ))}
 
           <div className='p-4 border rounded-lg border-gray-300 mt-6'>
             <div className='font-bold pb-6 text-xl text-gray-900'>Next Steps</div>
