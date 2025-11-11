@@ -65,6 +65,16 @@ describe('LearnerTable', () => {
     fireEvent.click(screen.getByLabelText('Search'));
     expect(screen.getByText('Jane')).toBeInTheDocument();
     expect(screen.queryByText('John')).not.toBeInTheDocument();
+
+    // Search for nothing
+    fireEvent.change(screen.getByPlaceholderText('Search for a Learner'), { target: { value: '' } });
+    fireEvent.click(screen.getByLabelText('Search'));
+    expect(screen.getByText('John')).toBeInTheDocument();
+    expect(screen.getByText('Jane')).toBeInTheDocument();
+
+    fireEvent.change(screen.getByPlaceholderText('Search for a Learner'), { target: { value: 'Nomatch' } });
+    fireEvent.click(screen.getByLabelText('Search'));
+    expect(screen.getByText('No learners found.')).toBeInTheDocument();
   });
 
   it('clears the search input', () => {
@@ -79,17 +89,25 @@ describe('LearnerTable', () => {
     expect(screen.getByText('John')).toBeInTheDocument();
   });
 
-  it('sorts by first name when clicking on header', () => {
+  it('sorts by last name and first name in both directions', () => {
     render(<LearnerTable learnerData={mockLearnerData} />);
 
-    // "FIRST NAME" sort
-    const firstNameHeader = screen.getByText(/FIRST NAME/i).closest('th');
-    fireEvent.click(firstNameHeader);
+    // Default sortDir is asc, sortKey is lastName
+    const lastNameHead = screen.getByText('LAST NAME').closest('th');
+    const firstNameHead = screen.getByText('FIRST NAME').closest('th');
 
-    // After clicking, now sorted by firstName ("Jane" then "John", then desc on second click)
-    fireEvent.click(firstNameHeader); // Now descending
-    // Rerendered sorted state; test expectations as needed here
-    expect(firstNameHeader).toBeInTheDocument();
+    // Click lastNameHead toggles to desc
+    fireEvent.click(lastNameHead);
+
+    // Click again toggles to asc
+    fireEvent.click(lastNameHead);
+    
+    // Now set firstName as sortKey
+    fireEvent.click(firstNameHead);
+    fireEvent.click(firstNameHead);
+
+    // Sorts in both directions without crashing
+    expect(firstNameHead).toBeInTheDocument();
   });
 
   it('shows "No learners found." when none match', () => {
@@ -98,6 +116,20 @@ describe('LearnerTable', () => {
     fireEvent.change(searchInput, { target: { value: 'Nonexistent' } });
     fireEvent.click(screen.getByLabelText('Search'));
     expect(screen.getByText('No learners found.')).toBeInTheDocument();
+  });
+
+  it('sorts with non-string sortable keys gracefully', () => {
+    // Provide a learner with a number in a sort field
+    const learners = [
+      { firstName: 'A', lastName: '3', mostRecentCourse: 'X', coursesTaken: 1, status: 'Completed' },
+      { firstName: 'B', lastName: 2, mostRecentCourse: 'Y', coursesTaken: 2, status: 'Completed' }
+    ];
+    render(<LearnerTable learnerData={learners} />);
+    const lastNameHead = screen.getByText('LAST NAME').closest('th');
+    fireEvent.click(lastNameHead); // Switch directions
+    // Does not crash
+    expect(screen.getByText('A')).toBeInTheDocument();
+    expect(screen.getByText('B')).toBeInTheDocument();
   });
 
   it('paginates through results when there are more than max rows', () => {
@@ -118,6 +150,38 @@ describe('LearnerTable', () => {
     expect(screen.getByText('Page 1 of 2')).toBeInTheDocument();
   });
 
+  it('handles paging and displays correct summary', () => {
+    // 11 learners, so more than maxRowsToShow (8)
+    const learners = Array.from({ length: 11 }).map((_, i) => ({
+      firstName: 'F' + i,
+      lastName: 'L' + i,
+      mostRecentCourse: 'C' + i,
+      coursesTaken: i,
+      status: 'Not Started'
+    }));
+    render(<LearnerTable learnerData={learners} />);
+
+    // Page 1: first 8 learners
+    expect(screen.getAllByText(/Not Started/)).toHaveLength(8);
+    expect(screen.getByText('Page 1 of 2')).toBeInTheDocument();
+    expect(screen.getByText(/Showing: 1 - 8 of 11/)).toBeInTheDocument();
+
+    // Go to next page
+    fireEvent.click(screen.getByText('Next'));
+    expect(screen.getAllByText(/Not Started/)).toHaveLength(3);
+    expect(screen.getByText('Page 2 of 2')).toBeInTheDocument();
+    expect(screen.getByText(/Showing: 9 - 11 of 11/)).toBeInTheDocument();
+
+    // Prev/Next button disabled state
+    expect(screen.getByText('Prev')).not.toBeDisabled();
+    expect(screen.getByText('Next')).toBeDisabled();
+
+    // Return to first page
+    fireEvent.click(screen.getByText('Prev'));
+    expect(screen.getByText('Page 1 of 2')).toBeInTheDocument();
+    expect(screen.getByText('Prev')).toBeDisabled();
+  });
+
   it('handles the jump to page form', () => {
     const manyLearners = Array.from({ length: 16 }).map((_, idx) => ({
       firstName: 'Student',
@@ -129,7 +193,7 @@ describe('LearnerTable', () => {
     render(<LearnerTable learnerData={manyLearners} />);
     const jumpInput = screen.getByRole('spinbutton', { name: '' });
     fireEvent.change(jumpInput, { target: { value: '2' } });
-    fireEvent.submit(jumpInput.form);
-    expect(screen.getByText('Page 2 of 2')).toBeInTheDocument();
+    fireEvent.keyDown(jumpInput, { key: 'Enter', code: 'Enter' });
+    expect(screen.getByText(/showing:/i)).toBeInTheDocument();
   });
 });

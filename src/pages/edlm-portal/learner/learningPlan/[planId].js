@@ -1,18 +1,39 @@
 'use-strict';
 
-import { ArrowLongRightIcon, ChevronRightIcon, PencilSquareIcon} from '@heroicons/react/24/outline';
+import { ArrowLongRightIcon, ChevronRightIcon, PencilSquareIcon, XMarkIcon} from '@heroicons/react/24/outline';
 import { Button } from 'flowbite-react';
+import { CheckCircleIcon } from '@heroicons/react/24/solid';
+import { useEffect, useMemo, useState } from 'react';
 import { useLearningPlan } from '@/hooks/learningPlan/useLearningPlan';
-import { useMemo } from 'react';
 import { useMultipleCompAndKsaDesc } from '@/hooks/useCompOrKsaDesc';
 import { useRouter } from 'next/router';
 import DefaultLayout from '@/components/layouts/DefaultLayout';
 import DevelopmentGoal from '@/components/cards/DevelopmentGoal';
+import React from 'react';
 
 export default function Plan () {
 
   const router = useRouter();
   const { planId } = router.query;
+
+  const [showSuccess, setShowSuccess] = React.useState(router.query.updated === '1');
+
+  const handleClose = () => {
+    // Option 1: Hide immediately, then clean URL
+    setShowSuccess(false);
+
+    // Remove the ?updated param (and any other queries are preserved)
+    const { updated, ...rest } = router.query;
+    router.replace({
+      pathname: router.pathname,
+      query: rest
+    }, undefined, { shallow: true });
+  };
+
+  React.useEffect(() => {
+    // Show message if ?updated=1 appears in URL
+    if (router.query.updated === '1') setShowSuccess(true);
+  }, [router.query.updated]);
 
   const { data: plan, error} = useLearningPlan(planId);
 
@@ -104,6 +125,31 @@ export default function Plan () {
             <ChevronRightIcon className='h-4 w-4'></ChevronRightIcon>
             <p>{plan.name}</p>
           </div>
+
+          {showSuccess ? (
+            <div className="flex flex-col p-4 mt-2 mb-4 bg-green-100 rounded-lg w-full"> 
+              <div className="flex flex-row justify-between pb-2">
+                <div className="flex flex-row items-center">
+                  <CheckCircleIcon className="w-6 h-6 text-green-900"/>
+                  <div className="text-lg text-green-900 font-bold pl-2">Learning Plan Updated Successfully!</div>
+                </div>
+                <button
+                  type="button"
+                  aria-label="Dismiss"
+                  className=""
+                  onClick={handleClose}
+                >
+                  <XMarkIcon class='w-6 h-6 text-green-900' />
+                </button>
+              </div>
+              <div className="text-green-900 text-medium">
+                  Your personalized development plan has been updated and is ready to guide your career growth.
+              </div>
+
+            </div>
+          ) : (
+            <></>
+          )}
 
           <div className='w-full flex flex-row items-center justify-end pb-4 pr-1'>
             <button

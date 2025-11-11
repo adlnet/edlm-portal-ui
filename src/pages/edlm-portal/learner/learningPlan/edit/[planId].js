@@ -155,7 +155,7 @@ function EditPlanContent() {
       });
 
       if (success) {
-        router.push(`/edlm-portal/learner/learningPlan/${planId}`);
+        router.push(`/edlm-portal/learner/learningPlan/${planId}?updated=1`);
       } else {
           console.error('Failed to save plan');
           setErrorMessage('An error occurred while saving your progress. Please try again.');
@@ -353,6 +353,7 @@ function EditPlanContent() {
               {/* Cancel and Continue Buttons */}
               <div className='flex flex-row justify-end pt-8 items-center'>
                 <button 
+                  data-testid="cancel-button"
                   className='flex justify-center text-blue-700 hover:text-blue-300 pr-6' 
                   onClick={() =>{router.push(`/edlm-portal/learner/learningPlan/${planId}`)}}
                 >

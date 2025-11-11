@@ -2,144 +2,106 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import DevelopmentGoal from '@/components/cards/DevelopmentGoal';
 import React from 'react';
 
-const sampleGoal = {
-  name: 'Improve Communication',
-  desc: 'Become more effective in team meetings and presentations.',
-  timeline: 'Q1 2026',
-  priority: 'Highest',
-  ksaList: [
+const sampleCompetency = {
+  name: 'Teamwork',
+  priority: 'High',
+  goals: [
     {
-      title: 'Presentation Skills',
-      desc: 'Ability to deliver structured presentations.',
-      currLvl: 'Intermediate',
-      targetLvl: 'Advanced'
-    },
-    {
-      title: 'Active Listening',
-      desc: 'Listen effectively during meetings.',
-      currLvl: 'Beginner',
-      targetLvl: 'Mastery'
+      id: 'goal1',
+      desc: 'Improve communication with peers',
+      timeline: 'Q1 2025',
+      ksaList: [
+        {
+          id: 'ksa1',
+          title: 'Collaboration',
+          desc: 'Work effectively with others',
+          currLvl: 'Beginner',
+          targetLvl: 'Advanced',
+        },
+      ],
+      resources: ['Weekly team sync'],
+      obstacles: ['Remote work barriers'],
+      courseList: [
+        { id: 'c1', title: 'Effective Communication' },
+        { id: 'c2', title: 'Conflict Resolution' },
+      ],
     },
   ],
-  resources: ['Toastmasters', 'Manager feedback'],
-  obstacles: ['Nerves', 'Time constraints'],
-  courseList: [
-    {id: 1, title: 'test course'},
-    {id: 1, title: 'test course'}
-  ]
 };
 
-const sampleGoal2 = {
-  name: '',
-  desc: '',
-  timeline: '',
-  priority: 'High',
-  ksaList: [],
-  resources: [],
-  obstacles: [],
-  courseList: [],
-};
-
-const sampleGoal3 = {
-  name: '',
-  desc: '',
-  timeline: '',
-  priority: 'Medium',
-  ksaList: [],
-  resources: [],
-  obstacles: [],
-  courseList: [],
-};
-
-const sampleGoal4 = {
-  name: '',
-  desc: '',
-  timeline: '',
-  priority: 'Low',
-  ksaList: [],
-  resources: [],
-  obstacles: [],
-  courseList: [],
-};
-
-const sampleGoal5 = {
-  name: '',
-  desc: '',
-  timeline: '',
-  priority: 'Lowest',
-  ksaList: [],
-  resources: [],
-  obstacles: [],
-  courseList: [],
-};
-
-const sampleGoalFail = {
-  name: '',
-  desc: '',
-  timeline: '',
-  priority: 'N/A',
-  ksaList: [],
-  resources: [],
-  obstacles: [],
-  courseList: [],
-};
-
-describe('DevelopmentGoal', () => {
-  it('renders the goal name and description', () => {
-    render(<DevelopmentGoal goal={sampleGoal} initiallyOpen={true}/>);
-    expect(screen.getByText('Improve Communication')).toBeInTheDocument();
-    expect(screen.getByText('Become more effective in team meetings and presentations.')).toBeInTheDocument();
-    expect(screen.getByText('Q1 2026')).toBeInTheDocument();
+describe('DevelopmentGoal Component', () => {
+  it('renders the competency name', () => {
+    render(<DevelopmentGoal competency={sampleCompetency} />);
+    expect(screen.getByText('Teamwork')).toBeInTheDocument();
   });
 
-  it('displays all KSA items correctly', () => {
-    render(<DevelopmentGoal goal={sampleGoal} initiallyOpen={true}/>);
-    expect(screen.getByText('Presentation Skills')).toBeInTheDocument();
-    expect(screen.getByText('Ability to deliver structured presentations.')).toBeInTheDocument();
-    expect(screen.getByText('Intermediate')).toBeInTheDocument();
-    expect(screen.getByText('Advanced')).toBeInTheDocument();
-
-    expect(screen.getByText('Active Listening')).toBeInTheDocument();
-    expect(screen.getByText('Listen effectively during meetings.')).toBeInTheDocument();
-    expect(screen.getByText('Beginner')).toBeInTheDocument();
-    expect(screen.getByText('Mastery')).toBeInTheDocument();
-  });
-
-  it('lists all resources and obstacles', () => {
-    render(<DevelopmentGoal goal={sampleGoal} initiallyOpen={true}/>);
-    expect(screen.getByText('Toastmasters')).toBeInTheDocument();
-    expect(screen.getByText('Manager feedback')).toBeInTheDocument();
-    expect(screen.getByText('Nerves')).toBeInTheDocument();
-    expect(screen.getByText('Time constraints')).toBeInTheDocument();
-  });
-
-  it('toggles details section when button is clicked', () => {
-    render(<DevelopmentGoal goal={sampleGoal} initiallyOpen={true}/>);
-    expect(screen.getByText('Goal')).toBeInTheDocument();
-
-    const toggleButton = screen.getByTestId('toggle-button');
-    fireEvent.click(toggleButton);
-
-    expect(screen.queryByText('Goal')).not.toBeInTheDocument();
-
-    // Clicking again re-opens details
-    fireEvent.click(toggleButton);
-    expect(screen.getByText('Goal')).toBeInTheDocument();
-  });
-
-  it('Goes through all priorities', () => {
-    render(<DevelopmentGoal goal={sampleGoal} />);
-    render(<DevelopmentGoal goal={sampleGoal2} />);
-    render(<DevelopmentGoal goal={sampleGoal3} />);
-    render(<DevelopmentGoal goal={sampleGoal4} />);
-    render(<DevelopmentGoal goal={sampleGoal5} />);
-    render(<DevelopmentGoal goal={sampleGoalFail} />);
-
-    expect(screen.getByTestId('priority-highest')).toBeInTheDocument();
+  it('renders the correct priority icon', () => {
+    render(<DevelopmentGoal competency={{ ...sampleCompetency, priority: 'High' }} />);
     expect(screen.getByTestId('priority-high')).toBeInTheDocument();
-    expect(screen.getByTestId('priority-medium')).toBeInTheDocument();
-    expect(screen.getByTestId('priority-low')).toBeInTheDocument();
-    expect(screen.getByTestId('priority-lowest')).toBeInTheDocument();
+  });
 
+  it('renders the goal description and timeline', () => {
+    render(<DevelopmentGoal competency={sampleCompetency} />);
+    expect(screen.getByText('Improve communication with peers')).toBeInTheDocument();
+    expect(screen.getByText('Q1 2025')).toBeInTheDocument();
+  });
+
+  it('renders the KSA fields', () => {
+    render(<DevelopmentGoal competency={sampleCompetency} />);
+    expect(screen.getByText('Collaboration')).toBeInTheDocument();
+    expect(screen.getByText('Work effectively with others')).toBeInTheDocument();
+    expect(screen.getByText('Beginner')).toBeInTheDocument();
+    expect(screen.getByText('Advanced')).toBeInTheDocument();
+  });
+
+  it('renders the resources and obstacles', () => {
+    render(<DevelopmentGoal competency={sampleCompetency} />);
+    expect(screen.getByText('Weekly team sync')).toBeInTheDocument();
+    expect(screen.getByText('Remote work barriers')).toBeInTheDocument();
+  });
+
+  it('renders the linked courses as buttons', () => {
+    render(<DevelopmentGoal competency={sampleCompetency} />);
+    expect(screen.getByText('Effective Communication')).toBeInTheDocument();
+    expect(screen.getByText('Conflict Resolution')).toBeInTheDocument();
+  });
+
+  it('toggles goal details when button clicked', () => {
+    render(<DevelopmentGoal competency={sampleCompetency} />);
+    const toggleButton = screen.getByTestId('toggle-button');
+
+    // Details are open by default
+    expect(screen.getByText('Improve communication with peers')).toBeInTheDocument();
+
+    // Click to close
+    fireEvent.click(toggleButton);
+    expect(screen.queryByText('Improve communication with peers')).not.toBeInTheDocument();
+
+    // Click to open again
+    fireEvent.click(toggleButton);
+    expect(screen.getByText('Improve communication with peers')).toBeInTheDocument();
+  });
+
+  it('panel is closed by default when initiallyOpen is false', () => {
+    render(<DevelopmentGoal competency={sampleCompetency} initiallyOpen={false} />);
+    expect(screen.queryByText('Improve communication with peers')).not.toBeInTheDocument();
+
+    // Open it
+    fireEvent.click(screen.getByTestId('toggle-button'));
+    expect(screen.getByText('Improve communication with peers')).toBeInTheDocument();
+  });
+
+  it('renders correct icon for each priority', () => {
+    const priorities = [
+      { label: 'Lowest', testId: 'priority-lowest' },
+      { label: 'Low', testId: 'priority-low' },
+      { label: 'Medium', testId: 'priority-medium' },
+      { label: 'High', testId: 'priority-high' },
+      { label: 'Highest', testId: 'priority-highest' },
+    ];
+    priorities.forEach(({ label, testId }) => {
+      render(<DevelopmentGoal competency={{ ...sampleCompetency, priority: label }} />);
+      expect(screen.getByTestId(testId)).toBeInTheDocument();
+    });
   });
 });

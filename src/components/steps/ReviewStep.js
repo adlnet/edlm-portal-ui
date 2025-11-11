@@ -14,6 +14,7 @@ export function ReviewStep({ planName, timeframe, goals, competencyGoals, showSu
 
     for (const competency of selectedCompetencies) {
         const goalInfo = goals.find(goal => goal.competency === competency);
+        
         // if competency id doesnt exisit, create a new one
         if (!reformattedCompetency[competency]) {
             reformattedCompetency[competency] = {
