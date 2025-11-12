@@ -89,6 +89,7 @@ jest.mock("@heroicons/react/24/outline", () => ({
 }));
 jest.mock("next/image", () => {
   const MockImage = (props) => (
+    // eslint-disable-next-line @next/next/no-img-element
     <img data-testid="image" alt="" {...props} />
   );
   MockImage.displayName = 'MockNextImage';

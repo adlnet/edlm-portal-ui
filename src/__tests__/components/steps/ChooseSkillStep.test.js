@@ -60,6 +60,7 @@ jest.mock('@/components/cards/SuccessMessageToast', () => {
   return SuccessMessageToast;
 });
 jest.mock('next/image', () => {
+  // eslint-disable-next-line @next/next/no-img-element
   const Image = (props) => <img alt={props.alt} {...props} />;
   Image.displayName = 'Image';
   return Image;

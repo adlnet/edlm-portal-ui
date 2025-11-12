@@ -69,6 +69,7 @@ jest.mock('flowbite-react', () => ({
   Button: (props) => <button {...props}>{props.children}</button>,
 }));
 jest.mock('next/image', () => {
+  // eslint-disable-next-line @next/next/no-img-element
   const MockImage = (props) => <img alt={props.alt} />;
   MockImage.displayName = 'MockImage';
   return MockImage;
