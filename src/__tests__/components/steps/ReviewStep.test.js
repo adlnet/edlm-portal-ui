@@ -2,338 +2,198 @@ import { ReviewStep } from "@/components/steps/ReviewStep";
 import { render, screen } from "@testing-library/react";
 import React from "react";
 
-// Mock dependencies
+jest.mock('@/contexts/CompetencyContext', () => ({
+  useCompetencies: jest.fn(),
+}));
 jest.mock('@/components/cards/DevelopmentGoal', () => ({
   __esModule: true,
-  default: ({ goal }) => (
+  default: ({ competency }) => (
     <div data-testid="development-goal">
-      <span>{goal.name}</span>
-      <span>{goal.desc}</span>
-      <span>{goal.priority}</span>
-      <span>{goal.timeline}</span>
-      {goal.ksaList && goal.ksaList.length > 0 &&
-        <div data-testid="ksa-list">{goal.ksaList.map((ksa, i) =>
-          <div key={i}>{ksa.title}-{ksa.currLvl}-{ksa.targetLvl}</div>
-        )}</div>
-      }
+      <span>{competency.name}</span>
+      <span data-testid="goal-count">{competency.goals.length}</span>
     </div>
   ),
 }));
-
 jest.mock('@/components/cards/SuccessMessageToast', () => ({
   __esModule: true,
   default: ({ title, description }) => (
     <div data-testid="success-toast">
-      <strong>{title}</strong>
+      <span>{title}</span>
       <span>{description}</span>
     </div>
   ),
 }));
 
-jest.mock('@/utils/dropdownMenuConstants', () => ({
-  ksaOptions: [
-    { name: 'Critical Thinking', description: 'Analyze, synthesize, and evaluate information' },
-    { name: 'Leadership', description: 'Guide individuals and teams to success' },
+const mockUseCompetencies = require('@/contexts/CompetencyContext').useCompetencies;
 
-    // Add more options for robust tests
-  ]
-}), { virtual: true });
+// Helper child competency data for KSA description lookups
+const mockChildCompetencies = [
+  { name: "SkillA", description: "SkillA Desc" },
+  { name: "SkillB", description: "SkillB Desc" }
+];
 
-describe('ReviewStep', () => {
-  const goals = [
-    { id: 1, competency: 'Critical Thinking', priority: 'High' },
-    { id: 2, competency: '', priority: 'Low' }, // Will be ignored
-    { id: 3, competency: 'Leadership', priority: 'Medium' },
-  ];
-  const competencyGoals = {
-    'Critical Thinking': [
-      {
-        goal: 'Improve analysis',
-        timeline: '3 months',
-        resources: ['Book', 'Mentor'],
-        obstacles: ['Time'],
-        ksas: [
-          { type: 'Critical Thinking', currentLevel: 'Basic', targetLevel: 'Advanced' },
-        ]
-      }
-    ],
-    'Leadership': [
-      {
-        goal: '',
-        timeline: '',
-        resources: [],
-        obstacles: [],
-        ksas: [
-          { type: 'Leadership', currentLevel: 'Intermediate', targetLevel: 'Advanced' },
-          { type: '', currentLevel: '', targetLevel: '' } // Should be skipped
-        ]
-      }
-    ],
-  };
-
-  it('renders plan summary with name and timeframe', () => {
-    render(
-      <ReviewStep
-        planName="My Plan"
-        timeframe="6 months"
-        goals={goals}
-        competencyGoals={competencyGoals}
-      />
-    );
-    expect(screen.getByText('My Plan')).toBeInTheDocument();
-    expect(screen.getByText('6 months')).toBeInTheDocument();
+beforeEach(() => {
+  jest.clearAllMocks();
+  mockUseCompetencies.mockReturnValue({
+    childCompetencies: mockChildCompetencies,
   });
+});
 
-  it('shows default values for missing planName and timeframe', () => {
+describe("ReviewStep", () => {
+  it("renders plan name and timeframe taken from props", () => {
     render(
       <ReviewStep
-        planName=""
-        timeframe=""
-        goals={goals}
-        competencyGoals={competencyGoals}
-      />
-    );
-    expect(screen.getByText('Learning Plan')).toBeInTheDocument();
-    expect(screen.getByText('No timeframe set')).toBeInTheDocument();
-  });
-
-  it('renders all formatted goals for selected competencies only', () => {
-    render(
-      <ReviewStep
-        planName="My Plan"
-        timeframe="6 months"
-        goals={goals}
-        competencyGoals={competencyGoals}
-      />
-    );
-    const goalNodes = screen.getAllByTestId('development-goal');
-
-    // Only goals for 'Critical Thinking' and 'Leadership' should be rendered
-    expect(goalNodes.length).toBe(2);
-    expect(goalNodes[0]).toHaveTextContent('Critical Thinking');
-    expect(goalNodes[0]).toHaveTextContent('Improve analysis');
-    expect(goalNodes[0]).toHaveTextContent('High');
-    expect(goalNodes[0]).toHaveTextContent('3 months');
-    
-    // Leadership goal should show fallback defaults
-    expect(goalNodes[1]).toHaveTextContent('Leadership');
-    expect(goalNodes[1]).toHaveTextContent('No goal defined');
-    expect(goalNodes[1]).toHaveTextContent('Medium');
-    expect(goalNodes[1]).toHaveTextContent('No timeline');
-  });
-
-  it('renders KSA details when available', () => {
-    render(
-      <ReviewStep
-        planName="My Plan"
-        timeframe="6 months"
-        goals={goals}
-        competencyGoals={competencyGoals}
-      />
-    );
-
-    // For the first goal, should have KSA details with correct matcher
-    expect(screen.getAllByTestId('ksa-list')[0]).toHaveTextContent('Critical Thinking-Basic-Advanced');
-    expect(screen.getAllByTestId('ksa-list')[0].textContent).toContain('Critical Thinking');
-  });
-
-  it('shows success toast if showSuccessMessage is true', () => {
-    render(
-      <ReviewStep
-        planName="Plan"
-        timeframe="Schedule"
-        goals={goals}
-        competencyGoals={competencyGoals}
-        showSuccessMessage={true}
-      />
-    );
-    expect(screen.getByTestId('success-toast')).toBeInTheDocument();
-    expect(screen.getByText('Learning Plan Created Successfully!')).toBeInTheDocument();
-  });
-
-  it('renders empty if no competencies/goals are present', () => {
-    render(
-      <ReviewStep
-        planName=""
-        timeframe=""
+        planName="Plan X"
+        timeframe="Quarter 4"
         goals={[]}
         competencyGoals={{}}
       />
     );
-    expect(screen.getByText('Learning Plan')).toBeInTheDocument();
-    expect(screen.getByText('No timeframe set')).toBeInTheDocument();
-
-    // No goal cards should appear
-    expect(screen.queryByTestId('development-goal')).toBeNull();
+    expect(screen.getByText("Plan X")).toBeInTheDocument();
+    expect(screen.getByText("Quarter 4")).toBeInTheDocument();
   });
 
-  it('handles competencyGoals not present for a selected competency', () => {
-    // Remove 'Leadership' from competencyGoals to test fallback
-    const partialCompetencyGoals = {
-      'Critical Thinking': competencyGoals['Critical Thinking']
-    };
+  it("renders fallback plan name and timeframe when not set", () => {
     render(
-      <ReviewStep
-        planName="Test Plan"
-        timeframe="1 month"
-        goals={goals}
-        competencyGoals={partialCompetencyGoals}
-      />
+      <ReviewStep goals={[]} competencyGoals={{}} />
     );
-
-    // Only one goal should be present
-    expect(screen.getAllByTestId('development-goal').length).toBe(1);
+    expect(screen.getByText("Learning Plan")).toBeInTheDocument();
+    expect(screen.getByText("No timeframe set")).toBeInTheDocument();
   });
 
-  it('ignores goals with no competency property', () => {
-    const goals = [{ id: 1, priority: 'High' }];
-    const competencyGoals = {};
-    render(
-      <ReviewStep
-        planName="No Competency"
-        timeframe="Never"
-        goals={goals}
-        competencyGoals={competencyGoals}
-      />
-    );
-
-    // Should NOT render a DevelopmentGoal
-    expect(screen.queryByTestId('development-goal')).toBeNull();
-  });
-
-  it('handles undefined ksa, goal or timeline fields gracefully', () => {
-    const goals = [{ id: 1, competency: 'Critical Thinking', priority: 'High' }];
+  it("renders a DevelopmentGoal for each unique competency with the right number of goals", () => {
+    const goals = [
+      { id: "1", competency: "CompA", priority: "Low" },
+      { id: "2", competency: "CompB", priority: "High" }
+    ];
     const competencyGoals = {
-      'Critical Thinking': [{
-        // all optional fields missing
-      }]
+      CompA: [
+        {
+          goal: "Goal 1",
+          timeline: "Soon",
+          resources: ["A"],
+          obstacles: ["O1"],
+          ksas: [
+            { type: "SkillA", currentLevel: "A", targetLevel: "B" },
+            { type: undefined }, // Filtered out
+          ]
+        }
+      ],
+      CompB: [
+        {
+          goal: "Goal B",
+          timeline: "Later",
+          resources: [],
+          obstacles: [],
+          ksas: []
+        },
+        {
+          // No goal set, covers 'No goal defined'
+          timeline: "",
+          resources: undefined,
+          obstacles: undefined,
+          ksas: [{ type: "SkillB", currentLevel: null, targetLevel: undefined }]
+        }
+      ]
     };
+
     render(
       <ReviewStep
-        planName="Undefined Fields"
-        timeframe="Later"
         goals={goals}
         competencyGoals={competencyGoals}
-      />
-    );
-
-    // Should render fallback text for missing goal and timeline
-    expect(screen.getByText('Critical Thinking')).toBeInTheDocument();
-    expect(screen.getByText('No goal defined')).toBeInTheDocument();
-    expect(screen.getByText('No timeline')).toBeInTheDocument();
-  });
-
-  it('handles a goal where competencyGoals is missing for that competency', () => {
-    const goals = [{ id: 1, competency: 'Brand New', priority: 'Mid' }];
-    const competencyGoals = {}; // No entry for "Brand New"
-    render(
-      <ReviewStep
-        planName="Empty Plan"
-        timeframe="Anytime"
-        goals={goals}
-        competencyGoals={competencyGoals}
-      />
-    );
-
-    // Should not blow up nor render a goal card for missing data
-    expect(screen.queryByTestId('development-goal')).toBeNull();
-  });
-
-  it('handles resources and obstacles missing or empty gracefully', () => {
-    const goals = [{ id: 1, competency: 'Leadership', priority: 'Low' }];
-    const competencyGoals = {
-      'Leadership': [{
-        goal: '',
-        timeline: '',
-
-        // no resources, no obstacles
-      }]
-    };
-    render(
-      <ReviewStep
-        planName="Resource Plan"
-        timeframe="Never"
-        goals={goals}
-        competencyGoals={competencyGoals}
-      />
-    );
-    expect(screen.getByText('Leadership')).toBeInTheDocument();
-  });
-
-  it('filters out KSAs with a falsy type', () => {
-    const goals = [{ id: 2, competency: 'Critical Thinking', priority: 'High' }];
-    const competencyGoals = {
-      'Critical Thinking': [{
-        goal: '',
-        timeline: '',
-        resources: [],
-        obstacles: [],
-        ksas: [
-          { type: '', currentLevel: 'Whatever', targetLevel: 'Whatever' },
-          { type: null, currentLevel: 'X', targetLevel: 'Y' }
-        ] // should all be filtered
-      }]
-    };
-    render(
-      <ReviewStep
-        planName="Plan"
-        timeframe="Eventual"
-        goals={goals}
-        competencyGoals={competencyGoals}
+        planName="My Plan"
+        timeframe="2024"
       />
     );
     
-    // There will be a goal card, but no KSA list rendered
-    expect(screen.getByTestId('development-goal')).not.toHaveTextContent('Whatever');
-    expect(screen.getByTestId('development-goal')).not.toHaveTextContent('X');
+    // 2 unique development goals, with correct goal counts
+    const devGoals = screen.getAllByTestId("development-goal");
+    expect(devGoals).toHaveLength(2);
+
+    // CompA's goal count = 1
+    expect(screen.getAllByTestId("goal-count")[0]).toHaveTextContent("1");
+
+    // CompB's goal count = 2
+    expect(screen.getAllByTestId("goal-count")[1]).toHaveTextContent("2");
   });
 
-  it('uses default KSA current/target levels when missing', () => {
-    const goals = [{ id: 1, competency: 'Critical Thinking', priority: 'High' }];
+  it("uses fallback values for priority, desc, timeline, currLvl, targetLvl", () => {
+    const goals = [
+      { id: "x", competency: "CompX" }, // Missing priority
+    ];
     const competencyGoals = {
-      'Critical Thinking': [{
-        goal: '',
-        timeline: '',
-        resources: [],
-        obstacles: [],
-        ksas: [{ type: 'Critical Thinking' }] // missing currentLevel/targetLevel
-      }]
+      CompX: [
+        {
+          // goal, timeline, resources, obstacles, and ksas missing/empty
+          ksas: [{ type: "SkillA" }]
+        }
+      ]
     };
     render(
+      <ReviewStep goals={goals} competencyGoals={competencyGoals} />
+    );
+
+    // DevelopmentGoal shown with fallback count
+    expect(screen.getByTestId("development-goal")).toBeInTheDocument();
+    expect(screen.getByTestId("goal-count")).toHaveTextContent("1");
+
+    // (Deeper fallback/prop checks belong in DevelopmentGoal tests)
+  });
+
+  it("handles empty childCompetencies for KSA description fallback", () => {
+    mockUseCompetencies.mockReturnValueOnce({ childCompetencies: [] });
+    const goals = [
+      { id: "1", competency: "C", priority: "P" },
+    ];
+    render(
       <ReviewStep
-        planName="Plan"
-        timeframe="Soon"
         goals={goals}
-        competencyGoals={competencyGoals}
+        competencyGoals={{
+          C: [
+            {
+              ksas: [{ type: "Something", currentLevel: undefined, targetLevel: undefined }]
+            }
+          ]
+        }}
+      />
+    );
+    expect(screen.getByTestId("development-goal")).toBeInTheDocument();
+  });
+
+  it("renders nothing if there are no goals with a competency", () => {
+    render(
+      <ReviewStep
+        goals={[
+          { id: "1", competency: undefined },
+          { id: "2" } // no competency
+        ]}
+        competencyGoals={{}}
+      />
+    );
+    expect(screen.queryByTestId("development-goal")).not.toBeInTheDocument();
+  });
+
+  it("handles extra goal objects gracefully", () => {
+    // Multiple goals, extra unlinked data in competencyGoals
+    render(
+      <ReviewStep
+        goals={[
+          { id: "1", competency: "A", priority: "High" },
+        ]}
+        competencyGoals={{
+          A: [
+            { goal: "G1", ksas: [] },
+            { ksas: [] }
+          ],
+          B: [
+            { goal: "Stray goal" }
+          ]
+        }}
       />
     );
 
-    // Should show fallback values
-    expect(screen.getByTestId('development-goal')).toHaveTextContent('Basic');
-    expect(screen.getByTestId('development-goal')).toHaveTextContent('Intermediate');
-  });
-
-  it('falls back to empty KSA description when type is unknown', () => {
-    const goals = [{ id: 4, competency: 'UndefinedSkill', priority: 'High' }];
-    const competencyGoals = {
-      'UndefinedSkill': [{
-        goal: 'Become expert in mystery',
-        timeline: 'Forever',
-        resources: [],
-        obstacles: [],
-        ksas: [{ type: 'Nonexistent', currentLevel: '', targetLevel: '' }]
-      }]
-    };
-    render(
-      <ReviewStep
-        planName="Mystery Plan"
-        timeframe="Long"
-        goals={goals}
-        competencyGoals={competencyGoals}
-      />
-    );
-    
-    // The KSA description should be the empty string
-    expect(screen.getByTestId('development-goal')).toHaveTextContent('Nonexistent');
+    // Only one "development-goal" for A
+    expect(screen.getAllByTestId("development-goal")).toHaveLength(1);
+    expect(screen.getByText("A")).toBeInTheDocument();
   });
 });

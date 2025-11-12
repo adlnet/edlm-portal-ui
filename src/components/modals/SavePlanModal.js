@@ -84,6 +84,7 @@ const Modal = ({ open, onClose, title, courseId, selectedPlan, setSelectedPlan, 
                 className="flex px-3 py-2 my-2 text-center items-center rounded-md bg-blue-900 text-white text-md hover:bg-blue-700 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
                 disabled={checkedGoals.length === 0}
                 onClick={handleSaveToGoals}
+                data-testid="save-goal-btn"
               >
                 {checkedGoals.length > 0 ? ( 
                   <span>Save to ({checkedGoals.length}) Goals</span>

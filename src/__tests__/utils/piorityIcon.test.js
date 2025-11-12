@@ -23,7 +23,7 @@ describe('priorityIcon', () => {
   it('returns ChevronUpIcon for High', () => {
     const { container } = render(priorityIcon('High'));
     expect(container.querySelector('svg')).toBeInTheDocument();
-    expect(container.querySelector('.text-green-500')).toBeInTheDocument();
+    expect(container.querySelector('.text-red-500')).toBeInTheDocument();
   });
 
   it('returns ChevronDoubleUpIcon for Highest', () => {

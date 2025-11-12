@@ -4,7 +4,7 @@ import { Button } from 'flowbite-react';
 import { ChevronRightIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { ChooseSkillsStep } from '@/components/steps/ChooseSkillsStep';
 import { CompetencyProvider } from '@/contexts/CompetencyContext';
-import { SetGoalsStep } from '@/components/steps/SetGoalsStep';
+import { SetGoalsStepEdit } from '@/components/steps/SetGoalsStepEdit';
 import { TextInput } from 'flowbite-react';
 import { timeframeOptions } from '@/utils/dropdownMenuConstants';
 import { useDeleteLearningPlan } from '@/hooks/learningPlan/useDeleteLearningPlan';
@@ -155,7 +155,7 @@ function EditPlanContent() {
       });
 
       if (success) {
-        router.push(`/edlm-portal/learner/learningPlan/${planId}`);
+        router.push(`/edlm-portal/learner/learningPlan/${planId}?updated=1`);
       } else {
           console.error('Failed to save plan');
           setErrorMessage('An error occurred while saving your progress. Please try again.');
@@ -322,7 +322,7 @@ function EditPlanContent() {
                 </div>
               </div>
               <div className='pt-6'>
-                <SetGoalsStep
+                <SetGoalsStepEdit
                   goals={goals}
                   competencyGoals={competencyGoals}
                   setCompetencyGoals={setCompetencyGoals}
@@ -353,6 +353,7 @@ function EditPlanContent() {
               {/* Cancel and Continue Buttons */}
               <div className='flex flex-row justify-end pt-8 items-center'>
                 <button 
+                  data-testid="cancel-button"
                   className='flex justify-center text-blue-700 hover:text-blue-300 pr-6' 
                   onClick={() =>{router.push(`/edlm-portal/learner/learningPlan/${planId}`)}}
                 >

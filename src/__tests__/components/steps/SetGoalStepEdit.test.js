@@ -6,7 +6,7 @@ Object.defineProperty(global.crypto, 'randomUUID', {
   writable: true,
 });
 
-import { SetGoalsStep } from "@/components/steps/SetGoalsStep";
+import { SetGoalsStepEdit } from "@/components/steps/SetGoalsStepEdit";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import React from "react";
 
@@ -245,12 +245,12 @@ function setup(extraProps = {}) {
 
   return {
     ...props,
-    ...render(<SetGoalsStep {...props} />),
+    ...render(<SetGoalsStepEdit {...props} />),
   };
 }
 
-// ---- Tests for SetGoalsStep suite (covers all branches) -----
-describe("SetGoalsStep", () => {
+// ---- Tests for SetGoalsStepEdit suite (covers all branches) -----
+describe("SetGoalsStepEdit", () => {
   it("renders success message when showSuccessMessage is true", () => {
     setup({ showSuccessMessage: true });
     expect(screen.getByTestId("toast").textContent).toMatch(/saved/i);
@@ -258,7 +258,7 @@ describe("SetGoalsStep", () => {
 
   it("renders heading, description, and required icon", () => {
     setup();
-    expect(screen.getByText(/Set Competency Goals/i)).toBeInTheDocument();
+    expect(screen.getByText(/Skill Areas/i)).toBeInTheDocument();
     expect(screen.getAllByTestId("image")[0]).toHaveAttribute("src", "asteriskIcon.svg");
   });
 
@@ -407,7 +407,7 @@ describe("SetGoalsStep", () => {
       { id: "g2", competency: "Competency 2", priority: 1 },
     ];
     render(
-      <SetGoalsStep
+      <SetGoalsStepEdit
         goals={goals}
         competencyGoals={{ 'Competency 1': [] }}
         setCompetencyGoals={setCompetencyGoals}

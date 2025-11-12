@@ -100,7 +100,7 @@ function LearningPlanContent() {
 
           {activePlans > 0  && activeIndex == 0 && (
             <div className='text-right pr-4'>
-              <button className="text-blue-600 text-lg" 
+              <button className="text-blue-600 hover:text-blue-300 text-lg" 
                       onClick={() => {router.push('/edlm-portal/learner/learningPlan/developmentPlan')}}
               >
                 + Create New Plan
