@@ -56,6 +56,48 @@ function EditPlanContent() {
 
   const { getTimelineOptions } = useLearningPlanValidation(formState);
 
+  const transformKsaData = (ksa) => ({
+    id: ksa.id,
+    type: ksa.ksa_name,
+    ksaId: ksa.eccr_ksa,
+    currentLevel: ksa.current_proficiency,
+    targetLevel: ksa.target_proficiency,
+    originalId: ksa.id
+  });
+
+  const transformGoalData = (goal) => ({
+    id: goal.id,
+    goal: goal.goal_name,
+    timeline: goal.timeline,
+    resources: goal.resources_support || [],
+    obstacles: goal.obstacles || [],
+    resourcesOther: goal.resources_support_other || '',
+    obstaclesOther: goal.obstacles_other || '',
+    originalId: goal.id,
+    ksas: goal.ksas?.map(transformKsaData) || []
+  });
+
+  const transformKsaForSave = (ksa) => ({
+    id: ksa.originalId || ksa.id,
+    type: ksa.type,
+    ksaId: ksa.ksaId,
+    currentLevel: ksa.currentLevel,
+    targetLevel: ksa.targetLevel,
+    isNew: !ksa.originalId
+  });
+
+  const transformGoalForSave = (compGoal) => ({
+    id: compGoal.originalId || compGoal.id,
+    goal: compGoal.goal,
+    timeline: compGoal.timeline,
+    resources: compGoal.resources,
+    obstacles: compGoal.obstacles,
+    resourcesOther: compGoal.resourcesOther,
+    obstaclesOther: compGoal.obstaclesOther,
+    isNew: !compGoal.originalId,
+    ksas: compGoal.ksas?.map(transformKsaForSave) || []
+  });
+
   useEffect(() => {
     if (plan && !isInitialized) {
       setPlanName(plan.name);
@@ -73,24 +115,8 @@ function EditPlanContent() {
       // goals and KSAs
       const transformedCompetencyGoals = {};
       plan.competencies?.forEach(comp => {
-        transformedCompetencyGoals[comp.plan_competency_name] = comp.goals?.map(goal => ({
-          id: goal.id,
-          goal: goal.goal_name,
-          timeline: goal.timeline,
-          resources: goal.resources_support || [],
-          obstacles: goal.obstacles || [],
-          resourcesOther: goal.resources_support_other || '',
-          obstaclesOther: goal.obstacles_other || '',
-          originalId: goal.id,
-          ksas: goal.ksas?.map(ksa => ({
-            id: ksa.id,
-            type: ksa.ksa_name,
-            ksaId: ksa.eccr_ksa,
-            currentLevel: ksa.current_proficiency,
-            targetLevel: ksa.target_proficiency,
-            originalId: ksa.id
-          })) || []
-        })) || [];
+        const goals = comp.goals?.map(transformGoalData) || [];
+        transformedCompetencyGoals[comp.plan_competency_name] = goals;
       });
 
       setGoals(transformedGoals);
@@ -103,30 +129,15 @@ function EditPlanContent() {
     try {
         const competenciesData = goals.map(goal => {
             const competencyGoalsList = competencyGoals[goal.competency] || [];
+            const transformedGoals = competencyGoalsList.map(transformGoalForSave);
+            
             return {
                 id: goal.originalId || goal.id,
                 name: goal.competency,
                 competencyId: goal.competencyId,
                 priority: goal.priority,
                 isNew: !goal.originalId,
-                goals: competencyGoalsList.map(compGoal => ({
-                    id: compGoal.originalId || compGoal.id,
-                    goal: compGoal.goal,
-                    timeline: compGoal.timeline,
-                    resources: compGoal.resources,
-                    obstacles: compGoal.obstacles,
-                    resourcesOther: compGoal.resourcesOther,
-                    obstaclesOther: compGoal.obstaclesOther,
-                    isNew: !compGoal.originalId,
-                    ksas: compGoal.ksas?.map(ksa => ({
-                        id: ksa.originalId || ksa.id,
-                        type: ksa.type,
-                        ksaId: ksa.ksaId,
-                        currentLevel: ksa.currentLevel,
-                        targetLevel: ksa.targetLevel,
-                        isNew: !ksa.originalId
-                    })) || []
-                }))
+                goals: transformedGoals
             };
         });
 

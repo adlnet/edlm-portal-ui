@@ -19,7 +19,6 @@ export default function Plan () {
   const [showSuccess, setShowSuccess] = React.useState(router.query.updated === '1');
 
   const handleClose = () => {
-    // Option 1: Hide immediately, then clean URL
     setShowSuccess(false);
 
     // Remove the ?updated param (and any other queries are preserved)
@@ -37,29 +36,91 @@ export default function Plan () {
 
   const { data: plan, error} = useLearningPlan(planId);
 
+  const getKsaReferences = goal => {
+    const ksas = goal.ksas || [];
+    const eccrKsas = ksas.map(ksa => ksa.eccr_ksa);
+    return eccrKsas.filter(Boolean);
+  };
+
+  const getGoalKsaReferences = goals => {
+    return goals.flatMap(getKsaReferences);
+  };
+  
   // Get all ECCR references (both competencies and KSAs) from the plan
   const eccrReference = useMemo(() => {
     if (!plan?.competencies) return [];
     const refs = [];
+    
     plan.competencies.forEach(competency => {
-      // Add competency ECCR reference
       if (competency.eccr_competency) {
         refs.push(competency.eccr_competency);
       }
 
       // Add KSA ECCR references
-      competency.goals?.forEach(goal => {
-        goal.ksas?.forEach(ksa => {
-          if (ksa.eccr_ksa) {
-            refs.push(ksa.eccr_ksa);
-          }
-        });
-      });
+      const goals = competency.goals || [];
+      const ksaRefs = getGoalKsaReferences(goals);
+      refs.push(...ksaRefs);
     });
-    return refs
+    
+    return refs;
   }, [plan]);
 
   const { data: descriptions } = useMultipleCompAndKsaDesc(eccrReference);
+
+  const transformKsa = (ksa, descriptions) => {
+    const ksaData = descriptions?.find(item => item.id === ksa.eccr_ksa);
+    return {
+      title: ksa.ksa_name,
+      desc: ksaData?.description || '',
+      currLvl: ksa.current_proficiency,
+      targetLvl: ksa.target_proficiency,
+    };
+  };
+
+  const transformGoal = (goal, competency, descriptions) => ({
+    id: goal.id,
+    desc: goal.goal_name,
+    priority: competency.priority,
+    timeline: goal.timeline,
+    resources: goal.resources_support || [],
+    obstacles: goal.obstacles || [],
+    resourcesOther: goal.resources_support_other,
+    obstaclesOther: goal.obstacles_other,
+    ksaList: goal.ksas?.map(ksa => transformKsa(ksa, descriptions)) || [],
+    courseList: goal.courses?.map(course => ({
+      title: course.course_name,
+    })) || [],
+  });
+
+  const getOrCreateCompetency = (reformattedCompetency, competency) => {
+    if (!reformattedCompetency[competency.id]) {
+      reformattedCompetency[competency.id] = {
+        id: competency.id,
+        name: competency.plan_competency_name,
+        priority: competency.priority,
+        goals: []
+      };
+    }
+    return reformattedCompetency[competency.id];
+  };
+
+  const competenciesWithGoals = useMemo(() => {
+    if (!plan?.competencies) return [];
+    
+    const reformattedCompetency = {};
+
+    plan.competencies.forEach((competency) => {
+      const competencyObj = getOrCreateCompetency(reformattedCompetency, competency);
+      
+      const transformedGoals = competency.goals?.map(goal => 
+        transformGoal(goal, competency, descriptions)
+      ) || [];
+      
+      competencyObj.goals.push(...transformedGoals);
+    });
+    
+    return Object.values(reformattedCompetency);
+  }, [plan, descriptions]);
 
   if (!plan || error) {
     return (
@@ -72,48 +133,6 @@ export default function Plan () {
     </DefaultLayout>
     );
   }
-
-  const reformattedCompetency = {};
-
-  plan.competencies?.forEach((competency) => {
-    // if competency id doesnt exisit, create a new one
-    if (!reformattedCompetency[competency.id]) {
-      reformattedCompetency[competency.id] = {
-        id: competency.id,
-        name: competency.plan_competency_name,
-        priority: competency.priority,
-        goals: []
-      }
-    }
-
-    competency.goals?.forEach((goal) => {
-      const transformedGoal = {
-        id: goal.id,
-        desc: goal.goal_name,
-        priority: competency.priority,
-        timeline: goal.timeline,
-        resources: goal.resources_support || [],
-        obstacles: goal.obstacles || [],
-        resourcesOther: goal.resources_support_other,
-        obstaclesOther: goal.obstacles_other,
-        ksaList: goal.ksas?.map(ksa => {
-          const ksaData = descriptions?.find(item => item.id === ksa.eccr_ksa);
-          return {
-            title: ksa.ksa_name,
-            desc: ksaData?.description || '',
-            currLvl: ksa.current_proficiency,
-            targetLvl: ksa.target_proficiency,
-          };
-        }) || [],
-        courseList: goal.courses?.map(course => ({
-          title: course.course_name,
-        })) || [],
-      };
-      reformattedCompetency[competency.id].goals.push(transformedGoal);
-    });
-  });
-  
-  const competenciesWithGoals = Object.values(reformattedCompetency);
 
   return (
     <DefaultLayout>
