@@ -12,7 +12,6 @@ import { useUpdateLearningPlanCompetency } from '@/hooks/learningPlan/useUpdateL
 import { useUpdateLearningPlanGoal } from '@/hooks/learningPlan/useUpdateLearningPlanGoal';
 import { useUpdateLearningPlanGoalKsa } from '@/hooks/learningPlan/useUpdateLearningPlanGoalKsa';
 
-
 export function useUpdateBulkLearningPlan() {
     const queryClient = useQueryClient();
     const { mutateAsync: updatePlan } = useUpdateLearningPlan();
@@ -26,6 +25,94 @@ export function useUpdateBulkLearningPlan() {
     const { mutateAsync: updateKsa } = useUpdateLearningPlanGoalKsa();
     const { mutateAsync: deleteKsa } = useDeleteLearningPlanGoalKsa();
 
+    const processKsa = async (ksaData, goalId) => {
+        if (ksaData.isNew) {
+            await createKsa({
+                planGoalId: goalId,
+                ksaExternalReference: ksaData.ksaId,
+                ksaName: ksaData.type,
+                currentLevel: ksaData.currentLevel,
+                targetLevel: ksaData.targetLevel
+            });
+        } else if (ksaData.isDeleted) {
+            await deleteKsa(ksaData.id);
+        } else {
+            await updateKsa({
+                ksaId: ksaData.id,
+                ksaData: {
+                    ksaExternalReference: ksaData.ksaId,
+                    currentLevel: ksaData.currentLevel,
+                    targetLevel: ksaData.targetLevel
+                }
+            });
+        }
+    };
+
+    const processGoal = async (goalData, competencyId) => {
+        let goalId = goalData.id;
+
+        if (goalData.isNew) {
+            const newGoal = await createGoal({
+                planCompetencyId: competencyId,
+                goalName: goalData.goal,
+                timeline: goalData.timeline,
+                resources: goalData.resources || [],
+                obstacles: goalData.obstacles || [],
+                resourcesOther: goalData.resourcesOther || '',
+                obstaclesOther: goalData.obstaclesOther || ''
+            });
+            goalId = newGoal.id;
+        } else if (goalData.isDeleted) {
+            await deleteGoal(goalId);
+            return;
+        } else {
+            await updateGoal({
+                goalId,
+                goalData: {
+                    goalName: goalData.goal,
+                    timeline: goalData.timeline,
+                    resources: goalData.resources || [],
+                    obstacles: goalData.obstacles || [],
+                    resourcesOther: goalData.resourcesOther || '',
+                    obstaclesOther: goalData.obstaclesOther || ''
+                }
+            });
+        }
+
+        for (const ksaData of goalData.ksas || []) {
+            await processKsa(ksaData, goalId);
+        }
+    };
+
+    const processCompetency = async (competencyData, planId) => {
+        let competencyId = competencyData.id;
+
+        if (competencyData.isNew) {
+            const newCompetency = await createCompetency({
+                learningPlanId: planId,
+                priority: competencyData.priority,
+                competencyExternalReference: competencyData.competencyId,
+                competencyName: competencyData.name
+            });
+            competencyId = newCompetency.id;
+        } else if (competencyData.isDeleted) {
+            await deleteCompetency(competencyId);
+            return;
+        } else {
+            await updateCompetency({
+                competencyId,
+                competencyData: {
+                    competencyExternalReference: competencyData.competencyId,
+                    priority: competencyData.priority
+                }
+            });
+        }
+
+        for (const goalData of competencyData.goals || []) {
+            await processGoal(goalData, competencyId);
+        }
+    };
+
     const updateCompleteLearningPlan = async (planData) => {
         try {
             const { planId, planName, timeframe, competencies } = planData;
@@ -35,87 +122,8 @@ export function useUpdateBulkLearningPlan() {
                 planData: { planName, timeframe }
             });
 
-            // competencies
             for (const competencyData of competencies) {
-                let competencyId = competencyData.id;
-
-                if (competencyData.isNew) {
-                    const newCompetency = await createCompetency({
-                        learningPlanId: planId,
-                        priority: competencyData.priority,
-                        competencyExternalReference: competencyData.competencyId,
-                        competencyName: competencyData.name
-                    });
-                    competencyId = newCompetency.id;
-                } else if (competencyData.isDeleted) {
-                    await deleteCompetency(competencyId);
-                    continue;
-                } else {
-                    await updateCompetency({
-                        competencyId,
-                        competencyData: {
-                            competencyExternalReference: competencyData.competencyId,
-                            priority: competencyData.priority
-                        }
-                    });
-                }
-
-                // goals
-                for (const goalData of competencyData.goals || []) {
-                    let goalId = goalData.id;
-
-                    if (goalData.isNew) {
-                        const newGoal = await createGoal({
-                            planCompetencyId: competencyId,
-                            goalName: goalData.goal,
-                            timeline: goalData.timeline,
-                            resources: goalData.resources || [],
-                            obstacles: goalData.obstacles || [],
-                            resourcesOther: goalData.resourcesOther || '',
-                            obstaclesOther: goalData.obstaclesOther || ''
-                        });
-                        goalId = newGoal.id;
-                    } else if (goalData.isDeleted) {
-                        await deleteGoal(goalId);
-                        continue;
-                    } else {
-                        await updateGoal({
-                            goalId,
-                            goalData: {
-                                goalName: goalData.goal,
-                                timeline: goalData.timeline,
-                                resources: goalData.resources || [],
-                                obstacles: goalData.obstacles || [],
-                                resourcesOther: goalData.resourcesOther || '',
-                                obstaclesOther: goalData.obstaclesOther || ''
-                            }
-                        });
-                    }
-                   
-                    // KSAs
-                    for (const ksaData of goalData.ksas || []) {
-                        if (ksaData.isNew) {
-                            await createKsa({
-                                planGoalId: goalId,
-                                ksaExternalReference: ksaData.ksaId,
-                                ksaName: ksaData.type,
-                                currentLevel: ksaData.currentLevel,
-                                targetLevel: ksaData.targetLevel
-                            });
-                        } else if (ksaData.isDeleted) {
-                            await deleteKsa(ksaData.id);
-                        } else {
-                            await updateKsa({
-                                ksaId: ksaData.id,
-                                ksaData: {
-                                    ksaExternalReference: ksaData.ksaId,
-                                    currentLevel: ksaData.currentLevel,
-                                    targetLevel: ksaData.targetLevel
-                                }
-                            });
-                        }
-                    }
-                }
+                await processCompetency(competencyData, planId);
             }
 
             queryClient.invalidateQueries(['learning-plan', planId]);
