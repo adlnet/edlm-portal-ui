@@ -7,8 +7,6 @@ import { useCreateLearningPlanGoalKsa } from '@/hooks/learningPlan/useCreateLear
 import { useDeleteLearningPlanCompetency } from '@/hooks/learningPlan/useDeleteLearningPlanCompetency';
 import { useUpdateLearningPlan } from '@/hooks/learningPlan/useUpdateLearningPlan';
 import { useUpdateLearningPlanCompetency } from '@/hooks/learningPlan/useUpdateLearningPlanCompetency';
-import { useUpdateLearningPlanGoal } from '@/hooks/learningPlan/useUpdateLearningPlanGoal';
-import { useUpdateLearningPlanGoalKsa } from '@/hooks/learningPlan/useUpdateLearningPlanGoalKsa';
 
 export function useLearningPlanSave(formState) {
 
@@ -17,9 +15,7 @@ export function useLearningPlanSave(formState) {
     const { mutateAsync: createCompetency } = useCreateLearningPlanCompetency();
     const { mutateAsync: updateCompetency } = useUpdateLearningPlanCompetency();
     const { mutateAsync: createGoal } = useCreateLearningPlanGoal();
-    const { mutateAsync: updatePlanGoal } = useUpdateLearningPlanGoal();
     const { mutateAsync: createKsa } = useCreateLearningPlanGoalKsa();
-    const { mutateAsync: updateKsa } = useUpdateLearningPlanGoalKsa();
     const { mutateAsync: deleteCompetency } = useDeleteLearningPlanCompetency();
 
     const {
@@ -31,7 +27,6 @@ export function useLearningPlanSave(formState) {
         setSavedPlanId,
         competencyIds,
         setCompetencyIds,
-        nextStep,
         setCurrentStep
     } = formState;
 

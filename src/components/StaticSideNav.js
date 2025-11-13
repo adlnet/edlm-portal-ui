@@ -18,11 +18,8 @@ export default function StaticSideNav() {
 
     const router = useRouter();
 
-    // const [showLearningSummary, setShowLearningSummary] = useState(true);
     const [showCollections, setShowCollections] = useState(false);
     const [activeBtn, setActiveBtn] = useState(null);
-
-    const moodleLeaderReportUrl = process.env.NEXT_PUBLIC_MOODLE_LEADER_REPORT_URL;
 
     // Check if it is active path
     const isActivePath = path => router.pathname === path;

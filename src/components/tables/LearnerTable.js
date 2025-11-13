@@ -68,7 +68,7 @@ const LearnerTable = ({learnerData}) => {
   const clearInput = () => {
     setInput("");
     setSearch("");
-    inputRef.current && inputRef.current.focus();
+    inputRef?.current?.focus();
     setPage(1);
   };
 
@@ -116,19 +116,25 @@ const LearnerTable = ({learnerData}) => {
                 onClick={() => onSort("lastName")}
               >
                 <div className='flex flex-row items-center'>
-                  LAST NAME {sortKey === "lastName" ? (sortDir === "asc" ? 
-                  <div className='flex flex-col m-0 pl-2'> 
-                    <ChevronUpIcon className='h-5 w-5 text-gray-900'/>
-                    <ChevronDownIcon className='h-5 w-5 text-gray-400 -mt-3'/> 
-                  </div> : 
-                  <div className='flex flex-col m-0 pl-2'> 
-                    <ChevronUpIcon className='h-5 w-5 text-gray-400'/>
-                    <ChevronDownIcon className='h-5 w-5 text-gray-900 -mt-3'/> 
-                  </div>) : 
-                  <div className='flex flex-col m-0 pl-2'> 
-                    <ChevronUpIcon className='h-5 w-5 text-gray-400'/>
-                    <ChevronDownIcon className='h-5 w-5 text-gray-400 -mt-3'/> 
-                  </div>}
+                  LAST NAME 
+                  {sortKey === "lastName" && sortDir=="asc" ? (
+                    <div className='flex flex-col m-0 pl-2'> 
+                      <ChevronUpIcon className='h-5 w-5 text-gray-900'/>
+                      <ChevronDownIcon className='h-5 w-5 text-gray-400 -mt-3'/> 
+                    </div>) : <></>
+                  } 
+                  {sortKey === "lastName" && sortDir!="asc" ? (
+                    <div className='flex flex-col m-0 pl-2'> 
+                      <ChevronUpIcon className='h-5 w-5 text-gray-400'/>
+                      <ChevronDownIcon className='h-5 w-5 text-gray-900 -mt-3'/> 
+                    </div>) : <></>
+                  }
+                  {sortKey !== "lastName" ? (
+                    <div className='flex flex-col m-0 pl-2'> 
+                      <ChevronUpIcon className='h-5 w-5 text-gray-400'/>
+                      <ChevronDownIcon className='h-5 w-5 text-gray-400 -mt-3'/> 
+                    </div>) : <></>
+                  }
                 </div>
               </th>
               <th
@@ -136,19 +142,25 @@ const LearnerTable = ({learnerData}) => {
                 onClick={() => onSort("firstName")}
               >
                 <div className='flex flex-row items-center'>
-                  FIRST NAME {sortKey === "firstName" ? (sortDir === "asc" ?             
-                  <div className='flex flex-col m-0 pl-2'> 
-                    <ChevronUpIcon className='h-5 w-5 text-gray-900'/>
-                    <ChevronDownIcon className='h-5 w-5 text-gray-400 -mt-3'/> 
-                  </div> : 
-                  <div className='flex flex-col m-0 pl-2'> 
-                    <ChevronUpIcon className='h-5 w-5 text-gray-400'/>
-                    <ChevronDownIcon className='h-5 w-5 text-gray-900 -mt-3'/> 
-                  </div>) : 
-                  <div className='flex flex-col m-0 pl-2'> 
-                    <ChevronUpIcon className='h-5 w-5 text-gray-400'/>
-                    <ChevronDownIcon className='h-5 w-5 text-gray-400 -mt-3'/> 
-                  </div>}
+                  FIRST NAME
+                  {sortKey === "firstName" && sortDir=="asc" ? (
+                    <div className='flex flex-col m-0 pl-2'> 
+                      <ChevronUpIcon className='h-5 w-5 text-gray-900'/>
+                      <ChevronDownIcon className='h-5 w-5 text-gray-400 -mt-3'/> 
+                    </div>) : <></>
+                  } 
+                  {sortKey === "firstName" && sortDir!="asc" ? (
+                    <div className='flex flex-col m-0 pl-2'> 
+                      <ChevronUpIcon className='h-5 w-5 text-gray-400'/>
+                      <ChevronDownIcon className='h-5 w-5 text-gray-900 -mt-3'/> 
+                    </div>) : <></>
+                  }
+                  {sortKey !== "firstName" ? (
+                    <div className='flex flex-col m-0 pl-2'> 
+                      <ChevronUpIcon className='h-5 w-5 text-gray-400'/>
+                      <ChevronDownIcon className='h-5 w-5 text-gray-400 -mt-3'/> 
+                    </div>) : <></>
+                  }
                 </div>
               </th>
               <th className="py-4 px-4 font-medium">COURSES TAKEN</th>
@@ -158,8 +170,8 @@ const LearnerTable = ({learnerData}) => {
           </thead>
           <tbody className="text-sm">
             {paged.length > 0 ? (
-              paged.map((l, idx) => (
-                <tr key={idx} className="border-b">
+              paged.map((l) => (
+                <tr key={l.id} className="border-b">
                   <td className="py-5 px-4">{l.lastName}</td>
                   <td className="py-5 px-4">{l.firstName}</td>
                   <td className="py-5 px-4">{l.coursesTaken}</td>

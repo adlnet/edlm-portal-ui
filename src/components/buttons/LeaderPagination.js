@@ -3,33 +3,6 @@ import {ChevronLeftIcon, ChevronRightIcon} from '@heroicons/react/24/outline';
 
 import React from "react";
 
-// // Returns array of page items to render
-// function getPages(current, total) {
-//   if (total <= 4) {
-//     // Just show 1...total
-//     return Array.from({ length: total }, (_, i) => i + 1);
-//   }
-
-//   // Left-side ellipsis case: at the end
-//   if (current >= total - 2) {
-//     return [
-//       1,
-//       "...",
-//       total - 2,
-//       total - 1,
-//       total,
-//     ];
-//   }
-
-//   // When in the beginning (page 1 or 2), show [1 2 3 ... N]
-//   if (current <= 2) {
-//     return [1, 2, 3, "...", total];
-//   }
-
-//   // In the "middle"
-//   return [1, "...", current, current + 1, "...", total];
-// }
-
 /**
  * A reusable, screenshot-matching pagination for your table.
  * @param {number} currentPage
@@ -41,15 +14,16 @@ export function Pagination({ currentPage, totalPages, onPageChange }) {
   let pages = [];
   if (totalPages <= 4) {
     pages = Array.from({ length: totalPages }, (_, i) => i + 1);
-  } else {
-    // Case: first 3 pages
-    if (currentPage <= 2) {
-      pages = [1,2,3,"...", totalPages];
-    } else if (currentPage >= totalPages-2) {
-      pages = [1, "...", totalPages-2, totalPages-1, totalPages];
-    } else {
-      pages = [1, "...", currentPage, currentPage + 1, "...", totalPages];
-    }
+  } 
+  else if (currentPage <= 2){
+  // Case: first 3 pages
+    pages = [1,2,3,"...", totalPages];
+  } 
+  else if (currentPage >= totalPages-2) {
+    pages = [1, "...", totalPages-2, totalPages-1, totalPages];
+  } 
+  else {
+    pages = [1, "...", currentPage, currentPage + 1, "...", totalPages];
   }
 
   // Ensure only integers for page clicks

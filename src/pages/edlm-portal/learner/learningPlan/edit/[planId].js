@@ -26,7 +26,7 @@ function EditPlanContent() {
   const router = useRouter();
   const { planId } = router.query;
 
-  const { data: plan, isLoading: planLoading, error } = useLearningPlan(planId);
+  const { data: plan, isLoading: planLoading } = useLearningPlan(planId);
   const { updateCompleteLearningPlan, isLoading: saveLoading } = useUpdateBulkLearningPlan();
   const { mutateAsync: deletePlan } = useDeleteLearningPlan();
   const [isInitialized, setIsInitialized] = useState(false);
