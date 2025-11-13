@@ -93,13 +93,6 @@ const Modal = ({ open, onClose, title, courseId, selectedPlan, setSelectedPlan, 
                 )}
               </button>
             </>
-          ) : selectedPlan ? (
-            <button
-              className="flex px-3 py-2 my-2 mr-4 text-center items-center rounded-md bg-blue-50 text-blue-700 text-md hover:bg-blue-200 transition-colors"
-              onClick={() => setSelectedPlan(null)}
-            >
-              Back
-            </button>
           ) : (
             <button
               className="flex px-3 py-2 my-2 text-center items-center rounded-md bg-blue-50 text-blue-700 text-md hover:bg-blue-200 transition-colors"
