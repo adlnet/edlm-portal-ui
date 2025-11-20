@@ -1,19 +1,27 @@
 'use strict';
 
 import { useAuth } from '@/contexts/AuthContext';
+import { useUiConfig } from '@/hooks/useUiConfig';
 import Image from 'next/image';
 import Link from 'next/link';
 import UserMenu from '@/components/menus/UserMenu';
-import logo from '@/public/doteLogo.png';
+
+// import logo from '@/public/doteLogo.png';
 
 export default function Header() {
   const { user } = useAuth();
+  const { 
+      data: uiConfig, 
+      isLoading: isUiConfigLoading, 
+  } = useUiConfig();
+
   return (
     <header className={'bg-blue-900 w-full shadow z-50'}>
       <nav
         className={'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'}
         aria-label={'Top'}
       >
+        
         <div className='w-full py-4 inline-flex items-center justify-between z-50'>
           <div className={'flex items-center justify-start text-white text-4xl font-semibold gap-4'}>
             <Link href={'/edlm-portal'} passHref>
@@ -23,10 +31,14 @@ export default function Header() {
                 id={'homepage-button'}
                 className={'cursor-pointer'}
               >
-                <Image src={logo} alt={'home'} height={'60'} width={'60'} priority={true}/>
+                {isUiConfigLoading ? (
+                  <div className='w-15 h-15 bg-gray-200 animate-pulse rounded-full'/>
+                ) : (
+                  <Image src={uiConfig?.logo} alt={'Home'} height={'60'} width={'60'} priority={true}/>
+                )}
               </button>
             </Link>
-            DOT&E Learning Portal
+            {uiConfig?.portal_name}
           </div>
           {!user ? (
             <div className='space-x-4'>

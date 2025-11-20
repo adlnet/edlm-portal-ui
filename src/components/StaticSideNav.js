@@ -1,4 +1,5 @@
 import { Tooltip } from 'flowbite-react';
+import { useBackendConfig } from '@/hooks/useBackendConfig';
 import { useRouter } from 'next/router';
 import { useState } from "react";
 import BookIcon from '@/public/icons/bookIcon.svg';
@@ -11,12 +12,15 @@ import LifeBuoyIcon from '@/public/icons/lifeBuoyIcon.svg';
 import OutdentIcon from '@/public/icons/outdentIcon.svg';
 import SearchIcon from '@/public/icons/searchIcon.svg';
 
-//Mock role
-const isLeader = true
 
 export default function StaticSideNav() {
 
     const router = useRouter();
+
+    const { 
+        data: backendConfig, 
+        isLoading: isBackendConfigLoading, 
+    } = useBackendConfig();
 
     const [showCollections, setShowCollections] = useState(false);
     const [activeBtn, setActiveBtn] = useState(null);
@@ -66,11 +70,11 @@ export default function StaticSideNav() {
                     <div className="self-stretch px-4 pb-2 border-b border-gray-200 flex-col justify-center items-center gap-2 flex">
                         
                         {renderNavBtn('search', '/edlm-portal/learner/search', SearchIcon, 'Search')}
-                        {renderNavBtn('learningPlan', '/edlm-portal/learner/learningPlan', ClipboardCheckIcon, 'Learning Plans')}                        
-                        {isLeader && (
+                        {renderNavBtn('learningPlan', '/edlm-portal/learner/learningPlan', ClipboardCheckIcon, 'Learning Plans')}                   
+                        {backendConfig?.[0]?.manager && !isBackendConfigLoading && (
                             renderNavBtn('leadersReport', '/edlm-portal/learner/learningSummary/leaderReport', FileBarIcon ,"Leader's Report")
                         )}
-                        {!isLeader && (
+                        {!backendConfig?.[0]?.manager && !isBackendConfigLoading && (
                             renderNavBtn('leadersReport', '/edlm-portal/learner/learningSummary', FileBarIcon ,"My Learning Summary")
                         )}
                         <div className={`w-[221px] p-2 rounded-lg flex-col justify-start items-center cursor-pointer`}>

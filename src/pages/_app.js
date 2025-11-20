@@ -1,5 +1,6 @@
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
+import { useUiConfig } from '@/hooks/useUiConfig';
 import Head from 'next/head'
 import React, { useState} from 'react';
 
@@ -10,6 +11,30 @@ import { AuthProvider, useAuth } from '@/contexts/AuthContext';
 import '@/styles/globals.css';
 
 import icon from '@/public/icon.ico';
+
+function AppWithUiConfig({ Component, pageProps }) {
+  const { 
+    data: uiConfig, 
+    isLoading: isUiConfigLoading, 
+  } = useUiConfig();
+
+  return (
+    <>
+      <Head>
+        {isUiConfigLoading? (
+          <title> Loading... </title> 
+        ):(
+          <title>{uiConfig?.portal_name || "EDLM Portal"}</title> 
+        )}
+        <link rel="icon" href={icon.src} />
+      </Head>
+      <Hydrate state={pageProps['dehydratedState']}>
+        <Component {...pageProps} />
+        <ReactQueryDevtools />
+      </Hydrate>
+    </>
+  )
+}
 
 export default function MyApp({ Component, pageProps }) {
   // to avoid sharing results from other users.
@@ -27,16 +52,9 @@ export default function MyApp({ Component, pageProps }) {
 
   return (
     <>
-      <Head>
-        <title>EDLM Portal</title>
-        <link rel="icon" href= {icon.src} />
-      </Head>
       <AuthProvider>
         <QueryClientProvider client={queryClient}>
-          <Hydrate state={pageProps['dehydratedState']}>
-            <Component {...pageProps} />
-            <ReactQueryDevtools />
-          </Hydrate>
+          <AppWithUiConfig Component={Component} pageProps={pageProps} />
         </QueryClientProvider>
       </AuthProvider>
     </>
