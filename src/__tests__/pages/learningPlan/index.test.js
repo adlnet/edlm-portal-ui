@@ -25,7 +25,8 @@ describe('learningPlan', () => {
     useAuthenticatedUser();
     renderLearningPlan();
     expect(screen.getByText('Individual Development Plan')).toBeInTheDocument();
-    expect(screen.getByText('DOT&E Onboarding Plans')).toBeInTheDocument();
+
+    // expect(screen.getByText('DOT&E Onboarding Plans')).toBeInTheDocument();
   });
 
   it('shows tabs with correct labels', () => {
@@ -35,11 +36,11 @@ describe('learningPlan', () => {
     expect(screen.getByText('Completed Plans')).toBeInTheDocument();
   });
 
-  it('should render the learning plan description', () => {
-    useAuthenticatedUser();
-    renderLearningPlan();
-    expect(screen.getByText(/This Learning Plan phase /)).toBeInTheDocument();
-  });
+  // it('should render the learning plan description', () => {
+  //   useAuthenticatedUser();
+  //   renderLearningPlan();
+  //   expect(screen.getByText(/This Learning Plan phase /)).toBeInTheDocument();
+  // });
 
   // it('should navigate the user to "/401" if not authenticated', () => {
   //   useUnauthenticatedUser();

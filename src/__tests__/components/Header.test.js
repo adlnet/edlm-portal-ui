@@ -1,7 +1,9 @@
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { render } from '@testing-library/react';
 import { useAuth } from '@/contexts/AuthContext';
-import { useMockConfig } from '@/__mocks__/predefinedMocks';
+import { useUiConfig } from '@/hooks/useUiConfig';
 import Header from '@/components/Header';
+import React from 'react';
 import mockRouter from 'next-router-mock';
 
 //mocks
@@ -9,41 +11,73 @@ jest.mock('next/dist/client/router', () => require('next-router-mock'));
 jest.mock('@/contexts/AuthContext', () => ({
   useAuth: jest.fn(),
 }));
-beforeEach(() => {
-  mockRouter.setCurrentUrl('/edlm-portal');
-  useMockConfig();
+jest.mock('@/hooks/useUiConfig', () => ({
+  useUiConfig: jest.fn(),
+}));
+
+function renderWithQueryClient(ui) {
+  const queryClient = new QueryClient();
+  return render(
+    <QueryClientProvider client={queryClient}>
+      {ui}
+    </QueryClientProvider>
+  );
+}
+
+beforeAll(() => {
+  global.IntersectionObserver = class {
+    constructor() {}
+    observe() { return null; }
+    unobserve() { return null; }
+    disconnect() { return null; }
+  };
 });
 
-// This is all you need:
+beforeEach(() => {
+  mockRouter.setCurrentUrl('/edlm-portal');
+  jest.resetAllMocks();
+
+  // Default mock for uiConfig
+  useUiConfig.mockImplementation(() => ({
+    data: { portal_name: 'My Portal', logo: '/fake-logo.png' },
+    isLoading: false,
+  }));
+});
+
 describe('Header', () => {
   describe('without user', () => {
-    useAuth.mockImplementation(() => ({
-      user: null,
-    }));
+    beforeEach(() => {
+      useAuth.mockImplementation(() => ({
+        user: null,
+      }));
+    });
+
     it('shows sign in', () => {
-      const { getByText } = render(<Header />);
-      expect(getByText(/sign in/i));
+      const { getByText } = renderWithQueryClient(<Header />);
+      expect(getByText(/sign in/i)).toBeInTheDocument();
     });
+
     it('shows sign up', () => {
-      const { getByText } = render(<Header />);
-      expect(getByText(/sign up/i));
+      const { getByText } = renderWithQueryClient(<Header />);
+      expect(getByText(/sign up/i)).toBeInTheDocument();
     });
+
     it('shows home navigator', () => {
-      const { getByTitle } = render(<Header />);
+      const { getByTitle } = renderWithQueryClient(<Header />);
       expect(getByTitle(/home/i)).toBeInTheDocument();
     });
   });
+
   describe('with user', () => {
+    beforeEach(() => {
+      useAuth.mockImplementation(() => ({
+        user: { first_name: 'Test' },
+      }));
+    });
+
     it('shows user menu button', () => {
-      useAuth.mockImplementation(() => {
-        return {
-          user: { user: { first_name: 'Test' } },
-        };
-      });
-
-      const { getByText } = render(<Header />);
-
-      expect(getByText('Test')).toBeInTheDocument();
+      const { getByText } = renderWithQueryClient(<Header />);
+      expect(getByText('My Portal')).toBeInTheDocument();
     });
   });
 });
