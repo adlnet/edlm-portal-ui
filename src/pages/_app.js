@@ -22,11 +22,17 @@ function AppWithUiConfig({ Component, pageProps }) {
     <>
       <Head>
         {isUiConfigLoading? (
-          <title> Loading... </title> 
+          <>
+            <title> Loading... </title> 
+            <link rel="icon" href={icon.src} />
+          </>
         ):(
-          <title>{uiConfig?.portal_name || "EDLM Portal"}</title> 
+          <>
+            <title>{uiConfig?.portal_name || "EDLM Portal"}</title> 
+            <link rel="icon" href={uiConfig?.logo} />
+          </>
         )}
-        <link rel="icon" href={icon.src} />
+        
       </Head>
       <Hydrate state={pageProps['dehydratedState']}>
         <Component {...pageProps} />

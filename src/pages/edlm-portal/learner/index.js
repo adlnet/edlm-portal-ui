@@ -159,7 +159,7 @@ export default function Home() {
     <DefaultLayout>
       <Head>
         <title>{uiConfig?.portal_name}</title>
-        <link rel={uiConfig?.logo} href="/doteLogo.png" />
+        <link rel="icon" href="{uiConfig?.logo}" />
       </Head>
 
       <div className='flex flex-col p-6'>
