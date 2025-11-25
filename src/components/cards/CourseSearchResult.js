@@ -55,7 +55,7 @@ function getComps(subjects){
   return comps
 }
 
-export default function SearchResult({ result, setSuccessMessage, handleCompetencyTag}) {
+export default function SearchResult({ result, setSuccessMessage, setFailMessage, handleCompetencyTag}) {
   const { user } = useAuth();
   const router = useRouter();
   const config = useConfig();
@@ -109,7 +109,7 @@ export default function SearchResult({ result, setSuccessMessage, handleCompeten
             courseTitle={title}
             courseDescription={removeHTML(getDeeplyNestedData(config.data?.course_information?.course_description, result))}
           />
-          <SaveDropdown courseId={1} title={title} setSuccessMessage={setSuccessMessage} courseHash={experience_hash_key} />
+          <SaveDropdown courseId={1} title={title} setSuccessMessage={setSuccessMessage} setFailMessage={setFailMessage} courseHash={experience_hash_key} />
 
           {/* MOCK DATA CODE */}
           {/* <ShareButton

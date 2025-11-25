@@ -7,8 +7,10 @@ import { useLearningPlan } from '@/hooks/learningPlan/useLearningPlan';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
-const Modal = ({ open, onClose, title, courseId, selectedPlan, setSelectedPlan, checkedGoals, setSuccessMessage, router, children }) => {
+const Modal = ({ open, onClose, title, courseId, selectedPlan, setSelectedPlan, checkedGoals, setSuccessMessage, setFailMessage, router, children }) => {
   const { mutate: createGoalCourse } = useCreateLearningPlanGoalCourse();
+
+  const [failed, setFailed] = useState(false);
 
   if (!open) return null;
 
@@ -34,6 +36,8 @@ const Modal = ({ open, onClose, title, courseId, selectedPlan, setSelectedPlan, 
             onError: (error) => {
               console.error('Failed to save to goal');
               reject(error);
+              setFailMessage(`Failed to save course. Please try again.`);
+              setFailed(true);
             }
           });
         });
@@ -43,7 +47,8 @@ const Modal = ({ open, onClose, title, courseId, selectedPlan, setSelectedPlan, 
       onClose();
     } catch (err) {
       console.error('Failed to save course to goals');
-      setSuccessMessage(`Failed to save course. Please try again.`);
+      setFailMessage(`Failed to save course. Please try again.`);
+      setFailed(true);
     }
   }
 
@@ -76,7 +81,7 @@ const Modal = ({ open, onClose, title, courseId, selectedPlan, setSelectedPlan, 
             <>
               <button
                 className="flex px-3 py-2 my-2 mr-4 text-center items-center rounded-md bg-blue-50 text-blue-700 text-md hover:bg-blue-200 transition-colors"
-                onClick={() => setSelectedPlan(null)}
+                onClick={() => {setSelectedPlan(null); setFailed(false);}}
               >
                 Back
               </button>
@@ -102,12 +107,17 @@ const Modal = ({ open, onClose, title, courseId, selectedPlan, setSelectedPlan, 
             </button>
           )}
         </div>
+        {failed && (
+          <div className="text-red-600 text-sm p-4 border-t">
+            An error occurred while saving the course. Please try again.
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
-export default function SavePlanModal({ courseId, title, setIsDropdownOpen, setSuccessMessage}) {
+export default function SavePlanModal({ courseId, title, setIsDropdownOpen, setSuccessMessage, setFailMessage}) {
 
   const router = useRouter();
 
@@ -167,6 +177,7 @@ export default function SavePlanModal({ courseId, title, setIsDropdownOpen, setS
         setSelectedPlan={setSelectedPlan}
         checkedGoals={checkedGoals}
         setSuccessMessage={setSuccessMessage}
+        setFailMessage={setFailMessage}
         router={router}
         title={title}
         courseId={courseId}
