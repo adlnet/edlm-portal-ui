@@ -25,7 +25,7 @@ export default function ListsView() {
 
   const listId = router.isReady ? router.query.listId : null;
 
-  const list = useList(parseInt(listId));
+  const list = useList(Number.parseInt(listId));
 
   const columns = [
     {label: 'TITLE', accessor: 'title'},

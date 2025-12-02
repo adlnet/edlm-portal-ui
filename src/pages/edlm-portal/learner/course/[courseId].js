@@ -232,6 +232,7 @@ export default function Course() {
                   courseDescription={data?.description}
                 />
                 <SaveDropdown 
+                  courseId={router.query?.courseId}
                   courseHash={router.query?.courseId} 
                   title={data?.title} 
                   setFailMessage={setFailMessage} 

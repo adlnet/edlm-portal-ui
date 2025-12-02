@@ -130,7 +130,7 @@ export default function SearchCourses( { params, setParams, setSuccessMessage, s
               <Pagination     
                 totalPages={Math.ceil(data?.total / config?.data?.search_results_per_page)}    
                 handleSpecificPage={handleSpecificPage}    
-                currentPage={parseInt(params.p)}     
+                currentPage={Number.parseInt(params.p)}     
             />   
           )}     
         </div>  

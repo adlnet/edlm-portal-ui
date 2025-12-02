@@ -109,15 +109,7 @@ export default function SearchResult({ result, setSuccessMessage, setFailMessage
             courseTitle={title}
             courseDescription={removeHTML(getDeeplyNestedData(config.data?.course_information?.course_description, result))}
           />
-          <SaveDropdown courseId={1} title={title} setSuccessMessage={setSuccessMessage} setFailMessage={setFailMessage} courseHash={experience_hash_key} />
-
-          {/* MOCK DATA CODE */}
-          {/* <ShareButton
-                  id={1}
-                  courseTitle={title}
-                  courseDescription={removeHTML(getDeeplyNestedData(config.data?.course_information?.course_description, result))}
-          />
-          <SaveDropdown courseId={1} title={title} setSuccessMessage={setSuccessMessage}/> */}
+          <SaveDropdown courseId={result?.meta.id} title={title} setSuccessMessage={setSuccessMessage} setFailMessage={setFailMessage} courseHash={experience_hash_key} />
         </div>
       </div>
       <div className='text-gray-500 text-base'>
