@@ -20,20 +20,18 @@ function AppWithUiConfig({ Component, pageProps }) {
 
   return (
     <>
-      <Head>
-        {isUiConfigLoading? (
-          <>
-            <title> Loading... </title> 
-            <link rel="icon" href={icon.src} />
-          </>
-        ):(
-          <>
-            <title>{uiConfig?.portal_name || "EDLM Portal"}</title> 
-            <link rel="icon" href={uiConfig?.logo} />
-          </>
-        )}
-        
-      </Head>
+      {isUiConfigLoading? (
+        <Head>
+          <title> Loading... </title> 
+        </Head>
+      ):(
+        <Head>
+          <title>{uiConfig?.portal_name || "EDLM Portal"}</title> 
+          {console.log("UI CONFIG LOGO:", uiConfig?.logo)}
+          <link rel="icon" href={uiConfig?.logo} />
+        </Head>
+      )}
+
       <Hydrate state={pageProps['dehydratedState']}>
         <Component {...pageProps} />
         <ReactQueryDevtools />
