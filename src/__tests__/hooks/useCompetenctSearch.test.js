@@ -24,7 +24,8 @@ beforeEach(() => {
       });
 
     await waitFor(() => {
-        expect(result.current).toEqual(backupData);
+        expect(result.current.competencies).toEqual(backupData);
+        expect(result.current.isLoading).toBe(false);
     });
     
     expect(mockAxios.request).toHaveBeenCalledTimes(1);  

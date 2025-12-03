@@ -131,8 +131,7 @@ export function ChooseSkillsStep({
                                         <button
                                             className="text-center justify-center text-[#4883B4] text-[11px] font-normal leading-[14.3px] hover:underline transition-all"
                                             onClick={() => {
-                                                console.log(selectedCompetency.name);
-                                                window.open('/edlm-portal/learner/search', '_blank');
+                                                window.open(`/edlm-portal/learner/search?tab=competencies&keyword=${encodeURIComponent(selectedCompetency.name)}`, '_blank');
                                             }}
                                         >
                                             View more

@@ -1,5 +1,6 @@
 'use strict';
 
+import { Spinner } from 'flowbite-react';
 import { unstable_batchedUpdates } from 'react-dom';
 import { useRouter } from 'next/dist/client/router';
 import CompetencySearchResult from './cards/CompetencySearchResults';
@@ -56,7 +57,7 @@ function generateStructure({ParentComps, ChildComps}){
     return result;
 }
 
-export default function SearchCompetencies({Competencies, params, setParams}){
+export default function SearchCompetencies({Competencies, isLoading, params, setParams}){
     
     const router = useRouter();
 
@@ -103,7 +104,16 @@ export default function SearchCompetencies({Competencies, params, setParams}){
         else{
             return [];
         }
-    }, [params]);
+    }, [params, structuredComps]);
+
+    if (isLoading) {
+        return (
+            <div className='mt-4 flex flex-col items-center justify-center py-8'>
+                <Spinner color='purple' size='lg' />
+                <div className='text-gray-500 mt-2'>Loading competencies...</div>
+            </div>
+        );
+    }
         
     return ( 
         <> 
