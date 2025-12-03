@@ -10,6 +10,16 @@ jest.mock('@/config/axiosConfig');
 jest.mock('@/config/endpoints', () => ({
   learningPlanGoalsUrl: '/mocked-learning-plan-goals-url/'
 }));
+jest.mock('@/utils/convertTimelineToInt', () => ({
+  convertTimelineToInt: (timeline) => {
+    const map = {
+      '1-3 months': 3,
+      '3-6 months': 6,
+      '6-9 months': 9
+    };
+    return map[timeline] || null;
+  }
+}));
 
 describe('useUpdateLearningPlanGoal', () => {
   const mockQueryClient = {
@@ -51,7 +61,7 @@ describe('useUpdateLearningPlanGoal', () => {
       '/mocked-learning-plan-goals-url/g601/',
       {
         goal_name: 'Grow skills',
-        timeline: '2027',
+        timeline: null, // '2027' is not in the timeline map, converts to null
         resources_support: ['Book', 'Mentor'],
         obstacles: ['Time'],
         resources_support_other: 'Podcast',
