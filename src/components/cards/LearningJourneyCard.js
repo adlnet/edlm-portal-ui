@@ -10,7 +10,7 @@ export default function LearningJourneyCard({ journey }) {
 
     return (
         <div className='flex flex-col text-left border rounded-lg p-5 shadow hover:shadow-lg transition shadow' >
-            <h3 className='text-lg font-semibold mb-1 text-gray-900'>{journey.name}</h3>
+            <h3 className='text-lg font-semibold mb-1 text-gray-900 line-clamp-2'>{journey.name}</h3>
             {journey.created && (
                 <p className='text-sm text-gray-600 mb-2'>Date Created: {journey.created}</p>
             )}

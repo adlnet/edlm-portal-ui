@@ -31,7 +31,7 @@ function LearningPlanContent() {
     progress: 70, // placeholder for now before we have real progress calculation
     length: plan.timeframe,
     created: new Date(plan.created).toLocaleDateString(),
-  }));
+  }))?.sort((a, b) => new Date(a.created) - new Date(b.created));
 
   useEffect(() => {
     if (formattedLearningPlans) {

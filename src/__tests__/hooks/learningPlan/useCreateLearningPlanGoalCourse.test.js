@@ -63,6 +63,6 @@ describe('useCreateLearningPlanGoalCourse', () => {
 
     expect(mockQueryClient.invalidateQueries).toHaveBeenCalledWith(['learning-plan-goal-courses']);
     expect(mockQueryClient.invalidateQueries).toHaveBeenCalledWith(['learning-plan-goals']);
-    expect(mockQueryClient.invalidateQueries).toHaveBeenCalledWith(['learning-plan', 'pg-987']);
+    expect(mockQueryClient.invalidateQueries).toHaveBeenCalledWith(['learning-plan']);
   });
 });
