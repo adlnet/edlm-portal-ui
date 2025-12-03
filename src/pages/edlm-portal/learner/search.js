@@ -1,5 +1,5 @@
 'use strict';
-import { CheckCircleIcon, XMarkIcon } from "@heroicons/react/24/solid";
+import { CheckCircleIcon, XCircleIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { Popover } from "flowbite-react";
 import { searched } from '@/utils/xapi/events';
 import { unstable_batchedUpdates } from 'react-dom';
@@ -31,6 +31,7 @@ export default function Search() {
   const [showPopover, setShowPopover] = useState(true);
 
   const [successMessage, setSuccessMessage] = useState(null);
+  const [failMessage, setFailMessage] = useState(null);
 
   useEffect(() => {
     if (router?.query) {
@@ -155,6 +156,30 @@ export default function Search() {
             ) : (
               <></>
             )}
+            {failMessage ? (
+              <div className="flex flex-col p-4 mt-2 mb-4 bg-red-100 rounded-lg w-full"> 
+                <div className="flex flex-row justify-between pb-2">
+                  <div className="flex flex-row items-center">
+                    <XCircleIcon className="w-6 h-6 text-red-900"/>
+                    <div className="text-lg text-red-900 font-bold pl-2">Course failed to save to learning plan</div>
+                  </div>
+                  <button
+                    type="button"
+                    aria-label="Dismiss"
+                    className=""
+                    onClick={()=>{setFailMessage(null)}}
+                  >
+                    <XMarkIcon class='w-6 h-6 text-red-900' />
+                  </button>
+                </div>
+                <div className="text-red-900 text-medium">
+                    {failMessage}
+                </div>
+
+              </div>
+            ) : (
+              <></>
+            )}
 
             {selectedTab === tabs[0] ? <div className='text-2xl font-bold'>Course Search</div> : <div className='text-2xl font-bold'>Competency Search</div>}
             
@@ -221,6 +246,7 @@ export default function Search() {
               setParams={setParams}
               handleCompetencyTag={handleCompetencyTag}
               setSuccessMessage={setSuccessMessage}
+              setFailMessage={setFailMessage}
             /> : 
             <SearchCompetencies 
               Competencies={Competencies}

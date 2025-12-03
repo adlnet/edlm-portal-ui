@@ -57,7 +57,7 @@ const LearnerTable = ({learnerData}) => {
   const jumpToPage = e => {
     e.preventDefault();
     let val = +e.target.pageinput.value;
-    if (!isNaN(val) && val > 0 && val <= pages) setPage(val);
+    if (!Number.isNaN(val) && val > 0 && val <= pages) setPage(val);
   };
 
   const doSearch = () => {

@@ -6,7 +6,7 @@ import SaveCollectionModal from '@/components/modals/SaveCollectionModal';
 import SavePlanModal from '@/components/modals/SavePlanModal';
 
 
-export default function SaveModal({ courseId = null, title, setSuccessMessage, courseHash = null }) {
+export default function SaveDropdown({ courseId = null, title, setSuccessMessage, setFailMessage, courseHash = null }) {
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -30,7 +30,7 @@ export default function SaveModal({ courseId = null, title, setSuccessMessage, c
       {isDropdownOpen && (
         <div className='flex flex-col absolute mt-[28px] border border-gray-300 shadow-md text-xs rounded-lg px-4 bg-white z-99999'>
           <SaveCollectionModal courseId={courseId} title={title} setIsDropdownOpen={setIsDropdownOpen}/>
-          <SavePlanModal courseId={courseHash} title={title} setIsDropdownOpen={setIsDropdownOpen} setSuccessMessage={setSuccessMessage}/>
+          <SavePlanModal courseId={courseHash} title={title} setIsDropdownOpen={setIsDropdownOpen} setSuccessMessage={setSuccessMessage} setFailMessage={setFailMessage}/>
         </div>
       )}
     </>

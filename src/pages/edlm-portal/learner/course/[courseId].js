@@ -3,17 +3,20 @@
 import { AcademicCapIcon, 
          BuildingStorefrontIcon, 
         CalendarIcon, 
+        CheckCircleIcon,
         ChevronRightIcon, 
         ClockIcon, 
         ComputerDesktopIcon, 
         CurrencyDollarIcon, 
         InformationCircleIcon, 
         Square3Stack3DIcon,
-        UserIcon } from '@heroicons/react/24/solid';
+        UserIcon,
+        XCircleIcon, 
+        XMarkIcon } from '@heroicons/react/24/solid';
 import { getDeeplyNestedData } from '@/utils/getDeeplyNestedData';
 import { removeHTML } from '@/utils/cleaning';
 import { useAuth } from '@/contexts/AuthContext';
-import { useCallback, useEffect, useMemo, useRef } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useConfig } from '@/hooks/useConfig';
 import { useCourse } from '@/hooks/useCourse';
 import { useMoreCoursesLikeThis } from '@/hooks/useMoreCoursesLikeThis';
@@ -21,7 +24,7 @@ import { useRouter } from 'next/router';
 
 import CourseSpotlight from '@/components/cards/CourseSpotlight';
 import DefaultLayout from '@/components/layouts/DefaultLayout';
-import SaveModal from '@/components/modals/SaveCollectionModal';
+import SaveDropdown from '@/components/buttons/SaveDropdown';
 import ShareButton from '@/components/buttons/ShareBtn';
 
 function RelatedCourses({ id }) {
@@ -72,6 +75,9 @@ export default function Course() {
   // state of the fetching
   const course = useCourse(router.query?.courseId);
   const config = useConfig();
+
+  const [successMessage, setSuccessMessage] = useState(null);
+  const [failMessage, setFailMessage] = useState(null);
 
   // prepare the course data
   const data = useMemo(() => {
@@ -159,11 +165,61 @@ export default function Course() {
       <div className='bg-white shadow-md py-0 mb-5 rounded-xl mx-4 overflow-clip'>
         <div className='flex max-w-7xl px-4 mx-auto gap-8 mt-4'>
           <div className='w-full'>
+            {successMessage ? (
+              <div className="flex flex-col p-4 mt-4 mb-2 bg-green-100 rounded-lg w-full"> 
+                <div className="flex flex-row justify-between pb-2">
+                  <div className="flex flex-row items-center">
+                    <CheckCircleIcon className="w-6 h-6 text-green-900"/>
+                    <div className="text-lg text-green-900 font-bold pl-2">Course saved to learning plan</div>
+                  </div>
+                  <button
+                    type="button"
+                    aria-label="Dismiss"
+                    className=""
+                    onClick={()=>{setSuccessMessage(null)}}
+                  >
+                    <XMarkIcon class='w-6 h-6 text-green-900' />
+                  </button>
+                </div>
+                <div className="text-green-900 text-medium">
+                    {successMessage}
+                </div>
+
+              </div>
+            ) : (
+              <></>
+            )}
+            {failMessage ? (
+              <div className="flex flex-col p-4 mt-4 mb-2 bg-red-100 rounded-lg w-full"> 
+                <div className="flex flex-row justify-between pb-2">
+                  <div className="flex flex-row items-center">
+                    <XCircleIcon className="w-6 h-6 text-red-900"/>
+                    <div className="text-lg text-red-900 font-bold pl-2">Course failed to save to learning plan</div>
+                  </div>
+                  <button
+                    type="button"
+                    aria-label="Dismiss"
+                    className=""
+                    onClick={()=>{setFailMessage(null)}}
+                  >
+                    <XMarkIcon class='w-6 h-6 text-red-900' />
+                  </button>
+                </div>
+                <div className="text-red-900 text-medium">
+                    {failMessage}
+                </div>
+
+              </div>
+            ) : (
+              <></>
+            )}
+
             <div className='flex flex-row items-center gap-2 mt-4 mb-2 text-sm'>
               <button className='text-blue-600' onClick={handleRoute}>Search </button> 
               <ChevronRightIcon className='h-3 w-3'/>
               {data?.title}
             </div>
+
             <div className='flex justify-between items-center'>
               <h1 className='font-semibold text-2xl my-2'>
                 {data?.title || 'Not Available'}
@@ -175,7 +231,13 @@ export default function Course() {
                   courseTitle={data?.title}
                   courseDescription={data?.description}
                 />
-                <SaveModal courseId={router.query?.courseId} title={data?.title} />
+                <SaveDropdown 
+                  courseId={router.query?.courseId}
+                  courseHash={router.query?.courseId} 
+                  title={data?.title} 
+                  setFailMessage={setFailMessage} 
+                  setSuccessMessage={setSuccessMessage} 
+                />
               </div>
             </div>
             <p className='flex my-2 text-sm'>

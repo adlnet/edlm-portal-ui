@@ -44,6 +44,7 @@ beforeEach(() => {
 // --- TESTS ---
 describe('SavePlanModal', () => {
   const setSuccessMessage = jest.fn();
+  const setFailMessage = jest.fn();
   const setIsDropdownOpen = jest.fn();
 
   beforeEach(() => {
@@ -67,6 +68,7 @@ describe('SavePlanModal', () => {
         title="React"
         setIsDropdownOpen={setIsDropdownOpen}
         setSuccessMessage={setSuccessMessage}
+        setFailMessage={setFailMessage}
       />
     );
   }
@@ -193,7 +195,7 @@ describe('SavePlanModal', () => {
       fireEvent.click(saveBtn);
       await flushPromises();
     });
-    expect(setSuccessMessage).toHaveBeenCalledWith('Failed to save course. Please try again.');
+    expect(setFailMessage).toHaveBeenCalledWith('Failed to save course. Please try again.');
   });
 
   it('triggers Close (X/Cancel) and Back properly', () => {

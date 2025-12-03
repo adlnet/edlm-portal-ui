@@ -44,7 +44,7 @@ export default function EditList() {
 
   const listId = router.isReady ? router.query.listId : null;
 
-  const initialList = useList(parseInt(listId), setCurrentListInfo);
+  const initialList = useList(Number.parseInt(listId), setCurrentListInfo);
 
 
   useEffect(() => {
@@ -122,7 +122,7 @@ export default function EditList() {
     mutation.mutate(
       {
         listData: prepareListDataToSend(currentListInfo),
-        id: parseInt(listId),
+        id: Number.parseInt(listId),
       },
       {
         onSuccess: () => {
