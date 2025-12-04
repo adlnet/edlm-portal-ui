@@ -1,6 +1,7 @@
 'use strict';
 
 import { axiosInstance } from '@/config/axiosConfig';
+import { convertTimelineToInt } from '@/utils/convertTimelineToInt';
 import { learningPlanGoalsUrl } from '@/config/endpoints';
 import { useMutation, useQueryClient } from 'react-query';
 
@@ -17,7 +18,7 @@ export function useUpdateLearningPlanGoal() {
     return useMutation(
         ({ goalId, goalData }) => axiosInstance.patch(`${learningPlanGoalsUrl}${goalId}/`, {
             goal_name: goalData.goalName,
-            timeline: goalData.timeline,
+            timeline: convertTimelineToInt(goalData.timeline),
             resources_support: goalData.resources || [],
             obstacles: goalData.obstacles || [],
             resources_support_other: goalData.resourcesOther || '',

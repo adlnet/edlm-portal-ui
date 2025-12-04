@@ -8,7 +8,7 @@ import { useCompetencySearch } from '@/hooks/useCompetencySearch';
  */
 
 export function useLearningPlanCompetenciesOptions() {
-  const competencies = useCompetencySearch();
+  const { competencies } = useCompetencySearch();
 
   // Filter parent and child coms
   const parentCompetencies = competencies.filter(comp => !comp.parent || comp.parent === '');

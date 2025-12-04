@@ -8,6 +8,17 @@ jest.mock('@/config/axiosConfig');
 jest.mock('@/config/endpoints', () => ({
   learningPlanGoalsUrl: '/mocked-learning-plan-goals-url'
 }));
+jest.mock('@/utils/convertTimelineToInt', () => ({
+  convertTimelineToInt: (timeline) => {
+    const map = {
+      '1-3 months': 3,
+      '3-6 months': 6,
+      '6-9 months': 9,
+      'Q4': null
+    };
+    return map[timeline] || null;
+  }
+}));
 
 describe('useCreateLearningPlanGoal', () => {
   const mockQueryClient = {
@@ -30,7 +41,7 @@ describe('useCreateLearningPlanGoal', () => {
     const mockInput = {
       planCompetencyId: 'pc-1',
       goalName: 'Achieve X',
-      timeline: 'Q1',
+      timeline: '3-6 months',
       resources: ['Resource A'],
       obstacles: ['Obstacle B'],
       resourcesOther: 'Other resources',
@@ -40,7 +51,7 @@ describe('useCreateLearningPlanGoal', () => {
       id: 'goal-321',
       plan_competency: 'pc-1',
       goal_name: 'Achieve X',
-      timeline: 'Q1',
+      timeline: '3-6 months',
       resources_support: ['Resource A'],
       obstacles: ['Obstacle B'],
       resources_support_other: 'Other resources',
@@ -53,7 +64,7 @@ describe('useCreateLearningPlanGoal', () => {
     expect(axiosInstance.post).toHaveBeenCalledWith('/mocked-learning-plan-goals-url', {
       plan_competency: mockInput.planCompetencyId,
       goal_name: mockInput.goalName,
-      timeline: mockInput.timeline,
+      timeline: 6, // '3-6 months' converts to 6
       resources_support: mockInput.resources,
       obstacles: mockInput.obstacles,
       resources_support_other: mockInput.resourcesOther,
@@ -86,7 +97,7 @@ describe('useCreateLearningPlanGoal', () => {
     expect(axiosInstance.post).toHaveBeenCalledWith('/mocked-learning-plan-goals-url', {
       plan_competency: 'pc-2',
       goal_name: 'Default',
-      timeline: 'Q4',
+      timeline: null,
       resources_support: [],
       obstacles: [],
       resources_support_other: '',

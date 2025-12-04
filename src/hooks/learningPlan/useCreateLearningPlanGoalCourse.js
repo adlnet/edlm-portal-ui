@@ -23,7 +23,7 @@ export function useCreateLearningPlanGoalCourse() {
             onSuccess: (data) => {
                 queryClient.invalidateQueries(['learning-plan-goal-courses']);
                 queryClient.invalidateQueries(['learning-plan-goals']);
-                queryClient.invalidateQueries(['learning-plan', data.plan_goal]);
+                queryClient.invalidateQueries(['learning-plan']);
             }
         }
     );

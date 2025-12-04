@@ -23,7 +23,7 @@ export default function Search() {
   const { setUrl, data, isLoading } = useCourseSearch();
   const { user } = useAuth();
   
-  const Competencies = useCompetencySearch()
+  const { competencies: Competencies, isLoading: isLoadingCompetencies } = useCompetencySearch();
 
   const tabs = ['Courses', 'Competencies'];
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
@@ -39,6 +39,11 @@ export default function Search() {
         setParams(router?.query);
         setUrl(router?.query);
       });
+
+      // if tab=competencies, switch to Competencies tab
+      if (router.query.tab === 'competencies') {
+        setSelectedTab(tabs[1]);
+      }
     }
   }, [router.query]);
 
@@ -250,6 +255,7 @@ export default function Search() {
             /> : 
             <SearchCompetencies 
               Competencies={Competencies}
+              isLoading={isLoadingCompetencies}
               params={params}
               setParams={setParams}
             />

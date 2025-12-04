@@ -17,7 +17,7 @@ const mockCompetencies = [
 describe('useLearningPlanCompetenciesOptions', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    useCompetencySearch.mockReturnValue(mockCompetencies);
+    useCompetencySearch.mockReturnValue({ competencies: mockCompetencies, isLoading: false });
   });
 
   it('splits competencies into parent and child correctly', () => {

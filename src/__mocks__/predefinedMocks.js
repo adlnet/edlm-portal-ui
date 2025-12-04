@@ -1123,8 +1123,8 @@ export function useMockHandleCompetencyTag(comp){
 }
 
 export function useMockCompetencySearch(){
-  return useCompetencySearch.mockImplementation(() => (
-    [
+  return useCompetencySearch.mockImplementation(() => ({
+    competencies: [
       {
           "name": "1.1 (Mission)",
           "desc": "Understands and communicates CONEMP/CONOPS, TTP, and how (Services, Joint) units/forces equipped with DoD system are intended to contribute to the warfighter's/joint force mission. Considers DoD systems in the context of kill-webs, mission threads and other operationally relevant and realistic system-of-system mission scenarios.",
@@ -1149,8 +1149,9 @@ export function useMockCompetencySearch(){
               "1.2 (COIs)"
           ]
       },
-    ]
-  ));
+    ],
+    isLoading: false
+  }));
 }
 
 export function useMockDeleteCourse(id){

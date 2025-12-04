@@ -143,10 +143,13 @@ async function getCompetencySearch() {
  */
 
 export function useCompetencySearch() {
-  const { data } = useQuery('competencies', getCompetencySearch, {
+  const { data, isLoading } = useQuery('competencies', getCompetencySearch, {
     staleTime: oneHour,
     cacheTime: oneHour,
   });
   
-  return data?.Competencies || [];
+  return {
+    competencies: data?.Competencies || [],
+    isLoading
+  };
 }

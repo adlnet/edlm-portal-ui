@@ -145,7 +145,24 @@ export default function SavePlanModal({ courseId, title, setIsDropdownOpen, setS
   const competenciesWithGoals = selectedPlanDetails ? 
     selectedPlanDetails.competencies.filter(comp => comp.goals && comp.goals.length > 0) : [];
 
-  const handleGoalToggle = (goalId) => {
+  // Get all goal IDs that already have this course
+  const goalsWithCourse = new Set();
+  competenciesWithGoals.forEach(comp => {
+    comp.goals?.forEach(goal => {
+      const hasCourse = goal.courses?.some(
+        course => course.xds_course === courseId
+      );
+      if (hasCourse) {
+        goalsWithCourse.add(goal.id);
+      }
+    });
+  });
+
+  const handleGoalToggle = goalId => {
+
+    if (goalsWithCourse.has(goalId)) {
+      return;
+    }
     setCheckedGoals((prev) =>
       prev.includes(goalId)
         ? prev.filter(id => id !== goalId)
@@ -227,43 +244,63 @@ export default function SavePlanModal({ courseId, title, setIsDropdownOpen, setS
                     
                     {/* Goals */}
                     <ul className="space-y-2 ">
-                      {competency.goals.map((goal) => (
-                        <li key={goal.id} className="flex items-center">
-                          <label className="flex items-center cursor-pointer select-none">
-                            <input
-                              type="checkbox"
-                              checked={checkedGoals.includes(goal.id)}
-                              onChange={() => handleGoalToggle(goal.id)}
-                              className="hidden"
-                            />
-                            <span
-                              className={`w-5 h-5 flex items-center justify-center border rounded border-gray-300 mr-3 transition
-                                ${
-                                  checkedGoals.includes(goal.id)
-                                    ? "bg-blue-900 border-blue-900"
-                                    : "bg-white"
-                                }`}
+                      {competency.goals.map((goal) => {
+                        const courseAlreadyInGoal = goalsWithCourse.has(goal.id);
+                        const isChecked = checkedGoals.includes(goal.id);
+                        
+                        const getCheckboxStyles = () => {
+                          if (courseAlreadyInGoal) {
+                            return "bg-gray-200 border-gray-300 cursor-not-allowed";
+                          }
+                          if (isChecked) {
+                            return "bg-blue-900 border-blue-900";
+                          }
+                          return "bg-white border-gray-300";
+                        };
+
+                        return (
+                          <li key={goal.id} className="flex items-center">
+                            <label 
+                              className={`flex items-center select-none ${courseAlreadyInGoal ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'}`}
                             >
-                              {checkedGoals.includes(goal.id) && (
-                                <svg
-                                  className="w-3 h-3 text-white"
-                                  fill="none"
-                                  stroke="currentColor"
-                                  strokeWidth={3}
-                                  viewBox="0 0 24 24"
-                                >
-                                  <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M5 13l4 4L19 7"
-                                  />
-                                </svg>
-                              )}
-                            </span>
-                            <span className="text-gray-900">{goal.goal_name || goal.description}</span>
-                          </label>
-                        </li>
-                      ))}
+                              <input
+                                type="checkbox"
+                                checked={isChecked || courseAlreadyInGoal}
+                                onChange={() => {
+                                  if (!courseAlreadyInGoal) {
+                                    handleGoalToggle(goal.id);
+                                  }
+                                }}
+                                disabled={courseAlreadyInGoal}
+                                className="hidden"
+                              />
+                              <span
+                                className={`w-5 h-5 flex items-center justify-center border rounded mr-3 transition ${getCheckboxStyles()}`}
+                              >
+                                {(isChecked || courseAlreadyInGoal) && (
+                                  <svg
+                                    className={`w-3 h-3 ${courseAlreadyInGoal ? 'text-gray-400' : 'text-white'}`}
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth={3}
+                                    viewBox="0 0 24 24"
+                                  >
+                                    <path
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      d="M5 13l4 4L19 7"
+                                    />
+                                  </svg>
+                                )}
+                              </span>
+                              <span className={`${courseAlreadyInGoal ? 'text-gray-400' : 'text-gray-900'}`}>
+                                {goal.goal_name || goal.description}
+                                {courseAlreadyInGoal && <span className="ml-2 text-xs text-gray-400">(already added)</span>}
+                              </span>
+                            </label>
+                          </li>
+                        );
+                      })}
                     </ul>
                   </div>
                 ))}
