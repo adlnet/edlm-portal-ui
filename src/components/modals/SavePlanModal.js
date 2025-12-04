@@ -246,6 +246,18 @@ export default function SavePlanModal({ courseId, title, setIsDropdownOpen, setS
                     <ul className="space-y-2 ">
                       {competency.goals.map((goal) => {
                         const courseAlreadyInGoal = goalsWithCourse.has(goal.id);
+                        const isChecked = checkedGoals.includes(goal.id);
+                        
+                        const getCheckboxStyles = () => {
+                          if (courseAlreadyInGoal) {
+                            return "bg-gray-200 border-gray-300 cursor-not-allowed";
+                          }
+                          if (isChecked) {
+                            return "bg-blue-900 border-blue-900";
+                          }
+                          return "bg-white border-gray-300";
+                        };
+
                         return (
                           <li key={goal.id} className="flex items-center">
                             <label 
@@ -253,7 +265,7 @@ export default function SavePlanModal({ courseId, title, setIsDropdownOpen, setS
                             >
                               <input
                                 type="checkbox"
-                                checked={checkedGoals.includes(goal.id) || courseAlreadyInGoal}
+                                checked={isChecked || courseAlreadyInGoal}
                                 onChange={() => {
                                   if (!courseAlreadyInGoal) {
                                     handleGoalToggle(goal.id);
@@ -263,15 +275,9 @@ export default function SavePlanModal({ courseId, title, setIsDropdownOpen, setS
                                 className="hidden"
                               />
                               <span
-                                className={`w-5 h-5 flex items-center justify-center border rounded mr-3 transition
-                                  ${courseAlreadyInGoal
-                                    ? "bg-gray-200 border-gray-300 cursor-not-allowed"
-                                    : checkedGoals.includes(goal.id)
-                                      ? "bg-blue-900 border-blue-900"
-                                      : "bg-white border-gray-300"
-                                  }`}
+                                className={`w-5 h-5 flex items-center justify-center border rounded mr-3 transition ${getCheckboxStyles()}`}
                               >
-                                {(checkedGoals.includes(goal.id) || courseAlreadyInGoal) && (
+                                {(isChecked || courseAlreadyInGoal) && (
                                   <svg
                                     className={`w-3 h-3 ${courseAlreadyInGoal ? 'text-gray-400' : 'text-white'}`}
                                     fill="none"
