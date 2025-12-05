@@ -9,7 +9,7 @@ import { useQuery } from 'react-query';
 
 export function useConfig() {
   return useQuery(
-    'ui-config',
+    'portal-config',
     () => axiosInstance.get(configUrl).then((res) => res.data),
     {
       staleTime: twentyFourHours,

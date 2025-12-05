@@ -123,7 +123,7 @@ export default function Owned() {
                 query: { previousPage: 'My Collections' }
               }}
               menuItems= {getMenuItems(cardItem.id)}
-              showPrivateToggle={true}
+              showPrivateToggle={cardItem.can_toggle_public}
               onTogglePrivatePublic={isPublic => handlePrivatePublicToggle(cardItem.id, isPublic)}
             />
           ))}

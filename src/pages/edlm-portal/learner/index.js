@@ -5,6 +5,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useCourseProgressDetail } from '@/hooks/useCourseProgressDetail';
 import { useInterestLists } from "@/hooks/useInterestLists";
 import { useRouter } from 'next/router';
+import { useUiConfig } from '@/hooks/useUiConfig';
 import { useUserOwnedLists } from "@/hooks/useUserOwnedLists";
 import ActiveCompleteTab from '@/components/buttons/ActiveCompleteTab';
 import Carousel from 'react-grid-carousel'
@@ -20,9 +21,15 @@ import armyImage2 from '@/public/lunchLearn.png'
 import headerImage from '@/public/welcomeHomePhoto.png';
 import useSpotlightCourses from '@/hooks/useSpotlightCourses';
 
+
 export default function Home() {
   const router = useRouter();
   const { user } = useAuth();
+
+  const { 
+    data: uiConfig, 
+    isLoading: isUiConfigLoading, 
+  } = useUiConfig();
 
   const {
     data: courseProgressData,
@@ -150,25 +157,28 @@ export default function Home() {
 
   return (
     <DefaultLayout>
-      <Head>
-        <title>DOT&E Portal</title>
-        <link rel="icon" href="/doteLogo.png" />
-      </Head>
-
       <div className='flex flex-col p-6'>
         <div className='bg-white h-100 shadow-md rounded-lg '>
-
-          <div className='flex flex-row justify-between'>
-            <div className='w-1/2 m-5'> 
-              <div className='pt-2 text-lg font-bold'>Welcome {user?.user?.first_name},</div>
-              <div className='pt-2 text-gray-500'>This portal is designed to support your unique educational journey as you grow your career within DOT&E. Here, you&apos;ll find an immersive environment that caters to your learning needs inclusive of organized lists to manage your learning materials and resources, planning tools to match learning to career growth, and reporting to monitor progress and track achievements.</div>
-              <div className='pt-12'>
+          {isUiConfigLoading ? 
+            ( <div className='flex items-center justify-center p-8'>
+                <Spinner color='success' aria-label='Success spinner example' size='xl' />
               </div>
-            </div>
-            <div className='w-1/2 max-h-72'>
-              <Image src={headerImage}  alt='' className='m-5 pr-10 object-fill h-60 w-90'/>
-            </div>
-          </div>
+            ) :
+            (
+              <div className='flex flex-row justify-between'>
+                <div className='w-1/2 m-5'> 
+                  <div className='pt-2 text-lg font-bold'>Welcome {user?.user?.first_name},</div>
+                  {/* Welcome Message */}
+                  <div className='pt-2 text-gray-500'>{uiConfig?.welcome_message}</div>
+                  <div className='pt-12'>
+                  </div>
+                </div>
+                <div className='w-1/2 max-h-72'>
+                  <Image src={headerImage}  alt='' className='m-5 pr-10 object-fill h-60 w-90'/>
+                </div>
+              </div>
+            )
+          }
         </div>
 
         <div className='mt-10 pb-10 bg-white h-100 shadow-md rounded-lg '>
@@ -277,7 +287,6 @@ export default function Home() {
                           setActiveIndex={setActiveIndex}
                           tabs={tabData}
                         />
-                        {console.log(activeIndex)}
                         {activeIndex === 0 ? (
                           <div className='-mt-4'>              
                             <CollectionTable data={inProgressCourses} edit={false} columns={columns} rowsPerPage={5} />

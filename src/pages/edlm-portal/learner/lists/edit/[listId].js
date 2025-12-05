@@ -46,7 +46,6 @@ export default function EditList() {
 
   const initialList = useList(Number.parseInt(listId), setCurrentListInfo);
 
-
   useEffect(() => {
     // if there is a authorization error
     if (initialList?.isError) {
@@ -141,7 +140,7 @@ export default function EditList() {
   // prepare the experience data
   const data = useMemo(() => {
     const courses = []
-    for (let i = 0; i < currentListInfo?.experiences.length; i++){
+    for (let i = 0; i < currentListInfo?.experiences?.length; i++){
       const course = {
           id: (currentListInfo?.experiences[i]?.meta?.metadata_key_hash),
           title: removeHTML(
@@ -189,20 +188,23 @@ export default function EditList() {
           </div>
 
           <form onSubmit={submitData} onReset={resetData} className='mt-3'>
+   
             {/* Toggle privacy status */}
             <div className='flex gap-4 text-sm mt-2 text-gray-900'>
               <span className='flex flex-row font-medium gap-2'>
-                <Switch
-                    title='toggle'
-                    checked={currentListInfo?.public}
-                    onChange={toggleListVisibility}
-                    className={`${
-                      currentListInfo?.public ? 'bg-gray-300' : 'bg-blue-500'
-                    } w-10 h-5 relative inline-flex items-center rounded-full transition-colors focus:outline-none`}
-                  >
-                    <span className={`${currentListInfo?.public ? 'translate-x-1' : 'translate-x-6'} inline-block w-4 h-4 transform bg-white rounded-full transition-transform`}
-                    />
-                </Switch>
+                {initialList?.data?.can_toggle_public && (
+                  <Switch
+                      title='toggle'
+                      checked={!currentListInfo?.public}
+                      onChange={toggleListVisibility}
+                      className={`${
+                        !currentListInfo?.public ? 'bg-gray-300' : 'bg-blue-500'
+                      } w-10 h-5 relative inline-flex items-center rounded-full transition-colors focus:outline-none`}
+                    >
+                      <span className={`${!currentListInfo?.public ? 'translate-x-1' : 'translate-x-6'} inline-block w-4 h-4 transform bg-white rounded-full transition-transform`}
+                      />
+                  </Switch>
+                  )}
                 <Image src={currentListInfo?.public ? lockOpen : LockClose} alt='Lock Icon' className='w-4 h-4' />
                 <span>{currentListInfo?.public ? 'Public' : 'Private'}</span>
               </span>

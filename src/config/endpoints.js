@@ -28,8 +28,10 @@ export const authLogin = `${XDSbackendHost}${api}auth/login`;
 export const authRegister = `${XDSbackendHost}${api}auth/register`;
 export const authLogout = `${XDSbackendHost}${api}auth/logout`;
 
-// configuration url
+// configuration urls
 export const configUrl = `${XDSbackendHost}${api}ui-configuration/`;
+export const uiConfigUrl = `${backendHost}${api}uiconfig/`;
+export const backendConfigUrl = `${backendHost}${api}config/`;
 
 // spotlight courses url
 export const spotlightCourses = `${XDSbackendHost}${api}spotlight-courses`;
@@ -70,3 +72,4 @@ export const learningPlanGoalCoursesUrl = `${backendHost}${api}learning-plan-goa
 // Leader's Report
 export const topSavedCoursesDetail = `${XDSbackendHost}${api}experiences/most-saved`;
 export const topSubscribedCollectionsDetail = `${XDSbackendHost}${api}interest-lists/most-subscribed`;
+

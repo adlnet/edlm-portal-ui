@@ -14,11 +14,11 @@ function LearningPlanContent() {
 
   const { data: learningPlans, isLoading } = useAllLearningPlans();
 
-  const mockOnboardingJourneys = [
-    { id: 2, name: 'Phase I (30 Days)', progress: 100, length: 'DOT&E', description: 'Items for my job in 2025.'},
-    { id: 3, name: 'Phase II (60 Days)', progress: 60, length: 'DOT&E', description: 'Things to do in 2025.' },
-    { id: 4, name: 'Phase III (90 Days)', progress: 75, length: 'DOT&E', description: 'Other tasks for me.' }
-  ]
+  // const mockOnboardingJourneys = [
+  //   { id: 2, name: 'Phase I (30 Days)', progress: 100, length: 'DOT&E', description: 'Items for my job in 2025.'},
+  //   { id: 3, name: 'Phase II (60 Days)', progress: 60, length: 'DOT&E', description: 'Things to do in 2025.' },
+  //   { id: 4, name: 'Phase III (90 Days)', progress: 75, length: 'DOT&E', description: 'Other tasks for me.' }
+  // ]
 
   const router = useRouter();
 
@@ -111,7 +111,7 @@ function LearningPlanContent() {
             )}
           </PageLoadingContentWrapper>
 
-          {/* Learning Phases Section */}
+          {/* Learning Phases Section
           <div className='mb-4 mt-10 leading-tight'>
             <h1 className="text-xl font-bold text-gray-900 mb-4">DOT&E Onboarding Plans</h1>
             <p className="text-gray-900 pb-4"> 
@@ -134,7 +134,7 @@ function LearningPlanContent() {
               }
             })}
 
-          </div>        
+          </div>         */}
         </div>
       </div>
     </DefaultLayout>
