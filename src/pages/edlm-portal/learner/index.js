@@ -157,16 +157,6 @@ export default function Home() {
 
   return (
     <DefaultLayout>
-      {/* <Head>
-        {isUiConfigLoading ? (
-          <title> Loading... </title> 
-        ) : ( <>
-          <title>{uiConfig?.portal_name}</title>
-          <link rel="icon" href={uiConfig?.logo} />
-        </>
-        )}
-      </Head> */}
-
       <div className='flex flex-col p-6'>
         <div className='bg-white h-100 shadow-md rounded-lg '>
           {isUiConfigLoading ? 
