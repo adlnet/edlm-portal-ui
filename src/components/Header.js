@@ -6,8 +6,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import UserMenu from '@/components/menus/UserMenu';
 
-// import logo from '@/public/doteLogo.png';
-
 export default function Header() {
   const { user } = useAuth();
   const { 
