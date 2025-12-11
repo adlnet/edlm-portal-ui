@@ -75,7 +75,7 @@ function LearningPlanContent() {
             <p className="text-gray-900 pb-4">
               Create personalized learning journeys tailored to your career goals and skill gaps. 
               These self-directed plans help you identify development areas, set learning objectives, 
-              and track progress toward your professional aspirations within DOT&E.
+              and track progress toward your professional aspirations.
             </p>
           </div>
 
