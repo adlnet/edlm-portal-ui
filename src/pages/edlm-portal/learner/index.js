@@ -1,23 +1,17 @@
 "use client";
 
-import { Button, Card, Spinner } from 'flowbite-react';
+import { Button, Spinner } from 'flowbite-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useCourseProgressDetail } from '@/hooks/useCourseProgressDetail';
-import { useInterestLists } from "@/hooks/useInterestLists";
 import { useRouter } from 'next/router';
 import { useUiConfig } from '@/hooks/useUiConfig';
-import { useUserOwnedLists } from "@/hooks/useUserOwnedLists";
 import ActiveCompleteTab from '@/components/buttons/ActiveCompleteTab';
 import Carousel from 'react-grid-carousel'
 import CollectionTable from '@/components/tables/collectionsTable/CollectionTable';
 import CourseSpotlightCarouselCard from '@/components/cards/CourseSpotlightCarousel';
 import DefaultLayout from '@/components/layouts/DefaultLayout';
-import Head from 'next/head'
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
-import armyImage from '@/public/learnImage.jpeg'
-import armyImage1 from '@/public/listsImage.png'
-import armyImage2 from '@/public/lunchLearn.png'
+import React, { useState } from 'react';
 import headerImage from '@/public/welcomeHomePhoto.png';
 import useSpotlightCourses from '@/hooks/useSpotlightCourses';
 
@@ -38,20 +32,7 @@ export default function Home() {
 
   const spotlight = useSpotlightCourses();
 
-  const interestLists = useInterestLists();
-  const ownedLists = useUserOwnedLists();
-
-  const [lunchNLearn, setLunchNLearn] = useState(null);
-
   const moodleAllCourses = process.env.NEXT_PUBLIC_MOODLE_ALL_COURSES;
-
-  // Searching for launch and learn plans
-  useEffect(() => {
-    const lunchNLearnList = 
-      interestLists?.data?.find(list => list.name === 'Lunch & Learns') || 
-      ownedLists?.data?.find(list => list.name === 'Lunch & Learns');
-    setLunchNLearn(lunchNLearnList);
-  }, [interestLists, ownedLists]);
 
   const mockActiveCourseProgressData = {
     course: 'Leadership Fundamentals',
