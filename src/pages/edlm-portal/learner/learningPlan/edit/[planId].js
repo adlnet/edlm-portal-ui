@@ -6,6 +6,7 @@ import { ChooseSkillsStep } from '@/components/steps/ChooseSkillsStep';
 import { CompetencyProvider } from '@/contexts/CompetencyContext';
 import { SetGoalsStepEdit } from '@/components/steps/SetGoalsStepEdit';
 import { TextInput } from 'flowbite-react';
+import { convertIntToTimeline } from '@/utils/convertTimelineToInt';
 import { timeframeOptions } from '@/utils/dropdownMenuConstants';
 import { useDeleteLearningPlan } from '@/hooks/learningPlan/useDeleteLearningPlan';
 import { useEffect, useState } from 'react';
@@ -68,7 +69,7 @@ function EditPlanContent() {
   const transformGoalData = (goal) => ({
     id: goal.id,
     goal: goal.goal_name,
-    timeline: goal.timeline,
+    timeline: convertIntToTimeline(goal.timeline) || goal.timeline,
     resources: goal.resources_support || [],
     obstacles: goal.obstacles || [],
     resourcesOther: goal.resources_support_other || '',

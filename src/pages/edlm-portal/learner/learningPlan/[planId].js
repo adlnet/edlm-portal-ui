@@ -3,6 +3,7 @@
 import { ArrowLongRightIcon, ChevronRightIcon, PencilSquareIcon, XMarkIcon} from '@heroicons/react/24/outline';
 import { Button } from 'flowbite-react';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
+import { convertIntToTimeline } from '@/utils/convertTimelineToInt';
 import { useEffect, useMemo, useState } from 'react';
 import { useLearningPlan } from '@/hooks/learningPlan/useLearningPlan';
 import { useMultipleCompAndKsaDesc } from '@/hooks/useCompOrKsaDesc';
@@ -81,7 +82,7 @@ export default function Plan () {
     id: goal.id,
     desc: goal.goal_name,
     priority: competency.priority,
-    timeline: goal.timeline,
+    timeline: convertIntToTimeline(goal.timeline) || goal.timeline,
     resources: goal.resources_support || [],
     obstacles: goal.obstacles || [],
     resourcesOther: goal.resources_support_other,
