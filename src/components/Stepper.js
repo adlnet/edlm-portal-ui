@@ -6,8 +6,8 @@ export default function Stepper ({ currentStep, steps, onStepClick }) {
   return (
     <ol className="flex items-center w-full space-x-2 text-sm font-medium text-center">
       {steps.map((step) => {
-        // It shouldnt be clickable if it's at the last step (review)
-        const isClickable = onStepClick && (step.id === 0 || step.id <= currentStep && currentStep < steps.length - 1);
+        // Allow clicking on review step as well
+        const isClickable = onStepClick && (step.id === 0 || step.id <= currentStep);
         const isActive = step.id <= currentStep;
         const handleKeyDown = (e) => {
           if (e.key === 'Enter' && isClickable) {

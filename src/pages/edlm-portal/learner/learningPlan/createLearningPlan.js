@@ -59,7 +59,8 @@ export default function CreatePlanForm({ initialStep = 2, onBack}) {
             router.push('/edlm-portal/learner/learningPlan/');
         } else if (stepIndex === 1) {
             onBack();
-        } else if (stepIndex <= currentStep) {
+        } else if (stepIndex <= currentStep && stepIndex >= 2) {
+            // Allow navigation including review
             setCurrentStep(stepIndex);
             autoScrollToTop();
         }
@@ -68,6 +69,14 @@ export default function CreatePlanForm({ initialStep = 2, onBack}) {
     // Update the save button logic
     const handleSaveAndContinue = async () => {
         setLastStep(currentStep);
+        
+        // No API call for set goal step, leave it to the review step
+        if (currentStep === 4) {
+            nextStep();
+            autoScrollToTop();
+            return;
+        }
+        
         const saveSuccess = await handleSaveStep(currentStep);
 
         // if not succesful, show error toast and blocking going to the next step
@@ -91,7 +100,30 @@ export default function CreatePlanForm({ initialStep = 2, onBack}) {
 
     // Handle final page redirect
     const handleFinalSave = () => {
-        router.push(`/edlm-portal/learner/learningPlan/`);
+        router.push(`/edlm-portal/learner/learningPlan/?success=true`);
+    };
+
+    const handleSaveAndSubmit = async () => {
+        const step4Success = await handleSaveStep(4);
+        if (!step4Success) {
+            setErrorMessage('An error occurred while saving your goals. Please try again.');
+            setShowErrorToast(true);
+            setTimeout(() => {
+                setShowErrorToast(false);
+            }, 5000);
+            return;
+        }
+        
+        const step5Success = await handleSaveStep(5);
+        if (step5Success) {
+            handleFinalSave();
+        } else {
+            setErrorMessage('An error occurred while saving your learning plan. Please try again.');
+            setShowErrorToast(true);
+            setTimeout(() => {
+                setShowErrorToast(false);
+            }, 5000);
+        }
     };
 
     // Instant scroll to top when going to the next form step
@@ -146,7 +178,6 @@ export default function CreatePlanForm({ initialStep = 2, onBack}) {
                         timeframe={timeframe}
                         goals={goals}
                         competencyGoals={competencyGoals}
-                        showSuccessMessage={lastStep < currentStep}
                     />
                 )
             default:
@@ -192,6 +223,7 @@ export default function CreatePlanForm({ initialStep = 2, onBack}) {
                                 onClick={handleSaveAndContinue}
                                 disabled={!canProceedFromStep(currentStep)}
                                 loading={isLoading}
+                                buttonText={currentStep === 4 ? 'Continue' : 'Save & Continue'}
                             />
                         </>
                     ) : (
@@ -226,19 +258,25 @@ export default function CreatePlanForm({ initialStep = 2, onBack}) {
                                 </div>
                                 </div>
                             </div>
-                            <div className='flex flex-row justify-end pt-8'>
-                                <Button 
-                                className='flex justify-center bg-blue-100 text-blue-900 hover:bg-blue-300' 
-                                onClick={() =>{}}
+                            <div className='flex flex-row justify-end items-center pt-8 gap-8'>
+                                <button
+                                    onClick={() => router.push('/edlm-portal/learner/learningPlan/')}
+                                    className="text-[#4883B4] text-base font-medium leading-[22.4px] hover:underline transition-all"
                                 >
-                                Export 
-                                </Button>
-                                <Button className='flex justify-center bg-blue-900 hover:bg-blue-600 ml-2'
-                                    onClick={handleFinalSave}
+                                    Cancel
+                                </button>
+                                <button
+                                    onClick={handleBack}
+                                    className="text-[#4883B4] text-base font-medium leading-[22.4px] hover:underline transition-all"
+                                >
+                                    Back
+                                </button>
+                                <SaveAndContinueBtn
+                                    onClick={handleSaveAndSubmit}
                                     disabled={!canProceedFromStep(currentStep)}
-                                >
-                                    Return to Learning Plan
-                                </Button>
+                                    loading={isLoading}
+                                    buttonText='Save & Submit'
+                                />
                             </div>
                         </div>
                         )}

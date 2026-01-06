@@ -9,18 +9,33 @@ import ActiveCompleteTab from '@/components/buttons/ActiveCompleteTab';
 import DefaultLayout from "@/components/layouts/DefaultLayout";
 import LearningJourneyCard from "@/components/cards/LearningJourneyCard";
 import PageLoadingContentWrapper from '@/components/layouts/PageLoadingContentWrapper';
+import SuccessMessageToast from '@/components/cards/SuccessMessageToast';
 
 function LearningPlanContent() {
 
   const { data: learningPlans, isLoading } = useAllLearningPlans();
+  const router = useRouter();
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+
+  useEffect(() => {
+    if (router.query.success === 'true') {
+      setShowSuccessMessage(true);
+
+      router.replace('/edlm-portal/learner/learningPlan/', undefined, { shallow: true });
+
+      const timer = setTimeout(() => {
+        setShowSuccessMessage(false);
+      }, 5000);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [router.query.success, router]);
 
   // const mockOnboardingJourneys = [
   //   { id: 2, name: 'Phase I (30 Days)', progress: 100, length: 'DOT&E', description: 'Items for my job in 2025.'},
   //   { id: 3, name: 'Phase II (60 Days)', progress: 60, length: 'DOT&E', description: 'Things to do in 2025.' },
   //   { id: 4, name: 'Phase III (90 Days)', progress: 75, length: 'DOT&E', description: 'Other tasks for me.' }
   // ]
-
-  const router = useRouter();
 
   const [activePlans, setActivePlans] = useState(0);
   const [completedPlans, setCompletedPlans] = useState(0);
@@ -50,6 +65,12 @@ function LearningPlanContent() {
     <DefaultLayout>
       <div className='bg-white shadow-md p-5 py-0 w-full mb-5 rounded-xl m-4 -my-6 overflow-clip'>
         <div className='mt-10 pb-4 py-4'>
+          {showSuccessMessage && (
+            <SuccessMessageToast
+              title='Learning Plan Created Successfully!'
+              description='Your personalized development plan has been saved and is ready to guide your career growth'
+            />
+          )}
           <div className='mb-8'>
             <h1 className='text-2xl font-bold leading-normal text-gray-900 mb-4'>Learning Plans</h1>
             <h2 className=''> Manage and track your individual development plans. </h2>
