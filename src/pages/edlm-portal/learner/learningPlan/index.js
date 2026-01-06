@@ -22,12 +22,6 @@ function LearningPlanContent() {
       setShowSuccessMessage(true);
 
       router.replace('/edlm-portal/learner/learningPlan/', undefined, { shallow: true });
-
-      const timer = setTimeout(() => {
-        setShowSuccessMessage(false);
-      }, 5000);
-      
-      return () => clearTimeout(timer);
     }
   }, [router.query.success, router]);
 
