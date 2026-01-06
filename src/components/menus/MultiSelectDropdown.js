@@ -1,13 +1,30 @@
 'use strict';
 
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 export function MultiSelectDropdown({ options, selectedValues = [], onChange, placeholder, disabled = false }) {
     const [isOpen, setIsOpen] = useState(false);
+    const dropdownRef = useRef(null);
+
+    useEffect(() => {
+        const handleClickOutside = e => {
+            if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+                setIsOpen(false);
+            }
+        };
+
+        if (isOpen) {
+            document.addEventListener('mousedown', handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [isOpen]);
 
     return (
-        <div className="relative">
+        <div className="relative" ref={dropdownRef}>
             <button
                 type="button"
                 onClick={() => setIsOpen(!isOpen)}

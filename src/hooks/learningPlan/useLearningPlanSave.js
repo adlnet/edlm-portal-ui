@@ -165,6 +165,8 @@ export function useLearningPlanSave(formState) {
                 return await handleSaveStep3();
             case 4:
                 return await handleSaveStep4();
+            case 5:
+                return true;
             default:
                 return false;
         }

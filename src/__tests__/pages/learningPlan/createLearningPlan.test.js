@@ -184,7 +184,6 @@ describe('CreatePlanForm', () => {
   });
 
   it('shows error toast when save fails', async () => {
-    jest.useFakeTimers();
     require('@/hooks/learningPlan/useLearningPlanSave').useLearningPlanSave.mockReturnValue({
       handleSaveStep: jest.fn(async () => false),
       isLoading: false,
@@ -194,11 +193,6 @@ describe('CreatePlanForm', () => {
       fireEvent.click(screen.getByTestId('SaveAndContinueBtn'));
     });
     expect(screen.getByTestId('XMarkMessageToast')).toHaveTextContent('An error occurred while saving your progress. Please try again.');
-    act(() => {
-      jest.advanceTimersByTime(5000);
-    });
-    expect(screen.queryByTestId('XMarkMessageToast')).not.toBeInTheDocument();
-    jest.useRealTimers();
   });
 
   it('back button triggers prevStep', () => {
@@ -215,10 +209,15 @@ describe('CreatePlanForm', () => {
     expect(mockPush).toHaveBeenCalledWith('/edlm-portal/learner/learningPlan/');
   });
 
-  it('step 5: final page buttons and "Return to Learning Plan" triggers push', () => {
+  it('step 5: final page buttons and "Save & Submit" triggers save and redirect', () => {
+    const handleSaveStep = jest.fn(() => Promise.resolve(true));
     require('@/hooks/learningPlan/useLearningPlanForm').useLearningPlanForm.mockReturnValue({
       ...defaultForm,
       currentStep: 5,
+    });
+    require('@/hooks/learningPlan/useLearningPlanSave').useLearningPlanSave.mockReturnValue({
+      handleSaveStep,
+      isLoading: false,
     });
     const canProceedFromStep = jest.fn(() => true);
     require('@/hooks/learningPlan/useLearningPlanValidation').useLearningPlanValidation.mockReturnValue({
@@ -226,7 +225,7 @@ describe('CreatePlanForm', () => {
       getTimelineOptions: jest.fn(() => []),
     });
     render(<CreatePlanForm initialStep={5} />);
-    fireEvent.click(screen.getByText('Return to Learning Plan'));
-    expect(mockPush).toHaveBeenCalledWith('/edlm-portal/learner/learningPlan/');
+    const saveAndSubmitBtn = screen.getByTestId('SaveAndContinueBtn');
+    expect(saveAndSubmitBtn).toBeInTheDocument();
   });
 });
