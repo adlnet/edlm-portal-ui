@@ -86,9 +86,6 @@ export default function CreatePlanForm({ initialStep = 2, onBack}) {
         } else {
             setErrorMessage('An error occurred while saving your progress. Please try again.');
             setShowErrorToast(true);
-            setTimeout(() => {
-                setShowErrorToast(false);
-            }, 5000);
         }
     };
 
@@ -108,9 +105,6 @@ export default function CreatePlanForm({ initialStep = 2, onBack}) {
         if (!step4Success) {
             setErrorMessage('An error occurred while saving your goals. Please try again.');
             setShowErrorToast(true);
-            setTimeout(() => {
-                setShowErrorToast(false);
-            }, 5000);
             return;
         }
         
@@ -120,9 +114,6 @@ export default function CreatePlanForm({ initialStep = 2, onBack}) {
         } else {
             setErrorMessage('An error occurred while saving your learning plan. Please try again.');
             setShowErrorToast(true);
-            setTimeout(() => {
-                setShowErrorToast(false);
-            }, 5000);
         }
     };
 
