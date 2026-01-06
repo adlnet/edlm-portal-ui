@@ -6,7 +6,7 @@ describe('SaveAndContinueBtn', () => {
   it('renders with default text and can be clicked', () => {
     const handleClick = jest.fn();
     render(<SaveAndContinueBtn onClick={handleClick} />);
-    const button = screen.getByRole('button', { name: /save and continue/i });
+    const button = screen.getByRole('button', { name: /save & continue/i });
     expect(button).toBeInTheDocument();
     expect(screen.getByText('Save & Continue')).toBeInTheDocument();
     fireEvent.click(button);
@@ -16,7 +16,7 @@ describe('SaveAndContinueBtn', () => {
   it('shows loading text and is disabled during loading', () => {
     const handleClick = jest.fn();
     render(<SaveAndContinueBtn onClick={handleClick} loading />);
-    const button = screen.getByRole('button', { name: /save and continue/i });
+    const button = screen.getByRole('button', { name: /save & continue/i });
     expect(screen.getByText('Saving...')).toBeInTheDocument();
     expect(button).toBeDisabled();
     fireEvent.click(button);
@@ -26,7 +26,7 @@ describe('SaveAndContinueBtn', () => {
   it('is disabled when the disabled prop is true', () => {
     const handleClick = jest.fn();
     render(<SaveAndContinueBtn onClick={handleClick} disabled />);
-    const button = screen.getByRole('button', { name: /save and continue/i });
+    const button = screen.getByRole('button', { name: /save & continue/i });
     expect(button).toBeDisabled();
     fireEvent.click(button);
     expect(handleClick).not.toHaveBeenCalled();
@@ -35,7 +35,7 @@ describe('SaveAndContinueBtn', () => {
   it('calls onClick when pressing Enter if not disabled/loading', () => {
     const handleClick = jest.fn();
     render(<SaveAndContinueBtn onClick={handleClick} />);
-    const button = screen.getByRole('button', { name: /save and continue/i });
+    const button = screen.getByRole('button', { name: /save & continue/i });
     fireEvent.keyDown(button, { key: 'Enter', code: 13, charCode: 13 });
     expect(handleClick).toHaveBeenCalled();
   });
@@ -43,7 +43,7 @@ describe('SaveAndContinueBtn', () => {
   it('does not call onClick with Enter key if disabled', () => {
     const handleClick = jest.fn();
     render(<SaveAndContinueBtn onClick={handleClick} disabled />);
-    const button = screen.getByRole('button', { name: /save and continue/i });
+    const button = screen.getByRole('button', { name: /save & continue/i });
     fireEvent.keyDown(button, { key: 'Enter', code: 13, charCode: 13 });
     expect(handleClick).not.toHaveBeenCalled();
   });
@@ -51,7 +51,7 @@ describe('SaveAndContinueBtn', () => {
   it('does not call onClick with Enter key if loading', () => {
     const handleClick = jest.fn();
     render(<SaveAndContinueBtn onClick={handleClick} loading />);
-    const button = screen.getByRole('button', { name: /save and continue/i });
+    const button = screen.getByRole('button', { name: /save & continue/i });
     fireEvent.keyDown(button, { key: 'Enter', code: 13, charCode: 13 });
     expect(handleClick).not.toHaveBeenCalled();
   });
