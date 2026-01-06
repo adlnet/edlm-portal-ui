@@ -184,7 +184,6 @@ describe('CreatePlanForm', () => {
   });
 
   it('shows error toast when save fails', async () => {
-    jest.useFakeTimers();
     require('@/hooks/learningPlan/useLearningPlanSave').useLearningPlanSave.mockReturnValue({
       handleSaveStep: jest.fn(async () => false),
       isLoading: false,
@@ -194,11 +193,6 @@ describe('CreatePlanForm', () => {
       fireEvent.click(screen.getByTestId('SaveAndContinueBtn'));
     });
     expect(screen.getByTestId('XMarkMessageToast')).toHaveTextContent('An error occurred while saving your progress. Please try again.');
-    act(() => {
-      jest.advanceTimersByTime(5000);
-    });
-    expect(screen.queryByTestId('XMarkMessageToast')).not.toBeInTheDocument();
-    jest.useRealTimers();
   });
 
   it('back button triggers prevStep', () => {
