@@ -1,12 +1,12 @@
 'use strict';
 
 import { ALL_STEPS } from '@/utils/dropdownMenuConstants';
-import { ArrowLongRightIcon } from '@heroicons/react/24/outline';
-import { Button } from 'flowbite-react';
+import { ArrowLongRightIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { ChooseSkillsStep } from '@/components/steps/ChooseSkillsStep';
 import { NamePlanStep } from '@/components/steps/NamePlanStep';
 import { ReviewStep } from '@/components/steps/ReviewStep';
 import { SetGoalsStep } from '@/components/steps/SetGoalsStep';
+import { XCircleIcon } from '@heroicons/react/24/solid';
 import { useLearningPlanForm } from '@/hooks/learningPlan/useLearningPlanForm';
 import { useLearningPlanSave } from '@/hooks/learningPlan/useLearningPlanSave';
 import { useLearningPlanValidation } from '@/hooks/learningPlan/useLearningPlanValidation';
@@ -15,7 +15,6 @@ import { useState } from 'react';
 import DefaultLayout from "@/components/layouts/DefaultLayout";
 import SaveAndContinueBtn from '@/components/buttons/SaveAndContinueBtn';
 import Stepper from '@/components/Stepper';
-import XMarkMessageToast from '@/components/cards/XMarkMessageToast';
 
 export default function CreatePlanForm({ initialStep = 2, onBack}) {
     const router = useRouter();
@@ -188,11 +187,6 @@ export default function CreatePlanForm({ initialStep = 2, onBack}) {
     return (
         <DefaultLayout>
             <div className='bg-white shadow-md p-5 py-0 w-full h-full mb-5 rounded-xl m-4 -my-6 overflow-visible'>
-                {showErrorToast && (
-                    <div className="fixed top-10 right-10 justify-center z-9999">
-                        <XMarkMessageToast message={errorMessage} />
-                    </div>
-                )}
                 <div className='mt-10 pb-4 py-4'>
                     <div className="mb-6">
                         <Stepper
@@ -200,6 +194,27 @@ export default function CreatePlanForm({ initialStep = 2, onBack}) {
                             steps={ALL_STEPS}
                             onStepClick={handleStepClick}
                         />
+                        {showErrorToast && (
+                            <div className="flex flex-col p-4 mt-4 mb-2 bg-red-100 rounded-lg w-full"> 
+                                <div className="flex flex-row justify-between pb-2">
+                                    <div className="flex flex-row items-center">
+                                        <XCircleIcon className="w-6 h-6 text-red-900"/>
+                                        <div className="text-lg text-red-900 font-bold pl-2">Learning plan failed to save</div>
+                                    </div>
+                                    <button
+                                        type="button"
+                                        aria-label="Dismiss"
+                                        className=""
+                                        onClick={()=>{setShowErrorToast(false)}}
+                                    >
+                                        <XMarkIcon className='w-6 h-6 text-red-900' />
+                                    </button>
+                                </div>
+                                <div className="text-red-900 text-medium">
+                                    {errorMessage}
+                                </div>
+                            </div>
+                        )}
                     </div>
 
                     {renderStepContent()}
