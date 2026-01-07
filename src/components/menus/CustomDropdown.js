@@ -21,6 +21,10 @@ export default function CustomDropdown({
         </span>
     );
 
+    const needsScroll = options.length > 8;
+
+    const optionsWrapperClass = needsScroll ? "max-h-72 overflow-y-auto" : "";
+
     return (
         <Dropdown 
             label="dropdown" 
@@ -32,24 +36,24 @@ export default function CustomDropdown({
                 </div>
             )}
         >
-            {options.map(option => {
-                // If option is an object, use its value and label
-                // if not, use the option directly
-                const optionValue = option?.value ?? option;
-                const optionLabel = option?.label ?? option;
-                const disabled = option?.disabled ?? false;
+            <div className={optionsWrapperClass}>
+                {options.map(option => {
+                    const optionValue = option?.value ?? option;
+                    const optionLabel = option?.label ?? option;
+                    const disabled = option?.disabled ?? false;
 
-                return (
-                    <Dropdown.Item 
-                        key={optionValue} 
-                        onClick={() => !disabled && onChange({ target: { value: optionValue } })}
-                        className={`flex items-center gap-2 w-full ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
-                    >
-                        {renderOption ? renderOption(optionValue) : optionLabel}
-                    </Dropdown.Item>
-                );
-            })}
-            
+                    return (
+                        <Dropdown.Item 
+                            key={optionValue} 
+                            onClick={() => !disabled && onChange({ target: { value: optionValue } })}
+                            className={`flex items-center gap-2 w-full ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+                        >
+                            {renderOption ? renderOption(optionValue) : optionLabel}
+                        </Dropdown.Item>
+                    );
+                })}
+            </div>
+
             {footerItem && (
                 <>
                     <Dropdown.Divider />
