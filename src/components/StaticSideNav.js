@@ -5,12 +5,14 @@ import { useState } from "react";
 import BookIcon from '@/public/icons/bookIcon.svg';
 import ChevronDownIcon from '@/public/icons/chevronDownIcon.svg';
 import ClipboardCheckIcon from '@/public/icons/clipboardCheckIcon.svg';
+import ClipboardIcon from '@/public/icons/clipboard.svg';
 import FileBarIcon from '@/public/icons/fileBarIcon.svg';
 import HomeIcon from '@/public/icons/homeIcon.svg';
 import Image from 'next/image';
 import LifeBuoyIcon from '@/public/icons/lifeBuoyIcon.svg';
 import OutdentIcon from '@/public/icons/outdentIcon.svg';
 import SearchIcon from '@/public/icons/searchIcon.svg';
+
 
 
 export default function StaticSideNav() {
@@ -77,6 +79,7 @@ export default function StaticSideNav() {
                         {!backendConfig?.[0]?.manager && !isBackendConfigLoading && (
                             renderNavBtn('leadersReport', '/edlm-portal/learner/learningSummary', FileBarIcon ,"My Learning Summary")
                         )}
+                        {renderNavBtn('applications', '/edlm-portal/learner/applications', ClipboardIcon , 'My Applications')}
                         <div className={`w-[221px] p-2 rounded-lg flex-col justify-start items-center cursor-pointer`}>
                             <div className="justify-start items-center flex" onClick={() => setShowCollections(!showCollections)} onKeyDown={e => e.key === 'Enter' && setShowCollections(!showCollections)} role="button" tabIndex={0}>
                                 <div className="grow shrink basis-0 h-6 justify-start items-center gap-3 flex">
