@@ -191,38 +191,6 @@ export default function Plan () {
         {competenciesWithGoals?.map((competency) => (
           <DevelopmentGoal key={competency.id} competency={competency} />
         ))}
-
-          <div className='p-4 border rounded-lg border-gray-300 mt-6'>
-            <div className='font-bold pb-6 text-xl text-gray-900'>Next Steps</div>
-            <div className='text-gray-890 pb-3'>Keep progressing with your development plan and explore additional resources.</div>
-            <div className='flex flex-row gap-4'>
-              <div className='flex flex-col w-1/3 border border-gray-300 rounded-lg py-4 px-6 items-center'>
-                <div className='pb-2 font-bold text-lg'>Track Your Progress</div>
-                <div className='text-sm pb-8 flex-wrap text-center'>Monitor your development through the Learning Plan page and update your progress as you complete courses.</div>
-                <button 
-                  className='flex flex-row items-center gap-2 border border-blue-600 rounded-lg py-1 px-3 text-sm hover:bg-blue-100 text-blue-600'
-                  onClick={()=> {}}
-                > View My Plans <ArrowLongRightIcon className='h-4 w-4' /> </button>
-              </div>
-              <div className='flex flex-col w-1/3 border border-gray-300 rounded-lg p-3 py-4 px-6 items-center'>
-                <div className='pb-2 font-bold text-lg'>Explore Course Catalog</div>
-                <div className='text-sm pb-8 flex-wrap text-center'>Browse additional courses and resources to supplement your development plan with more learning opportunities.</div>
-                <button 
-                  className='flex flex-row items-center gap-2 border border-blue-600 rounded-lg py-1 px-3 text-sm hover:bg-blue-100 text-blue-600'
-                  onClick={()=> {}}
-                > Browse Collections <ArrowLongRightIcon className='h-4 w-4' /> </button>
-              </div>
-              <div className='flex flex-col w-1/3 border border-gray-300 rounded-lg p-3 py-4 px-6 items-center'>
-                <div className='pb-2 font-bold text-lg'>Add from Collections</div>
-                <div className='text-sm pb-8 flex-wrap text-center'>Access your saved collections to add curated courses and resources to enhance your development plan.</div>
-                <button 
-                  className='flex flex-row items-center gap-2 border border-blue-600 rounded-lg py-1 px-3 text-sm hover:bg-blue-100 text-blue-600'
-                  onClick={()=> {}}
-                > View Collections <ArrowLongRightIcon className='h-4 w-4' /> </button>
-              </div>
-            </div>
-          </div>
-
           <div className='flex flex-row justify-end pt-8'>
             <Button 
               className='flex justify-center bg-blue-100 text-blue-900 hover:bg-blue-300' 
