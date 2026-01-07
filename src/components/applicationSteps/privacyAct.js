@@ -73,7 +73,7 @@ export function PrivacyAct({setCurrentStep, applicationType}) {
         {/* Continue Button */}
         <div className="flex w-full justify-end mt-6">
           <button 
-            className="flex px-4 py-2 justify-center rounded-md text-white text-sm bg-teal-500 hover:bg-teal-800 mt-6" 
+            className="flex px-4 py-2 justify-center rounded-md text-white text-sm bg-teal-custom-500 hover:bg-teal-800 mt-6" 
             onClick={handleContinue}
           >
             <div className="flex gap-2 items-center justify-end">

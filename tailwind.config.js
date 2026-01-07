@@ -22,10 +22,10 @@ module.exports = {
         'navy-025': '#EDF5FF',
         'navy-200': '#1D62AD',
         'navy-700': '#17528E',
-        'teal-500': '#23717E',
-        'teal-50': '#E6F2F6',
+        'teal-custom-500': '#23717E',
+        'teal-custom-50': '#E6F2F6',
         'gray-cool-700': '#545964',
-        'teal-disabled': '#94bbbdff'
+        'teal-disabled': '#94bbbd',
       },
     },
   },

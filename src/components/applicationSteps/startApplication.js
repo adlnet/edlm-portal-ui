@@ -83,7 +83,7 @@ export function StartApplication({setCurrentStep, applicationType, setApplicatio
             <div className="flex items-center mt-2">
               <button
                 type="button"
-                className="bg-teal-500 text-white py-2.5 px-5 border border-teal-500 hover:border-teal-800 rounded-l-lg focus:outline-none hover:bg-teal-800 transition-all"
+                className="bg-teal-custom-500 text-white py-2.5 px-5 border border-teal-custom-500 hover:border-teal-800 rounded-l-lg focus:outline-none hover:bg-teal-800 transition-all"
                 onClick={() => inputRef.current.click()}
               >
                 Choose File
@@ -117,7 +117,7 @@ export function StartApplication({setCurrentStep, applicationType, setApplicatio
 
             {/* Success Message */}
             {showUploaded && (
-              <div className="flex items-center justify-between bg-[#e6f2f6] text-[#357780] px-6 py-4 rounded-lg mb-4 mt-4">
+              <div className="flex items-center justify-between bg-teal-custom-50 text-teal-custom-500 px-6 py-4 rounded-lg mb-4 mt-4">
                 <div className="flex items-center">
                   <CheckCircleIcon className="w-6 h-6 mr-2" />
                   <span className="text-lg font-semibold">Your file has been uploaded.</span>
@@ -143,7 +143,7 @@ export function StartApplication({setCurrentStep, applicationType, setApplicatio
                 </button>
                 <div className="flex items-center p-4 min-w-[370px]">
                   {/* File Type Icon */}
-                  <div className="bg-teal-500 w-20 h-20 flex items-center justify-center rounded-tl-xl mr-6">
+                  <div className="bg-teal-custom-500 w-20 h-20 flex items-center justify-center rounded-tl-xl mr-6">
                     <DocumentIcon className="w-10 h-10 text-white" />
                   </div>
                   {/* File details */}
@@ -191,7 +191,7 @@ export function StartApplication({setCurrentStep, applicationType, setApplicatio
         {/* Continue Button */}
         <div className="flex w-full justify-end mt-8">
           <button 
-            className="flex px-4 py-2 justify-center rounded-md text-white text-sm bg-teal-500 hover:bg-teal-800 mt-6 disabled:bg-teal-disabled" 
+            className="flex px-4 py-2 justify-center rounded-md text-white text-sm bg-teal-custom-500 hover:bg-teal-800 mt-6 disabled:bg-teal-disabled" 
             onClick={handleContinue}
             disabled={!applicationType || !payGrade || !position || (applicationType == 'New Application' && !file)}
           >

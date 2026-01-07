@@ -146,7 +146,7 @@ export function CodeOfEthics({setCurrentStep, applicationType, codeOfEthicsAgree
         {/* Continue Button */}
         <div className="flex w-full justify-end mt-10">
           <button 
-            className="flex px-4 py-2 justify-center rounded-md text-white text-sm bg-teal-500 hover:bg-teal-800 disabled:bg-teal-disabled" 
+            className="flex px-4 py-2 justify-center rounded-md text-white text-sm bg-teal-custom-500 hover:bg-teal-800 disabled:bg-teal-disabled" 
             onClick={handleContinue}
             disabled={!codeOfEthicsAgreed}
           >
