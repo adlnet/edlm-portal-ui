@@ -25,12 +25,6 @@ function LearningPlanContent() {
     }
   }, [router.query.success, router]);
 
-  // const mockOnboardingJourneys = [
-  //   { id: 2, name: 'Phase I (30 Days)', progress: 100, length: 'DOT&E', description: 'Items for my job in 2025.'},
-  //   { id: 3, name: 'Phase II (60 Days)', progress: 60, length: 'DOT&E', description: 'Things to do in 2025.' },
-  //   { id: 4, name: 'Phase III (90 Days)', progress: 75, length: 'DOT&E', description: 'Other tasks for me.' }
-  // ]
-
   const [activePlans, setActivePlans] = useState(0);
   const [completedPlans, setCompletedPlans] = useState(0);
 
