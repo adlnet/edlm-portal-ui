@@ -7,6 +7,10 @@ jest.mock('@/utils/dropdownMenuConstants', () => ({
 }));
 jest.mock('@heroicons/react/24/outline', () => ({
   ArrowLongRightIcon: () => <span data-testid="ArrowLongRightIcon" />,
+  XMarkIcon: () => <span data-testid="XMarkIcon" />,
+}));
+jest.mock('@heroicons/react/24/solid', () => ({
+  XCircleIcon: () => <span data-testid="XCircleIcon" />,
 }));
 jest.mock('flowbite-react', () => ({
   Button: (props) => <button {...props}>{props.children}</button>,
@@ -58,11 +62,7 @@ jest.mock('@/components/Stepper', () => {
   Stepper.displayName = 'Stepper';
   return Stepper;
 });
-jest.mock('@/components/cards/XMarkMessageToast', () => {
-  const XMarkMessageToast = (props) => <div data-testid="XMarkMessageToast">{props.message}</div>;
-  XMarkMessageToast.displayName = 'XMarkMessageToast';
-  return XMarkMessageToast;
-});
+
 
 const mockPush = jest.fn();
 
@@ -192,7 +192,7 @@ describe('CreatePlanForm', () => {
     await act(async () => {
       fireEvent.click(screen.getByTestId('SaveAndContinueBtn'));
     });
-    expect(screen.getByTestId('XMarkMessageToast')).toHaveTextContent('An error occurred while saving your progress. Please try again.');
+    expect(screen.getByText('An error occurred while saving your progress. Please try again.')).toBeInTheDocument();
   });
 
   it('back button triggers prevStep', () => {
