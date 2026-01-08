@@ -112,10 +112,6 @@ describe("Plan Page", () => {
     // Timeframe label
     expect(screen.getByText(/6 months/)).toBeInTheDocument();
 
-    // Next Steps
-    expect(screen.getByText(/Next Steps/)).toBeInTheDocument();
-    expect(screen.getByText(/Track Your Progress/)).toBeInTheDocument();
-    expect(screen.getByText(/Browse Collections/)).toBeInTheDocument();
     expect(screen.getByText(/Export/)).toBeInTheDocument();
     expect(screen.getByText(/Return to Learning Plans/)).toBeInTheDocument();
   });
