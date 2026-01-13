@@ -8,6 +8,7 @@ import { useQuery } from 'react-query';
 /**
  * Hook to get a single application with details
  */
+
 export function useApplication(applicationId) {
     return useQuery(
         ['application', applicationId],

@@ -8,6 +8,7 @@ import { useQuery } from 'react-query';
 /**
  * Hook to get all applications for the current user
  */
+
 export function useAllApplications(params = {}) {
     return useQuery(
         ['applications', params],

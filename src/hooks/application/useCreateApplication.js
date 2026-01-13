@@ -7,6 +7,7 @@ import { useMutation, useQueryClient } from 'react-query';
 /**
  * Hook to create a new application
  */
+
 export function useCreateApplication() {
     const queryClient = useQueryClient();
     

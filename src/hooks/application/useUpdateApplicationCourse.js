@@ -7,6 +7,7 @@ import { useMutation, useQueryClient } from 'react-query';
 /**
  * Hook to update an existing application course
  */
+
 export function useUpdateApplicationCourse() {
     const queryClient = useQueryClient();
     

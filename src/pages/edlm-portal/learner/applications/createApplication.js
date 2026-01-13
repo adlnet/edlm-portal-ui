@@ -1,13 +1,13 @@
 'use strict'
 
+import { ApplicationProvider } from '@/contexts/ApplicationContext';
 import { CodeOfEthics } from '@/components/applicationSteps/codeOfEthics';
+import { FormProvider, useForm } from 'react-hook-form';
 import { PrivacyAct } from '@/components/applicationSteps/privacyAct';
 import { StartApplication } from '@/components/applicationSteps/startApplication';
-import { useForm, FormProvider } from 'react-hook-form';
-import { useState } from 'react';
 import { useCreateApplication } from '@/hooks/application/useCreateApplication';
+import { useState } from 'react';
 import { useUpdateApplication } from '@/hooks/application/useUpdateApplication';
-import { ApplicationProvider } from '@/contexts/ApplicationContext';
 import DefaultLayout from "@/components/layouts/DefaultLayout";
 
 export default function CreateApplication(){
@@ -34,6 +34,7 @@ export default function CreateApplication(){
       firstName: '',
       lastName: '',
       middleInitial: '',
+
       // ... more stuff here...
     },
     mode: 'onChange'

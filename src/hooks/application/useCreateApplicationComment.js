@@ -7,6 +7,7 @@ import { useMutation, useQueryClient } from 'react-query';
 /**
  * Hook to create a new application comment (reviewer only)
  */
+
 export function useCreateApplicationComment() {
     const queryClient = useQueryClient();
     
