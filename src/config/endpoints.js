@@ -73,3 +73,8 @@ export const learningPlanGoalCoursesUrl = `${backendHost}${api}learning-plan-goa
 export const topSavedCoursesDetail = `${XDSbackendHost}${api}experiences/most-saved`;
 export const topSubscribedCollectionsDetail = `${XDSbackendHost}${api}interest-lists/most-subscribed`;
 
+// Application
+export const applicationsUrl = `${backendHost}${api}applications/`;
+export const applicationExperiencesUrl = `${backendHost}${api}application-experiences/`;
+export const applicationCoursesUrl = `${backendHost}${api}application-courses/`;
+export const applicationCommentsUrl = `${backendHost}${api}application-comments/`;
