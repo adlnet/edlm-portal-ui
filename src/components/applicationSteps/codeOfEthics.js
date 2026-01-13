@@ -24,7 +24,7 @@ export function CodeOfEthics() {
       setValue('currentStep', 4);
     } catch (error) {
       console.error('Error saving application:', error);
-      setSaveError(error.message || 'Failed to save application');
+      setSaveError('Failed to save application');
     }
   }
 
