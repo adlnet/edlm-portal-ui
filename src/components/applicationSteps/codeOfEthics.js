@@ -1,21 +1,38 @@
 'use strict'
 
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
+import { useApplicationContext } from '@/contexts/ApplicationContext';
+import { useFormContext } from 'react-hook-form';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 
-export function CodeOfEthics({setCurrentStep, applicationType, codeOfEthicsAgreed, setCodeOfEthicsAgreed, codeOfEthicsDate, setCodeOfEthicsDate}) {
-
+export function CodeOfEthics() {
+  const { watch, setValue } = useFormContext();
+  const { saveApplication, isSaving } = useApplicationContext();
+  
+  const applicationType = watch('applicationType');
+  const codeOfEthicsAgreed = watch('codeOfEthicsAgreed');
+  const codeOfEthicsDate = watch('codeOfEthicsDate');
+  
   const router = useRouter();
+  const [saveError, setSaveError] = useState(null);
 
-  const handleContinue = () => {
-    setCurrentStep(4);
+  const handleContinue = async () => {
+    try {
+      setSaveError(null);
+      await saveApplication();
+      setValue('currentStep', 4);
+    } catch (error) {
+      console.error('Error saving application:', error);
+      setSaveError(error.message || 'Failed to save application');
+    }
   }
 
   const handleCheck = () => {
     if (!codeOfEthicsAgreed) {
       const now = new Date();
-      setCodeOfEthicsAgreed(true);
-      setCodeOfEthicsDate(now);
+      setValue('codeOfEthicsAgreed', true);
+      setValue('codeOfEthicsDate', now);
     }
   };
 
@@ -34,14 +51,14 @@ export function CodeOfEthics({setCurrentStep, applicationType, codeOfEthicsAgree
       <div className="flex flex-row items-center gap-2">
         <button 
           className="text-md text-navy-200"
-          onClick={() => {setCurrentStep(2)}}
+          onClick={() => setValue('currentStep', 2)}
         >
           Privacy Act
         </button>
         <ChevronRightIcon className='text-navy-200 w-4 h-4'/>
         <button 
           className="text-md text-navy-200"
-          onClick={() => {setCurrentStep(3)}}
+          onClick={() => setValue('currentStep', 3)}
         >
           Code of Ethics
         </button>
@@ -143,16 +160,22 @@ export function CodeOfEthics({setCurrentStep, applicationType, codeOfEthicsAgree
 
         </div>
 
+        {saveError && (
+          <div className="flex items-center bg-red-50 text-red-700 px-6 py-4 rounded-lg mt-4">
+            <span>{saveError}</span>
+          </div>
+        )}
+
         {/* Continue Button */}
         <div className="flex w-full justify-end mt-10">
           <button 
             className="flex px-4 py-2 justify-center rounded-md text-white text-sm bg-teal-custom-500 hover:bg-teal-800 disabled:bg-teal-disabled" 
             onClick={handleContinue}
-            disabled={!codeOfEthicsAgreed}
+            disabled={!codeOfEthicsAgreed || isSaving}
           >
             <div className="flex gap-2 items-center justify-end">
-              Continue 
-            </div>
+              {isSaving ? 'Saving...' : 'Continue'}
+            </div> 
           </button>
         </div>
 
