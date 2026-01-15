@@ -1,14 +1,17 @@
 'use strict'
 
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
+import { useFormContext } from 'react-hook-form';
 import { useRouter } from 'next/router';
 
-export function PrivacyAct({setCurrentStep, applicationType}) {
-
+export function PrivacyAct() {
+  const { watch, setValue } = useFormContext();
+  const applicationType = watch('applicationType');
+  
   const router = useRouter();
 
   const handleContinue = () => {
-    setCurrentStep(3);
+    setValue('currentStep', 3);
   }
 
   return (
@@ -17,7 +20,7 @@ export function PrivacyAct({setCurrentStep, applicationType}) {
       <div className="flex flex-row items-center gap-2">
         <button 
             className="text-md text-navy-200"
-            onClick={() => {setCurrentStep(2)}}
+            onClick={() => setValue('currentStep', 2)}
         >
             Privacy Act
         </button>

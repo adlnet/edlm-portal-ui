@@ -3,22 +3,31 @@
 import { CheckCircleIcon, DocumentIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { ChevronLeftIcon, InformationCircleIcon } from "@heroicons/react/24/outline";
 import { applicationPositionOptions, payGradeOptions } from '@/utils/dropdownMenuConstants';
+import { useFormContext } from 'react-hook-form';
 import { useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import AsteriskIcon from '@/public/icons/asteriskIcon.svg';
 import CustomDropdown from '@/components/menus/CustomDropdown';
 import Image from 'next/image';
 
-export function StartApplication({setCurrentStep, applicationType, setApplicationType, payGrade, setPayGrade, position, setPosition, file, setFile}) {
-
+export function StartApplication() {
+  const { watch, setValue } = useFormContext();
+  
+  const applicationType = watch('applicationType');
+  const payGrade = watch('payGrade');
+  const position = watch('position');
+  const file = watch('file');
+  
   const router = useRouter();
   const [showUploaded, setShowUploaded] = useState(false);
   const [uploadDate, setUploadDate] = useState(null);
   const inputRef = useRef(null);
 
   const handleContinue = () => {
-    setCurrentStep(2);
+    setValue('currentStep', 2);
   }
+
+  const isFormValid = applicationType && payGrade && position && (applicationType !== 'New Application' || file);
 
   return (
     <>
@@ -63,7 +72,7 @@ export function StartApplication({setCurrentStep, applicationType, setApplicatio
         </div>
         <CustomDropdown
             value={applicationType}
-            onChange={e => setApplicationType(e.target.value)}
+            onChange={e => setValue('applicationType', e.target.value)}
             options={['New Application','Renewal Application']}
             placeholder="Select Application Type"
         />
@@ -93,7 +102,7 @@ export function StartApplication({setCurrentStep, applicationType, setApplicatio
                 type="file"
                 className="hidden"
                 onChange={(e) => {
-                  setFile(e.target.files[0]);
+                  setValue('file', e.target.files[0]);
                   setShowUploaded(true);
                   setUploadDate(new Date());
                 }}
@@ -136,7 +145,7 @@ export function StartApplication({setCurrentStep, applicationType, setApplicatio
               <div className="flex flex-row mt-2">
                 <button
                   className="mr-2 h-12"
-                  onClick={() => { setFile(null); setShowUploaded(false); }}
+                  onClick={() => { setValue('file', null); setShowUploaded(false); }}
                   aria-label="Remove file"
                 >
                   <XMarkIcon className="w-6 h-6 text-gray-700"/>
@@ -168,7 +177,7 @@ export function StartApplication({setCurrentStep, applicationType, setApplicatio
             </div>
             <CustomDropdown
               value={payGrade}
-              onChange={e => setPayGrade(e.target.value)}
+              onChange={e => setValue('payGrade', e.target.value)}
               options={payGradeOptions}
               placeholder="Select Pay Grade"
             />
@@ -181,7 +190,7 @@ export function StartApplication({setCurrentStep, applicationType, setApplicatio
             </div>
             <CustomDropdown
               value={position}
-              onChange={e => setPosition(e.target.value)}
+              onChange={e => setValue('position', e.target.value)}
               options={applicationPositionOptions}
               placeholder="Select Position Type"
             />
@@ -193,7 +202,7 @@ export function StartApplication({setCurrentStep, applicationType, setApplicatio
           <button 
             className="flex px-4 py-2 justify-center rounded-md text-white text-sm bg-teal-custom-500 hover:bg-teal-800 mt-6 disabled:bg-teal-disabled" 
             onClick={handleContinue}
-            disabled={!applicationType || !payGrade || !position || (applicationType == 'New Application' && !file)}
+            disabled={!isFormValid}
           >
             <div className="flex gap-2 items-center justify-end">
               Continue 
