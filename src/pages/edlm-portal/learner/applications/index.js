@@ -138,10 +138,13 @@ export default function Applications() {
 
         {completedApplications.length > 0 && (
           <div>
-            <h1 className="font-bold text-lg text text-teal-custom-500 mb-4 mt-16">Completed Applications</h1>
-            <div className="bg-white">
+            <div className="border-t w-full mt-8"></div>
+
+            <h1 className="font-bold text-lg text text-teal-custom-500 mb-4 mt-10">Completed Applications</h1>
+            
+            <div className="bg-white border rounded-md p-4 border-gray-300 mt-4">
               {/* Table Header */}
-              <h2 className="font-bold text-gray-cool-700">Application Log</h2>
+              <h2 className="font-bold text-gray-cool-700 text-lg pb-4">Application Log</h2>
               {/* Table Content */}
               <div className="overflow-x-auto">
                 <table className="min-w-full border-collapse">
