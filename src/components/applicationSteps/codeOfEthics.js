@@ -26,7 +26,7 @@ export function CodeOfEthics({setCurrentStep, applicationType, codeOfEthicsAgree
     const hh = String(date.getHours()).padStart(2, '0');
     const min = String(date.getMinutes()).padStart(2, '0');
     return `${yy}.${mm}.${dd} ${hh}:${min}`;
-}
+  }
 
   return (
     <>
@@ -131,7 +131,7 @@ export function CodeOfEthics({setCurrentStep, applicationType, codeOfEthicsAgree
           </p>
           <div className="flex flex-row items-center gap-2 mt-4">
             <input 
-              className="rounded-sm"
+              className="rounded-sm border-gray-300 focus:ring-navy-700 checked:bg-navy-700"
               type="checkbox" 
               checked={codeOfEthicsAgreed}
               onChange={(e) => {handleCheck()}}

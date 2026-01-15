@@ -154,7 +154,6 @@ export function CEUExperience ({
             </div>    
         )}
 
-
         {/* Continue Button */}
         <div className="flex flex-row gap-4 items-center w-full justify-end mt-8">
           

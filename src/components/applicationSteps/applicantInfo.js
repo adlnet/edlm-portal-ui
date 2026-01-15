@@ -232,30 +232,23 @@ export function ApplicantInfo ({
 
           {/* Command (Unit) */}
           <div className="flex flex-col w-1/2"> 
-            <div className="flex flex-row gap-2 items-center mb-1">
-              <p>Command (Unit)</p>
-              <Image src={AsteriskIcon} alt="Asterisk" className="w-3 h-3" />
-            </div>
-            <CustomDropdown
-              className=""
+            <TextInputCustom
+              label="Command (Unit)"
               value={commandUnit}
+              required={true}
               onChange={e => setCommandUnit(e.target.value)}
-              options={['1','2','3']}
-              placeholder="Select command (unit)"
+              placeholder="Enter Command"
             />
           </div>
 
           {/* Installation */}
           <div className="flex flex-col w-1/2"> 
-            <div className="flex flex-row gap-2 items-center mb-1">
-              <p>Installation</p>
-              <Image src={AsteriskIcon} alt="Asterisk" className="w-3 h-3" />
-            </div>
-            <CustomDropdown
+            <TextInputCustom
+              label="Installation"
+              required={true}
               value={installation}
               onChange={e => setInstallation(e.target.value)}
-              options={['1','2','3']}
-              placeholder="Select installation"
+              placeholder="Enter Installation"
             />
           </div>
         </div>

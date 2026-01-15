@@ -14,8 +14,10 @@ import DefaultLayout from "@/components/layouts/DefaultLayout";
 export default function CreateApplication(){
 
   const router = useRouter();
-  const [currentStep, setCurrentStep] = useState(5);
-  
+  const [currentStep, setCurrentStep] = useState(1);
+
+  // General Application State Variables
+  const [status, setStatus] = useState(null);
   const [applicationType, setApplicationType] = useState(null);
   const [payGrade, setPayGrade] = useState(null);
   const [position, setPosition] = useState(null);
@@ -53,7 +55,10 @@ export default function CreateApplication(){
           proofFile: null,
       },
   ]);
-  
+
+  // Final Submission State Variables
+  const [submissionAgreement, setSubmissionAgreement] = useState(false);
+  const [finalSubTimestamp, setFinalSubTimestamp] = useState(null);
 
   const renderStepContent = () => {
     switch (currentStep) {
@@ -128,7 +133,16 @@ export default function CreateApplication(){
         case 6: 
           // Review and send app
           return (
-            <ReviewAndSend/>
+            <ReviewAndSend 
+              setCurrentStep={setCurrentStep}
+              applicationType={applicationType}
+              codeOfEthicsAgreed={codeOfEthicsAgreed}
+              submissionAgreement={submissionAgreement}
+              setSubmissionAgreement={setSubmissionAgreement}
+              finalSubTimestamp={finalSubTimestamp}
+              setFinalSubTimestamp={setFinalSubTimestamp}
+              setStatus={setStatus}
+            />
           );
         default:
           return (<></>);

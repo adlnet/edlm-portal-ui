@@ -1,26 +1,36 @@
 'use strict'
 
+import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import { ChevronRightIcon, InformationCircleIcon } from "@heroicons/react/24/outline";
-import { 
-  affiliationOptions, 
-} from '@/utils/dropdownMenuConstants';
 import { useRouter } from 'next/router';
-import AsteriskIcon from '@/public/icons/asteriskIcon.svg';
-import CustomDropdown from '@/components/menus/CustomDropdown';
-import Image from 'next/image';
-import TextInputCustom from '@/components/inputs/TextInputCustom';
+import { useState } from 'react';
+import SubmitApplicationModal from "@/components/modals/SubmitApplicationModal";
 
 
 export function ReviewAndSend ({
     setCurrentStep, 
     applicationType,
-
+    codeOfEthicsAgreed,
+    submissionAgreement,
+    setSubmissionAgreement,
+    finalSubTimestamp,
+    setFinalSubTimestamp,
+    setStatus,
   }) {
+
+  // TEMPORARY VAIRALES - TO BE REMOVED WHEN INTEGRATED WITH PREVIOUS STEPS
+  const [applicantInfoComplete, setApplicantInfoComplete] = useState(false);
+  const [ceuExperienceComplete, setCeuExperienceComplete] = useState(false);
+  const [lettersOfRecComplete, setLettersOfRecComplete] = useState(false);
+
+  const [submitModalOpen, setSubmitModalOpen] = useState(false);
 
   const router = useRouter();
 
-  const handleContinue = () => {
-    setCurrentStep(5);
+  const handleSubmit = () => {
+    console.log("Submitting Application...");
+    setStatus('Submitted');
+    router.push('/edlm-portal/learner/applications/?submitted=1');
   }
 
   return (
@@ -69,29 +79,66 @@ export function ReviewAndSend ({
 
       {/* Page Title and Content  */}
       <div className="mt-4">
-        <h1 className="text-navy-700 text-2xl font-bold"> Review and Send </h1>
+        <h1 className="text-navy-700 text-2xl font-bold"> Review and Send Application</h1>
         <p className="text-gray-cool-700 text-sm mt-4">
-            List all
+            Review your complete selections and track the application workflow. Click on sections you are responsible for to return and edit. 
         </p>
 
-        <div className="flex flex-row gap-2 items-center mt-6">
-          <p className="font-bold text-teal-custom-500 text-lg">My Information</p>
-           <InformationCircleIcon className="h-4 w-4 text-teal-custom-500"/>
-        </div>
-        
-        <div className="flex flex-col mt-3 text-sm">
-          <p className="text-gray-cool-700">Position you are applying for</p>
-          <div className="mt-1 bg-gray-50 text-gray-500 px-3 py-2.5 w-1/2 rounded-lg border opacity-50">{position}</div>
-        </div>
-
-        <div className="flex items-center gap-1 text-[#993033] mt-4 text-sm">
-            <Image src={AsteriskIcon} alt="Asterisk" className="w-3 h-3" /> = Required
+        <div className="flex flex-col bg-navy-025 mt-6 p-4 rounded-lg">
+          <div className="flex flex-row gap-2">
+            <InformationCircleIcon className="h-6 w-6 text-navy-700"/>
+            <p className="font-bold text-navy-700"> Application Submission Window</p>
+          </div>
+          <p className="text-navy-700 text-sm mt-2">
+            For complete details on application windows and submission deadline, visit https://trynova.org/credentialing/d-saacp/. 
+          </p>
         </div>
 
-        <div className="border-t w-full mt-8"></div>
+        {/* Review Icons */}
+        <div className="flex justify-center mt-2">
+          <div className="flex flex-row w-3/4 mt-8 mb-4 items-center px-2">
+            <CheckCircleIcon className={`h-10 w-10 ${codeOfEthicsAgreed ? 'text-teal-custom-500' : 'text-gray-300'}`}/>
+            <hr className="flex flex-grow border-t border-gray-300 border-2"></hr>
+            <CheckCircleIcon className={`h-10 w-10 ${applicantInfoComplete ? 'text-teal-custom-500' : 'text-gray-300'}`}/>
+            <hr className="flex flex-grow border-t border-gray-300 border-2"></hr>
+            <CheckCircleIcon className={`h-10 w-10 ${ceuExperienceComplete ? 'text-teal-custom-500' : 'text-gray-300'}`}/>
+            <hr className="flex flex-grow border-t border-gray-300 border-2"></hr>
+            <CheckCircleIcon className={`h-10 w-10 ${lettersOfRecComplete ? 'text-teal-custom-500' : 'text-gray-300'}`}/>
+          </div>
+        </div>
+
+        {/* Review Sections */}
+        <div className="flex justify-center mt-2">
+          <div className="flex flex-row w-4/5 mb-4 justify-between text-wrap items-start">
+            <button 
+              className={`${codeOfEthicsAgreed ? 'text-teal-custom-500 decoration-teal-custom-500' : 'text-gray-cool-700'} w-[12.5%] text-center underline `}
+              onClick={() => {setCurrentStep(3)}}
+            >
+              Sign Code of Ethics
+            </button>
+            <button 
+              className={`${applicantInfoComplete ? 'text-teal-custom-500 decoration-teal-custom-500' : 'text-gray-cool-700'} w-[12.5%] text-center underline `}
+              onClick={() => {setCurrentStep(4)}}
+            >
+              Complete Applicant Info
+            </button>
+            <button 
+              className={`${ceuExperienceComplete ? 'text-teal-custom-500 decoration-teal-custom-500' : 'text-gray-cool-700'} w-[12.5%] text-center underline `}
+              onClick={() => {setCurrentStep(5)}}
+            >
+              Complete Job Shadow Experience
+            </button>
+            <button 
+              className={`${lettersOfRecComplete ? 'text-teal-custom-500 decoration-teal-custom-500' : 'text-gray-cool-700'} w-[12.5%] text-center underline `}
+              onClick={() => {setCurrentStep(6)}}
+            >
+              Request Letters of Recommendation
+            </button>
+          </div>
+        </div>
 
         {/* Continue Button */}
-        <div className="flex flex-row gap-4 items-center w-full justify-end mt-8">
+        <div className="flex flex-row gap-4 items-center w-full justify-end mt-16">
           
           <button 
             className="text-sm text-teal-custom-500 font-bold"
@@ -102,22 +149,39 @@ export function ReviewAndSend ({
           
           <button 
             className="flex px-4 py-2 justify-center rounded-md text-white text-sm bg-teal-custom-500 hover:bg-teal-800 disabled:bg-teal-disabled" 
-            onClick={handleContinue}
+            onClick={() => setSubmitModalOpen(true)}
+            disabled={!(applicantInfoComplete && ceuExperienceComplete && lettersOfRecComplete && codeOfEthicsAgreed)}
           >
             <div className="flex gap-2 items-center justify-end">
-              Continue 
+              Submit Application
             </div>
           </button>
         </div>
 
-        <div className="border-t w-full mt-24"></div>
+        <SubmitApplicationModal
+          open={submitModalOpen}
+          onClose={() => setSubmitModalOpen(false)}
+          onSubmit={handleSubmit}
+          submissionAgreement={submissionAgreement}
+          setSubmissionAgreement={setSubmissionAgreement}
+          finalSubTimestamp={finalSubTimestamp}
+          setFinalSubTimestamp={setFinalSubTimestamp}
+          setStatus={setStatus}
+        />
 
-        <div className="flex flex-row gap-3 text-gray-cool-700 text-sm mt-4">
-          <div className="bg-gray-50 px-3 py-1 rounded-md">DD Form 2950-1</div>
-          <div className="bg-gray-50 px-3 py-1 rounded-md">FEB 2025</div>
-          <div className="bg-gray-50 px-3 py-1 rounded-md">Updated 02/05/2025</div>
-          <div className="bg-gray-50 px-3 py-1 rounded-md">Prescribed by DoDD 6495.03, DoDI 6495.03, and DTM 14-001</div>
-        </div>
+        {/* DELETE THIS LATER THIS IS TEMPORARY */}
+        <button 
+          className="flex px-4 py-2 justify-center rounded-md text-white text-sm bg-teal-custom-500 hover:bg-teal-800 disabled:bg-teal-disabled" 
+          onClick={() => {
+            setApplicantInfoComplete(true);
+            setCeuExperienceComplete(true);
+            setLettersOfRecComplete(true);
+          }}
+        >
+          <div className="flex gap-2 items-center justify-end">
+            MARK ALL GREEN
+          </div>
+        </button>
 
       </div>
     </>
