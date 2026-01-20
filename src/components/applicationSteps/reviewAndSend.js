@@ -2,21 +2,27 @@
 
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import { ChevronRightIcon, InformationCircleIcon } from "@heroicons/react/24/outline";
+import { useApplicationContext } from '@/contexts/ApplicationContext';
+import { useFormContext } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import SubmitApplicationModal from "@/components/modals/SubmitApplicationModal";
 
 
-export function ReviewAndSend ({
-    setCurrentStep, 
-    applicationType,
-    codeOfEthicsAgreed,
-    submissionAgreement,
-    setSubmissionAgreement,
-    finalSubTimestamp,
-    setFinalSubTimestamp,
-    setStatus,
-  }) {
+export function ReviewAndSend () {
+
+  const { watch, setValue } = useFormContext();
+  const { saveApplication, isSaving } = useApplicationContext();
+
+  const applicationType = watch('applicationType');
+  const currentStep = watch('currentStep');
+  const finalSubTimestamp = watch('finalSubTimestamp');
+  const codeOfEthicsAgreed = watch('codeOfEthicsAgreed');
+  const submissionAgreement = watch('submissionAgreement');
+  
+  const setSubmissionAgreement = (value) => setValue('submissionAgreement', value);
+  const setFinalSubTimestamp = (value) => setValue('finalSubTimestamp', value);
+  const setStatus = (value) => setValue('status', value);
 
   // TEMPORARY VAIRALES - TO BE REMOVED WHEN INTEGRATED WITH PREVIOUS STEPS
   const [applicantInfoComplete, setApplicantInfoComplete] = useState(false);
@@ -39,35 +45,35 @@ export function ReviewAndSend ({
       <div className="flex flex-row items-center gap-2">
         <button 
           className="text-md text-navy-200"
-          onClick={() => {setCurrentStep(2)}}
+          onClick={() => {setValue('currentStep', 2)}}
         >
           Privacy Act
         </button>
         <ChevronRightIcon className='text-navy-200 w-4 h-4'/>
         <button 
           className="text-md text-navy-200"
-          onClick={() => {setCurrentStep(3)}}
+          onClick={() => {setValue('currentStep', 3)}}
         >
           Code of Ethics
         </button>
         <ChevronRightIcon className='text-navy-200 w-4 h-4'/>
         <button 
           className="text-md text-navy-200"
-          onClick={() => {setCurrentStep(4)}}
+          onClick={() => {setValue('currentStep', 4)}}
         >
           Applicant Info
         </button>
         <ChevronRightIcon className='text-navy-200 w-4 h-4'/>
         <button 
           className="text-md text-navy-200"
-          onClick={() => {setCurrentStep(5)}}
+          onClick={() => {setValue('currentStep', 5)}}
         >
           CEU Documentation
         </button>
         <ChevronRightIcon className='text-navy-200 w-4 h-4'/>
         <button 
           className="text-md text-navy-200"
-          onClick={() => {setCurrentStep(5)}}
+          onClick={() => {setValue('currentStep', 6)}}
         >
           Review & Send
         </button>
@@ -112,25 +118,25 @@ export function ReviewAndSend ({
           <div className="flex flex-row w-4/5 mb-4 justify-between text-wrap items-start">
             <button 
               className={`${codeOfEthicsAgreed ? 'text-teal-custom-500 decoration-teal-custom-500' : 'text-gray-cool-700'} w-[12.5%] text-center underline `}
-              onClick={() => {setCurrentStep(3)}}
+              onClick={() => {setValue('currentStep', 3)}}
             >
               Sign Code of Ethics
             </button>
             <button 
               className={`${applicantInfoComplete ? 'text-teal-custom-500 decoration-teal-custom-500' : 'text-gray-cool-700'} w-[12.5%] text-center underline `}
-              onClick={() => {setCurrentStep(4)}}
+              onClick={() => {setValue('currentStep', 4)}}
             >
               Complete Applicant Info
             </button>
             <button 
               className={`${ceuExperienceComplete ? 'text-teal-custom-500 decoration-teal-custom-500' : 'text-gray-cool-700'} w-[12.5%] text-center underline `}
-              onClick={() => {setCurrentStep(5)}}
+              onClick={() => {setValue('currentStep', 5)}}
             >
               Complete Job Shadow Experience
             </button>
             <button 
               className={`${lettersOfRecComplete ? 'text-teal-custom-500 decoration-teal-custom-500' : 'text-gray-cool-700'} w-[12.5%] text-center underline `}
-              onClick={() => {setCurrentStep(6)}}
+              onClick={() => {setValue('currentStep', 6)}}
             >
               Request Letters of Recommendation
             </button>

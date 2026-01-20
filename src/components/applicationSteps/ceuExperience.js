@@ -1,30 +1,29 @@
 'use strict'
 
 import { ApplicationCeuCard } from '@/components/cards/applicationCeuCard';
-import { ChevronRightIcon, InformationCircleIcon } from "@heroicons/react/24/outline";
-import { 
-  affiliationOptions, 
-} from '@/utils/dropdownMenuConstants';
+import { ChevronRightIcon } from "@heroicons/react/24/outline";
+import { useApplicationContext } from '@/contexts/ApplicationContext';
+import { useFormContext } from 'react-hook-form';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
+import ApplicationFooter from '@/components/ApplicationFooter';
 import AsteriskIcon from '@/public/icons/asteriskIcon.svg';
-import CustomDropdown from '@/components/menus/CustomDropdown';
 import Image from 'next/image';
-import TextInputCustom from '@/components/inputs/TextInputCustom';
 
+export function CEUExperience () {
 
-export function CEUExperience ({
-    setCurrentStep, 
-    applicationType,
-    courses, 
-    setCourses,
-    numberOfCourses,
-    setNumberOfCourses,
-  }) {
+  const { watch, setValue } = useFormContext();
+  const { saveApplication, isSaving } = useApplicationContext();
+
+  const courses = watch('courses');
+  const numberOfCourses = watch('numberOfCourses');
+  const applicationType = watch('applicationType'); 
+  const currentStep = watch('currentStep');
 
   const router = useRouter();
 
   const handleContinue = () => {
-    setCurrentStep(6);
+    setValue('currentStep', 6);
   }
 
   const handleAddCourse = () => {
@@ -37,8 +36,8 @@ export function CEUExperience ({
         ceuHours: 0,
         proofFile: null,
     }
-    setCourses([...courses, newCourse]);
-    setNumberOfCourses(numberOfCourses + 1);
+    setValue('courses', [...courses, newCourse]);
+    setValue('numberOfCourses', numberOfCourses + 1);
   }
 
   const totalHours = () => {
@@ -64,28 +63,28 @@ export function CEUExperience ({
       <div className="flex flex-row items-center gap-2">
         <button 
           className="text-md text-navy-200"
-          onClick={() => {setCurrentStep(2)}}
+          onClick={() => {setValue('currentStep', 2)}}
         >
           Privacy Act
         </button>
         <ChevronRightIcon className='text-navy-200 w-4 h-4'/>
         <button 
           className="text-md text-navy-200"
-          onClick={() => {setCurrentStep(3)}}
+          onClick={() => {setValue('currentStep', 3)}}
         >
           Code of Ethics
         </button>
         <ChevronRightIcon className='text-navy-200 w-4 h-4'/>
         <button 
           className="text-md text-navy-200"
-          onClick={() => {setCurrentStep(4)}}
+          onClick={() => {setValue('currentStep', 4)}}
         >
           Applicant Info
         </button>
         <ChevronRightIcon className='text-navy-200 w-4 h-4'/>
         <button 
           className="text-md text-navy-200"
-          onClick={() => {setCurrentStep(5)}}
+          onClick={() => {setValue('currentStep', 5)}}
         >
           CEU Documentation
         </button>
@@ -117,7 +116,7 @@ export function CEUExperience ({
                     setCourse={(updatedCourse) => { 
                         const updatedCourses = [...courses];
                         updatedCourses[index] = updatedCourse;
-                        setCourses(updatedCourses);
+                        setValue('courses', updatedCourses);
                     }}
                 />
             </div>
@@ -150,7 +149,7 @@ export function CEUExperience ({
         {showMessage() && totalHours() >= 32 && (
             <div className="p-4 w-full mt-6 bg-teal-custom-50 rounded-lg text-teal-custom-500">
                 <h1 className='text-lg font-bold'> Total: {totalHours()} hours</h1>
-                <p className='text-sm mt-1'> You must need {32 - totalHours()} more hours to meet the CEU Requirement of 32 hours. </p>
+                <p className='text-sm mt-1'> You meet the CEU Requirements of 32 hours. </p>
             </div>    
         )}
 
@@ -175,13 +174,8 @@ export function CEUExperience ({
         </div>
 
         <div className="border-t w-full mt-6"></div>
-
-        <div className="flex flex-row gap-3 text-gray-cool-700 text-sm mt-4">
-          <div className="bg-gray-50 px-3 py-1 rounded-md">DD Form 2950-1</div>
-          <div className="bg-gray-50 px-3 py-1 rounded-md">FEB 2025</div>
-          <div className="bg-gray-50 px-3 py-1 rounded-md">Updated 02/05/2025</div>
-          <div className="bg-gray-50 px-3 py-1 rounded-md">Prescribed by DoDD 6495.03, DoDI 6495.03, and DTM 14-001</div>
-        </div>
+        
+        <ApplicationFooter /> 
 
       </div>
     </>

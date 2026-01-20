@@ -3,6 +3,7 @@
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { useFormContext } from 'react-hook-form';
 import { useRouter } from 'next/router';
+import ApplicationFooter from '@/components/ApplicationFooter';
 
 export function PrivacyAct() {
   const { watch, setValue } = useFormContext();
@@ -87,12 +88,7 @@ export function PrivacyAct() {
 
         <div className="border-t w-full mt-44"></div>
 
-        <div className="flex flex-row gap-3 text-gray-cool-700 text-sm mt-4">
-          <div className="bg-gray-50 px-3 py-1 rounded-md">DD Form 2950-1</div>
-          <div className="bg-gray-50 px-3 py-1 rounded-md">FEB 2025</div>
-          <div className="bg-gray-50 px-3 py-1 rounded-md">Updated 02/05/2025</div>
-          <div className="bg-gray-50 px-3 py-1 rounded-md">Prescribed by DoDD 6495.03, DoDI 6495.03, and DTM 14-001</div>
-        </div>
+        <ApplicationFooter />
       </div>
     </>
   )

@@ -8,6 +8,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { PrivacyAct } from '@/components/applicationSteps/privacyAct';
 import { ReviewAndSend } from '@/components/applicationSteps/reviewAndSend';
 import { StartApplication } from '@/components/applicationSteps/startApplication';
+import { useAuth } from '@/contexts/AuthContext';
 import { useCreateApplication } from '@/hooks/application/useCreateApplication';
 import { useState } from 'react';
 import { useUpdateApplication } from '@/hooks/application/useUpdateApplication';
@@ -15,49 +16,11 @@ import DefaultLayout from "@/components/layouts/DefaultLayout";
 
 
 export default function CreateApplication(){
+
   const { mutateAsync: createApplication, isLoading: isCreating } = useCreateApplication();
   const { mutateAsync: updateApplication, isLoading: isUpdating } = useUpdateApplication();
 
-
-  // General Application State Variables
-  const [status, setStatus] = useState(null);
-  const [applicationType, setApplicationType] = useState(null);
-  const [payGrade, setPayGrade] = useState(null);
-  const [position, setPosition] = useState(null);
-  const [file, setFile] = useState(null);
-  const [codeOfEthicsAgreed, setCodeOfEthicsAgreed] = useState(false);
-  const [codeOfEthicsDate, setCodeOfEthicsDate] = useState(null);
-  
-  // Applicant Info State Variables
-  const [lastName, setLastName] = useState(null);
-  const [firstName, setFirstName] = useState(null);
-  const [middleInitial, setMiddleInitial] = useState(null);
-  const [affiliation, setAffiliation] = useState(null);
-  const [applicantStatus, setApplicantStatus] = useState(null);
-  const [rank, setRank] = useState(null);
-  const [commandUnit, setCommandUnit] = useState(null);
-  const [installation, setInstallation] = useState(null);
-  const [workEmail, setWorkEmail] = useState(null);
-  const [noGovEmail, setNoGovEmail] = useState(false);
-  const [workPhone, setWorkPhone] = useState(null);
-  const [dsn, setDsn] = useState("");
-  const [ext, setExt] = useState("");
-  const [sarcEmail, setSarcEmail] = useState(null);
-  const [cmdOffEmail, setCmdOffEmail] = useState(null);  
-
-  // CEU Experience State Variables
-  const [numberOfCourses, setNumberOfCourses] = useState(1);
-  const [courses, setCourses] = useState([
-      {
-          id: crypto.randomUUID(),
-          order: numberOfCourses,
-          name: null,
-          category: null,
-          dateOfCompletion: null,
-          ceuHours: 0,
-          proofFile: null,
-      },
-  ]);
+  const { user } = useAuth();
 
   // Final Submission State Variables
   const [submissionAgreement, setSubmissionAgreement] = useState(false);
@@ -68,6 +31,10 @@ export default function CreateApplication(){
       // Step info tracking
       currentStep: 1,
       applicationId: null,
+      status: 'Draft',
+
+      // Application Data Constants 
+      policy: "DoDD 6495.03, DoDI 6495.03, and DTM 14-001",
       
       // Step 1
       applicationType: null,
@@ -80,9 +47,37 @@ export default function CreateApplication(){
       codeOfEthicsDate: null,
       
       // Step 4 and beyong (more steps here..)
-      firstName: '',
-      lastName: '',
+      firstName: user?.firstName || '',
+      lastName: user?.lastName || '',
       middleInitial: '',
+      affiliation: null,
+      applicantStatus: null,
+      rank: null,
+      commandUnit: null,
+      installation: null,
+      workEmail: null,
+      noGovEmail: false,
+      workPhone: null,
+      dsn: null,
+      ext: null,
+      sarcEmail: null,
+      cmdOffEmail: null,  
+
+      // Step 5 - CEU Experience variables 
+      courses: [{      
+        id: crypto.randomUUID(),
+        order: 1,
+        name: null,
+        category: null,
+        dateOfCompletion: null,
+        ceuHours: 0,
+        proofFile: null,
+      }],
+      numberOfCourses: 1,
+
+      // Step 6 - Review and Send variables
+      submissionAgreement: false,
+      finalSubTimestamp: null,
 
       // ... more stuff here...
     },
@@ -148,59 +143,15 @@ export default function CreateApplication(){
         case 2:
           return <PrivacyAct />;
         case 3:
-          return (
-            <CodeOfEthics />
-          );
+          return <CodeOfEthics />;
         case 4:
-          return (
-            <ApplicantInfo 
-              setCurrentStep={setCurrentStep} 
-              applicationType={applicationType}
-              position={position}
-              lastName={lastName} setLastName={setLastName}
-              firstName={firstName} setFirstName={setFirstName}
-              middleInitial={middleInitial} setMiddleInitial={setMiddleInitial}
-              affiliation={affiliation} setAffiliation ={setAffiliation}
-              applicantStatus={applicantStatus} setApplicantStatus={setApplicantStatus}
-              rank={rank} setRank={setRank}
-              payGrade={payGrade} setPayGrade={setPayGrade}
-              commandUnit={commandUnit} setCommandUnit={setCommandUnit}
-              installation={installation} setInstallation={setInstallation} 
-              workEmail={workEmail} setWorkEmail={setWorkEmail}
-              noGovEmail={noGovEmail} setNoGovEmail={setNoGovEmail}
-              workPhone={workPhone} setWorkPhone={setWorkPhone}
-              dsn={dsn} setDsn={setDsn}
-              ext={ext} setExt={setExt}
-              sarcEmail={sarcEmail} setSarcEmail={setSarcEmail}
-              cmdOffEmail={cmdOffEmail} setCmdOffEmail={setCmdOffEmail}
-            />
-          ) 
+          return <ApplicantInfo  />;
         case 5: 
           // CEU Documentation Step Component to be added here
-          return (
-            <CEUExperience 
-              setCurrentStep={setCurrentStep} 
-              applicationType={applicationType}
-              courses={courses} 
-              setCourses={setCourses} 
-              numberOfCourses={numberOfCourses}
-              setNumberOfCourses={setNumberOfCourses}
-            />
-          );
+          return <CEUExperience />;
         case 6: 
           // Review and send app
-          return (
-            <ReviewAndSend 
-              setCurrentStep={setCurrentStep}
-              applicationType={applicationType}
-              codeOfEthicsAgreed={codeOfEthicsAgreed}
-              submissionAgreement={submissionAgreement}
-              setSubmissionAgreement={setSubmissionAgreement}
-              finalSubTimestamp={finalSubTimestamp}
-              setFinalSubTimestamp={setFinalSubTimestamp}
-              setStatus={setStatus}
-            />
-          );
+          return <ReviewAndSend />;
         default:
           return null;
     }

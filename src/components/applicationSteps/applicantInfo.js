@@ -12,39 +12,59 @@ import {
   rankMarineCorpsOptions,
   rankNavyOptions,
 } from '@/utils/dropdownMenuConstants';
+import { useApplicationContext } from '@/contexts/ApplicationContext';
+import { useFormContext } from 'react-hook-form';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
+import ApplicationFooter from '@/components/ApplicationFooter';
 import AsteriskIcon from '@/public/icons/asteriskIcon.svg';
 import CustomDropdown from '@/components/menus/CustomDropdown';
 import Image from 'next/image';
 import TextInputCustom from '@/components/inputs/TextInputCustom';
 
 
-export function ApplicantInfo ({
-    setCurrentStep, 
-    applicationType,
-    position,
-    lastName, setLastName,
-    firstName, setFirstName,
-    middleInitial, setMiddleInitial,
-    affiliation, setAffiliation,
-    applicantStatus, setApplicantStatus,
-    rank, setRank,
-    payGrade, setPayGrade,
-    commandUnit, setCommandUnit,
-    installation, setInstallation,
-    workEmail, setWorkEmail,
-    noGovEmail, setNoGovEmail,
-    workPhone, setWorkPhone,
-    dsn, setDsn,
-    ext, setExt,
-    sarcEmail, setSarcEmail,
-    cmdOffEmail, setCmdOffEmail
-  }) {
+export function ApplicantInfo () {
+
+  const { watch, setValue } = useFormContext();
+  const { saveApplication, isSaving } = useApplicationContext();
+
+  const applicationType = watch('applicationType');
+  const firstName = watch('firstName');
+  const lastName = watch('lastName');
+  const middleInitial = watch('middleInitial');
+  const affiliation = watch('affiliation');
+  const applicantStatus = watch('applicantStatus');
+  const rank = watch('rank');
+  const payGrade = watch('payGrade');
+  const position = watch('position');
+  const commandUnit = watch('commandUnit');
+  const installation = watch('installation');
+  const workEmail = watch('workEmail');
+  const noGovEmail = watch('noGovEmail');
+  const workPhone = watch('workPhone');
+  const dsn = watch('dsn');
+  const ext = watch('ext');
+  const sarcEmail = watch('sarcEmail');
+  const cmdOffEmail = watch('cmdOffEmail');
 
   const router = useRouter();
 
-  const handleContinue = () => {
-    setCurrentStep(5);
+  const [saveError, setSaveError] = useState(null);
+
+  const handleContinue = async () => {
+    try{
+      setSaveError(null);
+      await saveApplication();
+      setValue('currentStep', 5);
+    } catch (error) {
+      console.log("Error saving applicant information: ", error);
+      setSaveError('An error occurred while saving applicant information. Please try again.');
+    }
+  }
+
+  const handleSave = async () => {
+    await saveApplication();
+    router.push('/edlm-portal/learner/applications');
   }
 
   const getRankOptions = () => {
@@ -74,21 +94,21 @@ export function ApplicantInfo ({
       <div className="flex flex-row items-center gap-2">
         <button 
           className="text-md text-navy-200"
-          onClick={() => {setCurrentStep(2)}}
+          onClick={() => {setValue('currentStep', 2)}}
         >
           Privacy Act
         </button>
         <ChevronRightIcon className='text-navy-200 w-4 h-4'/>
         <button 
           className="text-md text-navy-200"
-          onClick={() => {setCurrentStep(3)}}
+          onClick={() => {setValue('currentStep', 3)}}
         >
           Code of Ethics
         </button>
         <ChevronRightIcon className='text-navy-200 w-4 h-4'/>
         <button 
           className="text-md text-navy-200"
-          onClick={() => {setCurrentStep(4)}}
+          onClick={() => {setValue('currentStep', 4)}}
         >
           Applicant Info
         </button>
@@ -136,7 +156,7 @@ export function ApplicantInfo ({
               label="Last Name"
               required={true}
               value={lastName}
-              onChange={e => setLastName(e.target.value)}
+              onChange={e => setValue('lastName', e.target.value)}
               placeholder="Enter last name"
             />
           </div>
@@ -147,7 +167,7 @@ export function ApplicantInfo ({
               label="First Name"
               required={true}
               value={firstName}
-              onChange={e => setFirstName(e.target.value)}
+              onChange={e => setValue('firstName', e.target.value)}
               placeholder="Enter first name"
             />
           </div>
@@ -158,7 +178,7 @@ export function ApplicantInfo ({
               label="Middle Initial"
               required={false}
               value={middleInitial}
-              onChange={e => setMiddleInitial(e.target.value)}
+              onChange={e => setValue('middleInitial', e.target.value)}
               placeholder="Enter middle initial"
             />
           </div>
@@ -176,7 +196,7 @@ export function ApplicantInfo ({
             </div>
             <CustomDropdown
               value={affiliation}
-              onChange={e => setAffiliation(e.target.value)}
+              onChange={e => setValue('affiliation', e.target.value)}
               options={affiliationOptions}
               placeholder="Select affiliation"
             />
@@ -190,7 +210,7 @@ export function ApplicantInfo ({
             </div>
             <CustomDropdown
               value={applicantStatus}
-              onChange={e => setApplicantStatus(e.target.value)}
+              onChange={e => setValue('applicantStatus', e.target.value)}
               options={applicantStatusOptions}
               placeholder="Select status"
               disabled={!affiliation}
@@ -205,7 +225,7 @@ export function ApplicantInfo ({
             </div>
             <CustomDropdown
               value={rank}
-              onChange={e => setRank(e.target.value)}
+              onChange={e => setValue('rank', e.target.value)}
               options={getRankOptions()}
               placeholder="Select rank"
               disabled={!affiliation}
@@ -220,7 +240,7 @@ export function ApplicantInfo ({
             </div>
             <CustomDropdown
               value={payGrade}
-              onChange={e => setPayGrade(e.target.value)}
+              onChange={e => setValue('payGrade', e.target.value)}
               options={payGradeOptions}
               placeholder="Select grade"
             />
@@ -236,7 +256,7 @@ export function ApplicantInfo ({
               label="Command (Unit)"
               value={commandUnit}
               required={true}
-              onChange={e => setCommandUnit(e.target.value)}
+              onChange={e => setValue('commandUnit', e.target.value)}
               placeholder="Enter Command"
             />
           </div>
@@ -247,7 +267,7 @@ export function ApplicantInfo ({
               label="Installation"
               required={true}
               value={installation}
-              onChange={e => setInstallation(e.target.value)}
+              onChange={e => setValue('installation', e.target.value)}
               placeholder="Enter Installation"
             />
           </div>
@@ -264,7 +284,7 @@ export function ApplicantInfo ({
               label="Work Email Address"
               required={true}
               value={workEmail}
-              onChange={e => setWorkEmail(e.target.value)}
+              onChange={e => setValue('workEmail', e.target.value)}
               placeholder="Enter work email address"
             />
             <p className="text-gray-400 mt-1">.mil or .gov email addresses only</p>
@@ -282,18 +302,18 @@ export function ApplicantInfo ({
                 type="text" 
                 className="w-1/5 text-sm border bg-gray-50 border-gray-300 rounded-lg px-3 py-2.5 mt-1 focus:outline-none focus:ring-2 focus:ring-navy-700" 
                 value={dsn} 
-                onChange={e=>setDsn(e.target.value)}/>
+                onChange={e=>setValue('dsn', e.target.value)}/>
               <input 
                 type="text" 
                 className="w-3/5 text-sm border bg-gray-50 border-gray-300 rounded-lg px-3 py-2.5 mt-1 focus:outline-none focus:ring-2 focus:ring-navy-700" 
                 value={workPhone} 
-                onChange={e=>setWorkPhone(e.target.value)}/>
+                onChange={e=>setValue('workPhone', e.target.value)}/>
               <p>Ext.</p>
               <input 
                 type="text" 
                 className="w-1/5 text-sm border bg-gray-50 border-gray-300 rounded-lg px-3 py-2.5 mt-1 focus:outline-none focus:ring-2 focus:ring-navy-700" 
                 value={ext} 
-                onChange={e=>setExt(e.target.value)}/>
+                onChange={e=>setValue('ext', e.target.value)}/>
             </div>  
           </div>
         </div>
@@ -304,7 +324,7 @@ export function ApplicantInfo ({
             type="checkbox" 
             className="h-4 w-4 mr-4 mb-3 text-teal-custom-500 border-gray-300 rounded focus:ring-teal-custom-500" 
             checked={noGovEmail} 
-            onChange={e=>setNoGovEmail(e.target.checked)}/>
+            onChange={e=>setValue('noGovEmail', e.target.checked)}/>
           <div className="flex flex-col">
             <p>
               I do not have a .mil or .gov email address at this time.
@@ -323,7 +343,7 @@ export function ApplicantInfo ({
               label="Principal SARC or Supervisor SARC's Email Address"
               required={true}
               value={sarcEmail}
-              onChange={e => setSarcEmail(e.target.value)}
+              onChange={e => setValue('sarcEmail', e.target.value)}
               placeholder="Enter Principal SARC or Supervisor SARC's email address"
             />
             <p className="text-gray-400 mt-1">.mil or .gov email addresses only</p>
@@ -334,7 +354,7 @@ export function ApplicantInfo ({
               label="Commanding Officer Email Address"
               required={true}
               value={cmdOffEmail}
-              onChange={e => setCmdOffEmail(e.target.value)}
+              onChange={e => setValue('cmdOffEmail', e.target.value)}
               placeholder="Enter your Commanding Officer's email address"
             />
             <p className="text-gray-400 mt-1">.mil or .gov email addresses only</p>
@@ -349,7 +369,7 @@ export function ApplicantInfo ({
           
           <button 
             className="text-sm text-teal-custom-500 font-bold"
-            onClick={()=> { router.push('/edlm-portal/learner/applications') }}
+            onClick={handleSave}
           >
             Save and Exit
           </button>
@@ -366,12 +386,7 @@ export function ApplicantInfo ({
 
         <div className="border-t w-full mt-24"></div>
 
-        <div className="flex flex-row gap-3 text-gray-cool-700 text-sm mt-4">
-          <div className="bg-gray-50 px-3 py-1 rounded-md">DD Form 2950-1</div>
-          <div className="bg-gray-50 px-3 py-1 rounded-md">FEB 2025</div>
-          <div className="bg-gray-50 px-3 py-1 rounded-md">Updated 02/05/2025</div>
-          <div className="bg-gray-50 px-3 py-1 rounded-md">Prescribed by DoDD 6495.03, DoDI 6495.03, and DTM 14-001</div>
-        </div>
+        <ApplicationFooter />
 
       </div>
     </>

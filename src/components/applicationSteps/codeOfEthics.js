@@ -1,10 +1,12 @@
 'use strict'
 
-import { ChevronRightIcon } from "@heroicons/react/24/outline";
+import { ChevronRightIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { XCircleIcon } from '@heroicons/react/24/solid';
 import { useApplicationContext } from '@/contexts/ApplicationContext';
 import { useFormContext } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import ApplicationFooter from '@/components/ApplicationFooter';
 
 export function CodeOfEthics() {
   const { watch, setValue } = useFormContext();
@@ -160,9 +162,26 @@ export function CodeOfEthics() {
 
         </div>
 
+        {/* Error message when application fails to save */}
         {saveError && (
-          <div className="flex items-center bg-red-50 text-red-700 px-6 py-4 rounded-lg mt-4">
-            <span>{saveError}</span>
+          <div className="flex flex-col p-4 mt-2 mb-4 bg-red-50 rounded-lg w-full"> 
+            <div className="flex flex-row justify-between pb-2">
+              <div className="flex flex-row items-center">
+                <XCircleIcon className="w-6 h-6 text-[#993033]"/>
+                <div className="text-lg text-[#993033] font-bold pl-2">Error Saving Your Application</div>
+              </div>
+              <button
+                type="button"
+                aria-label="Dismiss"
+                className=""
+                onClick={() => setSaveError(null)}
+              >
+                <XMarkIcon className="w-6 h-6 text-[#993033]" />
+              </button>
+            </div>
+            <div className="text-[#993033] text-medium">
+              {saveError}
+            </div>
           </div>
         )}
 
@@ -181,12 +200,7 @@ export function CodeOfEthics() {
 
         <div className="border-t w-full mt-10"></div>
 
-        <div className="flex flex-row gap-3 text-gray-cool-700 text-sm mt-4">
-          <div className="bg-gray-50 px-3 py-1 rounded-md">DD Form 2950-1</div>
-          <div className="bg-gray-50 px-3 py-1 rounded-md">FEB 2025</div>
-          <div className="bg-gray-50 px-3 py-1 rounded-md">Updated 02/05/2025</div>
-          <div className="bg-gray-50 px-3 py-1 rounded-md">Prescribed by DoDD 6495.03, DoDI 6495.03, and DTM 14-001</div>
-        </div>
+        <ApplicationFooter />
 
       </div>
     </>

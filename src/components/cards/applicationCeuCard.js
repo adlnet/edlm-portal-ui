@@ -8,12 +8,9 @@ import AsteriskIcon from '@/public/icons/asteriskIcon.svg';
 import CustomDropdown from '@/components/menus/CustomDropdown';
 import Image from 'next/image';
 import NumberInputCustom from "@/components/inputs/NumberInputCustom";
-import TextInputCustom from '@/components/inputs/TextInputCustom';
 import datepickerTheme from '@/public/themes/datepickerTheme.json';
 
 export function ApplicationCeuCard({ course, setCourse }) {
-
-    const [selectedDate, setSelectedDate] = useState(null);
 
     const [showUploaded, setShowUploaded] = useState(false);
     const [uploadDate, setUploadDate] = useState(null);
@@ -45,7 +42,10 @@ export function ApplicationCeuCard({ course, setCourse }) {
             {/* If a course is selected, expand the card */}
             {course.name && (
                 <div className="flex flex-col mt-4 text-gray-cool-700">
-                    <p className='mb-1'>Course Category</p>
+                    <div className="flex flex-row gap-2 items-center mb-1">
+                        <p className=''>Course Category</p>
+                        <Image src={AsteriskIcon} alt="Asterisk" className="w-3 h-3" />
+                    </div>
                     <CustomDropdown 
                         value={course.category}
                         onChange={e => setCourse({ ...course, category: e.target.value })}
