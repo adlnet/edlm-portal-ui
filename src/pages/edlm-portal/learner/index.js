@@ -222,13 +222,15 @@ export default function Home() {
             </div>
           </div>
         </div>
- 
-        <div className='mt-10 pb-10 bg-white h-100 shadow-md rounded-lg '>
-          <div className='flex flex-col'>
-              <p className='text-xl font-semibold h-6 pt-4 pl-4'>Spotlight Courses</p>
-              <p className='flex pt-3 mt-4 pl-4 font-sans line-clamp-6 text-gray-500'>
-                Get started on your essential DOT&E courses
-              </p>
+
+        <div className="mt-10 pb-10 bg-white h-100 shadow-md rounded-lg ">
+          <div className="flex flex-col">
+            <p className="text-xl font-semibold h-6 pt-4 pl-4">
+              Spotlight Courses
+            </p>
+            <p className="flex pt-3 mt-4 pl-4 font-sans line-clamp-6 text-gray-500">
+              Get started on your essential courses
+            </p>
           </div>
 
           <div className='flex flex-col justify-center w-full mt-4 px-2 max-w-7xl mx-auto '>
