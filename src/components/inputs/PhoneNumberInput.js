@@ -1,11 +1,6 @@
 'use strict'
 
-import AsteriskIcon from '@/public/icons/asteriskIcon.svg';
-import Image from 'next/image';
-
-export default function TextInputCustom({ 
-    label,
-    required = false,
+export default function PhoneNumberInput({ 
     value,
     onChange,
     placeholder = "",
@@ -21,22 +16,34 @@ export default function TextInputCustom({
         return `text-sm border rounded-lg px-3 py-2.5 mt-1 bg-gray-50 border-gray-300 focus:outline-none focus:ring-2 focus:ring-navy-700 ${value ? 'text-gray-900' : ''}`;
     }
 
+    const handlePhoneInput = (e) => {
+        const formatted = formatPhoneNumber(e.target.value);
+        onChange(formatted);
+    };
+
+    const formatPhoneNumber = (value) => {
+        // Remove all non-digit characters
+        const digits = value.replace(/\D/g, "").slice(0, 10);
+
+        // Add dashes after 3 and 6 digits
+        let formatted = "";
+        if (digits.length > 0) formatted = digits.slice(0, 3);
+        if (digits.length >= 4) formatted += "-" + digits.slice(3, 6);
+        if (digits.length >= 7) formatted += "-" + digits.slice(6, 10);
+
+        return formatted;
+    }
+
     return (
         <>
-            <div className="flex flex-row gap-2 items-center">
-                <p>{label}</p>
-                {required && <Image src={AsteriskIcon} alt="Asterisk" className="w-3 h-3" />}
-            </div>
             <input
                 className={`${inputStyle()} ${disabled ? 'opacity-50' : ''}`}
                 value={value}
-                onChange={onChange}
+                onChange={handlePhoneInput}
                 placeholder={placeholder}
                 disabled={disabled}
+                maxLength={12}
             />
-            {showError && (
-                <p className="text-[#993033] text-sm mt-1">{errorMessage}</p>
-            )}
         </>
     );
 }

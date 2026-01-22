@@ -13,13 +13,15 @@ import {
   rankNavyOptions,
 } from '@/utils/dropdownMenuConstants';
 import { useApplicationContext } from '@/contexts/ApplicationContext';
+import { useAuth } from '@/contexts/AuthContext';
+import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
 import ApplicationFooter from '@/components/ApplicationFooter';
 import AsteriskIcon from '@/public/icons/asteriskIcon.svg';
 import CustomDropdown from '@/components/menus/CustomDropdown';
 import Image from 'next/image';
+import PhoneNumberInput from '@/components/inputs/PhoneNumberInput';
 import TextInputCustom from '@/components/inputs/TextInputCustom';
 
 
@@ -50,6 +52,34 @@ export function ApplicantInfo () {
   const router = useRouter();
 
   const [saveError, setSaveError] = useState(null);
+  const [continuePressed, setContinuePressed] = useState(false);
+  const [savePressed, setSavePressed] = useState(false);
+
+  const validEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+
+  const milOrGovEmail = (email) => {
+    const milGovRegex = /\.mil$|\.gov$/i;
+    return milGovRegex.test(email);
+  }
+
+  const validPhone = (phone) => {
+    const phoneRegex = /^\d{3}-\d{3}-\d{4}$/;
+    return phoneRegex.test(phone);
+  }
+
+  const validateInput = () => {
+    if (!lastName || !firstName || !affiliation || !applicantStatus || !rank || !payGrade || 
+        !commandUnit || !installation || !workEmail || !workPhone || !sarcEmail || !cmdOffEmail){ 
+      return false;
+    }
+    if (validEmail(workEmail) === false || validEmail(sarcEmail) === false || validEmail(cmdOffEmail) === false){
+      return false;
+    }
+    return true;
+  }
 
   const handleContinue = async () => {
     try{
@@ -63,8 +93,11 @@ export function ApplicantInfo () {
   }
 
   const handleSave = async () => {
-    await saveApplication();
-    router.push('/edlm-portal/learner/applications');
+    setSavePressed(true);
+    if (validateInput()){
+      await saveApplication();
+      router.push('/edlm-portal/learner/applications');
+    }
   }
 
   const getRankOptions = () => {
@@ -158,6 +191,8 @@ export function ApplicantInfo () {
               value={lastName}
               onChange={e => setValue('lastName', e.target.value)}
               placeholder="Enter last name"
+              showError={(continuePressed || savePressed )&& !lastName}
+              errorMessage="Last name is required"
             />
           </div>
 
@@ -169,6 +204,8 @@ export function ApplicantInfo () {
               value={firstName}
               onChange={e => setValue('firstName', e.target.value)}
               placeholder="Enter first name"
+              showError={(continuePressed || savePressed )&& !firstName}
+              errorMessage="First name is required"
             />
           </div>
           
@@ -199,6 +236,8 @@ export function ApplicantInfo () {
               onChange={e => setValue('affiliation', e.target.value)}
               options={affiliationOptions}
               placeholder="Select affiliation"
+              showError={(continuePressed || savePressed )&& !affiliation}
+              errorMessage="Affiliation is required"
             />
           </div> 
           
@@ -214,6 +253,8 @@ export function ApplicantInfo () {
               options={applicantStatusOptions}
               placeholder="Select status"
               disabled={!affiliation}
+              showError={(continuePressed || savePressed )&& !applicantStatus}
+              errorMessage="Status is required"
             />
           </div>
 
@@ -229,6 +270,8 @@ export function ApplicantInfo () {
               options={getRankOptions()}
               placeholder="Select rank"
               disabled={!affiliation}
+              showError={(continuePressed || savePressed )&& !rank}
+              errorMessage="Rank is required"
             />
           </div>
           
@@ -243,6 +286,8 @@ export function ApplicantInfo () {
               onChange={e => setValue('payGrade', e.target.value)}
               options={payGradeOptions}
               placeholder="Select grade"
+              showError={(continuePressed || savePressed )&& !payGrade}
+              errorMessage="Grade is required"
             />
           </div>
         </div>
@@ -258,6 +303,8 @@ export function ApplicantInfo () {
               required={true}
               onChange={e => setValue('commandUnit', e.target.value)}
               placeholder="Enter Command"
+              showError={(continuePressed || savePressed )&& !commandUnit}
+              errorMessage="Command is required"
             />
           </div>
 
@@ -269,6 +316,8 @@ export function ApplicantInfo () {
               value={installation}
               onChange={e => setValue('installation', e.target.value)}
               placeholder="Enter Installation"
+              showError={(continuePressed || savePressed )&& !installation}
+              errorMessage="Installation is required"
             />
           </div>
         </div>
@@ -286,8 +335,10 @@ export function ApplicantInfo () {
               value={workEmail}
               onChange={e => setValue('workEmail', e.target.value)}
               placeholder="Enter work email address"
+              showError={(continuePressed || savePressed )&& (!milOrGovEmail(workEmail) || !validEmail(workEmail))}
+              errorMessage={!workEmail ? "Work email is required" : ""}
             />
-            <p className="text-gray-400 mt-1">.mil or .gov email addresses only</p>
+            <p className={`${milOrGovEmail(workEmail) && validEmail(workEmail) ? 'text-gray-400' : 'text-dark-red'} mt-1`}>.mil or .gov email addresses only</p>
           </div>
 
           <div className="flex flex-col w-1/2">
@@ -302,19 +353,24 @@ export function ApplicantInfo () {
                 type="text" 
                 className="w-1/5 text-sm border bg-gray-50 border-gray-300 rounded-lg px-3 py-2.5 mt-1 focus:outline-none focus:ring-2 focus:ring-navy-700" 
                 value={dsn} 
-                onChange={e=>setValue('dsn', e.target.value)}/>
-              <input 
-                type="text" 
-                className="w-3/5 text-sm border bg-gray-50 border-gray-300 rounded-lg px-3 py-2.5 mt-1 focus:outline-none focus:ring-2 focus:ring-navy-700" 
+                onChange={e=>setValue('dsn', e.target.value)}
+              />
+              <PhoneNumberInput
+                placeholder="Enter Phone Number"
                 value={workPhone} 
-                onChange={e=>setValue('workPhone', e.target.value)}/>
+                onChange={e=>setValue('workPhone', e)}
+                showError={(continuePressed || savePressed )&& !validPhone(workPhone)}
+              />
               <p>Ext.</p>
               <input 
                 type="text" 
                 className="w-1/5 text-sm border bg-gray-50 border-gray-300 rounded-lg px-3 py-2.5 mt-1 focus:outline-none focus:ring-2 focus:ring-navy-700" 
                 value={ext} 
-                onChange={e=>setValue('ext', e.target.value)}/>
+                onChange={e=>setValue('ext', e.target.value)}
+              />
             </div>  
+
+            {(continuePressed || savePressed )&& !validPhone(workPhone) && <p className="text-[#993033] text-sm mt-2">Valid phone number is required</p>}
           </div>
         </div>
 
@@ -345,6 +401,8 @@ export function ApplicantInfo () {
               value={sarcEmail}
               onChange={e => setValue('sarcEmail', e.target.value)}
               placeholder="Enter Principal SARC or Supervisor SARC's email address"
+              showError={(continuePressed || savePressed )&& !sarcEmail}
+              errorMessage="SARC email is required"
             />
             <p className="text-gray-400 mt-1">.mil or .gov email addresses only</p>
           </div>
@@ -356,6 +414,8 @@ export function ApplicantInfo () {
               value={cmdOffEmail}
               onChange={e => setValue('cmdOffEmail', e.target.value)}
               placeholder="Enter your Commanding Officer's email address"
+              showError={(continuePressed || savePressed )&& !cmdOffEmail}
+              errorMessage="Commanding Officer email is required"
             />
             <p className="text-gray-400 mt-1">.mil or .gov email addresses only</p>
           </div>

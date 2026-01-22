@@ -22,14 +22,10 @@ export default function CreateApplication(){
 
   const { user } = useAuth();
 
-  // Final Submission State Variables
-  const [submissionAgreement, setSubmissionAgreement] = useState(false);
-  const [finalSubTimestamp, setFinalSubTimestamp] = useState(null);
-
   const methods = useForm({
     defaultValues: {
       // Step info tracking
-      currentStep: 1,
+      currentStep: 4,
       applicationId: null,
       status: 'Draft',
 
@@ -47,15 +43,15 @@ export default function CreateApplication(){
       codeOfEthicsDate: null,
       
       // Step 4 and beyong (more steps here..)
-      firstName: user?.firstName || '',
-      lastName: user?.lastName || '',
+      firstName: user?.user?.first_name || '',
+      lastName: user?.user?.last_name || '',
       middleInitial: '',
       affiliation: null,
       applicantStatus: null,
       rank: null,
       commandUnit: null,
       installation: null,
-      workEmail: null,
+      workEmail: user?.user?.email || '',
       noGovEmail: false,
       workPhone: null,
       dsn: null,
