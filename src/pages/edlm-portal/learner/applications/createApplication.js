@@ -25,7 +25,7 @@ export default function CreateApplication(){
   const methods = useForm({
     defaultValues: {
       // Step info tracking
-      currentStep: 4,
+      currentStep: 1,
       applicationId: null,
       status: 'Draft',
 
