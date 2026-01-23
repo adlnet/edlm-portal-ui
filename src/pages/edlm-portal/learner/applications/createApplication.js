@@ -1,24 +1,36 @@
 'use strict'
 
+import { ApplicantInfo } from '@/components/applicationSteps/applicantInfo';
 import { ApplicationProvider } from '@/contexts/ApplicationContext';
+import { CEUExperience } from '@/components/applicationSteps/ceuExperience';
 import { CodeOfEthics } from '@/components/applicationSteps/codeOfEthics';
 import { FormProvider, useForm } from 'react-hook-form';
 import { PrivacyAct } from '@/components/applicationSteps/privacyAct';
+import { ReviewAndSend } from '@/components/applicationSteps/reviewAndSend';
 import { StartApplication } from '@/components/applicationSteps/startApplication';
+import { useAuth } from '@/contexts/AuthContext';
 import { useCreateApplication } from '@/hooks/application/useCreateApplication';
 import { useState } from 'react';
 import { useUpdateApplication } from '@/hooks/application/useUpdateApplication';
 import DefaultLayout from "@/components/layouts/DefaultLayout";
 
+
 export default function CreateApplication(){
+
   const { mutateAsync: createApplication, isLoading: isCreating } = useCreateApplication();
   const { mutateAsync: updateApplication, isLoading: isUpdating } = useUpdateApplication();
+
+  const { user } = useAuth();
 
   const methods = useForm({
     defaultValues: {
       // Step info tracking
       currentStep: 1,
       applicationId: null,
+      status: 'Draft',
+
+      // Application Data Constants 
+      policy: "DoDD 6495.03, DoDI 6495.03, and DTM 14-001",
       
       // Step 1
       applicationType: null,
@@ -31,9 +43,37 @@ export default function CreateApplication(){
       codeOfEthicsDate: null,
       
       // Step 4 and beyong (more steps here..)
-      firstName: '',
-      lastName: '',
+      firstName: user?.user?.first_name || '',
+      lastName: user?.user?.last_name || '',
       middleInitial: '',
+      affiliation: null,
+      applicantStatus: null,
+      rank: null,
+      commandUnit: null,
+      installation: null,
+      workEmail: user?.user?.email || '',
+      noGovEmail: false,
+      workPhone: null,
+      dsn: null,
+      ext: null,
+      sarcEmail: null,
+      cmdOffEmail: null,  
+
+      // Step 5 - CEU Experience variables 
+      courses: [{      
+        id: crypto.randomUUID(),
+        order: 1,
+        name: null,
+        category: null,
+        dateOfCompletion: null,
+        ceuHours: 0,
+        proofFile: null,
+      }],
+      numberOfCourses: 1,
+
+      // Step 6 - Review and Send variables
+      submissionAgreement: false,
+      finalSubTimestamp: null,
 
       // ... more stuff here...
     },
@@ -93,7 +133,6 @@ export default function CreateApplication(){
   };
 
   const renderStepContent = () => {
-    console.log('Current Step:', currentStep);
     switch (currentStep) {
         case 1:
           return <StartApplication />;
@@ -101,6 +140,14 @@ export default function CreateApplication(){
           return <PrivacyAct />;
         case 3:
           return <CodeOfEthics />;
+        case 4:
+          return <ApplicantInfo  />;
+        case 5: 
+          // CEU Documentation Step Component to be added here
+          return <CEUExperience />;
+        case 6: 
+          // Review and send app
+          return <ReviewAndSend />;
         default:
           return null;
     }
