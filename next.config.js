@@ -1,5 +1,12 @@
 const { createSecureHeaders } = require("next-secure-headers");
 
+const isDev = process.env.NODE_ENV !== 'production';
+const unsafeDirectives = isDev ? ["'unsafe-eval'", "'unsafe-inline'"] : [];
+const shaHashes = !isDev ? [
+    "'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU='",
+    "'sha256-Z5XTK23DFuEMs0PwnyZDO9SWxemQ5HxcpVaBNuUJyWY='",
+] : [];
+
 const nextConfig = {
     reactStrictMode: true,
     eslint: {
@@ -30,8 +37,6 @@ const nextConfig = {
         ]
     },
 
-    // distDir: 'edlm-portal',
-    // Adding policies:
     async headers() {
         return [
 
@@ -52,14 +57,15 @@ const nextConfig = {
                                 "https://fonts.googleapis.com",
                                 "https://www.ssa.gov",
                                 "https://ajax.googleapis.com",
-                                "http://localhost:3000/",
-                                "http://localhost:8100/",
-                                // "'unsafe-eval'",
+                                process.env.NEXT_PUBLIC_XDS_BACKEND,
+                                process.env.NEXT_PUBLIC_PORTAL_BACKEND_HOST,
+                                ...unsafeDirectives
                             ],
                             scriptSrc: [
                                 "'self'",
                                 "https://www.ssa.gov",
                                 "https://ajax.googleapis.com",
+                                ...unsafeDirectives
                             ],
                             styleSrc: [
                                 "'self'",
@@ -68,13 +74,12 @@ const nextConfig = {
                                 "https://dote.staging.dso.mil/ecc-openlxp-xms-ui/", 
                                 "https://dote.apps.dso.mil/",
                                 "https://dote.apps.dso.mil/ecc-openlxp-xms-ui/",
-                                "http://localhost:3000/",
-                                "http://localhost:8100/",
                                 "https://fonts.googleapis.com",
                                 "https://www.ssa.gov",
-                                "'sha" + "25" + "6-" + "47" + "DEQ" + "pj" + "8H" + "BSa" + "+/" + "TIm" + "W+5" + "JC" + "euQ" + "eRk" + "m5" + "NMpJ" + "WZ" + "G3" + "hSu" + "FU='",
-                                "'sha" + "25" + "6-" + "Z5" + "XT" + "K2" + "3D" + "Fu" + "EM" + "s0" + "Pw" + "ny" + "ZD" + "O9" + "SW" + "xe" + "mQ" + "5H" + "xcp" + "Va" + "BN" + "uU" + "Jy" + "WY='",
-                                // "'unsafe-inline'"
+                                process.env.NEXT_PUBLIC_XDS_BACKEND,
+                                process.env.NEXT_PUBLIC_PORTAL_BACKEND_HOST,
+                                ...shaHashes,
+                                ...unsafeDirectives
                             ],
                             imgSrc: ["'self'",
                                     "data:",
