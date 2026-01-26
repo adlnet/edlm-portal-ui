@@ -1,5 +1,5 @@
 // local host endpoint from .env
-export const backendHost = process.env.NEXT_PUBLIC_XDS_BACKEND;
+export const backendHost = process.env.NEXT_PUBLIC_PORTAL_BACKEND_HOST;
 export const XDSbackendHost = process.env.NEXT_PUBLIC_XDS_BACKEND;
 export const LRSbackendHost = process.env.NEXT_PUBLIC_LRS_API;
 export const ECCRHost = process.env.NEXT_PUBLIC_ECCR_API;
@@ -28,8 +28,10 @@ export const authLogin = `${XDSbackendHost}${api}auth/login`;
 export const authRegister = `${XDSbackendHost}${api}auth/register`;
 export const authLogout = `${XDSbackendHost}${api}auth/logout`;
 
-// configuration url
+// configuration urls
 export const configUrl = `${XDSbackendHost}${api}ui-configuration/`;
+export const uiConfigUrl = `${backendHost}${api}uiconfig/`;
+export const backendConfigUrl = `${backendHost}${api}config/`;
 
 // spotlight courses url
 export const spotlightCourses = `${XDSbackendHost}${api}spotlight-courses`;
@@ -57,4 +59,22 @@ export const compSearchUrl = `/edlm-portal/api/data/${ECCR_TYPE}/${ECCR_DOTE_UUI
 // Forward Statements
 export const statementsUrl = `${XDSbackendHost}${api}statements`;
 
+// Course Progress details
+export const courseProgressDetail = `${backendHost}${api}course-progress/`;
 
+// Learning Plans
+export const learningPlansUrl = `${backendHost}${api}learning-plans/`;
+export const learningPlanCompetenciesUrl = `${backendHost}${api}learning-plan-competencies/`;
+export const learningPlanGoalsUrl = `${backendHost}${api}learning-plan-goals/`;
+export const learningPlanGoalKsasUrl = `${backendHost}${api}learning-plan-goal-ksas/`;
+export const learningPlanGoalCoursesUrl = `${backendHost}${api}learning-plan-goal-courses/`;
+
+// Leader's Report
+export const topSavedCoursesDetail = `${XDSbackendHost}${api}experiences/most-saved`;
+export const topSubscribedCollectionsDetail = `${XDSbackendHost}${api}interest-lists/most-subscribed`;
+
+// Application
+export const applicationsUrl = `${backendHost}${api}applications/`;
+export const applicationExperiencesUrl = `${backendHost}${api}application-experiences/`;
+export const applicationCoursesUrl = `${backendHost}${api}application-courses/`;
+export const applicationCommentsUrl = `${backendHost}${api}application-comments/`;

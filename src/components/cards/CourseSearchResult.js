@@ -3,12 +3,12 @@ import { explored } from '@/utils/xapi/events';
 import { getDeeplyNestedData } from '@/utils/getDeeplyNestedData';
 import { removeHTML } from '@/utils/cleaning';
 import { useAuth } from '@/contexts/AuthContext';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useConfig } from '@/hooks/useConfig';
 import { useRouter } from 'next/router';
 import ClockIcon from '@/public/clock.svg';
 import Image from 'next/image';
-import SaveModal from '@/components/modals/SaveModal';
+import SaveDropdown from '@/components/buttons/SaveDropdown';
 import ShareButton from '@/components/buttons/ShareBtn';
 import StoreIcon from '@/public/store.svg';
 import WindowIcon from '@/public/window.svg';
@@ -55,7 +55,7 @@ function getComps(subjects){
   return comps
 }
 
-export default function SearchResult({ result, handleCompetencyTag}) {
+export default function SearchResult({ result, setSuccessMessage, setFailMessage, handleCompetencyTag}) {
   const { user } = useAuth();
   const router = useRouter();
   const config = useConfig();
@@ -85,6 +85,12 @@ export default function SearchResult({ result, handleCompetencyTag}) {
     });
   }, [result, user, router]);
 
+  const experience_hash_key = useMemo(() => {
+    return result?.meta?.id || null;
+  }, [result]);
+
+
+
   return (
     <div
       className='p-4 bg-white rounded-lg shadow-xl flex flex-col gap-4 hover:shadow-2xl transition-shadow duration-200'
@@ -99,11 +105,11 @@ export default function SearchResult({ result, handleCompetencyTag}) {
         </button>
         <div className='flex gap-2'>
           <ShareButton
-                  id={result.meta.id}
-                  courseTitle={title}
-                  courseDescription={removeHTML(getDeeplyNestedData(config.data?.course_information?.course_description, result))}
+            id={result?.meta.id}
+            courseTitle={title}
+            courseDescription={removeHTML(getDeeplyNestedData(config.data?.course_information?.course_description, result))}
           />
-          {user && <SaveModal courseId={result.meta.id} title={title} />}
+          <SaveDropdown courseId={result?.meta.id} title={title} setSuccessMessage={setSuccessMessage} setFailMessage={setFailMessage} courseHash={experience_hash_key} />
         </div>
       </div>
       <div className='text-gray-500 text-base'>

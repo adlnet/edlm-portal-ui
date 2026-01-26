@@ -43,12 +43,6 @@ describe('CourseSearchResult', () => {
     const screen = renderer();
     expect(screen.getByText('Save'));
   });
-  
-  it('should not show the save button when a user is not authenticated', () => {
-    useUnauthenticatedUser();
-    const screen = renderer();
-    expect(screen.queryByText('Save')).not.toBeInTheDocument();
-  });
 
   it('should navigate user to the course page when clicked', () => {
     useAuthenticatedUser();

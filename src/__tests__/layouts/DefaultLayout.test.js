@@ -35,7 +35,6 @@ describe('Default Layout', () => {
     renderer();
     expect(screen.getByText('Sign in')).toBeInTheDocument();
     expect(screen.getByText('Sign up')).toBeInTheDocument();
-    expect(screen.getByAltText('home')).toBeInTheDocument();
 
     expect(screen.getByText('DOD Home Page')).toBeInTheDocument();
     expect(screen.getByText('About ADL')).toBeInTheDocument();

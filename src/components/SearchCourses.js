@@ -17,7 +17,7 @@ import SearchResult from '@/components/cards/CourseSearchResult';
 import XMarkMessageToast from '@/components/cards/XMarkMessageToast';
 import useSpotlightCourses from '@/hooks/useSpotlightCourses';
 
-export default function SearchCourses( { params, setParams, handleCompetencyTag }) {
+export default function SearchCourses( { params, setParams, setSuccessMessage, setFailMessage, handleCompetencyTag }) {
 
     const router = useRouter();
     const config = useConfig();
@@ -70,8 +70,9 @@ export default function SearchCourses( { params, setParams, handleCompetencyTag 
         <div>
           <div id='search-results' className='col-span-12 grid gap-4 relative'>
             {data && data?.hits?.map((course) => (     
-              <SearchResult result={course} key={course.meta.id} handleCompetencyTag={handleCompetencyTag}/>    
+                    <SearchResult result={course} key={course.meta.id} setSuccessMessage={setSuccessMessage} setFailMessage={setFailMessage} handleCompetencyTag={handleCompetencyTag}/>    
             ))}
+
             {data && data?.hits?.length === 0 && (
               <div className='flex justify-center'>
                 <XMarkMessageToast message='No search results found' />
@@ -129,7 +130,7 @@ export default function SearchCourses( { params, setParams, handleCompetencyTag 
               <Pagination     
                 totalPages={Math.ceil(data?.total / config?.data?.search_results_per_page)}    
                 handleSpecificPage={handleSpecificPage}    
-                currentPage={parseInt(params.p)}     
+                currentPage={Number.parseInt(params.p)}     
             />   
           )}     
         </div>  

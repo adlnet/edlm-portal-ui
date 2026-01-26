@@ -1,4 +1,5 @@
 'use strict';
+import { CheckCircleIcon, XCircleIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { Popover } from "flowbite-react";
 import { searched } from '@/utils/xapi/events';
 import { unstable_batchedUpdates } from 'react-dom';
@@ -22,12 +23,15 @@ export default function Search() {
   const { setUrl, data, isLoading } = useCourseSearch();
   const { user } = useAuth();
   
-  const Competencies = useCompetencySearch()
+  const { competencies: Competencies, isLoading: isLoadingCompetencies } = useCompetencySearch();
 
   const tabs = ['Courses', 'Competencies'];
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
 
   const [showPopover, setShowPopover] = useState(true);
+
+  const [successMessage, setSuccessMessage] = useState(null);
+  const [failMessage, setFailMessage] = useState(null);
 
   useEffect(() => {
     if (router?.query) {
@@ -35,6 +39,11 @@ export default function Search() {
         setParams(router?.query);
         setUrl(router?.query);
       });
+
+      // if tab=competencies, switch to Competencies tab
+      if (router.query.tab === 'competencies') {
+        setSelectedTab(tabs[1]);
+      }
     }
   }, [router.query]);
 
@@ -128,6 +137,55 @@ export default function Search() {
     <DefaultLayout>
         <div className='bg-white shadow-md p-5 py-0 w-full mb-5 rounded-xl m-4 -my-6 overflow-clip'>
           <div className='mt-10 pb-4 py-4'>
+            {successMessage ? (
+              <div className="flex flex-col p-4 mt-2 mb-4 bg-green-100 rounded-lg w-full"> 
+                <div className="flex flex-row justify-between pb-2">
+                  <div className="flex flex-row items-center">
+                    <CheckCircleIcon className="w-6 h-6 text-green-900"/>
+                    <div className="text-lg text-green-900 font-bold pl-2">Course saved to learning plan</div>
+                  </div>
+                  <button
+                    type="button"
+                    aria-label="Dismiss"
+                    className=""
+                    onClick={()=>{setSuccessMessage(null)}}
+                  >
+                    <XMarkIcon class='w-6 h-6 text-green-900' />
+                  </button>
+                </div>
+                <div className="text-green-900 text-medium">
+                    {successMessage}
+                </div>
+
+              </div>
+            ) : (
+              <></>
+            )}
+            {failMessage ? (
+              <div className="flex flex-col p-4 mt-2 mb-4 bg-red-100 rounded-lg w-full"> 
+                <div className="flex flex-row justify-between pb-2">
+                  <div className="flex flex-row items-center">
+                    <XCircleIcon className="w-6 h-6 text-red-900"/>
+                    <div className="text-lg text-red-900 font-bold pl-2">Course failed to save to learning plan</div>
+                  </div>
+                  <button
+                    type="button"
+                    aria-label="Dismiss"
+                    className=""
+                    onClick={()=>{setFailMessage(null)}}
+                  >
+                    <XMarkIcon class='w-6 h-6 text-red-900' />
+                  </button>
+                </div>
+                <div className="text-red-900 text-medium">
+                    {failMessage}
+                </div>
+
+              </div>
+            ) : (
+              <></>
+            )}
+
             {selectedTab === tabs[0] ? <div className='text-2xl font-bold'>Course Search</div> : <div className='text-2xl font-bold'>Competency Search</div>}
             
             <div className='py-4'>
@@ -192,9 +250,12 @@ export default function Search() {
               params={params}
               setParams={setParams}
               handleCompetencyTag={handleCompetencyTag}
+              setSuccessMessage={setSuccessMessage}
+              setFailMessage={setFailMessage}
             /> : 
             <SearchCompetencies 
               Competencies={Competencies}
+              isLoading={isLoadingCompetencies}
               params={params}
               setParams={setParams}
             />

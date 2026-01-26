@@ -1,5 +1,5 @@
-import { XDSbackendHost } from '@/config/endpoints';
 import { axiosInstance } from '@/config/axiosConfig';
+import { backendHost } from '@/config/endpoints';
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { useLocalStorage } from '../hooks/useStorage';
 
@@ -34,7 +34,7 @@ export function AuthProvider({ children }) {
   // Logout user
   const logout = async () => {
     axiosInstance
-      .post(`${XDSbackendHost}/api/auth/logout`)
+      .post(`${backendHost}/api/auth/logout`)
       .then((res) => removeLocal())
       .catch((err) => {
         console.log('Logout failed');
@@ -47,7 +47,7 @@ export function AuthProvider({ children }) {
   // Check if user is logged in
   const checkUserLoggedIn = async () => {
     axiosInstance
-      .get(`${XDSbackendHost}/api/auth/validate`)
+      .get(`${backendHost}/api/auth/validate`)
       .then((res) => {
         setLocal(res.data);
       })

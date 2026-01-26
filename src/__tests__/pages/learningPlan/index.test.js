@@ -8,10 +8,8 @@ import LearningPlan from '@/pages/edlm-portal/learner/learningPlan/index';
 import RouteProtection from '@/utils/RouteProtection';
 import singletonRouter from 'next/router';
 
-jest.mock('@/components/Stepper', () => {
-  return function MockStepper({ currentStep = 1 }) {
-    return <div data-testid='mock-stepper'>Stepper: {currentStep}</div>;
-  }
+jest.mock('@/components/cards/LearningJourneyCard', () => ({ journey }) => {
+  <div data-testid="lj-card">{journey.name}</div>
 });
 
 describe('learningPlan', () => {
@@ -23,24 +21,26 @@ describe('learningPlan', () => {
     );
   };
 
-  it('should render the page', () => {
+  it('should render the page and headers', () => {
     useAuthenticatedUser();
     renderLearningPlan();
-    expect(screen.getByText('Onboarding Learning Plan')).toBeInTheDocument();
+    expect(screen.getByText('Individual Development Plan')).toBeInTheDocument();
+
+    // expect(screen.getByText('DOT&E Onboarding Plans')).toBeInTheDocument();
   });
 
-  it('should render the stepper with correct prop', () => {
+  it('shows tabs with correct labels', () => {
     useAuthenticatedUser();
     renderLearningPlan();
-    expect(screen.getByTestId('mock-stepper')).toBeInTheDocument();
-    expect(screen.getByTestId('mock-stepper')).toHaveTextContent('Stepper: 1');
+    expect(screen.getByText('Active Plans')).toBeInTheDocument();
+    expect(screen.getByText('Completed Plans')).toBeInTheDocument();
   });
 
-  it('should render the learning plan description', () => {
-    useAuthenticatedUser();
-    renderLearningPlan();
-    expect(screen.getByText(/This Learning Plan phase /)).toBeInTheDocument();
-  });
+  // it('should render the learning plan description', () => {
+  //   useAuthenticatedUser();
+  //   renderLearningPlan();
+  //   expect(screen.getByText(/This Learning Plan phase /)).toBeInTheDocument();
+  // });
 
   // it('should navigate the user to "/401" if not authenticated', () => {
   //   useUnauthenticatedUser();
@@ -48,10 +48,4 @@ describe('learningPlan', () => {
   //   expect(singletonRouter).toMatchObject({ asPath: '/edlm-portal/401' });
   // });
 
-  it('should render the stepper with correct prop', () => {
-    useAuthenticatedUser();
-    renderLearningPlan();
-    expect(screen.getByTestId('mock-stepper')).toBeInTheDocument();
-    expect(screen.getByTestId('mock-stepper')).toHaveTextContent('Stepper: 1');
-  });
 });

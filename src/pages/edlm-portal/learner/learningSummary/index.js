@@ -1,21 +1,12 @@
 'use strict';
 
-import { useAuth } from '@/contexts/AuthContext';
-import { useEffect } from "react";
-import { useRouter } from 'next/router' ;
+import { useCourseProgressDetail } from '@/hooks/useCourseProgressDetail';
 import CollectionTable from "@/components/tables/collectionsTable/CollectionTable";
 import CompetencyChart from "@/components/CompetencyChart";
 import DefaultLayout from "@/components/layouts/DefaultLayout";
 import ProgressCard from "@/components/cards/ProgressCard";
 
 // Mock data for development
-const mockSummaryData = [
-  { name: 'Courses Completed', value: 43, id:0 },
-  { name: 'Upcoming Courses', value: 2, id:1 },
-  { name: 'Competencies Worked On', value: 11, id:2 },
-  { name: 'In Progress Courses', value: 3, id:3 }
-]
-
 const mockCompetencyData = [
   { name: 'Operating & System Design', courses:4, hours: 4, id:0 },
   { name: 'Acquisition & Requirements Process', courses: 2, hours: 3, id:1 },
@@ -50,47 +41,32 @@ const mockCompetencyColor = {
   'Leadership': '#BADFDB'
 }
 
-const mockInProgressCourses = [
-  { id: 1, title: 'AI Ethics' },
-  { id: 2, title: 'NLP' },
-  { id: 3, title: 'Machine Learning'},
-  { id: 4, title: 'Deep Learning'},
-  { id: 5, title: 'Data Science'},
-  { id: 6, title: 'Data Engineering'},
-  { id: 7, title: 'Data Analysis'},
-  { id: 8, title: 'Data Visualization'},
-  { id: 9, title: 'Data Management'},
-  { id: 10, title: 'Data Governance'},
-  { id: 11, title: 'Data Security'},
-  { id: 12, title: 'Data Privacy'},
-  { id: 13, title: 'Data Quality'},
-  { id: 14, title: 'Data Warehousing'},
-  { id: 15, title: 'Data Modeling'},
-  { id: 16, title: 'Data Mining'},
-  { id: 17, title: 'Data Integration'},
-  { id: 18, title: 'Data Migration'},
-  { id: 19, title: 'Data Transformation' },
-  { id: 20, title: 'Data Archiving'},
-  { id: 21, title: 'Data Backup' },
-  { id: 22, title: 'Software Development Process' }
-];
-
-const mockCompletedCourses = [
-  { id: 25, title: 'Leadership Responsibility' },
-  { id: 26, title: 'Leadership Development' },
-  { id: 27, title: 'Leadership Skills' },
-  { id: 28, title: 'Leadership Qualities' },
-  { id: 29, title: 'Leadership Styles' },
-  { id: 30, title: 'Leadership Traits' },
-  { id: 31, title: 'Leadership Competencies' },
-  { id: 32, title: 'Leadership Facts' },
-]
-
 export default function LearningSummary() {
+
+  const { data: courseProgressData } = useCourseProgressDetail();
 
   const columns = [
     {label: 'COURSES', accessor: 'title'},
   ]
+
+  const summaryData = [
+    { name: 'Courses Completed', value: courseProgressData?.completed_courses?.length || 0, id:0 },
+    { name: 'Upcoming Courses', value: courseProgressData?.enrolled_courses?.length || 0, id:1 },
+    { name: 'Competencies Worked On', value: 11, id:2 }, // mock data
+    { name: 'In Progress Courses', value: courseProgressData?.in_progress_courses?.length || 0, id:3 }
+  ]
+
+  const inProgressCourses = courseProgressData?.in_progress_courses?.map((course, i) => ({
+    id: i + 1,
+    title: course?.course_name || 'Loading...',
+    url: course?.course_id
+  })) || [{ id: 1, title: 'Loading...' }];
+
+  const completedCourses = courseProgressData?.completed_courses?.map((course, i) => ({
+    id: i + 1,
+    title: course?.course_name || 'Loading...',
+    url: course?.course_id
+  })) || [{ id: 1, title: 'Loading...' }];
 
   return (
     <DefaultLayout>
@@ -99,7 +75,7 @@ export default function LearningSummary() {
         {/* Summary Section */}
         <div className='bg-white rounded-lg shadow p-4 mb-4'>
           <div className='flex flex-col md:flex-row'>
-            {mockSummaryData.map((summary) => (
+            {summaryData.map((summary) => (
               <div key={summary.id} className='flex-1 flex flex-col items-center justify-center p-4 md:pl-8'>
                 <span className='text-[#00509f] text-4xl font-bold'>{summary.value}</span>
                 <span className="text-gray-800 text-base font-normal  leading-normal text-nowrap">{summary.name}</span>
@@ -163,7 +139,7 @@ export default function LearningSummary() {
             <div className='bg-white rounded-lg shadow p-6'>
               <h2 className='text-xl font-semibold -mb-4'>In Progress Courses</h2>
               <CollectionTable
-                data={mockInProgressCourses}
+                data={inProgressCourses}
                 edit={false}
                 columns={columns}
                 rowsPerPage={5}
@@ -174,7 +150,7 @@ export default function LearningSummary() {
             <div className='bg-white rounded-lg shadow p-6'>
               <h2 className='text-xl font-semibold -mb-4'>Completed Courses</h2>
               <CollectionTable
-                data={mockCompletedCourses}
+                data={completedCourses}
                 edit={false}
                 columns={columns}
                 rowsPerPage={5}

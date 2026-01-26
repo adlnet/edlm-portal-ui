@@ -1,13 +1,15 @@
 "use client";
 
-import { Button, Card } from 'flowbite-react';
+import { Button, Card, Spinner } from 'flowbite-react';
 import { useAuth } from '@/contexts/AuthContext';
+import { useCourseProgressDetail } from '@/hooks/useCourseProgressDetail';
 import { useInterestLists } from "@/hooks/useInterestLists";
 import { useRouter } from 'next/router';
+import { useUiConfig } from '@/hooks/useUiConfig';
 import { useUserOwnedLists } from "@/hooks/useUserOwnedLists";
+import ActiveCompleteTab from '@/components/buttons/ActiveCompleteTab';
 import Carousel from 'react-grid-carousel'
 import CollectionTable from '@/components/tables/collectionsTable/CollectionTable';
-import CompetencyChart from '@/components/CompetencyChart';
 import CourseSpotlightCarouselCard from '@/components/cards/CourseSpotlightCarousel';
 import DefaultLayout from '@/components/layouts/DefaultLayout';
 import Head from 'next/head'
@@ -19,9 +21,20 @@ import armyImage2 from '@/public/lunchLearn.png'
 import headerImage from '@/public/welcomeHomePhoto.png';
 import useSpotlightCourses from '@/hooks/useSpotlightCourses';
 
+
 export default function Home() {
   const router = useRouter();
   const { user } = useAuth();
+
+  const { 
+    data: uiConfig, 
+    isLoading: isUiConfigLoading, 
+  } = useUiConfig();
+
+  const {
+    data: courseProgressData,
+    isLoading: courseProgressLoading
+   } = useCourseProgressDetail()
 
   const spotlight = useSpotlightCourses();
 
@@ -40,69 +53,132 @@ export default function Home() {
     setLunchNLearn(lunchNLearnList);
   }, [interestLists, ownedLists]);
 
+  const mockActiveCourseProgressData = {
+    course: 'Leadership Fundamentals',
+    startDate:'Jan 30, 2025',
+    endDate: 'Mar 30, 2025',
+    competencies: ['Leadership', 'AI'],
+  };
+
+  const mockCompletedCourseProgressData = {
+    course: 'Software Architecture Basics',
+    startDate:'Oct 1, 2024',
+    endDate: 'Dec 15, 2024',
+    competencies: ['Software'],
+  };
+
   // Mock data for development
-  const mockInProgressCourses = [
-    { id: 1, title: 'AI Ethics', status: 'In Progress' },
-    { id: 2, title: 'NLP', status: 'In Progress' },
-    { id: 3, title: 'Machine Learning', status: 'In Progress'},
-    { id: 4, title: 'Deep Learning', status: 'In Progress'},
-    { id: 5, title: 'Data Science', status: 'In Progress'},
-  ];
+  const inProgressCourses = courseProgressData?.in_progress_courses?.length > 0 
+    ? courseProgressData?.in_progress_courses?.map((course, i) => ({
+      id: i + 1,
+      title: course?.course_name || mockActiveCourseProgressData.course,
+      status: 'In Progress',
+      url: course?.course_id,
+      startDate: course?.start_date || mockActiveCourseProgressData.startDate,
+      endDate: course?.end_date || mockActiveCourseProgressData.endDate,
+      competencies: course?.competencies || mockActiveCourseProgressData.competencies,
+    })) : [{
+      id: 1,
+      title: mockActiveCourseProgressData.course,
+      startDate: mockActiveCourseProgressData.startDate,
+      endDate: mockActiveCourseProgressData.endDate,
+      competencies: mockActiveCourseProgressData.competencies,
+      isUnClickable: true
+    }];
+
+  const completedCourses = courseProgressData?.completed_courses?.length > 0
+   ? courseProgressData?.completed_courses?.map((course, i) => ({
+      id: i + 1,
+      title: course?.course_name || mockCompletedCourseProgressData.course,
+      url: course?.course_id,
+      startDate: course?.start_date || mockCompletedCourseProgressData.startDate,
+      endDate: course?.end_date || mockCompletedCourseProgressData.endDate,
+      competencies: course?.competencies || mockCompletedCourseProgressData.competencies
+    })) : [{
+      id: 1,
+      title : mockCompletedCourseProgressData.course,
+      startDate: mockCompletedCourseProgressData.startDate,
+      endDate: mockCompletedCourseProgressData.endDate,
+      competencies: mockCompletedCourseProgressData.competencies,
+      isUnClickable: true
+    }];
 
   const columns = [
     {label: 'COURSES', accessor: 'title'},
-    {label: 'COURSES STATUS', accessor: 'status'},
-  ]
-
-  const mockCompetencyData = [
-    { name: 'Operating & System Design', courses:4, hours: 4 },
-    { name: 'Acquisition & Requirements Process', courses: 2, hours: 3 },
-    { name: 'Policy Development & Implementation', courses: 3, hours: 5 },
-    { name: 'Test Planning, Execution & Reporting', courses: 2, hours: 2 },
-    { name: 'Data Management & Reporting', courses: 2, hours: 3 },
-    { name: 'TEMP/T&E Strategy & Development', courses: 2, hours: 3 },
-    { name: 'Modeling & Stimulation VV&A', courses: 2, hours: 3 },
-    { name: 'Software', courses: 2, hours: 3 },
-    { name: 'Full Spectrum Survivability & Lethality', courses: 2, hours: 3 },
-    { name: 'Artificial Intelligence', courses: 2, hours: 3 },
-    { name: 'Leadership', courses: 2, hours: 3 }
+    {label: 'START DATE', accessor: 'startDate'},
+    {label: 'END DATE', accessor: 'endDate'},
+    {label: 'COMPETENCIES', accessor: 'competencies'}
   ];
-  
-  const mockCompetencyColor = {
-    'Operating & System Design': '#E8EAA1',
-    'Acquisition & Requirements Process': '#00AAA0',
-    'Policy Development & Implementation': '#5068C3',
-    'Test Planning, Execution & Reporting': '#927FBF',
-    'Data Management & Reporting': '#F7C873',
-    'TEMP/T&E Strategy & Development': '#E29578',
-    'Modeling & Stimulation VV&A': '#CCF186',
-    'Software': '#3b445b',
-    'Full Spectrum Survivability & Lethality': '#307672',
-    'Artificial Intelligence': '#694B7C',
-    'Leadership': '#BADFDB'
-  }
+
+  const tabData = [
+    { label: 'Active Courses', count: inProgressCourses.length },
+    { label: 'Completed Courses', count: completedCourses.length },
+  ];
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const renderLoading = loadingMessage => {
+    if (courseProgressLoading) {
+      return (
+        <div className='flex flex-col items-center justify-center p-8'>
+          <Spinner color='success' aria-label='Success spinner example' size='xl'/>
+          <p className='mt-4'>{loadingMessage}</p>
+        </div>
+      );
+    }
+  };
+
+  // --- Summary Card Component ---
+  const summaryData = [
+    {
+      id: 0,
+      value: "2",
+      label: "Active Plans",
+      dot: "bg-blue-800"
+    },
+    {
+      id: 1,
+      value: "6",
+      label: "Goals in Progress",
+      dot: "bg-yellow-700"
+    },
+    {
+      id: 2,
+      value: "1",
+      label: "Short-Term Plan",
+      dot: "bg-blue-800"
+    },
+    {
+      id: 3,
+      value: "10%",
+      label: "Overall Progress",
+      dot: "bg-yellow-700"
+    },
+  ];
 
   return (
     <DefaultLayout>
-      <Head>
-        <title>DOT&E Portal</title>
-        <link rel="icon" href="/doteLogo.png" />
-      </Head>
-
       <div className='flex flex-col p-6'>
         <div className='bg-white h-100 shadow-md rounded-lg '>
-
-          <div className='flex flex-row justify-between'>
-            <div className='w-1/2 m-5'> 
-              <div className='pt-2 text-lg font-bold'>Welcome {user?.user?.first_name},</div>
-              <div className='pt-2 text-gray-500'>This portal is designed to support your unique educational journey as you grow your career within DOT&E. Here, you&apos;ll find an immersive environment that caters to your learning needs inclusive of organized lists to manage your learning materials and resources, planning tools to match learning to career growth, and reporting to monitor progress and track achievements.</div>
-              <div className='pt-12'>
+          {isUiConfigLoading ? 
+            ( <div className='flex items-center justify-center p-8'>
+                <Spinner color='success' aria-label='Success spinner example' size='xl' />
               </div>
-            </div>
-            <div className='w-1/2 max-h-72'>
-              <Image src={headerImage}  alt='' className='m-5 pr-10 object-fill h-60 w-90'/>
-            </div>
-          </div>
+            ) :
+            (
+              <div className='flex flex-row justify-between'>
+                <div className='w-1/2 m-5'> 
+                  <div className='pt-2 text-lg font-bold'>Welcome {user?.user?.first_name},</div>
+                  {/* Welcome Message */}
+                  <div className='pt-2 text-gray-500'>{uiConfig?.welcome_message}</div>
+                  <div className='pt-12'>
+                  </div>
+                </div>
+                <div className='w-1/2 max-h-72'>
+                  <Image src={headerImage}  alt='' className='m-5 pr-10 object-fill h-60 w-90'/>
+                </div>
+              </div>
+            )
+          }
         </div>
 
         <div className='mt-10 pb-10 bg-white h-100 shadow-md rounded-lg '>
@@ -172,42 +248,63 @@ export default function Home() {
           </div>
         </div>
 
+        <div className="mt-10 pb-6 bg-white h-100 shadow-md rounded-lg p-4">
+          <div className="font-semibold text-xl mb-4">My Learning Summary Overview</div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
+            {summaryData.map((item) => (
+              <div
+                key={item.id}
+                className="flex flex-col justify-between bg-gray-50 border border-gray-100 rounded-lg px-6 py-5 h-28 shadow-sm"
+              >
+                <div className="text-2xl font-semibold text-gray-900 mb-2">{item.value}</div>
+                <div className="flex items-center justify-between w-full">
+                  <span className="text-sm text-gray-700">{item.label}</span>
+                  <span className={`w-3 h-3 rounded-full ${item.dot} ml-2`} />
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="flex justify-end mt-6">
+            <button 
+              className="text-[#4883B4] text-sm font-medium hover:underline cursor-pointer"
+              onClick = {() => {router.push('/edlm-portal/learner/learningPlan/')}}
+            > 
+              View Your Learning Plans
+            </button>
+          </div>
+        </div>
+  
         <div className='flex flex-row mt-10 h-100'>
           <div className='flex flex-row w-full'>
-            <div className='w-1/2 bg-white shadow-md rounded-lg justify-between mr-5'> 
-              <div className='p-4 text-xl font-bold'>Pick Up Where you Left Off</div>
-              <div className='p-4 -mt-10'>              
-                <CollectionTable data={mockInProgressCourses} edit={false} columns={columns} rowsPerPage={5}/>
+            <div className='w-full bg-white shadow-md rounded-lg justify-between'> 
+              <div className='p-4 text-xl font-bold mb-4'>Pick Up Where You Left Off</div>
+              <div className='p-4 -mt-4'>
+                  {renderLoading("Loading your course progress...")
+                    || (
+                      <>
+                        <ActiveCompleteTab
+                          activeIndex={activeIndex}
+                          setActiveIndex={setActiveIndex}
+                          tabs={tabData}
+                        />
+                        {activeIndex === 0 ? (
+                          <div className='-mt-4'>              
+                            <CollectionTable data={inProgressCourses} edit={false} columns={columns} rowsPerPage={5} />
+                          </div>
+                        ) : (
+                          <div className='-mt-4'>    
+                            <CollectionTable data={completedCourses} edit={false} columns={columns} rowsPerPage={5} />
+                          </div>
+                        )}
+                      </>
+                    )}
               </div>
-              <div className="flex justify-end -mt-4">
-                <Button className="m-4 bg-white-900 text-blue-800 text-sm hover:bg-blue-600" onClick={() => router.push(moodleAllCourses)}>
-                    View more
+              <div className="flex justify-end -mt-4 p-1">
+                <Button className="text-[#4883B4] text-sm font-medium hover:underline cursor-pointer" onClick={() => router.push(moodleAllCourses)}>
+                    View More in Moodle
                 </Button>
               </div>
-            </div>
-            <div className='w-1/2 bg-white shadow-md rounded-lg'>
-            <div className='flex flex-row p-4 text-xl font-bold'>Learning Summary</div>
-              <div className="flex flex-row items-center">
-                <div className='ml-2 mt-6'>
-                  <CompetencyChart
-                    data={mockCompetencyData}
-                    colors={mockCompetencyColor}
-                  />
-                </div>
-                <div className="flex flex-col pl-4 w-1/4 items-center text-center">
-                  <div className=' text-3xl text-blue-800 font-bold'>3</div>
-                  <div className='pb-2 text-sm text-gray-500'>Courses Completed</div>
-                  <div className='text-3xl text-blue-800 font-bold'>43</div>
-                  <div className='pb-2 text-sm text-gray-500'>In Progress Courses</div>
-                  <div className='text-3xl text-blue-800 font-bold'>2</div>
-                  <div className='pb-4 text-sm text-gray-500 '>Upcoming Courses</div>
-                </div>
-              </div>
-              <div className="flex justify-end">
-                <Button className="m-4 bg-white-900 text-blue-800 text-sm hover:bg-blue-600 mt-10" onClick={() => router.push('/edlm-portal/learner/learningSummary')}>
-                    View more
-                </Button>
-              </div>
+
             </div>
           </div>
         </div>
