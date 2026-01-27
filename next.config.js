@@ -85,6 +85,7 @@ const nextConfig = {
                                     "data:",
                                     "data:*",
                                     "https://www.ssa.gov",
+                                    "localhost:*"
                             ],
                             fontSrc: [
                                 "'self'", 
