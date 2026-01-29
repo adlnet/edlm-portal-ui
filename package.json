@@ -9,8 +9,6 @@
     "@headlessui/react": "^1.4.2",
     "@heroicons/react": "^2.2.0",
     "@xapi/xapi": "^2.0.1",
-    "ag-charts-community": "^11.0.0",
-    "ag-charts-react": "^11.0.0",
     "apexcharts": "^4.3.0",
     "axios": "1.8.4",
     "axios-retry": "^4.5.0",
