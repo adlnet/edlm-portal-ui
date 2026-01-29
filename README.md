@@ -197,6 +197,20 @@ edlm-portal/
 - Course progress details
 - Competency charts
 
+## xAPI Statement Tracking
+
+The portal tracks user learning activities using the Experience API (xAPI). The following statements are sent to the EDLM Portal Backend for further processing:
+
+### Tracked Activities
+
+| Activity | Verb | Trigger |
+|----------|------|---------|
+| **Search** | `searched` | User performs a course search |
+| **Saved Search** | `saved` | User saves a search query |
+| **Curated List** | `curated` | User creates a course collection |
+| **Shared Collection** | `shared` | User shares a collection list |
+| **Explored Course** | `explored` | User views a course detail page |
+
 ## Configuration
 
 - **Next.js**: [next.config.js](next.config.js)
