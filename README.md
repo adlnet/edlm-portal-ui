@@ -13,12 +13,35 @@ Before you begin, ensure you have the following installed:
 ## Adjacent Applications 
 
 The EDLM portal connects to two backend applications that can also be run and connected locally.
-Without these applications running there will be no user signed in an most of the functionality will not work.
+Without these applications running there will be no user signed in and most of the functionality will not work.
 
 - [Portal Backend](https://github.com/adlnet/edlm-portal-backend) strictly for the edlm portal
 - [XDS Backend](https://github.com/adlnet/ecc-openlxp-xds) for both the portal and XDS UI 
 
 See how to run these applications in their respective readme files.
+
+## Environment Configuration
+
+The application requires environment variables to connect to backend services. 
+
+1. Copy the example environment file:
+```bash
+cp .env.example .env.local
+```
+
+2. Configure the following variables in `.env.local`:
+
+| Variable | Description | 
+|----------|-------------|
+| `NEXT_PUBLIC_PORTAL_BACKEND_HOST` | EDLM Portal Backend API URL |
+| `NEXT_PUBLIC_XDS_BACKEND` | XDS Backend API URL |
+| `NEXT_PUBLIC_ECCR_API` | ECCR (CASS) API endpoint |
+| `NEXT_PUBLIC_ECCR_DOTE_UUID` | ECCR (CASS) DOTE UUID identifier |
+| `NEXT_PUBLIC_ECCR_TYPE` | ECCR (CASS) integration type |
+| `NEXT_PUBLIC_MOODLE_LEADER_REPORT_URL` | Moodle leader report URL |
+| `NEXT_PUBLIC_MOODLE_ALL_COURSES` | Moodle all courses URL |
+| `NEXT_PUBLIC_LRS_API` | LRS API |
+
 
 ### Installation
 
@@ -138,7 +161,7 @@ edlm-portal/
 - **State Management**: React Query - Server state management
 - **Forms**: React Hook Form - Form validation and handling
 - **HTTP Client**: Axios - Promise-based HTTP client with retry logic
-- **Charts**: AG Charts & ApexCharts - Data visualization
+- **Charts**: ApexCharts - Data visualization
 - **Learning Analytics**: xAPI - Experience API for learning data tracking
 - **Testing**: Jest & Cypress - Unit and E2E testing
 - **Icons**: Heroicons - SVG icon library
@@ -174,6 +197,20 @@ edlm-portal/
 - Course progress details
 - Competency charts
 
+## xAPI Statement Tracking
+
+The portal tracks user learning activities using the Experience API (xAPI). The following statements are sent to the EDLM Portal Backend for further processing:
+
+### Tracked Activities
+
+| Activity | Verb | Trigger |
+|----------|------|---------|
+| **Search** | `searched` | User performs a course search |
+| **Saved Search** | `saved` | User saves a search query |
+| **Curated List** | `curated` | User creates a course collection |
+| **Shared Collection** | `shared` | User shares a collection list |
+| **Explored Course** | `explored` | User views a course detail page |
+
 ## Configuration
 
 - **Next.js**: [next.config.js](next.config.js)
@@ -196,4 +233,4 @@ The project includes a [Dockerfile](Dockerfile) for containerized deployment.
 ## Helpful Notes 
 
 - The application tab was not fully developed. Some functionality is there but it is not fully connected to the backend api's. 
-- The learning plan's need ___ to be run locally  
+
