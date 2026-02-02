@@ -232,5 +232,7 @@ The project includes a [Dockerfile](Dockerfile) for containerized deployment.
 
 ## Helpful Notes 
 
-- The application tab was not fully developed. Some functionality is there but it is not fully connected to the backend api's. 
+- The entire web app was not fully developed so there are some hard coded fixes, some missing api calls, etc. 
+- The functionality of "My Application" was not complete. Some pages are connected to the backend api's and create applications. The applicant info section and after are not.
+- Custom CSS Colors are defined in the tailwind.config.js file and must be named different than the already predefined tailwind colors (i.e. red-500)
 
