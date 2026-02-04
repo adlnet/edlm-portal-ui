@@ -1843,39 +1843,6 @@ acorn@^8.1.0, acorn@^8.11.0, acorn@^8.8.1, acorn@^8.9.0:
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.15.0.tgz#a360898bc415edaac46c8241f6383975b930b816"
   integrity sha512-NZyJarBfL7nWwIq+FDL6Zp/yHEhePMNnnJ0y3qfieCrmNvYct8uvtiV41UvlSe6apAfk0fY1FbWx+NwfmpvtTg==
 
-ag-charts-community@11.3.2, ag-charts-community@^11.0.0:
-  version "11.3.2"
-  resolved "https://registry.yarnpkg.com/ag-charts-community/-/ag-charts-community-11.3.2.tgz#7ab5b2f18aca465956e946225b62ecb3448a23d9"
-  integrity sha512-4ZshRqfeCoQKgJ8WNxLfgkKtLszIxEF9WWOSuT2Uvyyy3x0rUUPQbl98+kVh+sRyGGQ6Qj8uoStqHAhwPwgTOQ==
-  dependencies:
-    ag-charts-core "11.3.2"
-    ag-charts-locale "11.3.2"
-    ag-charts-types "11.3.2"
-
-ag-charts-core@11.3.2:
-  version "11.3.2"
-  resolved "https://registry.yarnpkg.com/ag-charts-core/-/ag-charts-core-11.3.2.tgz#6af442c4839f36256d16253c9eabaa663e0b6cd6"
-  integrity sha512-D66lTBVXRDI6vFTcmL91KeBghOx63MmWrgDSJEEhsrK1ioWeYnFcRXStX0msx60D12i+Ba+uhM9xrxgRmqzM5w==
-  dependencies:
-    ag-charts-types "11.3.2"
-
-ag-charts-locale@11.3.2:
-  version "11.3.2"
-  resolved "https://registry.yarnpkg.com/ag-charts-locale/-/ag-charts-locale-11.3.2.tgz#583b7f62d36a99a1aede8186033f1b1371dafb63"
-  integrity sha512-6DrHD53PfdVNqFAlmNkHTnlQ9QY9EzME0vvaiotUpO8boKflGivgqmfx/uNTp6AsvOrsnRBBZW4b4XSg0LKG2w==
-
-ag-charts-react@^11.0.0:
-  version "11.3.2"
-  resolved "https://registry.yarnpkg.com/ag-charts-react/-/ag-charts-react-11.3.2.tgz#a3383e98cb823ed8c385e68bc155bc52bd1ef5e8"
-  integrity sha512-AcDvXTe6cdxF3B9scQA5ftN6h0ApIohr74XjndOF7Ka4yRzMDF1X/cFP1IIwiwj/AR3gJTmx1B7L00yv/tVQCw==
-  dependencies:
-    ag-charts-community "11.3.2"
-
-ag-charts-types@11.3.2:
-  version "11.3.2"
-  resolved "https://registry.yarnpkg.com/ag-charts-types/-/ag-charts-types-11.3.2.tgz#b1b4e2d273911cdd6d78ce7b4a6c561fa22796bf"
-  integrity sha512-trPGqgGYiTeLgtf9nLuztDYOPOFOLbqHn1g2D99phf7QowcwdX0TPx0wfWG8Hm90LjB8IH+G2s3AZe2vrdAtMQ==
-
 agent-base@6:
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/agent-base/-/agent-base-6.0.2.tgz#49fff58577cfee3f37176feab4c22e00f86d7f77"

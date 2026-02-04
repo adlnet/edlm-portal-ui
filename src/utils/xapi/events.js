@@ -90,7 +90,7 @@ export function curated(listId, listName, listDescription) {
   });
 }
 
-// when a user shares the DOT&E PORTAL course page
+// when a user shares the DOT&E PORTAL collecton shared
 export function shared(courseId, courseUrl, courseTitle, courseDescription) {
   sendStatement({
     verb: {

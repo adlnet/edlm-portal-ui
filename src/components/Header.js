@@ -5,6 +5,7 @@ import { useUiConfig } from '@/hooks/useUiConfig';
 import Image from 'next/image';
 import Link from 'next/link';
 import UserMenu from '@/components/menus/UserMenu';
+import fallbackLogo from '@/public/doteLogo.png';
 
 export default function Header() {
   const { user } = useAuth();
@@ -12,6 +13,9 @@ export default function Header() {
       data: uiConfig, 
       isLoading: isUiConfigLoading, 
   } = useUiConfig();
+
+  const logoSrc = uiConfig?.logo || fallbackLogo;
+  const portalName = uiConfig?.portal_name || 'EDLM Portal';
 
   return (
     <header className={'bg-blue-900 w-full shadow z-50'}>
@@ -32,11 +36,11 @@ export default function Header() {
                 {isUiConfigLoading ? (
                   <div className='w-15 h-15 bg-gray-200 animate-pulse rounded-full'/>
                 ) : (
-                  <Image src={uiConfig?.logo} alt={'Home'} height={'60'} width={'60'} priority={true}/>
+                  <Image src={logoSrc} alt={'Home'} height={60} width={60} priority />
                 )}
               </button>
             </Link>
-            {uiConfig?.portal_name}
+            {portalName}
           </div>
           {!user ? (
             <div className='space-x-4'>
