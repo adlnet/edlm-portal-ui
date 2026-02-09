@@ -2,6 +2,36 @@
 
 A Next.js-based web portal for enterprise digital learning management, built with React, Tailwind CSS, and integrated with xAPI for learning analytics.
 
+## EDLM Portal System Architecture
+
+```mermaid
+---
+title: EDLM Portal Connected Systems
+---
+graph TD;
+        subgraph Legend
+                1("System")-->|MVP|2("System");
+                1("System")-.->|Future Planned|2("System");
+        end
+        subgraph External Applications
+                XDS;
+                ELRR[ELRR Services];
+                Moodle;
+                CASS;
+                LRS[SQL LRS];
+        end
+        subgraph EDLM Portal
+                BE[EDLM Portal Backend];
+                UI[EDLM Portal UI];
+        end
+        XDS-->|Courses|BE & UI;
+        ELRR-->|Goals|BE;
+        LRS-->|Activities|BE;
+        Moodle-->|Course Status|UI;
+        CASS-->|Competency & Credential|UI & BE;
+        BE-->UI;
+```
+
 ## Prerequisites
 
 Before you begin, ensure you have the following installed:
@@ -40,7 +70,6 @@ cp .env.example .env.local
 | `NEXT_PUBLIC_ECCR_TYPE` | ECCR (CASS) integration type |
 | `NEXT_PUBLIC_MOODLE_LEADER_REPORT_URL` | Moodle leader report URL |
 | `NEXT_PUBLIC_MOODLE_ALL_COURSES` | Moodle all courses URL |
-| `NEXT_PUBLIC_LRS_API` | LRS API |
 
 
 ### Installation
