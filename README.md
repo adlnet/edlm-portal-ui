@@ -265,3 +265,8 @@ The project includes a [Dockerfile](Dockerfile) for containerized deployment.
 - The functionality of "My Application" was not complete. Some pages are connected to the backend api's and create applications. The applicant info section and after are not.
 - Custom CSS Colors are defined in the tailwind.config.js file and must be named different than the already predefined tailwind colors (i.e. red-500)
 
+## Additional Information
+[EDLM-Portal Wiki can be found here](https://github.com/adlnet/edlm-portal-ui/wiki)
+
+## License
+This project uses the [Apache](http://www.apache.org/licenses/LICENSE-2.0) license.
