@@ -44,8 +44,6 @@ describe('Home Page', () => {
     useAuthenticatedUser();
     const { getByTestId, getAllByText } = renderer();
 
-    expect(getAllByText('Learning Action').length).toBeGreaterThan(0);
-
     expect(getAllByText('Pick Up Where You Left Off').length).toBeGreaterThan(0);
 
     expect(getAllByText('Spotlight Courses').length).toBeGreaterThan(0);

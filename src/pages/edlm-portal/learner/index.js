@@ -1,23 +1,17 @@
 "use client";
 
-import { Button, Card, Spinner } from 'flowbite-react';
+import { Button, Spinner } from 'flowbite-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useCourseProgressDetail } from '@/hooks/useCourseProgressDetail';
-import { useInterestLists } from "@/hooks/useInterestLists";
 import { useRouter } from 'next/router';
 import { useUiConfig } from '@/hooks/useUiConfig';
-import { useUserOwnedLists } from "@/hooks/useUserOwnedLists";
 import ActiveCompleteTab from '@/components/buttons/ActiveCompleteTab';
 import Carousel from 'react-grid-carousel'
 import CollectionTable from '@/components/tables/collectionsTable/CollectionTable';
 import CourseSpotlightCarouselCard from '@/components/cards/CourseSpotlightCarousel';
 import DefaultLayout from '@/components/layouts/DefaultLayout';
-import Head from 'next/head'
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
-import armyImage from '@/public/learnImage.jpeg'
-import armyImage1 from '@/public/listsImage.png'
-import armyImage2 from '@/public/lunchLearn.png'
+import React, { useState } from 'react';
 import headerImage from '@/public/welcomeHomePhoto.png';
 import useSpotlightCourses from '@/hooks/useSpotlightCourses';
 
@@ -38,20 +32,7 @@ export default function Home() {
 
   const spotlight = useSpotlightCourses();
 
-  const interestLists = useInterestLists();
-  const ownedLists = useUserOwnedLists();
-
-  const [lunchNLearn, setLunchNLearn] = useState(null);
-
   const moodleAllCourses = process.env.NEXT_PUBLIC_MOODLE_ALL_COURSES;
-
-  // Searching for launch and learn plans
-  useEffect(() => {
-    const lunchNLearnList = 
-      interestLists?.data?.find(list => list.name === 'Lunch & Learns') || 
-      ownedLists?.data?.find(list => list.name === 'Lunch & Learns');
-    setLunchNLearn(lunchNLearnList);
-  }, [interestLists, ownedLists]);
 
   const mockActiveCourseProgressData = {
     course: 'Leadership Fundamentals',
@@ -181,73 +162,6 @@ export default function Home() {
           }
         </div>
 
-        <div className='mt-10 pb-10 bg-white h-100 shadow-md rounded-lg '>
-          <div className='flex flex-col'>
-              <p className='text-xl font-semibold h-6 pt-4 pl-4'>Learning Action</p>
-              <p className='flex pt-3 mt-4 pl-4 font-sans line-clamp-6 text-gray-500'>
-                Structure your professional development through personalized learning plans 
-              </p>
-          </div>
-          <div className="p-5 pt-4 mr-6">
-          <Carousel
-            cols={3}
-            rows={1}
-            gap={9}
-            responsiveLayout={[
-              {
-                breakpoint: 1200,
-                cols: 3
-              },
-              {
-                breakpoint: 990,
-                cols: 2
-              }
-            ]}
-            mobileBreakpoint={670}
-          >
-              <Carousel.Item>
-                <Card href="/edlm-portal/learner/learningPlan" className="w-80 h-fit rounded-xl" renderImage={() => <Image width={500} height={500} src={armyImage} alt="image 1" />}>
-                  <h5 className="text-2xl font-bold justify-left tracking-tight text-gray-900 dark:text-white">
-                    Learning Plan
-                  </h5>
-                  <p className="font-normal text-sm text-gray-600 dark:text-gray-400">
-                    Learning Journeys are your structured pathway to professional development at DOT&E and are intended to guide newly hired Action Officers through Orientation.
-                  </p>
-                  <Button className="flex ml-32 justify-center bg-blue-900 hover:bg-blue-600">
-                    View more
-                  </Button>
-                </Card>
-              </Carousel.Item>
-              <Carousel.Item>
-                <Card href='/edlm-portal/learner/lists/owned' className="w-80 h-full rounded-xl" renderImage={() => <Image width={500} height={500} src={armyImage1} alt="image 1" />}>
-                  <h5 className="text-2xl font-bold text-left tracking-tight text-gray-900 dark:text-white">
-                    My Collections
-                  </h5>
-                  <p className="font-normal mb-8 text-sm text-gray-600 dark:text-gray-400">
-                    Access your saved and subscribed lists of learnings.
-                  </p>
-                  <Button className="flex ml-32 justify-center bg-blue-900 hover:bg-blue-600">
-                    View more
-                  </Button>
-                </Card>
-              </Carousel.Item>
-              <Carousel.Item>
-                <Card href={`/edlm-portal/learner/lists/${lunchNLearn?.id}`} className="w-80 h-full rounded-xl" renderImage={() => <Image width={500} height={500} src={armyImage2} alt="image 1" />}>
-                  <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                    Lunch & Learns
-                  </h5>
-                  <p className="font-normal mb-8 text-sm text-gray-600 dark:text-gray-400">
-                    Access saved recordings of DOT&E Lunch & Learns.
-                  </p>
-                  <Button className="flex ml-32 justify-center bg-blue-900 hover:bg-blue-600" onClick={() => router.push(`/edlm-portal/learner/lists/${lunchNLearn?.id}`)}>
-                    View more
-                  </Button>
-                </Card>
-              </Carousel.Item>
-            </Carousel>
-          </div>
-        </div>
-
         <div className="mt-10 pb-6 bg-white h-100 shadow-md rounded-lg p-4">
           <div className="font-semibold text-xl mb-4">My Learning Summary Overview</div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
@@ -308,13 +222,15 @@ export default function Home() {
             </div>
           </div>
         </div>
- 
-        <div className='mt-10 pb-10 bg-white h-100 shadow-md rounded-lg '>
-          <div className='flex flex-col'>
-              <p className='text-xl font-semibold h-6 pt-4 pl-4'>Spotlight Courses</p>
-              <p className='flex pt-3 mt-4 pl-4 font-sans line-clamp-6 text-gray-500'>
-                Get started on your essential DOT&E courses
-              </p>
+
+        <div className="mt-10 pb-10 bg-white h-100 shadow-md rounded-lg ">
+          <div className="flex flex-col">
+            <p className="text-xl font-semibold h-6 pt-4 pl-4">
+              Spotlight Courses
+            </p>
+            <p className="flex pt-3 mt-4 pl-4 font-sans line-clamp-6 text-gray-500">
+              Get started on your essential courses
+            </p>
           </div>
 
           <div className='flex flex-col justify-center w-full mt-4 px-2 max-w-7xl mx-auto '>
